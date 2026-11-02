@@ -1,26 +1,25 @@
-export const NIVEL_MAX = 29;
+// Experiência e níveis. A curva vem de dados/progressao.json (xp_base, xp_expoente, nivel_max).
+import { atributosIniciais, equipamentoInicial } from "./personagem.js";
 
-export function xpParaProximo(n) { return Math.round(6 * n ** 1.6); }
+export function xpParaProximo(P, n) { return Math.round(P.xp_base * n ** P.xp_expoente); }
 
-export function novoEstado() {
-  return { versao: 1, classe: "guerreiro", nivel: 1, xp: 0, ouro: 0, pocoes: 1, armaNivel: 0, mapa: "pe-de-lenha", missoes: {} };
+export function novoEstado(P, I, classe = "guerreiro") {
+  return { versao: 2, classe, nivel: 1, xp: 0, ouro: 0, pocoes: 1, mapa: "pe-de-lenha", missoes: {},
+    atributos: atributosIniciais(P), pontosLivres: 0, autoDistribuir: true,
+    habilidades: { golpe: 1 }, pontosHab: 0, equip: equipamentoInicial(I, classe), mochila: [], fragmentos: 0 };
 }
 
-// devolve quantos níveis subiu
-export function ganharXp(est, xp) {
+// devolve quantos níveis subiu (pontos são concedidos por personagem.aoSubir)
+export function ganharXp(P, est, xp) {
   let subiu = 0;
   est.xp += xp;
-  while (est.nivel < NIVEL_MAX && est.xp >= xpParaProximo(est.nivel)) {
-    est.xp -= xpParaProximo(est.nivel);
+  while (est.nivel < P.nivel_max && est.xp >= xpParaProximo(P, est.nivel)) {
+    est.xp -= xpParaProximo(P, est.nivel);
     est.nivel++;
     subiu++;
   }
-  if (est.nivel >= NIVEL_MAX) est.xp = 0;
+  if (est.nivel >= P.nivel_max) est.xp = 0;
   return subiu;
-}
-
-export function statsJogador(nivel, armaNivel = 0, melhoria = 3) {
-  return { vidaMax: 90 + 12 * (nivel - 1), dano: 8 + 2.5 * (nivel - 1) + melhoria * armaNivel };
 }
 
 export function portalLiberado(est, regiao) {
@@ -29,5 +28,3 @@ export function portalLiberado(est, regiao) {
 
 // morrer: mantém o nível, perde parte do ouro
 export function aoMorrer(est) { est.ouro = Math.floor(est.ouro * 0.8); }
-
-export function custoMelhoria(est, cfg) { return cfg.custo_base * (est.armaNivel + 1); }

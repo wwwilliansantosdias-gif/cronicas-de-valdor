@@ -1,0 +1,11 @@
+{
+  "habilidades": [
+    { "id": "golpe", "nome": "Golpe", "classe": "guerreiro", "nivel": 1, "forma": "arco", "alcance": 24, "raio": 26,
+      "mult": 1.0, "recarga": 0.5, "animacao": "slash", "duracao": 0.42, "impacto": 0.14, "implementada": true },
+    { "id": "estocada", "nome": "Estocada", "classe": "guerreiro", "nivel": 3, "forma": "linha", "alcance": 64, "raio": 14,
+      "mult": 1.4, "recarga": 3, "animacao": "thrust", "duracao": 0.5, "impacto": 0.2, "empurrao": 140, "implementada": false },
+    { "id": "giro", "nome": "Giro", "classe": "guerreiro", "nivel": 6, "forma": "circulo", "alcance": 0, "raio": 50,
+      "mult": 1.2, "recarga": 5, "animacao": "slash_giro", "duracao": 0.6, "impacto": 0.3, "implementada": false }
+  ],
+  "por_grau": { "mult": 0.1, "recarga": -0.05 }
+}

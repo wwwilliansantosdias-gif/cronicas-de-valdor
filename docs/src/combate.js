@@ -34,21 +34,39 @@ export function danoEm(ent, d) {
   return false;
 }
 
-// golpe do jogador: arco à frente; devolve monstros que morreram
-export function golpear(jogador, monstros, dano) {
-  const [vx, vy] = VET[jogador.dir];
-  const cx = jogador.x + vx * 24, cy = jogador.y - 14 + vy * 18;
-  const mortos = [];
+// distância do ponto (px,py) ao segmento (ax,ay)-(bx,by)
+function distSegmento(px, py, ax, ay, bx, by) {
+  const dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
+  const t = l2 ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / l2)) : 0;
+  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+}
+
+// o monstro m está dentro da área da habilidade h usada pelo jogador j?
+export function dentroDaArea(j, m, h) {
+  const [vx, vy] = VET[j.dir];
+  const mx = m.x, my = m.y - 12, folga = 8 * m.def.escala, ox = j.x, oy = j.y - 14;
+  if (h.forma === "arco") return Math.hypot(mx - (ox + vx * h.alcance), my - (oy + vy * h.alcance * 0.75)) <= h.raio + folga;
+  if (h.forma === "linha") return distSegmento(mx, my, ox, oy, ox + vx * h.alcance, oy + vy * h.alcance) <= h.raio + folga;
+  if (h.forma === "circulo") return Math.hypot(mx - ox, my - oy) <= h.raio + folga;
+  throw new Error("forma de habilidade desconhecida: " + h.forma);
+}
+
+// dano final de uma habilidade no grau g
+export function danoHabilidade(h, porGrau, danoBase, grau = 1) { return danoBase * h.mult * (1 + porGrau.mult * (grau - 1)); }
+export function recargaHabilidade(h, porGrau, recargaMult, grau = 1) { return h.recarga * recargaMult * (1 + porGrau.recarga * (grau - 1)); }
+
+// aplica a habilidade; devolve { mortos, atingidos, criticos }
+export function atingir(j, monstros, h, dano, critico = 0, critMult = 1.5, rnd = Math.random) {
+  const r = { mortos: [], atingidos: 0, criticos: 0 };
   for (const m of monstros) {
-    if (m.morto) continue;
-    const raio = 26 + 8 * m.def.escala;
-    if (Math.hypot(m.x - cx, m.y - 12 - cy) <= raio) {
-      const kx = m.x - jogador.x, ky = m.y - jogador.y, n = Math.hypot(kx, ky) || 1;
-      m.recuo = [kx / n * 60, ky / n * 60];
-      if (danoEm(m, dano)) mortos.push(m); else if (m.estado === "vagar") m.estado = "perseguir";
-    }
+    if (m.morto || !dentroDaArea(j, m, h)) continue;
+    const crit = rnd() < critico;
+    const kx = m.x - j.x, ky = m.y - j.y, n = Math.hypot(kx, ky) || 1, emp = h.empurrao || 60;
+    m.recuo = [kx / n * emp, ky / n * emp];
+    r.atingidos++; if (crit) r.criticos++;
+    if (danoEm(m, crit ? dano * critMult : dano)) r.mortos.push(m); else if (m.estado === "vagar") m.estado = "perseguir";
   }
-  return mortos;
+  return r;
 }
 
 const JANELA = 0.45, TOTAL = 0.9;

@@ -1,7 +1,8 @@
 import { lerMapaTexto, gerarMapa, TILE, bloqueadoTile } from "./mapa.js";
-import { novoEstado, ganharXp, statsJogador, portalLiberado, aoMorrer, custoMelhoria, xpParaProximo } from "./progresso.js";
+import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from "./progresso.js";
 import { carregar, guardar, apagar } from "./salvar.js";
-import { criarMonstro, atualizarMonstro, golpear, mover, direcaoDe, VET } from "./combate.js";
+import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, mover, direcaoDe } from "./combate.js";
+import { derivados, aoSubir, distribuirRecomendado } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -26,8 +27,9 @@ function msg(t, s = 2.4) { $("msg").textContent = t; $("msg").classList.add("on"
 function salvar() { guardar(localStorage, EST); }
 
 async function iniciar() {
-  const [regioes, mons, itens, missoes, mostr] = await Promise.all([json("dados/regioes.json"), json("dados/monstros.json"), json("dados/itens.json"), json("dados/missoes.json"), json("mostruario/mostruario.json")]);
-  D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes };
+  const [regioes, mons, itens, missoes, mostr, prog, classes, habs] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json"].map(json));
+  D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
+    P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
   const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess", "guerreiro_walk", "guerreiro_slash", "guerreiro_slash_arma"];
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
@@ -35,10 +37,11 @@ async function iniciar() {
   for (const id in D.monstros) { const s = MSTR[D.monstros[id].sprite]; for (const k of ["andar", "ataque"]) if (s[k]) usados.add(s[k].file); }
   for (const f of usados) IMG[f] = await imagem("mostruario/" + f);
   for (const [id, f] of Object.entries(D.mapasTxt)) MAPAS[id] = gerarMapa(lerMapaTexto(await texto(f)));
-  EST = carregar(localStorage, Object.keys(MAPAS)) || novoEstado();
+  EST = carregar(D.P, D.itens, localStorage, Object.keys(MAPAS)) || novoEstado(D.P, D.itens);
+  if (EST.autoDistribuir && EST.pontosLivres > 0) distribuirRecomendado(D.P, EST, D.classes[EST.classe].recomendado);
   jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, recarga: 0, invul: 0 };
   entrar(EST.mapa, null);
-  jogador.vida = statsJogador(EST.nivel, EST.armaNivel, D.itens.ferreiro.dano_por_melhoria).vidaMax;
+  jogador.vida = stats().vidaMax;
   document.body.dataset.pronto = "1";
   requestAnimationFrame(quadro);
 }
@@ -48,6 +51,7 @@ function entrar(id, origem) {
   let p = mapa.inicio;
   if (origem) { const s = mapa.saidas.find((x) => x.destino === origem); if (s) p = s.entrada; }
   if (!origem && mapa.zonaSegura) p = { x: 16, y: 14 };
+  if (mapa.zonaSegura && D && EST.atributos) jogador.vida = stats().vidaMax; // a cidade restaura a vida
   jogador.x = p.x * TILE + 16; jogador.y = p.y * TILE + 28;
   for (const s of mapa.spawns) monstros.push(criarMonstro(D.monstros[s.tipo], s.x * TILE + 16, s.y * TILE + 28));
   if (mapa.chefe) monstros.push(criarMonstro(D.monstros[mapa.chefe.tipo], mapa.chefe.x * TILE + 16, mapa.chefe.y * TILE + 28));
@@ -76,11 +80,17 @@ $("bP").addEventListener("pointerdown", () => usarPocao());
 $("bE").addEventListener("pointerdown", () => interagir());
 $("bM").addEventListener("pointerdown", () => menu());
 
-function stats() { return statsJogador(EST.nivel, EST.armaNivel, D.itens.ferreiro.dano_por_melhoria); }
+function stats() { return derivados(D.P, D.itens, EST); }
+function subiuNiveis(n) {
+  if (!n) return;
+  aoSubir(D.P, EST, n, D.classes[EST.classe].recomendado);
+  jogador.vida = stats().vidaMax; msg(`Nível ${EST.nivel}!`);
+}
 
 function atacar() {
   if (parado || jogador.morto || jogador.recarga > 0 || mapa.zonaSegura) return;
-  jogador.golpe = 0; jogador.recarga = 0.5;
+  const h = D.hab.golpe, sv = stats();
+  jogador.golpe = 0; jogador.hab = h; jogador.recarga = recargaHabilidade(h, D.porGrau, sv.recargaMult, EST.habilidades[h.id] || 1);
 }
 function usarPocao() {
   if (parado || jogador.morto) return;
@@ -94,8 +104,7 @@ function usarPocao() {
 function registrarMorte(m) {
   const def = m.def, [a, b] = def.ouro;
   EST.ouro += a + Math.floor(Math.random() * (b - a + 1));
-  const subiu = ganharXp(EST, def.xp);
-  if (subiu) { jogador.vida = stats().vidaMax; msg(`Nível ${EST.nivel}!`); }
+  subiuNiveis(ganharXp(D.P, EST, def.xp));
   for (const q of D.missoes) { const e = EST.missoes[q.id]; if (e && e.estado === "ativa" && q.alvo === def.id) { e.progresso = Math.min(q.quantidade, e.progresso + 1); if (e.progresso >= q.quantidade) { e.estado = "pronta"; msg(`Missão pronta: ${q.titulo}`); } } }
   m.mortoEm = performance.now();
   salvar();
@@ -133,9 +142,10 @@ function telaMercador() {
   const preco = D.itens.itens.find((i) => i.id === "pocao").preco;
   painel(`<h3>Mercador</h3><p>Ouro: ${EST.ouro} · Poções: ${EST.pocoes}</p>`, [[`Comprar poção de vida (${preco} ouro)`, () => { if (EST.ouro >= preco) { EST.ouro -= preco; EST.pocoes++; salvar(); telaMercador(); } }, EST.ouro < preco]]);
 }
+// provisório até o passo 4 (melhoria +1..+5 com chance e fragmentos): afiar sempre funciona, até +3
 function telaFerreiro() {
-  const f = D.itens.ferreiro, custo = custoMelhoria(EST, f), max = EST.armaNivel >= f.melhorias_max;
-  painel(`<h3>Ferreiro</h3><p>Espada longa +${EST.armaNivel} (dano ${stats().dano.toFixed(1)}) · Ouro: ${EST.ouro}</p>`, [[max ? "Espada no máximo" : `Afiar a espada (+${f.dano_por_melhoria} de dano) por ${custo} ouro`, () => { if (EST.ouro >= custo) { EST.ouro -= custo; EST.armaNivel++; salvar(); telaFerreiro(); } }, max || EST.ouro < custo]]);
+  const arma = EST.equip.arma, custo = 60 * (arma.mais + 1), max = arma.mais >= 3;
+  painel(`<h3>Ferreiro</h3><p>Espada longa +${arma.mais} (dano ${stats().dano.toFixed(1)}) · Ouro: ${EST.ouro}</p>`, [[max ? "Espada no máximo" : `Afiar a espada (+10% no dano da arma) por ${custo} ouro`, () => { if (EST.ouro >= custo) { EST.ouro -= custo; arma.mais++; salvar(); telaFerreiro(); } }, max || EST.ouro < custo]]);
 }
 function telaQuadro() {
   const lista = D.missoes.filter((q) => q.cidade === mapa.id);
@@ -143,7 +153,7 @@ function telaQuadro() {
     const e = EST.missoes[q.id];
     if (!e) return [`Aceitar: ${q.titulo} — ${q.texto}`, () => { EST.missoes[q.id] = { estado: "ativa", progresso: 0 }; salvar(); telaQuadro(); }];
     if (e.estado === "ativa") return [`${q.titulo}: ${e.progresso}/${q.quantidade}`, () => {}, true];
-    if (e.estado === "pronta") return [`Entregar: ${q.titulo} (+${q.recompensa.xp} xp, +${q.recompensa.ouro} ouro)`, () => { e.estado = "entregue"; EST.ouro += q.recompensa.ouro; if (ganharXp(EST, q.recompensa.xp)) { jogador.vida = stats().vidaMax; msg(`Nível ${EST.nivel}!`); } salvar(); telaQuadro(); }];
+    if (e.estado === "pronta") return [`Entregar: ${q.titulo} (+${q.recompensa.xp} xp, +${q.recompensa.ouro} ouro)`, () => { e.estado = "entregue"; EST.ouro += q.recompensa.ouro; subiuNiveis(ganharXp(D.P, EST, q.recompensa.xp)); salvar(); telaQuadro(); }];
     return [`${q.titulo}: concluída`, () => {}, true];
   });
   painel("<h3>Quadro de missões</h3>", acoes);
@@ -168,13 +178,16 @@ function atualizar(dt) {
     if (teclas.has("w") || teclas.has("arrowup")) iy -= 1; if (teclas.has("s") || teclas.has("arrowdown")) iy += 1;
     const n = Math.hypot(ix, iy);
     if (n > 0.15 && jogador.golpe < 0) {
-      const f = 90 * dt / Math.max(1, n); mover(jogador, ix * f, iy * f, mapa);
+      const f = sv.velocidade * dt / Math.max(1, n); mover(jogador, ix * f, iy * f, mapa);
       jogador.dir = direcaoDe(ix, iy, jogador.dir); jogador.andando = true; jogador.tAnim += dt;
     } else jogador.andando = false;
     if (jogador.golpe >= 0) {
-      const antes = jogador.golpe; jogador.golpe += dt;
-      if (antes < 0.14 && jogador.golpe >= 0.14) for (const m of golpear(jogador, monstros, sv.dano)) registrarMorte(m);
-      if (jogador.golpe >= 0.42) jogador.golpe = -1;
+      const h = jogador.hab, antes = jogador.golpe; jogador.golpe += dt;
+      if (antes < h.impacto && jogador.golpe >= h.impacto) {
+        const r = atingir(jogador, monstros, h, danoHabilidade(h, D.porGrau, sv.dano, EST.habilidades[h.id] || 1), sv.critico, sv.criticoMult);
+        for (const m of r.mortos) registrarMorte(m);
+      }
+      if (jogador.golpe >= h.duracao) jogador.golpe = -1;
     }
     for (const m of monstros) {
       if (m.morto) { if (m.def.comportamento !== "chefe" ? performance.now() - m.mortoEm > 25000 : performance.now() - m.mortoEm > 120000) { Object.assign(m, criarMonstro(m.def, m.spawnX, m.spawnY)); } continue; }
@@ -191,7 +204,7 @@ function atualizar(dt) {
   } else $("bE").style.display = "none";
   $("nv").textContent = `Nv ${EST.nivel}`;
   $("hpb").firstChild.style.width = Math.max(0, jogador.vida / sv.vidaMax * 100) + "%";
-  $("xpb").firstChild.style.width = (EST.nivel >= 29 ? 100 : EST.xp / xpParaProximo(EST.nivel) * 100) + "%";
+  $("xpb").firstChild.style.width = (EST.nivel >= D.P.nivel_max ? 100 : EST.xp / xpParaProximo(D.P, EST.nivel) * 100) + "%";
   $("info").textContent = `${EST.ouro} ouro · ${EST.pocoes} ${EST.pocoes === 1 ? "poção" : "poções"}`;
 }
 function morrer() {

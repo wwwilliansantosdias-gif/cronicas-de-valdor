@@ -1,6 +1,8 @@
 {
   "classes": [
-    { "id": "guerreiro", "nome": "Guerreiro", "implementada": true, "animacoes": ["andar", "golpear"] },
-    { "id": "arqueiro", "nome": "Arqueiro", "implementada": false, "animacoes": ["andar", "atirar"] }
+    { "id": "guerreiro", "nome": "Guerreiro", "implementada": true, "animacoes": ["andar", "golpear"],
+      "recomendado": { "for": 2, "vit": 1, "agi": 0, "sor": 0 }, "habilidades": ["golpe", "estocada", "giro"] },
+    { "id": "arqueiro", "nome": "Arqueiro", "implementada": false, "animacoes": ["andar", "atirar"],
+      "recomendado": { "for": 0, "vit": 1, "agi": 2, "sor": 0 }, "habilidades": [] }
   ]
 }

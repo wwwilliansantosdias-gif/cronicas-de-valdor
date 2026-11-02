@@ -8,7 +8,7 @@ Estado: primeira fatia da etapa 6 — região 1 (Floresta) jogável com o Guerre
 
 ## Pastas
 - `docs/` – o que o GitHub Pages publica (Settings → Pages → branch `main`, pasta `/docs`): jogo (`index.html`, `src/`, `dados/`, `mapas/`, `assets/`), `mostruario/` e `CREDITOS.md`.
-- `documentacao/` – etapas 2 a 5 (história, arte, documentação técnica, testes).
+- `documentacao/` – etapas 2 a 5 e 6b (história, arte, documentação técnica, testes, progressão).
 - `data/` – metadados dos pacotes (`packs.json`, `meta.json`), especificação do mostruário, peças do gerador LPC usadas (`pecas_usadas.txt`) e `gerador/CREDITS.csv`.
 - `tools/` – scripts de download, créditos e build. `tests/` – testes.
 
@@ -18,7 +18,8 @@ Abrir `docs/` num servidor estático (ex.: `python3 -m http.server -d docs`). Te
 ## Testes
 ```bash
 pip install pytest pillow && python3 -m pytest -q tests     # dados e créditos
-node --test tests/js/*.test.js                               # motor (mapas, combate, xp, salvar)
+node --test tests/js/*.test.js                               # motor (mapas, combate, xp, atributos, salvar, ritmo)
+node tools/simular.mjs 10                                    # tempo estimado até o nível 10
 PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/fluxo.mjs   # navegador, tela deitada
 ```
 

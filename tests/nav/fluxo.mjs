@@ -32,9 +32,9 @@ await V(() => { window.__valdor.est.ouro = 100; });
 await perto("mercador"); ok(await botao("Comprar poção"), "compra poção com ouro");
 ok((await V(() => window.__valdor.est.pocoes)) === 2 && (await V(() => window.__valdor.est.ouro)) === 80, "ouro e poções atualizados"); await fechar();
 // ferreiro
-const dano0 = await V(() => window.__valdor.est.armaNivel);
+const dano0 = await V(() => window.__valdor.est.equip.arma.mais);
 await perto("ferreiro"); ok(await botao("Afiar"), "afia a espada"); await fechar();
-ok((await V(() => window.__valdor.est.armaNivel)) === dano0 + 1, "arma subiu de nível");
+ok((await V(() => window.__valdor.est.equip.arma.mais)) === dano0 + 1, "arma subiu de nível (+N)");
 // quadro
 await perto("quadro"); ok(await botao("Aceitar: Trilha limpa"), "aceita missão"); await fechar();
 ok((await V(() => window.__valdor.est.missoes.javalis.estado)) === "ativa", "missão ativa");
@@ -64,7 +64,7 @@ await pag.screenshot({ path: saida + "/f1.png" });
 // chefe: existe, é maior e tem coroa; morte devolve à cidade com nível mantido
 await V(() => window.__valdor.entrar("mata-do-javali", "pe-de-lenha"));
 const chefe = await V(() => { const m = window.__valdor.monstros.find((x) => x.def.comportamento === "chefe"); return m && { vida: m.vida, escala: m.def.escala }; });
-ok(chefe && chefe.vida === 240 && chefe.escala > 1, "chefe presente e maior");
+ok(chefe && chefe.vida === 480 && chefe.escala > 1, "chefe presente e maior");
 await V(() => { const V = window.__valdor, m = V.monstros.find((x) => x.def.comportamento === "chefe"); V.jogador.x = m.x - 60; V.jogador.y = m.y; V.jogador.invul = 0; V.est.ouro = 100; });
 await pag.screenshot({ path: saida + "/f2.png" });
 await V(() => { const V = window.__valdor; V.jogador.vida = 1; const m = V.monstros.find((x) => x.def.comportamento === "chefe"); V.jogador.x = m.x - 18; V.jogador.y = m.y; });

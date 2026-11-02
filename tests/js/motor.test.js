@@ -2,15 +2,23 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { lerMapaTexto, gerarMapa, alcancaveis, bloqueadoTile } from "../../docs/src/mapa.js";
-import { ganharXp, novoEstado, xpParaProximo, NIVEL_MAX, portalLiberado, aoMorrer, statsJogador } from "../../docs/src/progresso.js";
-import { criarMonstro, danoEm, golpear, atualizarMonstro } from "../../docs/src/combate.js";
-import { carregar, guardar, serializar } from "../../docs/src/salvar.js";
+import { ganharXp, novoEstado as novoEstadoBase, xpParaProximo, portalLiberado, aoMorrer } from "../../docs/src/progresso.js";
+import { criarMonstro, danoEm, atingir, atualizarMonstro, dentroDaArea, danoHabilidade, recargaHabilidade } from "../../docs/src/combate.js";
+import { carregar as carregarBase, guardar, serializar, migrarV1 } from "../../docs/src/salvar.js";
+import { derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem } from "../../docs/src/personagem.js";
+import { media } from "../../tools/simular.mjs";
 
 const ler = (f) => readFileSync(new URL("../../docs/" + f, import.meta.url), "utf8");
 const regioes = JSON.parse(ler("dados/regioes.json"));
 const monstros = JSON.parse(ler("dados/monstros.json")).monstros;
 const mapasTxt = Object.fromEntries(Object.entries(regioes.mapas).map(([id, f]) => [id, ler(f)]));
 const gerar = (id) => gerarMapa(lerMapaTexto(mapasTxt[id]));
+const P = JSON.parse(ler("dados/progressao.json")), I = JSON.parse(ler("dados/itens.json"));
+const H = JSON.parse(ler("dados/habilidades.json")), C = JSON.parse(ler("dados/classes.json")).classes;
+const NIVEL_MAX = P.nivel_max;
+const novoEstado = () => novoEstadoBase(P, I);
+const recomendado = C.find((c) => c.id === "guerreiro").recomendado;
+const hab = (id) => H.habilidades.find((h) => h.id === id);
 
 test("mesmo texto e mesma semente geram o mesmo mapa", () => {
   for (const id of Object.keys(mapasTxt)) {
@@ -68,14 +76,14 @@ test("mapa com chave desconhecida ou sem tamanho é recusado", () => {
 test("experiência sobe o nível de forma monotônica e respeita o máximo", () => {
   const e = novoEstado();
   let ultimo = e.nivel;
-  for (let i = 0; i < 3000; i++) { ganharXp(e, 50); assert.ok(e.nivel >= ultimo); ultimo = e.nivel; }
+  for (let i = 0; i < 30000; i++) { ganharXp(P, e, 50); assert.ok(e.nivel >= ultimo); ultimo = e.nivel; }
   assert.equal(e.nivel, NIVEL_MAX);
-  for (let n = 1; n < NIVEL_MAX; n++) assert.ok(xpParaProximo(n + 1) > xpParaProximo(n));
+  for (let n = 1; n < NIVEL_MAX; n++) assert.ok(xpParaProximo(P, n + 1) > xpParaProximo(P, n));
 });
 
 test("subir de nível pode acontecer mais de uma vez com muito xp", () => {
   const e = novoEstado();
-  assert.ok(ganharXp(e, 100000) > 1);
+  assert.ok(ganharXp(P, e, 100000) > 1);
 });
 
 test("portal bloqueia abaixo do nível mínimo e libera no nível exato", () => {
@@ -113,13 +121,79 @@ test("dano nunca deixa vida negativa e a morte dispara uma vez só", () => {
   assert.equal(m.vida, 0);
 });
 
-test("golpe só atinge monstros à frente, dentro do alcance", () => {
+test("golpe (arco) só atinge à frente e dentro do alcance", () => {
   const j = { x: 200, y: 200, dir: "right" };
   const perto = criarMonstro(monstros[0], 224, 200), atras = criarMonstro(monstros[0], 160, 200), longe = criarMonstro(monstros[0], 400, 200);
-  golpear(j, [perto, atras, longe], 5);
+  atingir(j, [perto, atras, longe], hab("golpe"), 5, 0);
   assert.ok(perto.vida < perto.vidaMax);
   assert.equal(atras.vida, atras.vidaMax);
   assert.equal(longe.vida, longe.vidaMax);
+});
+
+test("estocada (linha) alcança mais longe que o golpe; giro (círculo) atinge atrás", () => {
+  const j = { x: 200, y: 200, dir: "right" };
+  const longe = criarMonstro(monstros[0], 258, 200), atras = criarMonstro(monstros[0], 165, 200);
+  assert.equal(dentroDaArea(j, longe, hab("golpe")), false);
+  assert.equal(dentroDaArea(j, longe, hab("estocada")), true);
+  assert.equal(dentroDaArea(j, atras, hab("estocada")), false);
+  assert.equal(dentroDaArea(j, atras, hab("giro")), true);
+});
+
+test("grau da habilidade aumenta o dano e reduz a recarga; agilidade reduz a recarga até o mínimo", () => {
+  const h = hab("golpe");
+  assert.ok(danoHabilidade(h, H.por_grau, 10, 3) > danoHabilidade(h, H.por_grau, 10, 1));
+  assert.ok(recargaHabilidade(h, H.por_grau, 1, 3) < recargaHabilidade(h, H.por_grau, 1, 1));
+  const e = novoEstado(); e.atributos.agi = 999;
+  assert.equal(derivados(P, I, e).recargaMult, P.derivados.recarga_min);
+});
+
+test("crítico multiplica o dano e respeita o limite de Sorte", () => {
+  const j = { x: 200, y: 200, dir: "right" };
+  const a = criarMonstro({ ...monstros[0], vida: 1000 }, 224, 200), b = criarMonstro({ ...monstros[0], vida: 1000 }, 224, 200);
+  atingir(j, [a], hab("golpe"), 10, 0); atingir(j, [b], hab("golpe"), 10, 1, 1.5, () => 0);
+  assert.equal(1000 - a.vida, 10); assert.equal(1000 - b.vida, 15);
+  const e = novoEstado(); e.atributos.sor = 999;
+  assert.equal(derivados(P, I, e).critico, P.derivados.critico_max);
+});
+
+test("pontos: ganha 3 por nível; distribuídos + livres sempre somam o total do nível", () => {
+  const e = novoEstado(); e.autoDistribuir = false;
+  const n = ganharXp(P, e, 5000); aoSubir(P, e, n, recomendado);
+  assert.equal(gastos(P, e) + e.pontosLivres, pontosAteNivel(P, e.nivel));
+  assert.equal(distribuir(P, e, "for", e.pontosLivres + 1), false, "não gasta mais do que tem");
+  assert.equal(distribuir(P, e, "xyz", 1), false);
+  assert.ok(distribuir(P, e, "for", 2));
+  assert.equal(gastos(P, e) + e.pontosLivres, pontosAteNivel(P, e.nivel));
+});
+
+test("modo recomendado distribui todos os pontos na proporção da classe", () => {
+  const e = novoEstado(); e.pontosLivres = 9;
+  distribuirRecomendado(P, e, recomendado);
+  assert.equal(e.pontosLivres, 0);
+  assert.equal(e.atributos.for - P.atributo_inicial, 6);
+  assert.equal(e.atributos.vit - P.atributo_inicial, 3);
+});
+
+test("redistribuir devolve exatamente os pontos gastos, cobra ouro e recusa sem ouro", () => {
+  const e = novoEstado(); e.nivel = 5; e.pontosLivres = pontosAteNivel(P, 5); distribuirRecomendado(P, e, recomendado);
+  e.ouro = 0;
+  assert.equal(redistribuir(P, e), false);
+  e.ouro = 1000;
+  assert.ok(redistribuir(P, e));
+  assert.equal(e.pontosLivres, pontosAteNivel(P, 5));
+  assert.equal(e.ouro, 1000 - P.redistribuir_custo_por_nivel * 5);
+  assert.equal(redistribuir(P, e), false, "nada a devolver");
+});
+
+test("equipamento: qualidade e +N aumentam os valores; tirar o item reduz", () => {
+  const e = novoEstado();
+  const base = derivados(P, I, e);
+  e.equip.arma = novoItem("espada-longa", "raro", 2);
+  assert.ok(derivados(P, I, e).dano > base.dano);
+  e.equip.peitoral = null;
+  assert.ok(derivados(P, I, e).vidaMax < base.vidaMax);
+  e.equip.capacete = novoItem("elmo-armet", "comum", 0, { sor: 3 });
+  assert.equal(derivados(P, I, e).atributos.sor, e.atributos.sor + 3);
 });
 
 test("monstro persegue, ataca depois de uma janela e causa dano uma vez por ataque", () => {
@@ -142,16 +216,19 @@ test("monstro não entra em peça bloqueada ao perseguir", () => {
   }
 });
 
-test("estatísticas crescem com o nível e com a melhoria da arma", () => {
-  assert.ok(statsJogador(5).vidaMax > statsJogador(4).vidaMax);
-  assert.ok(statsJogador(5, 2).dano > statsJogador(5, 1).dano);
+test("ritmo: nível 10 em cerca de 30 minutos (média de 20 simulações; alvo da média dos jogos de referência)", () => {
+  const m = media(10, 20);
+  assert.ok(m.minutos >= 25 && m.minutos <= 35, `${m.minutos.toFixed(1)} min`);
+  assert.ok(m.mortes < 3, "não deveria morrer muito na região 1");
 });
 
 function memoria() { const d = {}; return { getItem: (k) => d[k] ?? null, setItem: (k, v) => { d[k] = v; }, removeItem: (k) => { delete d[k]; }, d }; }
 const mapasValidos = Object.keys(mapasTxt);
+const carregar = (s, mv) => carregarBase(P, I, s, mv);
 
 test("salvar e carregar devolvem o mesmo estado", () => {
   const s = memoria(), e = novoEstado(); e.nivel = 12; e.xp = 33; e.ouro = 77; e.missoes = { javalis: { estado: "ativa", progresso: 2 } };
+  e.pontosLivres = pontosAteNivel(P, 12); distribuirRecomendado(P, e, recomendado);
   assert.ok(guardar(s, e));
   assert.deepEqual(carregar(s, mapasValidos), e);
 });
@@ -161,10 +238,25 @@ test("save corrompido ou adulterado não derruba: devolve null", () => {
   assert.equal(carregar(s, mapasValidos), null);
   s.setItem("valdor-save", "{não é json");
   assert.equal(carregar(s, mapasValidos), null);
-  for (const mut of [{ nivel: 0 }, { nivel: 99 }, { ouro: -1 }, { mapa: "inexistente" }, { versao: 2 }, { xp: "x" }, { armaNivel: 9 }]) {
+  for (const mut of [{ nivel: 0 }, { nivel: 99 }, { ouro: -1 }, { mapa: "inexistente" }, { versao: 3 }, { xp: "x" }, { pontosLivres: 50 },
+    { atributos: { for: 50, vit: 5, agi: 5, sor: 5 } }, { equip: { arma: { base: "nao-existe", qual: "comum", mais: 0, bonus: {} } } }, { mochila: "x" }]) {
     s.setItem("valdor-save", serializar({ ...novoEstado(), ...mut }));
     assert.equal(carregar(s, mapasValidos), null, JSON.stringify(mut));
   }
   const quebrado = { getItem() { throw new Error("bloqueado"); } };
   assert.equal(carregar(quebrado, mapasValidos), null);
+});
+
+test("save da versão 1 é migrado sem perder nível, ouro nem a arma afiada", () => {
+  const s = memoria();
+  const v1 = { versao: 1, classe: "guerreiro", nivel: 7, xp: 12, ouro: 55, pocoes: 2, armaNivel: 2, mapa: "mata-do-javali", missoes: { javalis: { estado: "pronta", progresso: 6 } } };
+  s.setItem("valdor-save", JSON.stringify(v1));
+  const e = carregar(s, mapasValidos);
+  assert.ok(e, "migrou");
+  assert.equal(e.versao, 2); assert.equal(e.nivel, 7); assert.equal(e.ouro, 55); assert.equal(e.mapa, "mata-do-javali");
+  assert.equal(e.equip.arma.mais, 2);
+  assert.deepEqual(e.missoes, v1.missoes);
+  assert.equal(gastos(P, e) + e.pontosLivres, pontosAteNivel(P, 7));
+  assert.equal(e.pontosHab, Math.floor(7 / P.nivel_por_ponto_habilidade));
+  assert.equal(migrarV1(P, I, { ...v1, armaNivel: 0 }).equip.arma.mais, 0);
 });

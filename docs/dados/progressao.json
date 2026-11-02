@@ -1,0 +1,20 @@
+{
+  "nivel_max": 29,
+  "xp_base": 33,
+  "xp_expoente": 1.6,
+  "atributos": ["for", "vit", "agi", "sor"],
+  "atributo_inicial": 5,
+  "pontos_por_nivel": 3,
+  "nivel_por_ponto_habilidade": 3,
+  "grau_max_habilidade": 5,
+  "redistribuir_custo_por_nivel": 25,
+  "derivados": {
+    "dano_base": 6, "dano_por_for": 1.5,
+    "vida_base": 60, "vida_por_vit": 8,
+    "recarga_por_agi": 0.02, "recarga_min": 0.7,
+    "velocidade_base": 86, "velocidade_por_agi": 0.8,
+    "critico_por_sor": 0.01, "critico_max": 0.25, "critico_mult": 1.5
+  },
+  "monstros_ativos_raio": 450,
+  "_referencia": "médias de Conquer Online, Kritika e Diablo 2 (ver documentacao/etapa-6b-progressao.md); ritmo-alvo: nível 10 em ~30 min"
+}
