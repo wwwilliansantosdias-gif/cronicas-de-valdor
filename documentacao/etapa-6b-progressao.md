@@ -91,3 +91,10 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - **Fragmentos:** 15% de chance por monstro comum, 3 garantidos do chefe; aparecem como texto flutuante "+1 fragmento" e no topo da tela.
 - Tela do ferreiro: lista de itens (com a cor da qualidade, rola por dentro) e, ao escolher, custo, chance, "Melhorar para +N" e o resultado (sucesso em verde, falha em vermelho). O "afiar" provisório saiu.
 - Testes: taxa de sucesso medida em 4000 tentativas por nível bate com a tabela; falha não altera o item; recusa sem recursos não cobra nada.
+
+## 12. Itens mais visuais (decisão de Willian: seguir a recomendação; 3D fica para depois)
+- **Cor por qualidade:** a peça vestida é tingida em código com a cor da qualidade (`tinta` em `dados/itens.json`: Comum 0, Refinado 0,14, Raro 0,28, Lendário 0,4). É uma derivação da própria peça LPC, já creditada; nenhuma imagem nova.
+- **Aura** nos pés conforme a melhor qualidade vestida (Raro azul; Lendário dourada com faíscas) e **rastro da arma** ao golpear, na cor da qualidade, mais forte com o +N.
+- **Ícones** na mochila, no equipamento vestido e no ferreiro, recortados do quadro parado de frente da própria peça.
+- Não entrou (decisão pendente): armas sem animação de estocar (maça, sabre, machado, mangual) e novos espaços (capa, escudo, ombreiras, luvas, botas).
+- Protótipo 3D documentado em `documentacao/futuro-3d.md` para a versão 2.

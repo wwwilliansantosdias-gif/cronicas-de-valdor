@@ -89,3 +89,11 @@ def test_cada_espaco_tem_mais_de_uma_aparencia_na_regiao_1():
     for esp in ("arma", "capacete", "peitoral", "grevas"):
         visuais = {it["visual"]["walk"] for it in ITENS if it.get("espaco") == esp and it.get("nivel", 1) <= 9}
         assert len(visuais) >= 2, esp
+
+
+def test_qualidades_tem_cor_e_tinta_valida():
+    I = json.load(open(os.path.join(RAIZ, "docs", "dados", "itens.json"), encoding="utf-8"))
+    tintas = [q["tinta"] for q in I["qualidades"]]
+    assert tintas[0] == 0, "Comum mostra a peça original"
+    assert all(0 <= t <= 0.6 for t in tintas) and tintas == sorted(tintas), "tinta cresce com a qualidade"
+    assert all(q["cor"].startswith("#") and len(q["cor"]) == 7 for q in I["qualidades"])

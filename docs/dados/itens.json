@@ -12,7 +12,8 @@
       "mult": 1.0,
       "bonus_atributos": 0,
       "peso": 70,
-      "cor": "#e8e8ef"
+      "cor": "#e8e8ef",
+      "tinta": 0
     },
     {
       "id": "refinado",
@@ -20,7 +21,8 @@
       "mult": 1.15,
       "bonus_atributos": 0,
       "peso": 22,
-      "cor": "#7fd27f"
+      "cor": "#7fd27f",
+      "tinta": 0.14
     },
     {
       "id": "raro",
@@ -28,7 +30,8 @@
       "mult": 1.35,
       "bonus_atributos": 1,
       "peso": 7,
-      "cor": "#5fa8ff"
+      "cor": "#5fa8ff",
+      "tinta": 0.28
     },
     {
       "id": "lendario",
@@ -36,7 +39,8 @@
       "mult": 1.6,
       "bonus_atributos": 2,
       "peso": 1,
-      "cor": "#ffb347"
+      "cor": "#ffc23a",
+      "tinta": 0.4
     }
   ],
   "melhoria": {

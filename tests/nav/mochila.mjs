@@ -54,6 +54,13 @@ await pag.waitForTimeout(150);
 const px1 = await pixelsJogador();
 ok((await V(() => window.__valdor.est.equip.peitoral.base)) === "cota-malha" && px0 !== px1, "vestir a cota de malha muda a aparência do personagem");
 await pag.screenshot({ path: saida + "/m3.png" });
+// qualidade muda a aparência da mesma peça (tinta) e os itens têm ícone
+await V(() => { window.__valdor.est.equip.peitoral = { base: "cota-malha", qual: "lendario", mais: 0, bonus: {} }; });
+await pag.waitForTimeout(150);
+ok(px1 !== await pixelsJogador(), "Cota de malha Lendária tem cor diferente da Comum");
+await toque("#bI");
+ok(await V(() => document.querySelectorAll("#caixa img.ic").length >= 4), "ícones dos itens na mochila");
+await toque("#caixa button", "Fechar");
 // tirar uma peça vestida
 await toque("#bI"); await toque("#caixa tr[data-e='capacete']");
 ok(await toque("#caixa button", "Tirar"), "toca em Tirar");

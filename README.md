@@ -8,7 +8,7 @@ Estado: região 1 (Floresta) jogável com o Guerreiro: cidade Pé-de-Lenha (merc
 
 ## Pastas
 - `docs/` – o que o GitHub Pages publica (Settings → Pages → branch `main`, pasta `/docs`): jogo (`index.html`, `src/`, `dados/`, `mapas/`, `assets/`), `mostruario/` e `CREDITOS.md`.
-- `documentacao/` – etapas 2 a 5 e 6b (história, arte, documentação técnica, testes, progressão).
+- `documentacao/` – etapas 2 a 5 e 6b (história, arte, documentação técnica, testes, progressão) e `futuro-3d.md` (protótipo 3D para a versão 2).
 - `data/` – metadados dos pacotes (`packs.json`, `meta.json`), especificação do mostruário, peças do gerador LPC usadas (`pecas_usadas.txt`) e `gerador/CREDITS.csv`.
 - `tools/` – scripts de download, créditos e build. `tests/` – testes.
 
