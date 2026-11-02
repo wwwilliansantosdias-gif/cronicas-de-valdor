@@ -18,10 +18,10 @@ export function migrarV1(P, I, v1) {
   return est;
 }
 
-function itemValido(P, I, it, espaco) {
+function itemValido(P, I, it, espaco, classe) {
   if (!it || typeof it !== "object") return false;
   const b = I.itens.find((x) => x.id === it.base);
-  return !!b && b.tipo !== "consumivel" && (!espaco || b.espaco === espaco) && I.qualidades.some((q) => q.id === it.qual) && inteiro(it.mais, 0, I.melhoria.max)
+  return !!b && b.tipo !== "consumivel" && (!espaco || b.espaco === espaco) && (!classe || !b.classes || b.classes.includes(classe)) && I.qualidades.some((q) => q.id === it.qual) && inteiro(it.mais, 0, I.melhoria.max)
     && !!it.bonus && typeof it.bonus === "object" && Object.entries(it.bonus).every(([a, n]) => P.atributos.includes(a) && inteiro(n, 1, 99));
 }
 
@@ -32,7 +32,7 @@ export function validar(P, I, obj, mapasValidos) {
     if (!inteiro(obj.nivel, 1, P.nivel_max) || !inteiro(obj.armaNivel ?? 0, 0, 9)) return null;
     obj = migrarV1(P, I, obj);
   }
-  if (obj.versao !== VERSAO || obj.classe !== "guerreiro") return null;
+  if (obj.versao !== VERSAO || !I.equipamento_inicial[obj.classe]) return null;
   if (!inteiro(obj.nivel, 1, P.nivel_max) || !inteiro(obj.ouro, 0, 1e9) || !inteiro(obj.pocoes, 0, 999)) return null;
   if (typeof obj.xp !== "number" || !(obj.xp >= 0)) return null;
   if (!mapasValidos.includes(obj.mapa)) return null;
@@ -44,7 +44,7 @@ export function validar(P, I, obj, mapasValidos) {
   let gastos = P.atributos.reduce((s, a) => s + obj.atributos[a] - P.atributo_inicial, 0);
   if (gastos > total) { obj.atributos = atributosIniciais(P); gastos = 0; }
   obj.pontosLivres = total - gastos;
-  if (!obj.equip || !I.espacos.every((e) => obj.equip[e] === null || itemValido(P, I, obj.equip[e], e))) return null;
+  if (!obj.equip || !I.espacos.every((e) => obj.equip[e] === null || itemValido(P, I, obj.equip[e], e, obj.classe))) return null;
   if (!Array.isArray(obj.mochila) || obj.mochila.length > I.mochila_max || !obj.mochila.every((it) => itemValido(P, I, it))) return null;
   if (!obj.habilidades || typeof obj.habilidades !== "object" || !Object.values(obj.habilidades).every((g) => inteiro(g, 1, P.grau_max_habilidade))) return null;
   // pontos de habilidade também são consertados: graus acima do possível voltam para 1

@@ -1,5 +1,5 @@
 // Simulador de ritmo: estima o tempo de jogo até cada nível usando os MESMOS dados e fórmulas do jogo.
-// Uso: node tools/simular.mjs [nivel-alvo]    (padrão 10)
+// Uso: node tools/simular.mjs [nivel-alvo] [classe]    (padrão 10 guerreiro)
 // Modelo (aproximado, de propósito simples):
 // - caça na área da região 1; cada monstro morto some e volta depois do respawn;
 // - caça por bando (como no mapa): caminha até um bando e luta com os membros vivos; todos atacam ao mesmo tempo;
@@ -19,15 +19,15 @@ import { lerMapaTexto } from "../docs/src/mapa.js";
 const ler = (f) => JSON.parse(readFileSync(new URL("../docs/" + f, import.meta.url), "utf8"));
 export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 4, entreMembros: 0.8, acertoMonstro: 0.5, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6 }; // respawn vem de dados/progressao.json
 
-export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES } = {}) {
+export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES, classe = "guerreiro" } = {}) {
   const P = dados?.P || ler("dados/progressao.json"), I = dados?.I || ler("dados/itens.json");
   const M = Object.fromEntries((dados?.M || ler("dados/monstros.json")).monstros.map((m) => [m.id, m]));
   const C = Object.fromEntries(ler("dados/classes.json").classes.map((c) => [c.id, c]));
-  const H = ler("dados/habilidades.json");
+  const H = dados?.H || ler("dados/habilidades.json");
   const Q = ler("dados/missoes.json").missoes;
   const spec = lerMapaTexto(readFileSync(new URL("../docs/mapas/mata-do-javali.txt", import.meta.url), "utf8"));
   const rng = criarPrng(semente);
-  const est = novoEstado(P, I);
+  const est = novoEstado(P, I, classe, C[classe].habilidades[0]);
   est.autoDistribuir = true; // o simulador segue a distribuição recomendada
   for (const q of Q) est.missoes[q.id] = { estado: "ativa", progresso: 0 };
   const bandos = [];
@@ -51,7 +51,7 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     let dpsUm = 0, dpsArea = 0;
     for (const h of habsClasse) if (est.habilidades[h.id]) {
       const v = danoHabilidade(h, H.por_grau, sv.dano, est.habilidades[h.id]) * critMedio / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id]) * sup.eficiencia;
-      if (h.forma === "circulo") dpsArea += v; else dpsUm += v;
+      if (h.forma === "circulo" || h.forma === "leque") dpsArea += v; else dpsUm += v; // leque e círculo atingem o bando
     }
     let bando = null;
     if (est.nivel >= sup.nivelChefe && chefe[0].volta <= t) bando = chefe;
@@ -90,8 +90,9 @@ export function media(alvo = 10, n = 20, opts = {}) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const alvo = Number(process.argv[2] || 10);
-  const m = media(alvo);
+  const alvo = Number(process.argv[2] || 10), classe = process.argv[3] || "guerreiro";
+  const m = media(alvo, 20, { classe });
+  process.stdout.write(`[${classe}] `);
   console.log(`nível ${alvo}: ${m.minutos.toFixed(1)} min em média (20 simulações) · ${m.abates.toFixed(0)} abates · ${m.mortes.toFixed(1)} mortes`);
   console.log("minuto em que chega a cada nível (simulação 1):", JSON.stringify(m.exemplo.marcos));
 }

@@ -59,35 +59,56 @@ def test_assets_do_jogo_existem():
         assert os.path.exists(os.path.join(RAIZ, "docs", "assets", f + ".png")), f
 
 
-def test_todo_item_vestivel_tem_visual_com_as_animacoes_do_guerreiro():
+COLUNAS = {"walk": 9, "slash": 6, "thrust": 8, "shoot": 13}
+CORPO = json.load(open(os.path.join(RAIZ, "docs", "dados", "itens.json"), encoding="utf-8"))["corpo"]
+
+
+def _arq(v):
+    return v if isinstance(v, str) else v["arquivo"]
+
+
+def _confere_folha(rotulo, entrada, anim, grande=False):
     from PIL import Image
+    arq = os.path.join(RAIZ, "docs", "assets", "pecas", _arq(entrada))
+    assert os.path.exists(arq), f"{rotulo}: falta {_arq(entrada)}"
+    w, h = Image.open(arq).size
+    q = 192 if grande else 64
+    assert h == 4 * q, f"{rotulo} {anim}: {w}x{h} não tem 4 direções de {q}px"
+    if isinstance(entrada, dict):
+        assert entrada["coluna"] * q < w, f"{rotulo} {anim}: coluna fixa fora da folha"
+    else:
+        assert w >= COLUNAS[anim] * q, f"{rotulo} {anim}: {w}x{h} não tem {COLUNAS[anim]} quadros"
+
+
+def test_todo_item_vestivel_tem_visual_com_as_animacoes_de_cada_classe_que_o_usa():
     for it in ITENS:
         if it["tipo"] == "consumivel":
             continue
         v = it["visual"]
-        for anim in ("walk", "slash", "thrust"):
-            arq = os.path.join(RAIZ, "docs", "assets", "pecas", v[anim])
-            assert os.path.exists(arq), f"{it['id']}: falta {v[anim]}"
-            w, h = Image.open(arq).size
-            q = 192 if anim in v.get("grande", []) else 64
-            colunas = {"walk": 9, "slash": 6, "thrust": 8}[anim]
-            assert h == 4 * q and w >= colunas * q, f"{it['id']} {anim}: {w}x{h} não tem 4 direções x {colunas} quadros de {q}px"
+        for classe in it["classes"]:
+            for anim in CORPO[classe]["animacoes"]:
+                assert anim in v, f"{it['id']} ({classe}): sem animação {anim}"
+                _confere_folha(it["id"], v[anim], anim, anim in v.get("grande", []))
+                if "fundo" in v and anim in v["fundo"]:
+                    _confere_folha(it["id"] + " (fundo)", v["fundo"][anim], anim)
 
 
-def test_corpo_do_personagem_tem_as_animacoes_e_esta_creditado():
-    I = json.load(open(os.path.join(RAIZ, "docs", "dados", "itens.json"), encoding="utf-8"))
-    for c in I["corpo"].values():
-        if not isinstance(c, dict):
-            continue
+def test_corpo_e_extras_de_cada_classe_tem_as_animacoes_e_estao_creditados():
+    for classe, c in CORPO.items():
         for pasta in (c["base"], c["cabeca"]):
-            for anim in ("walk", "slash", "thrust"):
-                assert os.path.exists(os.path.join(RAIZ, "docs", "assets", "pecas", f"{pasta}/{anim}.png"))
+            for anim in c["animacoes"]:
+                _confere_folha(classe, f"{pasta}/{anim}.png", anim)
                 assert f"{pasta}/{anim}.png" in USADAS
+        for nome, e in c.get("extras", {}).items():
+            for anim, entrada in e.items():
+                if anim != "peca_lpc":
+                    _confere_folha(f"{classe}/{nome}", entrada, anim)
+            assert all(p in USADAS and p in CSV for p in e["peca_lpc"]), nome
 
 
 def test_cada_espaco_tem_mais_de_uma_aparencia_na_regiao_1():
     for esp in ("arma", "capacete", "peitoral", "grevas"):
-        visuais = {it["visual"]["walk"] for it in ITENS if it.get("espaco") == esp and it.get("nivel", 1) <= 9}
+        visuais = {_arq(it["visual"]["walk"]) for it in ITENS if it.get("espaco") == esp and it.get("nivel", 1) <= 9}
         assert len(visuais) >= 2, esp
 
 

@@ -22,7 +22,13 @@ export async function abrir({ largura = 844, altura = 390, toque = false } = {})
   let falhas = 0;
   const ok = (c, m) => { console.log((c ? "ok   " : "FALHA") + " " + m); if (!c) falhas++; };
   const base = `http://localhost:${srv.address().port}/`;
-  const pronto = () => pag.waitForFunction(() => document.body.dataset.pronto === "1", null, { timeout: 15000 });
+  // espera o jogo carregar; sem save, escolhe a classe (Guerreiro por padrão) na tela de personagem novo
+  const pronto = async (classe = "Guerreiro") => {
+    await pag.waitForFunction(() => document.body.dataset.pronto === "1" || document.getElementById("caixa").innerText.includes("Novo personagem"), null, { timeout: 15000 });
+    if (await pag.evaluate(() => document.body.dataset.pronto !== "1"))
+      await pag.evaluate((c) => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === c).click(), classe);
+    await pag.waitForFunction(() => document.body.dataset.pronto === "1", null, { timeout: 15000 });
+  };
   const fim = async () => { await nav.close(); srv.close(); console.log(falhas ? `${falhas} falha(s)` : "tudo certo"); process.exit(falhas ? 1 : 0); };
   return { pag, erros, ok, base, pronto, fim };
 }

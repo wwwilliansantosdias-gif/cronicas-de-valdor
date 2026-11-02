@@ -34,7 +34,7 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 6. ✅ Drops, mochila e equipar (números).
 7. ✅ Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
 8. ✅ (adiantado a pedido) Mais peças visuais por espaço; personagem montado em camadas na hora.
-9. Arqueiro.
+9. ✅ Arqueiro (referência: arqueiro do Conquer, Scatter em Bird Island).
 10. Regiões 2 e 3.
 11. Som.
 
@@ -98,3 +98,13 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - **Ícones** na mochila, no equipamento vestido e no ferreiro, recortados do quadro parado de frente da própria peça.
 - Não entrou (decisão pendente): armas sem animação de estocar (maça, sabre, machado, mangual) e novos espaços (capa, escudo, ombreiras, luvas, botas).
 - Protótipo 3D documentado em `documentacao/futuro-3d.md` para a versão 2.
+
+## 13. Resultado do passo 9 (Arqueiro)
+- **Intenção (Willian):** abater vários inimigos com um tiro, como o arqueiro do Conquer upando em Bird Island com o Scatter. Referência pesquisada: o Scatter é um leque que acerta vários monstros; o dano cresce com o nível da habilidade (de 50% para 72% do arco); Rapid Fire e Intensify vêm depois. A página oficial (co.99.com) não abriu deste ambiente; números vieram de busca e foram tratados como referência, não cópia.
+- **Habilidades** (`habilidades.json`): Disparo (nível 1; linha de 190 px, para no primeiro inimigo), **Dispersão** (nível 3; leque de 100° e 170 px, 70% do dano em **todos** do leque, recarga 1,2 s — a habilidade de "um tiro, vários abates") e Chuva (nível 6; círculo de 60 px a 110 px à frente, 110%, recarga 5 s). Formas novas no motor: `leque`, `circulo` com `distancia`, e `alvos` (limite, mais próximos primeiro).
+- **Evolução até o "um tiro":** no começo a Dispersão precisa de vários tiros por bando; com Força, arco melhor (+N, qualidade) e grau da habilidade, ela passa a derrubar o bando inteiro de uma vez (teste de navegador confere com um arqueiro evoluído).
+- **Visual:** arcos LPC (simples, recurvo, longo) com camada da frente e de trás, flecha na mão e aljava nas costas; flechas voando desenhadas em código (uma no Disparo, leque de 5 na Dispersão, chuva caindo com anel no chão). Improviso documentado: não existe folha de "andar com arco" no formato padrão (só 128 px e uma direção), então ao andar usa-se o primeiro quadro da folha de atirar (arco baixado).
+- **Equipamento:** armaduras e capacetes servem às duas classes (todos têm andar, golpear, estocar e atirar); arcos só para o arqueiro, espadas só para o guerreiro; quedas respeitam a classe.
+- **Classe ao começar:** personagem novo escolhe Guerreiro ou Arqueiro; menu "Novo personagem" apaga o progresso e volta à escolha. Save aceita qualquer classe implementada e recusa arma de outra classe vestida.
+- **Ritmo:** simulador por classe; arqueiro chega ao nível 10 em cerca de 28 minutos (guerreiro cerca de 30); teste de ritmo cobre as duas classes.
+- Sobre o visual do Conquer: é 2,5D (cenário desenhado à mão, personagens e monstros 3D em câmera fixa). Fica como referência para o protótipo 3D (`futuro-3d.md`).

@@ -1,30 +1,12 @@
 // Teste de navegador (Playwright): node tests/nav/fumaca.mjs  (sobe um servidor estático em docs/)
 // Requer Playwright: PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/fumaca.mjs
-const { chromium } = await import(process.env.PLAYWRIGHT_PATH || "playwright");
-import http from "node:http";
-import { readFileSync, existsSync, statSync } from "node:fs";
-import { extname, join } from "node:path";
-
-const RAIZ = new URL("../../docs/", import.meta.url).pathname;
-const TIPOS = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json", ".png": "image/png", ".md": "text/markdown", ".txt": "text/plain" };
-const srv = http.createServer((q, r) => {
-  let f = join(RAIZ, decodeURIComponent(q.url.split("?")[0])); if (existsSync(f) && statSync(f).isDirectory()) f = join(f, "index.html");
-  if (!existsSync(f)) { r.writeHead(404); return r.end(); }
-  r.writeHead(200, { "content-type": TIPOS[extname(f)] || "application/octet-stream" }); r.end(readFileSync(f));
-}).listen(0);
-const porta = srv.address().port, base = `http://localhost:${porta}/`;
+import { abrir } from "./servidor.mjs";
+const { pag, erros, ok, base, pronto, fim } = await abrir({ toque: true });
 const saida = process.argv[2] || "/tmp";
-let falhas = 0;
-const ok = (c, m) => { console.log((c ? "ok   " : "FALHA") + " " + m); if (!c) falhas++; };
-
-const nav = await chromium.launch();
-const pag = await nav.newPage({ viewport: { width: 844, height: 390 }, hasTouch: true });
-const erros = [], req404 = [];
-pag.on("pageerror", (e) => erros.push(e.message));
-pag.on("console", (m) => m.type() === "error" && erros.push(m.text()));
+const req404 = [];
 pag.on("response", (r) => r.status() >= 400 && req404.push(r.url()));
 await pag.goto(base);
-await pag.waitForFunction(() => document.body.dataset.pronto === "1", null, { timeout: 15000 });
+await pronto();
 await pag.waitForTimeout(500);
 ok(erros.length === 0, "sem erros de console: " + erros.join("|"));
 ok(req404.length === 0, "sem imagem/arquivo faltando: " + req404.join("|"));
@@ -63,11 +45,10 @@ ok(matou.morto && matou.ganhou && matou.ouro, "ataque mata monstro e dá experi�
 await pag.screenshot({ path: saida + "/n4.png" });
 // salvar: recarrega e mantém
 const antes = await pag.evaluate(() => JSON.stringify({ n: window.__valdor.est.nivel, o: window.__valdor.est.ouro, m: window.__valdor.est.mapa }));
-await pag.reload(); await pag.waitForFunction(() => document.body.dataset.pronto === "1");
+await pag.reload(); await pronto();
 const depois = await pag.evaluate(() => JSON.stringify({ n: window.__valdor.est.nivel, o: window.__valdor.est.ouro, m: window.__valdor.est.mapa }));
 ok(antes === depois, "progresso salvo e recarregado: " + depois);
 // tela em pé mostra aviso
 await pag.setViewportSize({ width: 390, height: 844 }); await pag.waitForTimeout(200);
 ok(await pag.evaluate(() => getComputedStyle(document.getElementById("girar")).display === "flex"), "tela em pé mostra aviso para girar");
-await nav.close(); srv.close();
-console.log(falhas ? `${falhas} falha(s)` : "tudo certo"); process.exit(falhas ? 1 : 0);
+await fim();

@@ -1,22 +1,8 @@
 // Fluxo da região 1 no navegador. PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/fluxo.mjs [pasta-de-capturas]
-const { chromium } = await import(process.env.PLAYWRIGHT_PATH || "playwright");
-import http from "node:http";
-import { readFileSync, existsSync, statSync } from "node:fs";
-import { extname, join } from "node:path";
-
-const RAIZ = new URL("../../docs/", import.meta.url).pathname;
-const TIPOS = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json", ".png": "image/png", ".md": "text/markdown", ".txt": "text/plain" };
-const srv = http.createServer((q, r) => {
-  let f = join(RAIZ, decodeURIComponent(q.url.split("?")[0])); if (existsSync(f) && statSync(f).isDirectory()) f = join(f, "index.html");
-  if (!existsSync(f)) { r.writeHead(404); return r.end(); }
-  r.writeHead(200, { "content-type": TIPOS[extname(f)] || "application/octet-stream" }); r.end(readFileSync(f));
-}).listen(0);
-const base = `http://localhost:${srv.address().port}/`, saida = process.argv[2] || "/tmp";
-let falhas = 0;
-const ok = (c, m) => { console.log((c ? "ok   " : "FALHA") + " " + m); if (!c) falhas++; };
-const nav = await chromium.launch(), pag = await nav.newPage({ viewport: { width: 844, height: 390 } });
-const erros = []; pag.on("pageerror", (e) => erros.push(e.message)); pag.on("console", (m) => m.type() === "error" && erros.push(m.text()));
-await pag.goto(base); await pag.waitForFunction(() => document.body.dataset.pronto === "1");
+import { abrir } from "./servidor.mjs";
+const { pag, erros, ok, base, pronto, fim } = await abrir();
+const saida = process.argv[2] || "/tmp";
+await pag.goto(base); await pronto();
 const V = (fn, arg) => pag.evaluate(fn, arg);
 const perto = (tipo) => V((t) => { const V = window.__valdor, n = V.mapa.npcs.find((x) => x.tipo === t) || V.mapa.portal; V.jogador.x = n.x * 32 + 16; V.jogador.y = n.y * 32 + 40; V.jogador.invul = 99; V.interagir(); return document.getElementById("caixa").innerText; }, tipo);
 const botao = (texto) => V((t) => { const b = [...document.querySelectorAll("#caixa button")].find((x) => x.textContent.includes(t)); if (!b || b.disabled) return false; b.click(); return true; }, texto);
@@ -81,4 +67,4 @@ await V(() => { const V = window.__valdor; V.jogador.vida = 10; V.est.pocoes = 1
 await pag.keyboard.press("q"); await pag.waitForTimeout(100);
 ok((await V(() => window.__valdor.jogador.vida)) === 70 && (await V(() => window.__valdor.est.pocoes)) === 0, "poção cura 60");
 ok(erros.length === 0, "sem erros de console: " + erros.join("|"));
-await nav.close(); srv.close(); console.log(falhas ? `${falhas} falha(s)` : "tudo certo"); process.exit(falhas ? 1 : 0);
+await fim();

@@ -352,3 +352,47 @@ test("save da versão 1 é migrado sem perder nível, ouro nem a arma afiada", (
   assert.equal(e.pontosHab, Math.floor(7 / P.nivel_por_ponto_habilidade));
   assert.equal(migrarV1(P, I, { ...v1, armaNivel: 0 }).equip.arma.mais, 0);
 });
+
+test("leque (Dispersão): acerta vários à frente, não atrás nem fora do ângulo", () => {
+  const h = hab("dispersao"), j = { x: 200, y: 200, dir: "right" };
+  const frente = [criarMonstro(monstros[0], 300, 200), criarMonstro(monstros[0], 320, 240), criarMonstro(monstros[0], 330, 160)];
+  const atras = criarMonstro(monstros[0], 120, 200), lado = criarMonstro(monstros[0], 210, 330), longe = criarMonstro(monstros[0], 450, 200);
+  const r = atingir(j, [...frente, atras, lado, longe], h, 5, 0);
+  assert.equal(r.atingidos, 3, "os três à frente");
+  for (const m of [atras, lado, longe]) assert.equal(m.vida, m.vidaMax);
+});
+
+test("Dispersão forte o bastante derruba o bando inteiro com um tiro", () => {
+  const h = hab("dispersao"), j = { x: 200, y: 200, dir: "right" }, gob = monstros.find((m) => m.id === "goblin");
+  const bando = [criarMonstro(gob, 290, 200), criarMonstro(gob, 300, 225), criarMonstro(gob, 305, 180)];
+  const r = atingir(j, bando, h, gob.vida / h.mult + 0.1, 0);
+  assert.equal(r.mortos.length, 3);
+});
+
+test("Disparo (linha com 1 alvo) acerta só o primeiro da fila; Chuva acerta à distância e não perto", () => {
+  const j = { x: 200, y: 200, dir: "right" };
+  const a = criarMonstro(monstros[0], 260, 200), b = criarMonstro(monstros[0], 300, 200);
+  const r = atingir(j, [b, a], hab("disparo"), 5, 0);
+  assert.equal(r.atingidos, 1); assert.ok(a.vida < a.vidaMax); assert.equal(b.vida, b.vidaMax);
+  const chuva = hab("chuva"), perto = criarMonstro(monstros[0], 215, 200), la = criarMonstro(monstros[0], 200 + chuva.distancia, 214);
+  assert.equal(dentroDaArea(j, perto, chuva), false);
+  assert.equal(dentroDaArea(j, la, chuva), true);
+});
+
+test("arqueiro: começa com Disparo e arco; save aceita arqueiro e recusa arco vestido por guerreiro", () => {
+  const e = novoEstadoBase(P, I, "arqueiro", "disparo");
+  assert.deepEqual(e.habilidades, { disparo: 1 });
+  assert.equal(e.equip.arma.base, "arco-simples");
+  const s = memoria(); s.setItem("valdor-save", serializar(e));
+  assert.ok(carregar(s, mapasValidos), "arqueiro carrega");
+  const g = novoEstado(); g.equip.arma = { base: "arco-simples", qual: "comum", mais: 0, bonus: {} };
+  s.setItem("valdor-save", serializar(g));
+  assert.equal(carregar(s, mapasValidos), null, "guerreiro com arco é inválido");
+  const x = novoEstado(); x.classe = "mago"; s.setItem("valdor-save", serializar(x));
+  assert.equal(carregar(s, mapasValidos), null, "classe inexistente");
+});
+
+test("ritmo do arqueiro: nível 10 em cerca de 30 minutos, como o guerreiro", () => {
+  const m = media(10, 20, { classe: "arqueiro" });
+  assert.ok(m.minutos >= 25 && m.minutos <= 35, `${m.minutos.toFixed(1)} min`);
+});

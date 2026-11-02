@@ -47,7 +47,17 @@ export function dentroDaArea(j, m, h) {
   const mx = m.x, my = m.y - 12, folga = 8 * m.def.escala, ox = j.x, oy = j.y - 14;
   if (h.forma === "arco") return Math.hypot(mx - (ox + vx * h.alcance), my - (oy + vy * h.alcance * 0.75)) <= h.raio + folga;
   if (h.forma === "linha") return distSegmento(mx, my, ox, oy, ox + vx * h.alcance, oy + vy * h.alcance) <= h.raio + folga;
-  if (h.forma === "circulo") return Math.hypot(mx - ox, my - oy) <= h.raio + folga;
+  if (h.forma === "circulo") { // centrado no jogador, ou a "distancia" à frente (Chuva de flechas)
+    const d = h.distancia || 0;
+    return Math.hypot(mx - (ox + vx * d), my - (oy + vy * d)) <= h.raio + folga;
+  }
+  if (h.forma === "leque") { // setor à frente: dentro do alcance e do ângulo (Dispersão)
+    const dx = mx - ox, dy = my - oy, dist = Math.hypot(dx, dy);
+    if (dist > h.alcance + folga) return false;
+    if (dist < folga + 8) return true;
+    const cos = (dx * vx + dy * vy) / dist;
+    return cos >= Math.cos((h.angulo / 2) * Math.PI / 180);
+  }
   throw new Error("forma de habilidade desconhecida: " + h.forma);
 }
 
@@ -56,10 +66,12 @@ export function danoHabilidade(h, porGrau, danoBase, grau = 1) { return danoBase
 export function recargaHabilidade(h, porGrau, recargaMult, grau = 1) { return h.recarga * recargaMult * (1 + porGrau.recarga * (grau - 1)); }
 
 // aplica a habilidade; devolve { mortos, atingidos, criticos }
+// "alvos" limita quantos são atingidos (os mais próximos primeiro): o Disparo para no primeiro da linha.
 export function atingir(j, monstros, h, dano, critico = 0, critMult = 1.5, rnd = Math.random) {
   const r = { mortos: [], atingidos: 0, criticos: 0 };
-  for (const m of monstros) {
-    if (m.morto || !dentroDaArea(j, m, h)) continue;
+  let alvos = monstros.filter((m) => !m.morto && dentroDaArea(j, m, h));
+  if (h.alvos) alvos = alvos.sort((a, b) => Math.hypot(a.x - j.x, a.y - j.y) - Math.hypot(b.x - j.x, b.y - j.y)).slice(0, h.alvos);
+  for (const m of alvos) {
     const crit = rnd() < critico;
     const kx = m.x - j.x, ky = m.y - j.y, n = Math.hypot(kx, ky) || 1, emp = h.empurrao || 60;
     m.recuo = [kx / n * emp, ky / n * emp];

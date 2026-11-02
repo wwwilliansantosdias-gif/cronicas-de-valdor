@@ -30,5 +30,8 @@ Critério para seguir para a versão 2: 60 quadros por segundo estáveis no celu
 - Modelos gratuitos de estilo low-poly com personagens modulares, armas e armaduras encaixáveis: **KayKit** (Kay Lousberg) e **Quaternius**. Lembro deles como licença livre (CC0), mas **licença, animações disponíveis e peso precisam ser conferidos** na página de cada pacote, seguindo a mesma regra do projeto: nunca inventar autor, licença ou animações.
 - Monstros: verificar quais existem com andar e ataque (a mesma regra de inimigo comum vale no 3D).
 
+## Referência visual citada por Willian
+Arqueiro e arcos do Conquer Online: o jogo é 2,5D (cenários desenhados à mão, personagens, monstros e armas em 3D, câmera fixa em ângulo). O protótipo deve buscar visuais próximos: câmera fixa de cima em ângulo, personagens 3D low-poly sobre um chão com textura desenhada.
+
 ## Alternativa intermediária ("2,5D")
 Continuar com os sprites LPC e acrescentar sombras projetadas, luz e escuridão (caverna) e paralaxe. Custo médio, não refaz nada. Pode entrar na versão 1 se fizer falta.
