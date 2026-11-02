@@ -1,6 +1,6 @@
 # Etapa 2 – História e regiões (proposta provisória)
 
-Status: **proposta**. Depende da aprovação visual do mostruário. Usa só monstros que tiveram ataque identificado; se algum for descartado ou corrigido, troca-se pelo reserva indicado.
+Status: **aprovada por Willian** (regiões, cidades e chefes). A aprovação visual de cada monstro no mostruário continua pendente; se algum for descartado ou corrigido, troca-se pelo reserva indicado. Usa só monstros que tiveram ataque identificado.
 
 ## 1. Premissa
 
@@ -49,7 +49,5 @@ Observações:
 ## 4. Chefes humanos
 Se algum capítulo pedir um chefe humano, monta-se o personagem no gerador LPC e creditam-se as peças com `tools/creditos_pecas.py`.
 
-## 5. Decisões que dependem de você
-1. Aprovar ou trocar as três regiões.
-2. Aprovar os nomes de cidades e chefes (são provisórios).
-3. Confirmar os monstros depois de ver o mostruário em movimento.
+## 5. Pendente
+- Confirmar cada monstro no mostruário em movimento (e as correções de quadros de abelha, goblin, diabrete e javali).
