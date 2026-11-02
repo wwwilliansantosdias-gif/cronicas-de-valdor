@@ -1,6 +1,6 @@
 # Etapa 4 – Documentação técnica
 
-Status: **rascunho** para aprovação. Valores numéricos de equilíbrio são provisórios e serão ajustados jogando (etapa 6).
+Status: **aprovada por Willian**. Valores numéricos de equilíbrio são provisórios e serão ajustados jogando (etapa 6).
 
 ## 1. Princípios
 - Site estático (HTML, JS e imagens) publicado pelo GitHub Pages. Sem servidor, sem conta, sem loja.
