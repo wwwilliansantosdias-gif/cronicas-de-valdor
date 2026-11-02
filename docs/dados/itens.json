@@ -362,7 +362,9 @@
     "valor_bonus_atributo": 2,
     "duracao_no_chao_s": 90,
     "venda_fracao": 0.5,
-    "acima_do_nivel": 2
+    "acima_do_nivel": 2,
+    "fragmento_chance": 0.15,
+    "fragmentos_chefe": 3
   },
   "corpo": {
     "guerreiro": {

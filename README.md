@@ -4,7 +4,7 @@ RPG de ação 2D de uso pessoal, no navegador do celular (tela deitada), com art
 
 **Jogar:** https://wwwilliansantosdias-gif.github.io/cronicas-de-valdor/ · **Mostruário de arte:** `.../mostruario/`
 
-Estado: primeira fatia da etapa 6 — região 1 (Floresta) jogável com o Guerreiro: cidade Pé-de-Lenha (mercador, ferreiro, quadro de missões, portal selado até o nível 10) e Mata do Javali (4 tipos de monstro e o Javali Coroado). Caverna, Ruínas e o Arqueiro ainda não existem.
+Estado: região 1 (Floresta) jogável com o Guerreiro: cidade Pé-de-Lenha (mercador, ferreiro com melhoria até +5, quadro de missões, portal selado até o nível 10) e Mata do Javali (40 monstros em bandos, ataques com aviso, Javali Coroado). Atributos, habilidades (Golpe, Estocada, Giro), itens com qualidade que caem dos monstros e aparecem no personagem. Caverna, Ruínas e o Arqueiro ainda não existem. Progressão: `documentacao/etapa-6b-progressao.md`.
 
 ## Pastas
 - `docs/` – o que o GitHub Pages publica (Settings → Pages → branch `main`, pasta `/docs`): jogo (`index.html`, `src/`, `dados/`, `mapas/`, `assets/`), `mostruario/` e `CREDITOS.md`.
@@ -27,6 +27,6 @@ for t in fumaca fluxo atributos combate mochila; do PLAYWRIGHT_PATH=$(npm root -
 ```bash
 python3 -I tools/meta_packs.py && python3 -I tools/download_packs.py   # pacotes do OpenGameArt (assets/raw, não versionado)
 python3 -I tools/build_mostruario.py     # docs/mostruario + CREDITOS.md
-python3 -I tools/build_jogo_assets.py    # compõe o Guerreiro e copia tiles/NPCs para docs/assets
+python3 -I tools/build_jogo_assets.py    # baixa as peças dos itens (gerador LPC), gera pecas_usadas.txt, copia tiles/NPCs
 ```
-Peça nova do gerador LPC: acrescente o caminho em `data/pecas_usadas.txt` e rode `build_mostruario.py`.
+Item novo: acrescente em `docs/dados/itens.json` (com `peca_lpc` e `visual`) e rode `build_jogo_assets.py` e depois `build_mostruario.py` (créditos).

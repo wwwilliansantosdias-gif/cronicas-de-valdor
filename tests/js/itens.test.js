@@ -97,3 +97,53 @@ test("save recusa item com bônus de atributo inexistente ou fora da faixa, e ac
   for (const bonus of [{ xyz: 2 }, { for: 0 }, { for: 1.5 }]) { const e = base(); e.mochila.push(novoItem("espada-longa", "raro", 0, bonus)); assert.equal(validar(P, I, e, mapas), null, JSON.stringify(bonus)); }
   const cons = base(); cons.mochila.push(novoItem("pocao")); assert.equal(validar(P, I, cons, mapas), null, "poção não vai para a mochila de equipamento");
 });
+
+import { melhorar, proximaMelhoria, sortearFragmentos } from "../../docs/src/itens.js";
+
+test("ferreiro: +1 e +2 sempre dão certo; custo cobrado; +N aumenta os valores do item", () => {
+  const e = novoEstado(P, I); e.ouro = 1000; e.fragmentos = 10;
+  const dano0 = derivados(P, I, e).dano;
+  const r1 = melhorar(I, e, { espaco: "arma" }, () => 0.99), r2 = melhorar(I, e, { espaco: "arma" }, () => 0.99);
+  assert.ok(r1.sucesso && r2.sucesso); assert.equal(e.equip.arma.mais, 2);
+  assert.equal(e.ouro, 1000 - I.melhoria.custo_ouro[0] - I.melhoria.custo_ouro[1]);
+  assert.equal(e.fragmentos, 10 - I.melhoria.fragmentos[0] - I.melhoria.fragmentos[1]);
+  assert.ok(derivados(P, I, e).dano > dano0);
+});
+
+test("ferreiro: falha cobra o custo e o item continua igual (nunca quebra nem perde +N)", () => {
+  const e = novoEstado(P, I); e.ouro = 10000; e.fragmentos = 100; e.equip.arma.mais = 2;
+  const antes = JSON.stringify(e.equip.arma), ouro0 = e.ouro;
+  const r = melhorar(I, e, { espaco: "arma" }, () => 0.999);
+  assert.ok(r.feito && !r.sucesso);
+  assert.equal(JSON.stringify(e.equip.arma), antes);
+  assert.equal(e.ouro, ouro0 - I.melhoria.custo_ouro[2]);
+});
+
+test("ferreiro: taxa de sucesso medida bate com a tabela em cada nível", () => {
+  const rng = criarPrng(11);
+  for (let n = 0; n < I.melhoria.max; n++) {
+    let ok = 0; const T = 4000;
+    for (let k = 0; k < T; k++) { const e = novoEstado(P, I); e.ouro = 1e6; e.fragmentos = 1e6; e.equip.arma.mais = n; if (melhorar(I, e, { espaco: "arma" }, rng).sucesso) ok++; }
+    assert.ok(Math.abs(ok / T - I.melhoria.chance[n]) < 0.03, `+${n}: ${ok / T} vs ${I.melhoria.chance[n]}`);
+  }
+});
+
+test("ferreiro: recusa sem ouro, sem fragmentos ou no máximo, sem cobrar nada", () => {
+  const e = novoEstado(P, I); e.ouro = 0; e.fragmentos = 0;
+  assert.equal(melhorar(I, e, { espaco: "arma" }).motivo, "ouro insuficiente");
+  e.ouro = 1000; e.equip.arma.mais = 2;
+  assert.equal(melhorar(I, e, { espaco: "arma" }).motivo, "fragmentos insuficientes");
+  assert.equal(e.ouro, 1000);
+  e.equip.arma.mais = I.melhoria.max; e.fragmentos = 99;
+  assert.equal(proximaMelhoria(I, e.equip.arma), null);
+  assert.equal(melhorar(I, e, { espaco: "arma" }).motivo, "já está no máximo");
+  e.mochila.push(novoItem("adaga")); e.ouro = 1000;
+  assert.ok(melhorar(I, e, { i: 0 }, () => 0).sucesso, "melhora item da mochila também");
+});
+
+test("fragmentos: comum com a chance configurada; chefe sempre dá vários", () => {
+  const rng = criarPrng(12); let n = 0;
+  for (let i = 0; i < N; i++) n += sortearFragmentos(I, comum, rng);
+  assert.ok(Math.abs(n / N - I.drops.fragmento_chance) < 0.01);
+  assert.equal(sortearFragmentos(I, chefe, rng), I.drops.fragmentos_chefe);
+});

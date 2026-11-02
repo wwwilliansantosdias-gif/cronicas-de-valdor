@@ -2,7 +2,7 @@ import { lerMapaTexto, gerarMapa, TILE, bloqueadoTile } from "./mapa.js";
 import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from "./progresso.js";
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, mover, direcaoDe } from "./combate.js";
-import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento } from "./itens.js";
+import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento, melhorar, proximaMelhoria, itemDoAlvo, sortearFragmentos } from "./itens.js";
 import { derivados, valoresItem, baseItem, qualidade, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
@@ -24,6 +24,8 @@ addEventListener("resize", ajustar); ajustar();
 let D, IMG, EST, MAPAS = {}, mapa, jogador, monstros = [], chao = [], avisoCheia = 0, chefeDef, msgT = 0, parado = false, ultimoSave = 0;
 const MSTR = {};
 
+const flutuantes = [];
+function flutuar(txt, x, y, cor) { flutuantes.push({ txt, x, y, cor, t: 1.2 }); }
 function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; $("msg").classList.add("on"); msgT = s; }
 function salvar() { guardar(localStorage, EST); }
 
@@ -131,6 +133,8 @@ function registrarMorte(m) {
   const reg = D.regioes.find((r) => r.cacada === mapa.id || r.cidade === mapa.id);
   const it = sortearDrop(D.itens, D.P, def, EST, reg ? reg.niveis[1] : EST.nivel, stats().atributos.sor, Math.random);
   if (it) chao.push({ it, x: m.x, y: m.y - 4, t: D.itens.drops.duracao_no_chao_s });
+  const frag = sortearFragmentos(D.itens, def, Math.random);
+  if (frag) { EST.fragmentos += frag; flutuar(`+${frag} fragmento${frag > 1 ? "s" : ""}`, m.x, m.y - 40, "#c9d4ff"); }
   salvar();
 }
 
@@ -213,11 +217,30 @@ function telaMochila(sel = -1) {
   for (const r of $("caixa").querySelectorAll("tr[data-e]")) r.onclick = () => telaMochila(r.dataset.e);
   dir.append(...[...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
 }
-// provisório até o passo 4 (melhoria +1..+5 com chance e fragmentos): afiar sempre funciona, até +3
-function telaFerreiro() {
-  const arma = EST.equip.arma, custo = 60 * (arma.mais + 1), max = arma.mais >= 3;
-  painel(`<h3>Ferreiro</h3><p>Espada longa +${arma.mais} (dano ${stats().dano.toFixed(1)}) · Ouro: ${EST.ouro}</p>`, [[max ? "Espada no máximo" : `Afiar a espada (+10% no dano da arma) por ${custo} ouro`, () => { if (EST.ouro >= custo) { EST.ouro -= custo; arma.mais++; salvar(); telaFerreiro(); } }, max || EST.ouro < custo]]);
+// ferreiro: melhora itens vestidos ou da mochila de +1 a +5; pode falhar, mas o item nunca quebra
+function telaFerreiro(alvo = null, resultado = "") {
+  const I = D.itens;
+  const alvos = [...I.espacos.filter((e) => EST.equip[e]).map((e) => ({ espaco: e })), ...EST.mochila.map((_, i) => ({ i }))];
+  const rotulo = (a) => `${a.espaco ? NOME_ESPACO[a.espaco] + ": " : ""}${nomeItem(I, itemDoAlvo(EST, a))}`;
+  let det = `<p><small>Escolha um item. Cada melhoria dá +${Math.round(I.melhoria.bonus_por_nivel * 100)}% nos valores do item. Se falhar, gasta o custo e o item continua igual.</small></p>`;
+  const acoes = alvos.map((a) => [rotulo(a), () => telaFerreiro(a)]);
+  if (alvo && itemDoAlvo(EST, alvo)) {
+    const it = itemDoAlvo(EST, alvo), p = proximaMelhoria(I, it);
+    det = `<p style="color:${qualidade(I, it.qual).cor}"><b>${nomeItem(I, it)}</b></p><p><small>${descreverItem(it)}</small></p>` +
+      (p ? `<p>+${it.mais} → <b>+${p.para}</b> · chance ${Math.round(p.chance * 100)}%<br><small>${p.ouro} ouro${p.fragmentos ? ` e ${p.fragmentos} fragmento${p.fragmentos > 1 ? "s" : ""}` : ""}</small></p>` : "<p>Já está no máximo.</p>") + resultado;
+    if (p) acoes.unshift([`Melhorar para +${p.para}`, () => {
+      const r = comAjusteDeVida(() => melhorar(I, EST, alvo));
+      telaFerreiro(alvo, !r.feito ? `<p style="color:#ff7a7a">${r.motivo}</p>` : r.sucesso ? `<p style="color:#7fd27f"><b>Sucesso! Agora +${r.mais}.</b></p>` : `<p style="color:#ff7a7a"><b>Falhou.</b> O item continua +${r.mais}.</p>`);
+    }, EST.ouro < p.ouro || EST.fragmentos < p.fragmentos]);
+  }
+  painel(`<h3>Ferreiro <small>· ${EST.ouro} ouro · ${EST.fragmentos} fragmentos</small></h3><div class="duas"><div class="itens lista"></div><div class="dir">${det}</div></div>`, acoes);
+  const bs = [...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar"));
+  const melhorarBtn = alvo && bs[0] && bs[0].textContent.startsWith("Melhorar") ? bs.shift() : null;
+  $("caixa").querySelector(".lista").append(...bs);
+  bs.forEach((b, k) => { const it = itemDoAlvo(EST, alvos[k]); b.style.color = qualidade(I, it.qual).cor; if (alvo && JSON.stringify(alvos[k]) === JSON.stringify(alvo)) b.classList.add("sel"); });
+  if (melhorarBtn) $("caixa").querySelector(".dir").append(melhorarBtn);
 }
+
 function telaQuadro() {
   const lista = D.missoes.filter((q) => q.cidade === mapa.id);
   const acoes = lista.map((q) => {
@@ -339,7 +362,7 @@ function atualizar(dt) {
   $("hpb").classList.toggle("veneno", !!jogador.veneno);
   $("hpb").firstChild.style.width = Math.max(0, jogador.vida / sv.vidaMax * 100) + "%";
   $("xpb").firstChild.style.width = (EST.nivel >= D.P.nivel_max ? 100 : EST.xp / xpParaProximo(D.P, EST.nivel) * 100) + "%";
-  $("info").textContent = `${EST.ouro} ouro · ${EST.pocoes} ${EST.pocoes === 1 ? "poção" : "poções"}`;
+  $("info").textContent = `${EST.ouro} ouro · ${EST.pocoes} ${EST.pocoes === 1 ? "poção" : "poções"} · ${EST.fragmentos} frag.`;
 }
 function morrer() {
   jogador.morto = true; jogador.veneno = null; jogador.golpe = -1; aoMorrer(EST); salvar();
@@ -470,6 +493,8 @@ function desenhar(t) {
   if (!jogador.morto) fila.push({ y: jogador.y, f: () => desenharJogador(t) });
   fila.sort((a, b) => a.y - b.y); for (const q of fila) q.f();
   for (const c of chao) if (c.it.qual !== "comum") etiqueta(nomeItem(D.itens, c.it), Math.round(c.x - cam.x), Math.round(c.y - cam.y) - 12); // nomes por cima de tudo
+  for (let i = flutuantes.length - 1; i >= 0; i--) { const f = flutuantes[i]; f.t -= 1 / 60; f.y -= 0.4; if (f.t <= 0) { flutuantes.splice(i, 1); continue; }
+    ctx.save(); ctx.globalAlpha = Math.min(1, f.t * 2); ctx.font = "bold 9px system-ui"; ctx.textAlign = "center"; ctx.fillStyle = "#000b"; ctx.fillText(f.txt, f.x - cam.x + 1, f.y - cam.y + 1); ctx.fillStyle = f.cor; ctx.fillText(f.txt, f.x - cam.x, f.y - cam.y); ctx.restore(); }
 }
 
 let antes = 0, acum = 0;

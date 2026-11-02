@@ -33,7 +33,11 @@ await perto("mercador"); ok(await botao("Comprar poção"), "compra poção com 
 ok((await V(() => window.__valdor.est.pocoes)) === 2 && (await V(() => window.__valdor.est.ouro)) === 80, "ouro e poções atualizados"); await fechar();
 // ferreiro
 const dano0 = await V(() => window.__valdor.est.equip.arma.mais);
-await perto("ferreiro"); ok(await botao("Afiar"), "afia a espada"); await fechar();
+t = await perto("ferreiro");
+ok(await botao("Arma: Espada longa"), "escolhe a espada no ferreiro");
+ok(await botao("Melhorar para +1"), "melhora a espada (+1 sempre dá certo)");
+ok(await V(() => document.getElementById("caixa").innerText.includes("Sucesso")), "mostra o resultado");
+await fechar();
 ok((await V(() => window.__valdor.est.equip.arma.mais)) === dano0 + 1, "arma subiu de nível (+N)");
 // quadro
 await perto("quadro"); ok(await botao("Aceitar: Trilha limpa"), "aceita missão"); await fechar();

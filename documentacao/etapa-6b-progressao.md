@@ -32,7 +32,7 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 4. ✅ (adiantado a pedido) Ataques distintos dos monstros, com aviso visível.
 5. ✅ (adiantado a pedido) Mais monstros por área, em bandos; só os próximos ativos; desempenho medido.
 6. ✅ Drops, mochila e equipar (números).
-7. Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
+7. ✅ Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
 8. ✅ (adiantado a pedido) Mais peças visuais por espaço; personagem montado em camadas na hora.
 9. Arqueiro.
 10. Regiões 2 e 3.
@@ -85,3 +85,9 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
   - `data/pecas_usadas.txt` agora é gerado por `tools/build_jogo_assets.py` a partir dos itens: crédito nunca fica para trás.
   - Teste de navegador com toques reais confere que vestir a cota de malha muda os pixels do personagem.
 - **Goblins de costas:** as linhas de esquerda e direita da folha do goblin estavam trocadas (mapeadas a olho no mostruário). Corrigido; conferidas as demais folhas mapeadas a olho: javali, cobra, abelha, morcego e esqueleto estavam certos; o diabrete tinha cima/baixo trocados (corrigido, ainda não usado no jogo).
+
+## 11. Resultado do passo 7 (ferreiro)
+- **Melhoria +1 a +5** em qualquer item vestido ou da mochila (`melhoria` em `dados/itens.json`): +10% nos valores do item por nível; chance 100/100/80/60/40%; custo 40/70/110/160/220 de ouro e 0/1/2/3/5 fragmentos. Falha cobra o custo e o item continua igual: nunca quebra nem perde +N (recorte do Kritika sem a parte da loja).
+- **Fragmentos:** 15% de chance por monstro comum, 3 garantidos do chefe; aparecem como texto flutuante "+1 fragmento" e no topo da tela.
+- Tela do ferreiro: lista de itens (com a cor da qualidade, rola por dentro) e, ao escolher, custo, chance, "Melhorar para +N" e o resultado (sucesso em verde, falha em vermelho). O "afiar" provisório saiu.
+- Testes: taxa de sucesso medida em 4000 tentativas por nível bate com a tabela; falha não altera o item; recusa sem recursos não cobra nada.

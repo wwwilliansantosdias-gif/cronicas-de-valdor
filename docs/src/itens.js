@@ -90,3 +90,35 @@ export function vender(I, est, i) {
   const v = precoVenda(I, it);
   est.mochila.splice(i, 1); est.ouro += v; return v;
 }
+
+// ---------- ferreiro: melhoria +1..+max ----------
+// alvo: { espaco } (item vestido) ou { i } (item da mochila)
+export function itemDoAlvo(est, alvo) { return alvo.espaco ? est.equip[alvo.espaco] : est.mochila[alvo.i]; }
+
+// custo e chance de levar o item ao próximo +N (null se já está no máximo)
+export function proximaMelhoria(I, it) {
+  const m = I.melhoria, n = it.mais;
+  if (n >= m.max) return null;
+  return { para: n + 1, ouro: m.custo_ouro[n], fragmentos: m.fragmentos[n], chance: m.chance[n] };
+}
+
+// tenta melhorar; cobra ouro e fragmentos mesmo se falhar; o item nunca quebra nem perde +N.
+// Devolve { feito: false, motivo } se não pôde tentar, ou { feito: true, sucesso, mais }.
+export function melhorar(I, est, alvo, rng = Math.random) {
+  const it = itemDoAlvo(est, alvo);
+  if (!it) return { feito: false, motivo: "sem item" };
+  const p = proximaMelhoria(I, it);
+  if (!p) return { feito: false, motivo: "já está no máximo" };
+  if (est.ouro < p.ouro) return { feito: false, motivo: "ouro insuficiente" };
+  if (est.fragmentos < p.fragmentos) return { feito: false, motivo: "fragmentos insuficientes" };
+  est.ouro -= p.ouro; est.fragmentos -= p.fragmentos;
+  const sucesso = rng() < p.chance;
+  if (sucesso) it.mais++;
+  return { feito: true, sucesso, mais: it.mais };
+}
+
+// fragmentos que um monstro derrubado deixa
+export function sortearFragmentos(I, def, rng) {
+  if (def.comportamento === "chefe") return I.drops.fragmentos_chefe;
+  return rng() < I.drops.fragmento_chance ? 1 : 0;
+}
