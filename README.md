@@ -20,7 +20,7 @@ Abrir `docs/` num servidor estático (ex.: `python3 -m http.server -d docs`). Te
 pip install pytest pillow && python3 -m pytest -q tests     # dados e créditos
 node --test tests/js/*.test.js                               # motor (mapas, combate, xp, atributos, salvar, ritmo)
 node tools/simular.mjs 10                                    # tempo estimado até o nível 10
-PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/fluxo.mjs   # navegador, tela deitada
+for t in fumaca fluxo atributos; do PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/$t.mjs; done   # navegador, tela deitada
 ```
 
 ## Regenerar assets e créditos

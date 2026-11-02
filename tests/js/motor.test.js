@@ -178,8 +178,9 @@ test("redistribuir devolve exatamente os pontos gastos, cobra ouro e recusa sem 
   const e = novoEstado(); e.nivel = 5; e.pontosLivres = pontosAteNivel(P, 5); distribuirRecomendado(P, e, recomendado);
   e.ouro = 0;
   assert.equal(redistribuir(P, e), false);
-  e.ouro = 1000;
+  e.ouro = 1000; e.autoDistribuir = true;
   assert.ok(redistribuir(P, e));
+  assert.equal(e.autoDistribuir, false, "redistribuir desliga o modo automático");
   assert.equal(e.pontosLivres, pontosAteNivel(P, 5));
   assert.equal(e.ouro, 1000 - P.redistribuir_custo_por_nivel * 5);
   assert.equal(redistribuir(P, e), false, "nada a devolver");
@@ -238,13 +239,26 @@ test("save corrompido ou adulterado não derruba: devolve null", () => {
   assert.equal(carregar(s, mapasValidos), null);
   s.setItem("valdor-save", "{não é json");
   assert.equal(carregar(s, mapasValidos), null);
-  for (const mut of [{ nivel: 0 }, { nivel: 99 }, { ouro: -1 }, { mapa: "inexistente" }, { versao: 3 }, { xp: "x" }, { pontosLivres: 50 },
-    { atributos: { for: 50, vit: 5, agi: 5, sor: 5 } }, { equip: { arma: { base: "nao-existe", qual: "comum", mais: 0, bonus: {} } } }, { mochila: "x" }]) {
+  for (const mut of [{ nivel: 0 }, { nivel: 99 }, { ouro: -1 }, { mapa: "inexistente" }, { versao: 3 }, { xp: "x" },
+    { atributos: { for: 2, vit: 5, agi: 5, sor: 5 } }, { equip: { arma: { base: "nao-existe", qual: "comum", mais: 0, bonus: {} } } }, { mochila: "x" }]) {
     s.setItem("valdor-save", serializar({ ...novoEstado(), ...mut }));
     assert.equal(carregar(s, mapasValidos), null, JSON.stringify(mut));
   }
   const quebrado = { getItem() { throw new Error("bloqueado"); } };
   assert.equal(carregar(quebrado, mapasValidos), null);
+});
+
+test("pontos inconsistentes com o nível são consertados ao carregar, sem perder o save", () => {
+  const s = memoria();
+  const e = novoEstado(); e.nivel = 10; e.ouro = 300; e.pontosLivres = 3; // nível mudou sem os pontos
+  s.setItem("valdor-save", serializar(e));
+  const c = carregar(s, mapasValidos);
+  assert.ok(c, "não descartou"); assert.equal(c.ouro, 300);
+  assert.equal(gastos(P, c) + c.pontosLivres, pontosAteNivel(P, 10));
+  const f = novoEstado(); f.nivel = 2; f.atributos.for = 60; // mais gasto que o possível
+  s.setItem("valdor-save", serializar(f));
+  const d = carregar(s, mapasValidos);
+  assert.ok(d); assert.equal(d.atributos.for, P.atributo_inicial); assert.equal(d.pontosLivres, pontosAteNivel(P, 2));
 });
 
 test("save da versão 1 é migrado sem perder nível, ouro nem a arma afiada", () => {

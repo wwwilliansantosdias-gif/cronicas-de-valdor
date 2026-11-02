@@ -2,7 +2,7 @@ import { lerMapaTexto, gerarMapa, TILE, bloqueadoTile } from "./mapa.js";
 import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from "./progresso.js";
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, mover, direcaoDe } from "./combate.js";
-import { derivados, aoSubir, distribuirRecomendado } from "./personagem.js";
+import { derivados, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -79,6 +79,7 @@ $("bA").addEventListener("pointerdown", () => atacar());
 $("bP").addEventListener("pointerdown", () => usarPocao());
 $("bE").addEventListener("pointerdown", () => interagir());
 $("bM").addEventListener("pointerdown", () => menu());
+$("bS").addEventListener("pointerdown", () => { if (!parado) telaAtributos(); });
 
 function stats() { return derivados(D.P, D.itens, EST); }
 function subiuNiveis(n) {
@@ -121,7 +122,7 @@ function perto() {
 function painel(html, acoes = []) {
   parado = true; $("caixa").innerHTML = html;
   for (const [t, fn, off] of acoes) { const b = document.createElement("button"); b.textContent = t; b.disabled = !!off; b.onclick = () => { fn(); }; $("caixa").appendChild(b); }
-  const f = document.createElement("button"); f.textContent = "Fechar"; f.onclick = fechar; $("caixa").appendChild(f);
+  const f = document.createElement("button"); f.textContent = "Fechar"; f.className = "fechar"; f.onclick = fechar; $("caixa").prepend(f);
   $("painel").classList.add("on");
 }
 function fechar() { parado = false; $("painel").classList.remove("on"); }
@@ -158,9 +159,29 @@ function telaQuadro() {
   });
   painel("<h3>Quadro de missões</h3>", acoes);
 }
+const NOME_ATR = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
+// mexer em atributos pode mudar a vida máxima: mantém a vida perdida, não a proporção
+function comAjusteDeVida(fn) { const antes = stats().vidaMax, r = fn(); jogador.vida = Math.max(1, Math.min(stats().vidaMax, jogador.vida + stats().vidaMax - antes)); salvar(); return r; }
+function telaAtributos() {
+  const P = D.P, sv = stats(), rec = D.classes[EST.classe].recomendado, custo = custoRedistribuir(P, EST), naCidade = mapa.zonaSegura;
+  const sem = EST.pontosLivres <= 0;
+  const linhas = P.atributos.map((a) => `<div class="atr"><div><b>${NOME_ATR[a][0]}</b> ${sv.atributos[a]}${sv.atributos[a] !== EST.atributos[a] ? ` <small>(${EST.atributos[a]} + itens)</small>` : ""}<br><small>${NOME_ATR[a][1]}</small></div><button data-a="${a}" ${sem ? "disabled" : ""} aria-label="+1 ${NOME_ATR[a][0]}">+1</button></div>`).join("");
+  const html = `<h3>Atributos <small>· ${EST.pontosLivres} ponto${EST.pontosLivres === 1 ? "" : "s"} livre${EST.pontosLivres === 1 ? "" : "s"} (${P.pontos_por_nivel} por nível)</small></h3>
+    <div class="duas"><div>${linhas}</div><div class="dir"><table><tr><td>Dano</td><td>${sv.dano.toFixed(1)}</td></tr><tr><td>Vida máxima</td><td>${sv.vidaMax}</td></tr>
+    <tr><td>Recarga dos ataques</td><td>${Math.round(sv.recargaMult * 100)}%</td></tr><tr><td>Crítico</td><td>${(sv.critico * 100).toFixed(0)}% (×${sv.criticoMult})</td></tr></table></div></div>`;
+  painel(html, [
+    [`Recomendado (${P.atributos.filter((a) => rec[a]).map((a) => `${rec[a]} ${NOME_ATR[a][0].slice(0, 3)}`).join(" : ")})`, () => { comAjusteDeVida(() => distribuirRecomendado(P, EST, rec)); telaAtributos(); }, sem],
+    [`Distribuir sozinho: ${EST.autoDistribuir ? "ligado" : "desligado"}`, () => { EST.autoDistribuir = !EST.autoDistribuir; salvar(); telaAtributos(); }],
+    [naCidade ? `Redistribuir pontos (${custo} ouro)` : "Redistribuir: só na cidade", () => { if (confirm(`Devolver todos os pontos distribuídos por ${custo} ouro?`)) { comAjusteDeVida(() => redistribuir(P, EST)); telaAtributos(); } }, !naCidade || EST.ouro < custo || gastos(P, EST) === 0],
+  ]);
+  for (const b of $("caixa").querySelectorAll("button[data-a]")) b.onclick = () => { comAjusteDeVida(() => distribuir(P, EST, b.dataset.a, 1)); telaAtributos(); };
+  $("caixa").querySelector(".dir").append(...[...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
+}
+
 async function menu() {
   if (parado) return;
   painel(`<h3>Menu</h3><p>Nível ${EST.nivel} · ${EST.ouro} ouro</p>`, [
+    ["Atributos", () => telaAtributos()],
     ["Créditos", async () => { let t = "Não foi possível carregar."; try { t = await texto("CREDITOS.md"); } catch { /* sem rede */ } painel(`<h3>Créditos</h3><pre></pre>`); $("caixa").querySelector("pre").textContent = t; }],
     ["Mostruário de arte", () => { location.href = "mostruario/"; }],
     ["Apagar progresso e recomeçar", () => { if (confirm("Apagar o progresso salvo?")) { apagar(localStorage); location.reload(); } }],
@@ -203,6 +224,8 @@ function atualizar(dt) {
     $("bE").style.display = perto() ? "flex" : "none";
   } else $("bE").style.display = "none";
   $("nv").textContent = `Nv ${EST.nivel}`;
+  const bS = $("bS"), livres = EST.pontosLivres;
+  if (bS.dataset.n !== String(livres)) { bS.dataset.n = livres; bS.textContent = livres > 0 ? `+${livres}` : "Atrib."; bS.classList.toggle("tem", livres > 0); }
   $("hpb").firstChild.style.width = Math.max(0, jogador.vida / sv.vidaMax * 100) + "%";
   $("xpb").firstChild.style.width = (EST.nivel >= D.P.nivel_max ? 100 : EST.xp / xpParaProximo(D.P, EST.nivel) * 100) + "%";
   $("info").textContent = `${EST.ouro} ouro · ${EST.pocoes} ${EST.pocoes === 1 ? "poção" : "poções"}`;
@@ -296,5 +319,6 @@ function quadro(agora) {
   desenhar(agora / 1000);
   requestAnimationFrame(quadro);
 }
-window.__valdor = { get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir };
+window.__valdor = { get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir,
+  ganhar: (xp) => { subiuNiveis(ganharXp(D.P, EST, xp)); salvar(); } }; // ganchos para os testes de navegador
 iniciar().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<pre style="position:fixed;inset:0;background:#300;padding:12px;z-index:20;white-space:pre-wrap">Erro ao iniciar: ${String(e.message).replace(/</g, "&lt;")}</pre>`); console.error(e); });

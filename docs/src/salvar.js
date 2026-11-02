@@ -39,8 +39,11 @@ export function validar(P, I, obj, mapasValidos) {
   if (!obj.missoes || typeof obj.missoes !== "object") return null;
   if (!obj.atributos || !P.atributos.every((a) => inteiro(obj.atributos[a], P.atributo_inicial, 999))) return null;
   if (!inteiro(obj.pontosLivres, 0, 999) || !inteiro(obj.pontosHab, 0, 99) || !inteiro(obj.fragmentos, 0, 1e6)) return null;
-  const gastos = P.atributos.reduce((s, a) => s + obj.atributos[a] - P.atributo_inicial, 0);
-  if (gastos + obj.pontosLivres !== pontosAteNivel(P, obj.nivel)) return null; // pontos não podem aparecer do nada
+  // pontos inconsistentes com o nível são consertados, não descartados: o progresso nunca é apagado
+  const total = pontosAteNivel(P, obj.nivel);
+  let gastos = P.atributos.reduce((s, a) => s + obj.atributos[a] - P.atributo_inicial, 0);
+  if (gastos > total) { obj.atributos = atributosIniciais(P); gastos = 0; }
+  obj.pontosLivres = total - gastos;
   if (!obj.equip || !I.espacos.every((e) => obj.equip[e] === null || itemValido(I, obj.equip[e], e))) return null;
   if (!Array.isArray(obj.mochila) || obj.mochila.length > 20 || !obj.mochila.every((it) => itemValido(I, it))) return null;
   if (!obj.habilidades || typeof obj.habilidades !== "object") return null;

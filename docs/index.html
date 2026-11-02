@@ -22,10 +22,22 @@ canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rend
 #bP{right:118px;bottom:14px;width:56px;height:56px}
 #bE{right:118px;bottom:78px;width:56px;height:56px;background:#ffb34755;display:none}
 #bM{top:6px;right:8px;width:44px;height:44px;border-radius:10px}
+#bS{top:6px;right:60px;min-width:48px;height:44px;border-radius:10px;padding:0 10px}
+#bS.tem{background:#ffb347cc;color:#222;border-color:#ffb347;animation:pulso 1.2s infinite}
+@keyframes pulso{50%{transform:scale(1.08)}}
+#caixa .grade{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
+#caixa .duas{display:grid;grid-template-columns:1.2fr 1fr;gap:12px;align-items:start}
+#caixa .atr{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #fff2;padding:2px 0;font-size:13px}
+#caixa .atr button{width:52px;min-height:44px;margin:2px 0;flex:none}
+#caixa h3 small{font-weight:400;font-size:13px;color:#ccd}
+@media (max-width:560px){#caixa .duas,#caixa .grade{grid-template-columns:1fr}}
+#caixa table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}#caixa td{padding:3px 4px;border-bottom:1px solid #fff2}#caixa td:last-child{text-align:right}
 #painel{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:5}
 #painel.on{display:flex}
-#caixa{background:#262a37;border:1px solid var(--bd);border-radius:12px;padding:14px;max-width:min(560px,92vw);max-height:90vh;overflow:auto;touch-action:pan-y}
-#caixa h3{margin:0 0 8px}
+#caixa{position:relative;background:#262a37;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;max-width:min(680px,94vw);max-height:90vh;overflow:auto;touch-action:pan-y}
+#caixa h3{margin:0 0 8px;padding-right:90px}
+#caixa button.fechar{position:absolute;top:8px;right:8px;width:auto;min-height:40px;padding:4px 14px;margin:0}
+#caixa .dir button{min-height:44px;margin:6px 0 0;padding:6px}
 #caixa button{display:block;width:100%;min-height:48px;margin:6px 0;font:inherit;background:#3a4052;color:var(--tx);border:1px solid #fff3;border-radius:8px;padding:8px}
 #caixa button:disabled{opacity:.45}
 #caixa pre{white-space:pre-wrap;font-size:12px;max-height:55vh;overflow:auto;touch-action:pan-y;user-select:text;-webkit-user-select:text}
@@ -41,6 +53,7 @@ canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rend
 <div class="btn" id="bA">Atacar</div>
 <div class="btn" id="bP">Poção</div>
 <div class="btn" id="bE">Falar</div>
+<div class="btn" id="bS">Atrib.</div>
 <div class="btn" id="bM">☰</div>
 <div id="painel"><div id="caixa"></div></div>
 <div id="girar">Gire o celular para jogar<br>(tela deitada)</div>

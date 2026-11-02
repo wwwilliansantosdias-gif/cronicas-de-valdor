@@ -26,11 +26,12 @@ export function distribuirRecomendado(P, est, recomendado) {
 
 export function custoRedistribuir(P, est) { return P.redistribuir_custo_por_nivel * est.nivel; }
 
-// devolve todos os pontos gastos; cobra ouro; false se não houver ouro ou nada a devolver
+// devolve todos os pontos gastos; cobra ouro; false se não houver ouro ou nada a devolver.
+// Desliga a distribuição automática: quem redistribui quer escolher onde pôr os pontos.
 export function redistribuir(P, est) {
   const custo = custoRedistribuir(P, est), g = gastos(P, est);
   if (g === 0 || est.ouro < custo) return false;
-  est.ouro -= custo; est.atributos = atributosIniciais(P); est.pontosLivres += g; return true;
+  est.ouro -= custo; est.atributos = atributosIniciais(P); est.pontosLivres += g; est.autoDistribuir = false; return true;
 }
 
 // ao subir n níveis: ganha pontos de atributo e de habilidade; distribui sozinho se o modo automático estiver ligado

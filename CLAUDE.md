@@ -13,7 +13,7 @@ Projeto: Crônicas de Valdor (versão real). Jogo pessoal, navegador do celular 
 - Etapas: 1 restrições (feita), 2 história, 3 arte, 4 documentação, 5 testes, 6 código.
 
 ## Comandos
-- Testes: `python3 -m pytest -q tests`, `node --test tests/js/*.test.js`, e `tests/nav/fluxo.mjs` (Playwright; ver README).
+- Testes: `python3 -m pytest -q tests`, `node --test tests/js/*.test.js`, e `tests/nav/*.mjs` (Playwright; ver README).
 - O jogo é `docs/` (módulos ES sem build). Dados do jogo em `docs/dados/`, mapas em texto em `docs/mapas/`.
 - Depois de mudar sprites ou peças: `tools/build_mostruario.py` e `tools/build_jogo_assets.py`.
 - Números de equilíbrio (xp, vida e dano de monstros, fórmulas) só mudam com `node tools/simular.mjs`; o teste de ritmo exige nível 10 em 25–35 min.

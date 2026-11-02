@@ -25,6 +25,7 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
   const spec = lerMapaTexto(readFileSync(new URL("../docs/mapas/mata-do-javali.txt", import.meta.url), "utf8"));
   const rng = criarPrng(semente);
   const est = novoEstado(P, I);
+  est.autoDistribuir = true; // o simulador segue a distribuição recomendada
   for (const q of Q) est.missoes[q.id] = { estado: "ativa", progresso: 0 };
   const pool = [];
   for (const s of spec.spawns) for (let i = 0; i < s.n; i++) pool.push({ def: M[s.tipo], volta: 0 });
