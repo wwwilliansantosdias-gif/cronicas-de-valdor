@@ -8,13 +8,37 @@
       "vida": 70,
       "dano": 8,
       "velocidade": 55,
-      "alcance": 22,
       "xp": 9,
       "ouro": [
         2,
         5
       ],
-      "escala": 1
+      "escala": 1,
+      "ataques": [
+        {
+          "id": "investida",
+          "tipo": "investida",
+          "mult": 1.3,
+          "alcance_min": 50,
+          "alcance": 150,
+          "raio": 20,
+          "aviso": 0.5,
+          "velocidade": 240,
+          "duracao": 0.55,
+          "recarga": 3,
+          "pos": 0.5
+        },
+        {
+          "id": "corpo",
+          "tipo": "corpo",
+          "mult": 1.0,
+          "alcance": 22,
+          "raio": 30,
+          "aviso": 0.45,
+          "recarga": 0.9,
+          "pos": 0.35
+        }
+      ]
     },
     {
       "id": "goblin",
@@ -24,13 +48,24 @@
       "vida": 56,
       "dano": 7,
       "velocidade": 50,
-      "alcance": 22,
       "xp": 8,
       "ouro": [
         2,
         6
       ],
-      "escala": 1
+      "escala": 1,
+      "ataques": [
+        {
+          "id": "corpo",
+          "tipo": "corpo",
+          "mult": 1.0,
+          "alcance": 22,
+          "raio": 30,
+          "aviso": 0.4,
+          "recarga": 0.8,
+          "pos": 0.35
+        }
+      ]
     },
     {
       "id": "cobra",
@@ -40,13 +75,31 @@
       "vida": 40,
       "dano": 5,
       "velocidade": 45,
-      "alcance": 20,
       "xp": 6,
       "ouro": [
         1,
         4
       ],
-      "escala": 1
+      "escala": 1,
+      "ataques": [
+        {
+          "id": "bote",
+          "tipo": "investida",
+          "mult": 1.0,
+          "alcance_min": 0,
+          "alcance": 60,
+          "raio": 18,
+          "aviso": 0.25,
+          "velocidade": 260,
+          "duracao": 0.18,
+          "recarga": 1.4,
+          "pos": 0.4,
+          "veneno": {
+            "dps": 2,
+            "duracao": 3
+          }
+        }
+      ]
     },
     {
       "id": "abelha",
@@ -56,13 +109,24 @@
       "vida": 28,
       "dano": 4,
       "velocidade": 70,
-      "alcance": 18,
       "xp": 5,
       "ouro": [
         1,
         3
       ],
-      "escala": 1
+      "escala": 1,
+      "ataques": [
+        {
+          "id": "ferroada",
+          "tipo": "corpo",
+          "mult": 0.9,
+          "alcance": 20,
+          "raio": 26,
+          "aviso": 0.22,
+          "recarga": 0.6,
+          "pos": 0.2
+        }
+      ]
     },
     {
       "id": "javali-coroado",
@@ -72,13 +136,47 @@
       "vida": 480,
       "dano": 18,
       "velocidade": 60,
-      "alcance": 34,
       "xp": 150,
       "ouro": [
         60,
         90
       ],
-      "escala": 1.6
+      "escala": 1.6,
+      "ataques": [
+        {
+          "id": "pisao",
+          "tipo": "area",
+          "mult": 1.2,
+          "alcance": 70,
+          "raio": 70,
+          "aviso": 0.8,
+          "recarga": 4.5,
+          "pos": 0.6
+        },
+        {
+          "id": "investida",
+          "tipo": "investida",
+          "mult": 1.3,
+          "alcance_min": 60,
+          "alcance": 200,
+          "raio": 30,
+          "aviso": 0.6,
+          "velocidade": 260,
+          "duracao": 0.7,
+          "recarga": 3.5,
+          "pos": 0.7
+        },
+        {
+          "id": "corpo",
+          "tipo": "corpo",
+          "mult": 1.0,
+          "alcance": 34,
+          "raio": 44,
+          "aviso": 0.45,
+          "recarga": 0.9,
+          "pos": 0.35
+        }
+      ]
     }
   ]
 }

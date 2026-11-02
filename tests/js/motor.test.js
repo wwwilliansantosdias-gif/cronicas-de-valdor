@@ -5,7 +5,7 @@ import { lerMapaTexto, gerarMapa, alcancaveis, bloqueadoTile } from "../../docs/
 import { ganharXp, novoEstado as novoEstadoBase, xpParaProximo, portalLiberado, aoMorrer } from "../../docs/src/progresso.js";
 import { criarMonstro, danoEm, atingir, atualizarMonstro, dentroDaArea, danoHabilidade, recargaHabilidade } from "../../docs/src/combate.js";
 import { carregar as carregarBase, guardar, serializar, migrarV1 } from "../../docs/src/salvar.js";
-import { derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem } from "../../docs/src/personagem.js";
+import { derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem, desbloquearHabilidades, melhorarHabilidade } from "../../docs/src/personagem.js";
 import { media } from "../../tools/simular.mjs";
 
 const ler = (f) => readFileSync(new URL("../../docs/" + f, import.meta.url), "utf8");
@@ -53,7 +53,8 @@ test("nenhum monstro, npc ou portal nasce em peça bloqueada", () => {
 
 test("área de caça tem de 6 a 10 monstros; cidade é zona segura sem monstros", () => {
   const caca = gerar("mata-do-javali"), cidade = gerar("pe-de-lenha");
-  assert.ok(caca.spawns.length + (caca.chefe ? 1 : 0) >= 6 && caca.spawns.length + (caca.chefe ? 1 : 0) <= 10);
+  const total = caca.spawns.length + (caca.chefe ? 1 : 0);
+  assert.ok(total >= 6 && total <= 16, "até 16 por área (média das referências): " + total);
   assert.equal(cidade.zonaSegura, true);
   assert.equal(cidade.spawns.length, 0);
   assert.deepEqual(cidade.npcs.map((n) => n.tipo).sort(), ["ferreiro", "mercador", "quadro"]);
@@ -166,6 +167,21 @@ test("pontos: ganha 3 por nível; distribuídos + livres sempre somam o total do
   assert.equal(gastos(P, e) + e.pontosLivres, pontosAteNivel(P, e.nivel));
 });
 
+test("habilidades liberam no nível certo, no grau 1; pontos de habilidade sobem o grau até o máximo", () => {
+  const e = novoEstado(); e.autoDistribuir = true;
+  const habsG = C.find((c) => c.id === "guerreiro").habilidades.map(hab);
+  desbloquearHabilidades(e, habsG);
+  assert.deepEqual(Object.keys(e.habilidades), ["golpe"]);
+  aoSubir(P, e, ganharXp(P, e, xpParaProximo(P, 1) + xpParaProximo(P, 2)), recomendado, habsG);
+  assert.equal(e.nivel, 3); assert.equal(e.habilidades.estocada, 1); assert.equal(e.habilidades.giro, undefined);
+  assert.equal(e.pontosHab, 1);
+  assert.ok(melhorarHabilidade(P, e, "estocada")); assert.equal(e.habilidades.estocada, 2); assert.equal(e.pontosHab, 0);
+  assert.equal(melhorarHabilidade(P, e, "estocada"), false, "sem pontos");
+  assert.equal(melhorarHabilidade(P, e, "giro"), false, "não liberada");
+  e.pontosHab = 99; while (melhorarHabilidade(P, e, "golpe"));
+  assert.equal(e.habilidades.golpe, P.grau_max_habilidade);
+});
+
 test("modo recomendado distribui todos os pontos na proporção da classe", () => {
   const e = novoEstado(); e.pontosLivres = 9;
   distribuirRecomendado(P, e, recomendado);
@@ -197,14 +213,53 @@ test("equipamento: qualidade e +N aumentam os valores; tirar o item reduz", () =
   assert.equal(derivados(P, I, e).atributos.sor, e.atributos.sor + 3);
 });
 
-test("monstro persegue, ataca depois de uma janela e causa dano uma vez por ataque", () => {
-  const mapa = gerar("mata-do-javali");
-  const j = { x: 20 * 32, y: 20 * 32, morto: false };
-  const m = criarMonstro(monstros[0], j.x + 80, j.y);
-  let total = 0, passos = 0;
-  while (passos++ < 60 * 3) total += atualizarMonstro(m, j, 1 / 60, mapa, () => 0.5);
-  assert.ok(total >= monstros[0].dano, "causou dano");
-  assert.ok(total % monstros[0].dano === 0);
+const def = (id) => monstros.find((m) => m.id === id);
+// arena aberta: mapa sem obstáculos para testar ataques
+const arena = { w: 40, h: 40, bloq: new Uint8Array(1600) };
+function rodar(m, j, seg, cada) { let dano = 0, veneno = null; for (let i = 0; i < seg * 60; i++) { cada?.(i); const r = atualizarMonstro(m, j, 1 / 60, arena, () => 0.5); dano += r.dano; veneno = veneno || r.veneno; } return { dano, veneno }; }
+
+test("todo monstro do jogo tem ataques com tipo conhecido e números válidos", () => {
+  for (const m of monstros) {
+    assert.ok(m.ataques.length > 0, m.id);
+    for (const a of m.ataques) {
+      assert.ok(["corpo", "investida", "area"].includes(a.tipo), m.id + a.id);
+      assert.ok(a.aviso > 0 && a.recarga > 0 && a.mult > 0 && a.alcance > 0, m.id + a.id);
+      if (a.tipo === "investida") assert.ok(a.velocidade > 0 && a.duracao > 0);
+    }
+  }
+});
+
+test("goblin avisa antes de bater: nada de dano durante o aviso", () => {
+  const j = { x: 400, y: 400, morto: false }, m = criarMonstro(def("goblin"), 418, 400);
+  m.estado = "perseguir";
+  const a = def("goblin").ataques[0];
+  assert.equal(rodar(m, j, a.aviso * 0.9).dano, 0);
+  assert.ok(rodar(m, j, 0.2).dano > 0);
+});
+
+test("investida do javali: direção travada no aviso; quem sai da linha não é atingido", () => {
+  const fica = { x: 400, y: 400, morto: false }, m1 = criarMonstro(def("javali"), 300, 400); m1.estado = "perseguir";
+  assert.ok(rodar(m1, fica, 1.2).dano > 0, "parado na linha: atingido");
+  const sai = { x: 400, y: 400, morto: false }, m2 = criarMonstro(def("javali"), 300, 400); m2.estado = "perseguir";
+  const r = rodar(m2, sai, 1.2, (i) => { if (i === 5) sai.y = 470; });
+  assert.equal(r.dano, 0, "saiu da linha durante o aviso: escapou");
+});
+
+test("bote da cobra envenena; recarga impede ataque contínuo", () => {
+  const j = { x: 400, y: 400, morto: false }, m = criarMonstro(def("cobra"), 430, 400); m.estado = "perseguir";
+  const r = rodar(m, j, 0.8);
+  assert.ok(r.dano > 0 && r.veneno && r.veneno.dps > 0);
+  const a = def("cobra").ataques[0], max = Math.ceil(3 / (a.aviso + a.recarga)) + 1;
+  assert.ok(rodar(m, j, 3).dano <= max * def("cobra").dano * a.mult, "respeita a recarga");
+});
+
+test("pisão do chefe atinge em volta, inclusive atrás; fora do raio não", () => {
+  const perto = { x: 400, y: 400, morto: false }, c1 = criarMonstro(def("javali-coroado"), 350, 400); c1.estado = "perseguir";
+  assert.ok(rodar(c1, perto, 1).dano > 0);
+  const pisao = def("javali-coroado").ataques.find((a) => a.tipo === "area");
+  const c2 = criarMonstro(def("javali-coroado"), 300, 400); c2.estado = "preparar"; c2.atq = pisao; c2.t = 0; c2.alvo = [1, 0]; c2.cd = {};
+  const longe = { x: 300 + pisao.raio + 30, y: 400, morto: false };
+  assert.equal(atualizarMonstro(c2, longe, pisao.aviso + 0.01, arena).dano, 0);
 });
 
 test("monstro não entra em peça bloqueada ao perseguir", () => {
@@ -213,6 +268,7 @@ test("monstro não entra em peça bloqueada ao perseguir", () => {
   const m = criarMonstro(monstros[0], j.x + 100, j.y);
   for (let i = 0; i < 600; i++) {
     atualizarMonstro(m, j, 1 / 60, mapa, () => 0.3);
+    if (m.estado === "recuperar") m.estado = "perseguir";
     assert.equal(bloqueadoTile(mapa, Math.floor(m.x / 32), Math.floor((m.y - 4) / 32)), false);
   }
 });
@@ -230,6 +286,7 @@ const carregar = (s, mv) => carregarBase(P, I, s, mv);
 test("salvar e carregar devolvem o mesmo estado", () => {
   const s = memoria(), e = novoEstado(); e.nivel = 12; e.xp = 33; e.ouro = 77; e.missoes = { javalis: { estado: "ativa", progresso: 2 } };
   e.pontosLivres = pontosAteNivel(P, 12); distribuirRecomendado(P, e, recomendado);
+  e.pontosHab = Math.floor(12 / P.nivel_por_ponto_habilidade);
   assert.ok(guardar(s, e));
   assert.deepEqual(carregar(s, mapasValidos), e);
 });
@@ -259,6 +316,14 @@ test("pontos inconsistentes com o nível são consertados ao carregar, sem perde
   s.setItem("valdor-save", serializar(f));
   const d = carregar(s, mapasValidos);
   assert.ok(d); assert.equal(d.atributos.for, P.atributo_inicial); assert.equal(d.pontosLivres, pontosAteNivel(P, 2));
+});
+
+test("graus de habilidade acima do possível são consertados ao carregar", () => {
+  const s = memoria(), e = novoEstado(); e.nivel = 3; e.habilidades = { golpe: 5, estocada: 4 };
+  e.pontosLivres = pontosAteNivel(P, 3);
+  s.setItem("valdor-save", serializar(e));
+  const c = carregar(s, mapasValidos);
+  assert.ok(c); assert.deepEqual(c.habilidades, { golpe: 1, estocada: 1 }); assert.equal(c.pontosHab, 1);
 });
 
 test("save da versão 1 é migrado sem perder nível, ouro nem a arma afiada", () => {

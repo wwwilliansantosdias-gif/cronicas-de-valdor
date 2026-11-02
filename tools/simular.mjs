@@ -2,13 +2,15 @@
 // Uso: node tools/simular.mjs [nivel-alvo]    (padrão 10)
 // Modelo (aproximado, de propósito simples):
 // - caça na área da região 1; cada monstro morto some e volta depois do respawn;
-// - luta: dano por segundo do jogador = dano do Golpe x crítico médio / recarga x eficiência (posicionar, errar);
-// - o monstro acerta parte dos ataques enquanto a luta dura; o jogador bebe poção abaixo de 35% de vida
+// - luta: dano por segundo do jogador = soma das habilidades liberadas (dano x crítico médio / recarga) x eficiência
+//   (posicionar, errar); o Giro conta 1,5 alvo;
+// - o monstro usa o seu ataque mais forte em ciclo (aviso + recarga) e acerta parte deles (o resto o jogador desvia
+//   pelo aviso); veneno soma o dano contínuo; o jogador bebe poção abaixo de 35% de vida
 //   e, sem poção, volta à cidade (cura e compra poções);
 // - missões do quadro entregues na volta à cidade; chefe enfrentado a partir do nível 6.
 import { readFileSync } from "node:fs";
 import { novoEstado, ganharXp } from "../docs/src/progresso.js";
-import { derivados, aoSubir } from "../docs/src/personagem.js";
+import { derivados, aoSubir, desbloquearHabilidades } from "../docs/src/personagem.js";
 import { danoHabilidade, recargaHabilidade } from "../docs/src/combate.js";
 import { criarPrng } from "../docs/src/prng.js";
 import { lerMapaTexto } from "../docs/src/mapa.js";
@@ -20,7 +22,7 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
   const P = dados?.P || ler("dados/progressao.json"), I = dados?.I || ler("dados/itens.json");
   const M = Object.fromEntries((dados?.M || ler("dados/monstros.json")).monstros.map((m) => [m.id, m]));
   const C = Object.fromEntries(ler("dados/classes.json").classes.map((c) => [c.id, c]));
-  const H = ler("dados/habilidades.json"), golpe = H.habilidades.find((h) => h.id === "golpe");
+  const H = ler("dados/habilidades.json");
   const Q = ler("dados/missoes.json").missoes;
   const spec = lerMapaTexto(readFileSync(new URL("../docs/mapas/mata-do-javali.txt", import.meta.url), "utf8"));
   const rng = criarPrng(semente);
@@ -39,18 +41,22 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     for (const q of Q) { const e = est.missoes[q.id]; if (e.estado === "pronta") { e.estado = "entregue"; est.ouro += q.recompensa.ouro; subir(ganharXp(P, est, q.recompensa.xp)); } }
     while (est.pocoes < sup.pocoesAlvo && est.ouro >= preco) { est.ouro -= preco; est.pocoes++; }
   };
-  const subir = (n) => { if (!n) return; aoSubir(P, est, n, C[est.classe].recomendado); vida = derivados(P, I, est).vidaMax; for (let k = est.nivel - n + 1; k <= est.nivel; k++) marcos[k] ??= t; };
+  const habsClasse = C[est.classe].habilidades.map((id) => H.habilidades.find((h) => h.id === id));
+  desbloquearHabilidades(est, habsClasse);
+  const subir = (n) => { if (!n) return; aoSubir(P, est, n, C[est.classe].recomendado, habsClasse); vida = derivados(P, I, est).vidaMax; for (let k = est.nivel - n + 1; k <= est.nivel; k++) marcos[k] ??= t; };
   while (est.nivel < alvo && t < 6 * 3600) {
     const sv = derivados(P, I, est);
     const critMedio = 1 + sv.critico * (sv.criticoMult - 1);
-    const dps = danoHabilidade(golpe, H.por_grau, sv.dano, 1) * critMedio / recargaHabilidade(golpe, H.por_grau, sv.recargaMult, 1) * sup.eficiencia;
+    let dps = 0;
+    for (const h of habsClasse) if (est.habilidades[h.id]) dps += danoHabilidade(h, H.por_grau, sv.dano, est.habilidades[h.id]) * critMedio / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id]) * (h.forma === "circulo" ? 1.5 : 1);
+    dps *= sup.eficiencia;
     let alvoM = null;
     if (est.nivel >= sup.nivelChefe && chefe.volta <= t) alvoM = chefe;
     else { const vivos = pool.filter((p) => p.volta <= t); if (vivos.length) alvoM = vivos[Math.floor(rng() * vivos.length)]; }
     if (!alvoM) { t = Math.min(...pool.map((p) => p.volta)); continue; }
     if (vida < 0.35 * sv.vidaMax) { if (est.pocoes > 0) { est.pocoes--; vida = Math.min(sv.vidaMax, vida + 60); } else cidade(); continue; }
     const def = alvoM.def, luta = def.vida / dps;
-    const recebido = def.dano / 0.9 * sup.acertoMonstro * luta;
+    const recebido = dpsMonstro(def) * sup.acertoMonstro * luta;
     t += sup.aproximacao + luta;
     if (recebido >= vida) { mortes++; est.ouro = Math.floor(est.ouro * 0.8); cidade(); continue; }
     vida -= recebido; abates++;
@@ -60,6 +66,11 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     subir(ganharXp(P, est, def.xp));
   }
   return { minutos: t / 60, marcos: Object.fromEntries(Object.entries(marcos).map(([k, v]) => [k, +(v / 60).toFixed(1)])), mortes, abates, visitas, nivel: est.nivel };
+}
+
+// dano por segundo do ataque mais forte do monstro, em ciclo de aviso + recarga (veneno incluso)
+export function dpsMonstro(def) {
+  return Math.max(...def.ataques.map((a) => (def.dano * a.mult + (a.veneno ? a.veneno.dps * a.veneno.duracao : 0)) / (a.aviso + Math.max(a.recarga, a.pos || 0))));
 }
 
 export function media(alvo = 10, n = 20, opts = {}) {

@@ -34,12 +34,28 @@ export function redistribuir(P, est) {
   est.ouro -= custo; est.atributos = atributosIniciais(P); est.pontosLivres += g; est.autoDistribuir = false; return true;
 }
 
-// ao subir n níveis: ganha pontos de atributo e de habilidade; distribui sozinho se o modo automático estiver ligado
-export function aoSubir(P, est, n, recomendado) {
+// ao subir n níveis: ganha pontos de atributo e de habilidade, libera habilidades do nível;
+// distribui os atributos sozinho se o modo automático estiver ligado
+export function aoSubir(P, est, n, recomendado, habsClasse = []) {
   if (n <= 0) return;
   est.pontosLivres += n * P.pontos_por_nivel;
   est.pontosHab = pontosHabilidadeAteNivel(P, est.nivel) - gastosHab(est);
+  desbloquearHabilidades(est, habsClasse);
   if (est.autoDistribuir) distribuirRecomendado(P, est, recomendado);
+}
+
+// habilidades implementadas cujo nível foi alcançado entram no grau 1 (sem custo)
+export function desbloquearHabilidades(est, habsClasse) {
+  const novas = [];
+  for (const h of habsClasse) if (h.implementada && est.nivel >= h.nivel && !est.habilidades[h.id]) { est.habilidades[h.id] = 1; novas.push(h); }
+  return novas;
+}
+
+// gasta 1 ponto de habilidade para subir o grau; false se não puder
+export function melhorarHabilidade(P, est, id) {
+  const g = est.habilidades[id];
+  if (!g || g >= P.grau_max_habilidade || est.pontosHab < 1) return false;
+  est.habilidades[id] = g + 1; est.pontosHab--; return true;
 }
 
 export function gastosHab(est) { return Object.values(est.habilidades).reduce((s, g) => s + g - 1, 0); }

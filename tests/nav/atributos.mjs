@@ -15,7 +15,8 @@ await V(() => { window.__valdor.entrar("mata-do-javali", "pe-de-lenha"); window.
 await pag.waitForTimeout(150);
 const livres = await V(() => window.__valdor.est.pontosLivres);
 ok(livres > 0 && livres % 3 === 0, "pontos livres acumulam (" + livres + ")");
-ok((await V(() => document.getElementById("bS").textContent)) === `+${livres}`, "botão mostra +N");
+const hab = await V(() => window.__valdor.est.pontosHab);
+ok((await V(() => document.getElementById("bS").textContent)) === `+${livres + hab}`, "botão mostra +N (atributos + habilidades)");
 await pag.click("#bS", { force: true }); await pag.waitForTimeout(150);
 await pag.screenshot({ path: saida + "/a1.png" });
 ok(await V(() => { const c = document.getElementById("caixa"); return c.scrollHeight <= c.clientHeight + 2; }), "tela de atributos cabe sem rolar em 844×390");

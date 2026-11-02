@@ -11,3 +11,9 @@ hat/helmet/armet_simple/adult/walk.png
 hat/helmet/armet_simple/adult/slash.png
 weapon/sword/longsword/walk.png
 weapon/sword/longsword/slash_oversize.png
+body/bodies/male/thrust.png
+head/heads/human/male/thrust.png
+legs/armour/plate/male/thrust.png
+torso/armour/plate/male/thrust.png
+hat/helmet/armet_simple/adult/thrust.png
+weapon/sword/longsword/thrust_oversize.png

@@ -45,13 +45,13 @@ const mortos = await V(async () => {
   for (let i = 0; i < 4; i++) {
     const m = V.monstros.find((x) => x.def.id === "javali" && !x.morto) || (() => { return null; })();
     if (!m) break;
-    V.jogador.x = m.x - 20; V.jogador.y = m.y; V.jogador.dir = "right"; V.jogador.invul = 99; V.jogador.recarga = 0;
+    V.jogador.x = m.x - 20; V.jogador.y = m.y; V.jogador.dir = "right"; V.jogador.invul = 99; V.jogador.cds = {};
     for (let k = 0; k < 20 && !m.morto; k++) { V.atacar(); await new Promise((r) => setTimeout(r, 560)); V.jogador.x = m.x - 20; V.jogador.y = m.y; }
     if (m.morto) n++;
   }
   return n;
 });
-ok(mortos === 4, "há 4 javalis na mata; matamos 4 (" + mortos + ")");
+ok(mortos === 4, "há 5 javalis na mata; matamos 4 (" + mortos + ")");
 ok((await V(() => window.__valdor.est.missoes.javalis.progresso)) === 4, "progresso da missão contado (4/6)");
 await V(() => { window.__valdor.est.missoes.javalis.progresso = 6; window.__valdor.est.missoes.javalis.estado = "pronta"; window.__valdor.entrar("pe-de-lenha", null); });
 const ouroAntes = await V(() => window.__valdor.est.ouro);

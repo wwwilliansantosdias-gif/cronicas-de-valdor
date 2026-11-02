@@ -1,22 +1,155 @@
 {
-  "espacos": ["arma", "capacete", "peitoral", "grevas"],
+  "espacos": [
+    "arma",
+    "capacete",
+    "peitoral",
+    "grevas"
+  ],
   "qualidades": [
-    { "id": "comum", "nome": "Comum", "mult": 1.0, "bonus_atributos": 0, "peso": 70, "cor": "#e8e8ef" },
-    { "id": "refinado", "nome": "Refinado", "mult": 1.15, "bonus_atributos": 0, "peso": 22, "cor": "#7fd27f" },
-    { "id": "raro", "nome": "Raro", "mult": 1.35, "bonus_atributos": 1, "peso": 7, "cor": "#5fa8ff" },
-    { "id": "lendario", "nome": "Lendário", "mult": 1.6, "bonus_atributos": 2, "peso": 1, "cor": "#ffb347" }
+    {
+      "id": "comum",
+      "nome": "Comum",
+      "mult": 1.0,
+      "bonus_atributos": 0,
+      "peso": 70,
+      "cor": "#e8e8ef"
+    },
+    {
+      "id": "refinado",
+      "nome": "Refinado",
+      "mult": 1.15,
+      "bonus_atributos": 0,
+      "peso": 22,
+      "cor": "#7fd27f"
+    },
+    {
+      "id": "raro",
+      "nome": "Raro",
+      "mult": 1.35,
+      "bonus_atributos": 1,
+      "peso": 7,
+      "cor": "#5fa8ff"
+    },
+    {
+      "id": "lendario",
+      "nome": "Lendário",
+      "mult": 1.6,
+      "bonus_atributos": 2,
+      "peso": 1,
+      "cor": "#ffb347"
+    }
   ],
-  "melhoria": { "max": 5, "bonus_por_nivel": 0.1, "chance": [1, 1, 0.8, 0.6, 0.4], "custo_ouro": [40, 70, 110, 160, 220], "fragmentos": [0, 1, 2, 3, 5] },
+  "melhoria": {
+    "max": 5,
+    "bonus_por_nivel": 0.1,
+    "chance": [
+      1,
+      1,
+      0.8,
+      0.6,
+      0.4
+    ],
+    "custo_ouro": [
+      40,
+      70,
+      110,
+      160,
+      220
+    ],
+    "fragmentos": [
+      0,
+      1,
+      2,
+      3,
+      5
+    ]
+  },
   "itens": [
-    { "id": "pocao", "nome": "Poção de vida", "tipo": "consumivel", "preco": 20, "efeito": { "cura": 60 }, "peca_lpc": [] },
-    { "id": "espada-longa", "nome": "Espada longa", "tipo": "arma", "espaco": "arma", "nivel": 1, "classes": ["guerreiro"], "dano": 4, "preco": 30,
-      "peca_lpc": ["weapon/sword/longsword/walk.png", "weapon/sword/longsword/slash_oversize.png"] },
-    { "id": "armadura-placa", "nome": "Peitoral de placas", "tipo": "armadura", "espaco": "peitoral", "nivel": 1, "classes": ["guerreiro"], "vida": 10, "preco": 30,
-      "peca_lpc": ["torso/armour/plate/male/walk.png", "torso/armour/plate/male/slash.png"] },
-    { "id": "calca-placa", "nome": "Grevas de placas", "tipo": "armadura", "espaco": "grevas", "nivel": 1, "classes": ["guerreiro"], "vida": 5, "preco": 20,
-      "peca_lpc": ["legs/armour/plate/male/walk.png", "legs/armour/plate/male/slash.png"] },
-    { "id": "elmo-armet", "nome": "Elmo armet", "tipo": "capacete", "espaco": "capacete", "nivel": 1, "classes": ["guerreiro"], "vida": 5, "preco": 20,
-      "peca_lpc": ["hat/helmet/armet_simple/adult/walk.png", "hat/helmet/armet_simple/adult/slash.png"] }
+    {
+      "id": "pocao",
+      "nome": "Poção de vida",
+      "tipo": "consumivel",
+      "preco": 20,
+      "efeito": {
+        "cura": 60
+      },
+      "peca_lpc": []
+    },
+    {
+      "id": "espada-longa",
+      "nome": "Espada longa",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 1,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 4,
+      "preco": 30,
+      "peca_lpc": [
+        "weapon/sword/longsword/walk.png",
+        "weapon/sword/longsword/slash_oversize.png",
+        "weapon/sword/longsword/thrust_oversize.png"
+      ]
+    },
+    {
+      "id": "armadura-placa",
+      "nome": "Peitoral de placas",
+      "tipo": "armadura",
+      "espaco": "peitoral",
+      "nivel": 1,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 10,
+      "preco": 30,
+      "peca_lpc": [
+        "torso/armour/plate/male/walk.png",
+        "torso/armour/plate/male/slash.png",
+        "torso/armour/plate/male/thrust.png"
+      ]
+    },
+    {
+      "id": "calca-placa",
+      "nome": "Grevas de placas",
+      "tipo": "armadura",
+      "espaco": "grevas",
+      "nivel": 1,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 5,
+      "preco": 20,
+      "peca_lpc": [
+        "legs/armour/plate/male/walk.png",
+        "legs/armour/plate/male/slash.png",
+        "legs/armour/plate/male/thrust.png"
+      ]
+    },
+    {
+      "id": "elmo-armet",
+      "nome": "Elmo armet",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 1,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 5,
+      "preco": 20,
+      "peca_lpc": [
+        "hat/helmet/armet_simple/adult/walk.png",
+        "hat/helmet/armet_simple/adult/slash.png",
+        "hat/helmet/armet_simple/adult/thrust.png"
+      ]
+    }
   ],
-  "equipamento_inicial": { "guerreiro": { "arma": "espada-longa", "capacete": "elmo-armet", "peitoral": "armadura-placa", "grevas": "calca-placa" } }
+  "equipamento_inicial": {
+    "guerreiro": {
+      "arma": "espada-longa",
+      "capacete": "elmo-armet",
+      "peitoral": "armadura-placa",
+      "grevas": "calca-placa"
+    }
+  }
 }

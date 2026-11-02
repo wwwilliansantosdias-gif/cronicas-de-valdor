@@ -1,6 +1,6 @@
 {
   "nivel_max": 29,
-  "xp_base": 33,
+  "xp_base": 36,
   "xp_expoente": 1.6,
   "atributos": ["for", "vit", "agi", "sor"],
   "atributo_inicial": 5,

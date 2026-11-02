@@ -13,14 +13,14 @@ Estado: primeira fatia da etapa 6 — região 1 (Floresta) jogável com o Guerre
 - `tools/` – scripts de download, créditos e build. `tests/` – testes.
 
 ## Rodar
-Abrir `docs/` num servidor estático (ex.: `python3 -m http.server -d docs`). Teclado: setas/WASD, espaço ataca, E fala, Q poção.
+Abrir `docs/` num servidor estático (ex.: `python3 -m http.server -d docs`). Teclado: setas/WASD, espaço ataca, 1 Estocada, 2 Giro, E fala, Q poção.
 
 ## Testes
 ```bash
 pip install pytest pillow && python3 -m pytest -q tests     # dados e créditos
 node --test tests/js/*.test.js                               # motor (mapas, combate, xp, atributos, salvar, ritmo)
 node tools/simular.mjs 10                                    # tempo estimado até o nível 10
-for t in fumaca fluxo atributos; do PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/$t.mjs; done   # navegador, tela deitada
+for t in fumaca fluxo atributos combate; do PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/$t.mjs; done   # navegador, tela deitada
 ```
 
 ## Regenerar assets e créditos

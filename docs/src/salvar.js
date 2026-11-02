@@ -46,7 +46,12 @@ export function validar(P, I, obj, mapasValidos) {
   obj.pontosLivres = total - gastos;
   if (!obj.equip || !I.espacos.every((e) => obj.equip[e] === null || itemValido(I, obj.equip[e], e))) return null;
   if (!Array.isArray(obj.mochila) || obj.mochila.length > 20 || !obj.mochila.every((it) => itemValido(I, it))) return null;
-  if (!obj.habilidades || typeof obj.habilidades !== "object") return null;
+  if (!obj.habilidades || typeof obj.habilidades !== "object" || !Object.values(obj.habilidades).every((g) => inteiro(g, 1, P.grau_max_habilidade))) return null;
+  // pontos de habilidade também são consertados: graus acima do possível voltam para 1
+  const totalHab = pontosHabilidadeAteNivel(P, obj.nivel);
+  let gastosH = Object.values(obj.habilidades).reduce((s, g) => s + g - 1, 0);
+  if (gastosH > totalHab) { for (const k in obj.habilidades) obj.habilidades[k] = 1; gastosH = 0; }
+  obj.pontosHab = totalHab - gastosH;
   return obj;
 }
 

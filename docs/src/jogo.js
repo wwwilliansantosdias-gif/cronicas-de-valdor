@@ -2,7 +2,7 @@ import { lerMapaTexto, gerarMapa, TILE, bloqueadoTile } from "./mapa.js";
 import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from "./progresso.js";
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, mover, direcaoDe } from "./combate.js";
-import { derivados, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos } from "./personagem.js";
+import { derivados, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -31,7 +31,7 @@ async function iniciar() {
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
     P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
-  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess", "guerreiro_walk", "guerreiro_slash", "guerreiro_slash_arma"];
+  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess", "guerreiro_walk", "guerreiro_slash", "guerreiro_slash_arma", "guerreiro_thrust", "guerreiro_thrust_arma"];
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
   const usados = new Set();
   for (const id in D.monstros) { const s = MSTR[D.monstros[id].sprite]; for (const k of ["andar", "ataque"]) if (s[k]) usados.add(s[k].file); }
@@ -39,7 +39,8 @@ async function iniciar() {
   for (const [id, f] of Object.entries(D.mapasTxt)) MAPAS[id] = gerarMapa(lerMapaTexto(await texto(f)));
   EST = carregar(D.P, D.itens, localStorage, Object.keys(MAPAS)) || novoEstado(D.P, D.itens);
   if (EST.autoDistribuir && EST.pontosLivres > 0) distribuirRecomendado(D.P, EST, D.classes[EST.classe].recomendado);
-  jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, recarga: 0, invul: 0 };
+  desbloquearHabilidades(EST, habsDaClasse()); // saves anteriores ganham as habilidades que o nível já libera
+  jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, cds: {}, invul: 0, veneno: null };
   entrar(EST.mapa, null);
   jogador.vida = stats().vidaMax;
   document.body.dataset.pronto = "1";
@@ -60,7 +61,7 @@ function entrar(id, origem) {
 
 // ---------- entrada ----------
 const teclas = new Set(), joy = { x: 0, y: 0, id: null };
-addEventListener("keydown", (e) => { teclas.add(e.key.toLowerCase()); if (e.key === " ") atacar(); if (e.key.toLowerCase() === "e") interagir(); if (e.key.toLowerCase() === "q") usarPocao(); });
+addEventListener("keydown", (e) => { const k = e.key.toLowerCase(); teclas.add(k); if (k === " ") atacar(); if (k === "1") usarHabilidade("estocada"); if (k === "2") usarHabilidade("giro"); if (k === "e") interagir(); if (k === "q") usarPocao(); });
 addEventListener("keyup", (e) => teclas.delete(e.key.toLowerCase()));
 const joyEl = $("joy"), knob = $("knob");
 function joyMove(e) {
@@ -76,23 +77,35 @@ const joyFim = (e) => { if (e.pointerId === joy.id) { joy.id = null; joy.x = joy
 joyEl.addEventListener("pointerup", joyFim); joyEl.addEventListener("pointercancel", joyFim);
 knob.style.left = knob.style.top = "37px";
 $("bA").addEventListener("pointerdown", () => atacar());
+$("bH1").addEventListener("pointerdown", () => usarHabilidade("estocada"));
+$("bH2").addEventListener("pointerdown", () => usarHabilidade("giro"));
 $("bP").addEventListener("pointerdown", () => usarPocao());
 $("bE").addEventListener("pointerdown", () => interagir());
 $("bM").addEventListener("pointerdown", () => menu());
 $("bS").addEventListener("pointerdown", () => { if (!parado) telaAtributos(); });
 
 function stats() { return derivados(D.P, D.itens, EST); }
+function habsDaClasse() { return D.classes[EST.classe].habilidades.map((id) => D.hab[id]); }
 function subiuNiveis(n) {
   if (!n) return;
-  aoSubir(D.P, EST, n, D.classes[EST.classe].recomendado);
-  jogador.vida = stats().vidaMax; msg(`Nível ${EST.nivel}!`);
+  const antes = { ...EST.habilidades };
+  aoSubir(D.P, EST, n, D.classes[EST.classe].recomendado, habsDaClasse());
+  jogador.vida = stats().vidaMax;
+  const nova = habsDaClasse().find((h) => EST.habilidades[h.id] && !antes[h.id]);
+  msg(nova ? `Nível ${EST.nivel}! Nova habilidade: ${nova.nome}` : `Nível ${EST.nivel}!`, nova ? 3.5 : 2.4);
 }
 
-function atacar() {
-  if (parado || jogador.morto || jogador.recarga > 0 || mapa.zonaSegura) return;
-  const h = D.hab.golpe, sv = stats();
-  jogador.golpe = 0; jogador.hab = h; jogador.recarga = recargaHabilidade(h, D.porGrau, sv.recargaMult, EST.habilidades[h.id] || 1);
+// usa uma habilidade (Golpe, Estocada, Giro...) se liberada, fora da cidade, sem outra ação em curso e sem recarga
+function usarHabilidade(id) {
+  const h = D.hab[id];
+  if (!h || parado || jogador.morto || mapa.zonaSegura || jogador.golpe >= 0) return false;
+  if (!EST.habilidades[id]) { msg(`${h.nome}: libera no nível ${h.nivel}`); return false; }
+  if ((jogador.cds[id] || 0) > 0) return false;
+  jogador.golpe = 0; jogador.hab = h;
+  jogador.cds[id] = recargaHabilidade(h, D.porGrau, stats().recargaMult, EST.habilidades[id]);
+  return true;
 }
+function atacar() { return usarHabilidade("golpe"); }
 function usarPocao() {
   if (parado || jogador.morto) return;
   const sv = stats();
@@ -162,6 +175,16 @@ function telaQuadro() {
 const NOME_ATR = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
 // mexer em atributos pode mudar a vida máxima: mantém a vida perdida, não a proporção
 function comAjusteDeVida(fn) { const antes = stats().vidaMax, r = fn(); jogador.vida = Math.max(1, Math.min(stats().vidaMax, jogador.vida + stats().vidaMax - antes)); salvar(); return r; }
+function telaHabilidades() {
+  const P = D.P;
+  const html = `<h3>Habilidades <small>· ${EST.pontosHab} ponto${EST.pontosHab === 1 ? "" : "s"} (1 a cada ${P.nivel_por_ponto_habilidade} níveis)</small></h3>` +
+    habsDaClasse().map((h) => { const g = EST.habilidades[h.id];
+      return `<div class="atr"><div><b>${h.nome}</b> ${g ? `grau ${g}/${P.grau_max_habilidade}` : `<small>libera no nível ${h.nivel}</small>`}<br><small>${h.descricao} Dano ${Math.round(h.mult * (1 + D.porGrau.mult * ((g || 1) - 1)) * 100)}%, recarga ${(h.recarga * (1 + D.porGrau.recarga * ((g || 1) - 1))).toFixed(1)} s</small></div>
+        <button data-h="${h.id}" ${!g || g >= P.grau_max_habilidade || EST.pontosHab < 1 ? "disabled" : ""} aria-label="+1 grau ${h.nome}">+1</button></div>`; }).join("");
+  painel(html, [["Voltar aos atributos", () => telaAtributos()]]);
+  for (const b of $("caixa").querySelectorAll("button[data-h]")) b.onclick = () => { melhorarHabilidade(P, EST, b.dataset.h); salvar(); telaHabilidades(); };
+}
+
 function telaAtributos() {
   const P = D.P, sv = stats(), rec = D.classes[EST.classe].recomendado, custo = custoRedistribuir(P, EST), naCidade = mapa.zonaSegura;
   const sem = EST.pontosLivres <= 0;
@@ -170,12 +193,15 @@ function telaAtributos() {
     <div class="duas"><div>${linhas}</div><div class="dir"><table><tr><td>Dano</td><td>${sv.dano.toFixed(1)}</td></tr><tr><td>Vida máxima</td><td>${sv.vidaMax}</td></tr>
     <tr><td>Recarga dos ataques</td><td>${Math.round(sv.recargaMult * 100)}%</td></tr><tr><td>Crítico</td><td>${(sv.critico * 100).toFixed(0)}% (×${sv.criticoMult})</td></tr></table></div></div>`;
   painel(html, [
+    [`Habilidades${EST.pontosHab ? ` (+${EST.pontosHab} ponto${EST.pontosHab === 1 ? "" : "s"})` : ""}`, () => telaHabilidades()],
     [`Recomendado (${P.atributos.filter((a) => rec[a]).map((a) => `${rec[a]} ${NOME_ATR[a][0].slice(0, 3)}`).join(" : ")})`, () => { comAjusteDeVida(() => distribuirRecomendado(P, EST, rec)); telaAtributos(); }, sem],
     [`Distribuir sozinho: ${EST.autoDistribuir ? "ligado" : "desligado"}`, () => { EST.autoDistribuir = !EST.autoDistribuir; salvar(); telaAtributos(); }],
     [naCidade ? `Redistribuir pontos (${custo} ouro)` : "Redistribuir: só na cidade", () => { if (confirm(`Devolver todos os pontos distribuídos por ${custo} ouro?`)) { comAjusteDeVida(() => redistribuir(P, EST)); telaAtributos(); } }, !naCidade || EST.ouro < custo || gastos(P, EST) === 0],
   ]);
   for (const b of $("caixa").querySelectorAll("button[data-a]")) b.onclick = () => { comAjusteDeVida(() => distribuir(P, EST, b.dataset.a, 1)); telaAtributos(); };
-  $("caixa").querySelector(".dir").append(...[...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
+  const acoes = [...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar"));
+  $("caixa").querySelector(".duas > div").append(acoes.shift()); // Habilidades fica embaixo dos atributos
+  $("caixa").querySelector(".dir").append(...acoes);
 }
 
 async function menu() {
@@ -191,8 +217,13 @@ async function menu() {
 // ---------- atualização ----------
 function atualizar(dt) {
   if (msgT > 0) { msgT -= dt; if (msgT <= 0) $("msg").classList.remove("on"); }
-  jogador.recarga = Math.max(0, jogador.recarga - dt); jogador.invul = Math.max(0, jogador.invul - dt);
+  for (const k in jogador.cds) jogador.cds[k] = Math.max(0, jogador.cds[k] - dt);
+  jogador.invul = Math.max(0, jogador.invul - dt);
   const sv = stats();
+  if (jogador.veneno && !jogador.morto) { // veneno: dano contínuo, ignora invulnerabilidade, não mata sozinho abaixo de 1
+    const v = jogador.veneno; v.t -= dt; jogador.vida = Math.max(1, jogador.vida - v.dps * dt);
+    if (v.t <= 0 || mapa.zonaSegura) jogador.veneno = null;
+  }
   if (!parado && !jogador.morto) {
     let ix = joy.x, iy = joy.y;
     if (teclas.has("a") || teclas.has("arrowleft")) ix -= 1; if (teclas.has("d") || teclas.has("arrowright")) ix += 1;
@@ -210,10 +241,17 @@ function atualizar(dt) {
       }
       if (jogador.golpe >= h.duracao) jogador.golpe = -1;
     }
+    const raio = D.P.monstros_ativos_raio;
     for (const m of monstros) {
       if (m.morto) { if (m.def.comportamento !== "chefe" ? performance.now() - m.mortoEm > 25000 : performance.now() - m.mortoEm > 120000) { Object.assign(m, criarMonstro(m.def, m.spawnX, m.spawnY)); } continue; }
-      const d = atualizarMonstro(m, jogador, dt, mapa);
-      if (d && jogador.invul <= 0) { jogador.vida -= d; jogador.invul = 0.5; if (jogador.vida <= 0) morrer(); }
+      m.ativo = Math.hypot(m.x - jogador.x, m.y - jogador.y) <= raio; // longe do jogador: parado, sem gastar processamento
+      if (!m.ativo) continue;
+      const r = atualizarMonstro(m, jogador, dt, mapa);
+      if (r.dano && jogador.invul <= 0 && !jogador.morto) {
+        jogador.vida -= r.dano; jogador.invul = 0.5;
+        if (r.veneno) { jogador.veneno = { ...r.veneno, t: r.veneno.duracao }; msg("Envenenado!", 1.2); }
+        if (jogador.vida <= 0) morrer();
+      }
     }
     // saídas do mapa
     for (const s of mapa.saidas) {
@@ -224,14 +262,21 @@ function atualizar(dt) {
     $("bE").style.display = perto() ? "flex" : "none";
   } else $("bE").style.display = "none";
   $("nv").textContent = `Nv ${EST.nivel}`;
-  const bS = $("bS"), livres = EST.pontosLivres;
+  const bS = $("bS"), livres = EST.pontosLivres + EST.pontosHab;
   if (bS.dataset.n !== String(livres)) { bS.dataset.n = livres; bS.textContent = livres > 0 ? `+${livres}` : "Atrib."; bS.classList.toggle("tem", livres > 0); }
+  for (const [bid, hid] of [["bH1", "estocada"], ["bH2", "giro"]]) {
+    const b = $(bid), h = D.hab[hid], cd = jogador.cds[hid] || 0, livre = !!EST.habilidades[hid];
+    const txt = !livre ? `Nv ${h.nivel}` : cd > 0 ? cd.toFixed(1) : h.nome;
+    if (b.textContent !== txt) b.textContent = txt;
+    b.classList.toggle("off", !livre || cd > 0 || mapa.zonaSegura);
+  }
+  $("hpb").classList.toggle("veneno", !!jogador.veneno);
   $("hpb").firstChild.style.width = Math.max(0, jogador.vida / sv.vidaMax * 100) + "%";
   $("xpb").firstChild.style.width = (EST.nivel >= D.P.nivel_max ? 100 : EST.xp / xpParaProximo(D.P, EST.nivel) * 100) + "%";
   $("info").textContent = `${EST.ouro} ouro · ${EST.pocoes} ${EST.pocoes === 1 ? "poção" : "poções"}`;
 }
 function morrer() {
-  jogador.morto = true; aoMorrer(EST); salvar();
+  jogador.morto = true; jogador.veneno = null; jogador.golpe = -1; aoMorrer(EST); salvar();
   msg("Você caiu. Voltando à cidade…", 2.6);
   setTimeout(() => {
     const cidade = D.regioes.find((r) => r.id === "floresta").cidade;
@@ -243,10 +288,11 @@ function morrer() {
 function quadroAnim(a, t, extra = 0) { return a.frames[Math.floor(t * 8 + extra) % a.frames.length]; }
 function desenharMonstro(m, t) {
   const spec = MSTR[m.def.sprite];
-  const atq = m.estado === "atacar" && spec.ataque;
-  const a = atq ? spec.ataque : spec.andar;
+  const atacando = (m.estado === "preparar" || m.estado === "executar") && spec.ataque;
+  const a = atacando ? spec.ataque : spec.andar;
   const linha = a.rows[m.dir] ?? a.rows.down ?? Object.values(a.rows)[0];
-  const fr = atq ? a.frames[Math.min(a.frames.length - 1, Math.floor(m.t / 0.9 * a.frames.length))] : quadroAnim(a, t, m.spawnX);
+  // no aviso, segura o primeiro quadro do ataque; ao executar, passa pelos demais
+  const fr = !atacando ? quadroAnim(a, t, m.spawnX) : m.estado === "preparar" ? a.frames[0] : a.frames[Math.min(a.frames.length - 1, 1 + Math.floor(m.t * 12))];
   const s = m.def.escala, w = a.fw * s, h = a.fh * s;
   const dx = Math.round(m.x - w / 2 - cam.x), dy = Math.round(m.y - h + 6 * s - cam.y);
   if (m.flash > 0) ctx.globalAlpha = 0.55;
@@ -259,13 +305,42 @@ function desenharMonstro(m, t) {
   }
   if (m.vida < m.vidaMax) { const bx = Math.round(m.x - 14 - cam.x), by = dy - 4; ctx.fillStyle = "#000a"; ctx.fillRect(bx, by, 28, 4); ctx.fillStyle = "#e04a4a"; ctx.fillRect(bx + 1, by + 1, 26 * m.vida / m.vidaMax, 2); }
 }
+// aviso dos ataques dos monstros, desenhado no chão antes de tudo
+function desenharAvisos() {
+  for (const m of monstros) {
+    if (m.morto || m.estado !== "preparar") continue;
+    const a = m.atq, p = Math.min(1, m.t / a.aviso), x = m.x - cam.x, y = m.y - 6 - cam.y;
+    ctx.save(); ctx.globalAlpha = 0.35 + 0.35 * p; ctx.fillStyle = "#ff3030"; ctx.strokeStyle = "#ff5050";
+    if (a.tipo === "investida") {
+      const L = a.velocidade * a.duracao, w = a.raio * 1.2;
+      ctx.translate(x, y); ctx.rotate(Math.atan2(m.alvo[1], m.alvo[0]));
+      ctx.fillRect(0, -w / 2, L * p, w); ctx.globalAlpha = 0.6; ctx.lineWidth = 1; ctx.strokeRect(0, -w / 2, L, w);
+    } else if (a.tipo === "area") {
+      ctx.beginPath(); ctx.ellipse(x, y, a.raio * p, a.raio * p * 0.6, 0, 0, 7); ctx.fill();
+      ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.ellipse(x, y, a.raio, a.raio * 0.6, 0, 0, 7); ctx.stroke();
+    } else {
+      ctx.globalAlpha = 1; ctx.font = "bold 12px system-ui"; ctx.textAlign = "center"; ctx.fillStyle = "#ffdd33";
+      ctx.fillText("!", x, y - a.raio - 22 * m.def.escala);
+    }
+    ctx.restore();
+  }
+}
+const ORDEM_GIRO = ["down", "left", "up", "right"];
 function desenharJogador(t) {
-  const L = LINHA[jogador.dir], ox = Math.round(jogador.x - 32 - cam.x), oy = Math.round(jogador.y - 60 - cam.y);
+  const g = jogador.golpe, h = jogador.hab;
+  const dir = g >= 0 && h.animacao === "giro" ? ORDEM_GIRO[(ORDEM_GIRO.indexOf(jogador.dir) + Math.floor(g / h.duracao * 4)) % 4] : jogador.dir;
+  const L = LINHA[dir], ox = Math.round(jogador.x - 32 - cam.x), oy = Math.round(jogador.y - 60 - cam.y);
   if (jogador.invul > 0 && Math.floor(t * 20) % 2) ctx.globalAlpha = 0.5;
-  if (jogador.golpe >= 0) {
-    const c = Math.min(5, Math.floor(jogador.golpe / 0.07));
+  if (g >= 0 && h.animacao === "thrust") {
+    const c = Math.min(7, Math.floor(g / h.duracao * 8));
+    ctx.drawImage(IMG.guerreiro_thrust, c * 64, L * 64, 64, 64, ox, oy, 64, 64);
+    ctx.drawImage(IMG.guerreiro_thrust_arma, c * 192, L * 192, 192, 192, ox - 64, oy - 64, 192, 192);
+  } else if (g >= 0) { // golpe e giro usam a folha de golpear; o giro troca de direção 4 vezes
+    const passo = h.animacao === "giro" ? h.duracao / 4 : h.duracao;
+    const c = Math.min(5, Math.floor((g % passo) / passo * 6));
     ctx.drawImage(IMG.guerreiro_slash, c * 64, L * 64, 64, 64, ox, oy, 64, 64);
     ctx.drawImage(IMG.guerreiro_slash_arma, c * 192, L * 192, 192, 192, ox - 64, oy - 64, 192, 192);
+    if (h.animacao === "giro") { ctx.save(); ctx.globalAlpha = 0.25; ctx.strokeStyle = "#dfefff"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(jogador.x - cam.x, jogador.y - 14 - cam.y, h.raio, h.raio * 0.7, 0, 0, 7); ctx.stroke(); ctx.restore(); }
   } else {
     const c = jogador.andando ? 1 + Math.floor(jogador.tAnim * 10) % 8 : 0;
     ctx.drawImage(IMG.guerreiro_walk, c * 64, L * 64, 64, 64, ox, oy, 64, 64);
@@ -307,7 +382,8 @@ function desenhar(t) {
     ctx.strokeStyle = aberto ? "#bfeaff" : "#868c99"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(px, py, 14, 22, 0, 0, 7); ctx.stroke();
     etiqueta(aberto ? "Portal" : `Portal (nv ${reg.portal_proxima.nivel_minimo})`, px, py - 28);
   } }); }
-  for (const m of monstros) if (!m.morto) fila.push({ y: m.y, f: () => desenharMonstro(m, t) });
+  desenharAvisos();
+  for (const m of monstros) if (!m.morto && m.x > cam.x - 100 && m.x < cam.x + VW + 100 && m.y > cam.y - 60 && m.y < cam.y + VH + 140) fila.push({ y: m.y, f: () => desenharMonstro(m, t) });
   if (!jogador.morto) fila.push({ y: jogador.y, f: () => desenharJogador(t) });
   fila.sort((a, b) => a.y - b.y); for (const q of fila) q.f();
 }
@@ -319,6 +395,6 @@ function quadro(agora) {
   desenhar(agora / 1000);
   requestAnimationFrame(quadro);
 }
-window.__valdor = { get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir,
+window.__valdor = { get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir, usarHabilidade,
   ganhar: (xp) => { subiuNiveis(ganharXp(D.P, EST, xp)); salvar(); } }; // ganchos para os testes de navegador
 iniciar().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<pre style="position:fixed;inset:0;background:#300;padding:12px;z-index:20;white-space:pre-wrap">Erro ao iniciar: ${String(e.message).replace(/</g, "&lt;")}</pre>`); console.error(e); });

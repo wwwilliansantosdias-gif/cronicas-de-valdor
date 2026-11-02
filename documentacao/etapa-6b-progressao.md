@@ -28,14 +28,15 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 ## 4. Ordem de construção
 1. ✅ Base: save v2 e migração, atributos e fórmulas, habilidades como dados, simulador de ritmo.
 2. ✅ Tela de atributos (manual, recomendado, redistribuir).
-3. Drops, mochila e equipar (números).
-4. Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
-5. Estocada e Giro, com pontos de habilidade.
-6. Mais peças visuais por espaço.
-7. Até 16 monstros por área, só os próximos ativos; medir desempenho.
-8. Arqueiro.
-9. Regiões 2 e 3.
-10. Som.
+3. ✅ (adiantado a pedido) Estocada e Giro, com pontos de habilidade.
+4. ✅ (adiantado a pedido) Ataques distintos dos monstros, com aviso visível.
+5. ✅ (adiantado a pedido) Até 16 monstros por área, só os próximos ativos; desempenho medido.
+6. Drops, mochila e equipar (números).
+7. Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
+8. Mais peças visuais por espaço.
+9. Arqueiro.
+10. Regiões 2 e 3.
+11. Som.
 
 ## 5. Resultado do passo 1
 - Curva de experiência calibrada pelo simulador (`node tools/simular.mjs 10`): `xp_base` 33 → **nível 10 em cerca de 30 minutos**, cerca de 370 abates (média de 20 simulações). Monstros da região 1 com o dobro de vida, para cerca de 2 a 4 s por abate como nas referências.
@@ -48,3 +49,15 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - Redistribuir desliga o modo automático (senão os pontos devolvidos voltariam para o mesmo lugar sozinhos).
 - Save com pontos inconsistentes com o nível é consertado ao carregar, nunca descartado.
 - "Fechar" passou para o canto do título em todas as telas; a tela de atributos cabe sem rolar em 844×390 (teste de navegador).
+
+## 7. Resultado dos passos 3 a 5 (adiantados porque eram o que mais mudava o jogo)
+- **Habilidades do Guerreiro:** Golpe (arco à frente), Estocada (nível 3; linha longa, 140%, empurra; animação de estocar do gerador LPC) e Giro (nível 6; círculo em volta, 120%, 1,5 alvo em média). Botões próprios à direita mostram "Nv 3"/"Nv 6" até liberar e os segundos de recarga depois. Teclado: 1 e 2.
+- **Pontos de habilidade:** 1 a cada 3 níveis; tela "Habilidades" (dentro de Atributos) sobe o grau até 5 (+10% de dano e −5% de recarga por grau). Save confere e conserta os graus.
+- **Ataques dos monstros** (`ataques` em `dados/monstros.json`), todos com aviso antes do golpe:
+  - Goblin: corpo a corpo ("!" amarelo acima da cabeça).
+  - Javali: investida em linha reta, faixa vermelha no chão; a direção trava no aviso, então dá para sair da linha.
+  - Cobra: bote curto e rápido que envenena (2 de dano por segundo por 3 s; barra de vida fica verde; a cidade cura).
+  - Abelha: ferroada rápida e fraca.
+  - Javali Coroado: pisão em área (círculo vermelho que cresce), investida longa e mordida.
+- **16 monstros na Mata** (5 javalis, 4 goblins, 3 cobras, 3 abelhas e o chefe); só se movem os que estão a menos de 450 px do jogador e só são desenhados os que estão na tela. Teste de navegador com os 16 perto: 60 quadros por segundo no ambiente de teste (limite da tela); confirmar no celular.
+- **Ritmo recalibrado** pelo simulador, que agora considera as habilidades e os ataques dos monstros: `xp_base` 36 → nível 10 em cerca de 30 minutos (cerca de 440 abates).

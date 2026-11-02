@@ -49,7 +49,7 @@ await pag.keyboard.down("d"); await pag.waitForTimeout(900); await pag.keyboard.
 await pag.waitForTimeout(300);
 ok((await pag.evaluate(() => window.__valdor.mapa.id)) === "mata-do-javali", "saída leste leva à mata");
 const nm = await pag.evaluate(() => window.__valdor.monstros.length);
-ok(nm >= 6 && nm <= 10, "monstros na área: " + nm);
+ok(nm >= 6 && nm <= 16, "monstros na área: " + nm);
 await pag.screenshot({ path: saida + "/n3.png" });
 // teletransporta para junto de um monstro e ataca
 const matou = await pag.evaluate(async () => {

@@ -69,35 +69,57 @@ export function atingir(j, monstros, h, dano, critico = 0, critMult = 1.5, rnd =
   return r;
 }
 
-const JANELA = 0.45, TOTAL = 0.9;
-
-// retorna o dano que o monstro causou ao jogador neste passo
+// Monstros: cada um tem uma lista de ataques (dados/monstros.json). Ciclo: perseguir -> preparar (aviso visível)
+// -> executar -> recuperar. Tipos: "corpo" (acerta quem está no raio ao fim do aviso), "investida" (corre em
+// linha reta e acerta no contato; o bote da cobra é uma investida curta) e "area" (acerta tudo no raio em volta).
+// Devolve { dano, veneno } causados ao jogador neste passo.
 export function atualizarMonstro(m, jogador, dt, mapa, rnd = Math.random) {
-  if (m.morto) return 0;
+  const res = { dano: 0, veneno: null };
+  if (m.morto) return res;
   m.flash = Math.max(0, m.flash - dt);
-  if (m.recuo) { mover(m, m.recuo[0] * dt, m.recuo[1] * dt, mapa); m.recuo[0] *= 0.85; m.recuo[1] *= 0.85; if (Math.abs(m.recuo[0]) + Math.abs(m.recuo[1]) < 4) m.recuo = null; }
+  m.cd = m.cd || {};
+  for (const k in m.cd) m.cd[k] = Math.max(0, m.cd[k] - dt);
+  if (m.recuo && m.estado !== "executar") { mover(m, m.recuo[0] * dt, m.recuo[1] * dt, mapa); m.recuo[0] *= 0.85; m.recuo[1] *= 0.85; if (Math.abs(m.recuo[0]) + Math.abs(m.recuo[1]) < 4) m.recuo = null; }
   const dx = jogador.x - m.x, dy = jogador.y - m.y, dist = Math.hypot(dx, dy);
   const def = m.def;
-  let causado = 0;
+  const acerta = (a) => { res.dano += def.dano * a.mult; if (a.veneno) res.veneno = a.veneno; };
   if (m.estado === "vagar") {
     m.vagarT -= dt;
-    if (m.vagarT <= 0) { m.vagarT = 1 + rnd() * 2; const a = rnd() * Math.PI * 2; m.vx = rnd() < 0.4 ? 0 : Math.cos(a); m.vy = m.vx === 0 ? 0 : Math.sin(a); }
+    if (m.vagarT <= 0) { m.vagarT = 1 + rnd() * 2; const ang = rnd() * Math.PI * 2; m.vx = rnd() < 0.4 ? 0 : Math.cos(ang); m.vy = m.vx === 0 ? 0 : Math.sin(ang); }
     mover(m, m.vx * def.velocidade * 0.4 * dt, m.vy * def.velocidade * 0.4 * dt, mapa);
     if (m.vx || m.vy) m.dir = direcaoDe(m.vx, m.vy, m.dir);
     if (dist < 130 && !jogador.morto) m.estado = "perseguir";
   } else if (m.estado === "perseguir") {
-    if (jogador.morto || dist > 260) { m.estado = "vagar"; return 0; }
-    if (dist <= def.alcance) { m.estado = "atacar"; m.t = 0; m.atacou = false; m.dir = direcaoDe(dx, dy, m.dir); return 0; }
-    const f = def.velocidade * dt / (dist || 1);
-    mover(m, dx * f, dy * f, mapa);
+    if (jogador.morto || dist > 260) { m.estado = "vagar"; return res; }
     m.dir = direcaoDe(dx, dy, m.dir);
-  } else if (m.estado === "atacar") {
-    m.t += dt;
-    if (!m.atacou && m.t >= JANELA) {
-      m.atacou = true;
-      if (dist <= def.alcance + 12 && !jogador.morto) causado = def.dano;
+    const a = def.ataques.find((x) => !m.cd[x.id] && dist >= (x.alcance_min || 0) && dist <= x.alcance);
+    if (a) {
+      m.estado = "preparar"; m.atq = a; m.t = 0; m.atingiu = false;
+      m.alvo = [dx / (dist || 1), dy / (dist || 1)]; // direção travada no início do aviso: dá para desviar
+      return res;
     }
-    if (m.t >= TOTAL) { m.estado = "perseguir"; m.t = 0; }
+    const perto = Math.min(...def.ataques.map((x) => x.alcance));
+    if (dist > perto * 0.8) { const f = def.velocidade * dt / (dist || 1); mover(m, dx * f, dy * f, mapa); }
+  } else if (m.estado === "preparar") {
+    m.t += dt;
+    if (m.t >= m.atq.aviso) {
+      const a = m.atq;
+      m.estado = "executar"; m.t = 0;
+      if (a.tipo === "corpo" && dist <= a.raio && !jogador.morto) { acerta(a); m.atingiu = true; }
+      if (a.tipo === "area" && dist <= a.raio && !jogador.morto) { acerta(a); m.atingiu = true; }
+      if (a.tipo !== "investida") { m.estado = "recuperar"; m.cd[a.id] = a.recarga; }
+    }
+  } else if (m.estado === "executar") { // só investidas ficam aqui
+    const a = m.atq;
+    m.t += dt;
+    const x0 = m.x, y0 = m.y;
+    mover(m, m.alvo[0] * a.velocidade * dt, m.alvo[1] * a.velocidade * dt, mapa);
+    const parou = Math.hypot(m.x - x0, m.y - y0) < a.velocidade * dt * 0.3; // bateu em parede
+    if (!m.atingiu && !jogador.morto && Math.hypot(jogador.x - m.x, jogador.y - m.y) <= a.raio) { acerta(a); m.atingiu = true; }
+    if (m.t >= a.duracao || parou) { m.estado = "recuperar"; m.t = 0; m.cd[a.id] = a.recarga; }
+  } else if (m.estado === "recuperar") {
+    m.t += dt;
+    if (m.t >= (m.atq?.pos ?? 0.3)) { m.estado = "perseguir"; m.t = 0; }
   }
-  return causado;
+  return res;
 }
