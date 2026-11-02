@@ -111,6 +111,12 @@ for slug in sorted(slugs):
     if not cf:
         lines += ["- O pacote não traz arquivo de créditos próprio."]
     lines.append("")
+lines += [
+    "## Gerador de personagens LPC (Universal LPC Spritesheet Character Generator)", "",
+    "- Projeto: https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator",
+    "- Fonte dos créditos: `data/gerador/CREDITS.csv` (autor, licença e URL de cada peça, baixado do projeto).",
+    "- Nenhuma peça do gerador está no jogo ainda. Ao incluir uma, liste o caminho dela em `data/pecas_usadas.txt` e rode `python3 -I tools/creditos_pecas.py data/pecas_usadas.txt`; cole o resultado aqui.", "",
+]
 open("CREDITOS.md", "w", encoding="utf-8").write("\n".join(lines))
 open(os.path.join(OUT, "CREDITOS.md"), "w", encoding="utf-8").write("\n".join(lines))
 print(len(copied), "imagens copiadas;", len(slugs), "pacotes nos créditos")
