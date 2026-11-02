@@ -1,0 +1,1747 @@
+{
+ "monstros": [
+  {
+   "id": "morcego",
+   "nome": "Morcego",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/bat_f3232f.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/bat_f3232f.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5,
+     6
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "img/bat_f3232f.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gosma",
+   "nome": "Gosma",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/slime_11f19c.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/slime_11f19c.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "img/slime_11f19c.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cobra",
+   "nome": "Cobra",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/snake_25ada5.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/snake_25ada5.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5,
+     6
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "img/snake_25ada5.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fantasma",
+   "nome": "Fantasma",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/ghost_e19fe3.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/ghost_e19fe3.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "img/ghost_e19fe3.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "olho-voador",
+   "nome": "Olho voador",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/eyeball_cc904f.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/eyeball_cc904f.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento. O ataque dispara um raio.",
+   "folha": "img/eyeball_cc904f.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "abelha-gigante",
+   "nome": "Abelha gigante",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/bee_55af91.png",
+    "fw": 32,
+    "fh": 32,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/bee_55af91.png",
+    "fw": 32,
+    "fh": 32,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "a_conferir",
+   "nota": "Quadros de 32 px (menor que os demais). Ataque inferido nas colunas 4-5; confirmar.",
+   "folha": "img/bee_55af91.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "minhoca",
+   "nome": "Minhoca",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "img/big_worm_d671b4.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/big_worm_d671b4.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento. Ataque: sair do chão. Há também small_worm.png no pacote.",
+   "folha": "img/big_worm_d671b4.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+     "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-monsters",
+     "titulo": "[LPC] Monsters",
+     "url": "https://opengameart.org/content/lpc-monsters",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lobo",
+   "nome": "Lobo",
+   "pacotes": [
+    "lpc-wolf-animation"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "Folha de layout irregular (quadros de 32 e 64 px misturados). Não identifiquei animação de ataque; há andar, uivo e deitar. Mostro a folha crua.",
+   "folha": "img/wolfsheet1_0_86f252.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-wolf-animation",
+     "titulo": "[LPC] Wolf Animation",
+     "url": "https://opengameart.org/content/lpc-wolf-animation",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "javali",
+   "nome": "Javali selvagem",
+   "pacotes": [
+    "lpc-wild-boar"
+   ],
+   "andar": {
+    "file": "img/Boar_Walk_9a0300.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/Boar_Attack_f458fe.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": {
+    "file": "img/Boar_Die_e885e3.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "estado": "ok",
+   "nota": "Tem andar, ataque e morte (Boar Die.png). Ordem das linhas assumida como padrão LPC.",
+   "folha": "img/Boar_Attack_f458fe.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-wild-boar",
+     "titulo": "LPC Wild Boar",
+     "url": "https://opengameart.org/content/lpc-wild-boar",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "goblin",
+   "nome": "Goblin",
+   "pacotes": [
+    "lpc-goblin"
+   ],
+   "andar": {
+    "file": "img/goblin_0_c7d86b.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/goblin_0_c7d86b.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     8,
+     9,
+     10
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Andar nas colunas 0-7; ataque (soco/estocada) nas colunas 8-10; linha 5 é a morte. Linhas na ordem frente, esquerda, costas, direita.",
+   "folha": "img/goblin_0_c7d86b.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-goblin",
+     "titulo": "[LPC] Goblin",
+     "url": "https://opengameart.org/content/lpc-goblin",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "golem",
+   "nome": "Golem",
+   "pacotes": [
+    "lpc-golem"
+   ],
+   "andar": {
+    "file": "img/golem_walk_3840e4.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/golem_atk_48fc4d.png",
+    "fw": 64,
+    "fh": 96,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": {
+    "file": "img/golem_die_e3acb7.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "estado": "ok",
+   "nota": "Tem andar, ataque (quadros de 64x96) e morte (golem-die.png). As duas linhas da morte são variações, não direções.",
+   "folha": "img/golem_atk_48fc4d.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-golem",
+     "titulo": "[LPC] Golem",
+     "url": "https://opengameart.org/content/lpc-golem",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "diabrete",
+   "nome": "Diabrete",
+   "pacotes": [
+    "lpc-imp",
+    "lpc-imp-2"
+   ],
+   "andar": {
+    "file": "img/walk_sword_328e03.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/attack_sword_112b01.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Variantes de arma (espada, forcado, escudo) e de cor (vermelho, verde, azul); morte em imp death.png. Mostrado: vermelho com espada.",
+   "folha": "img/attack_sword_112b01.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-imp",
+     "titulo": "[LPC] Imp",
+     "url": "https://opengameart.org/content/lpc-imp",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-imp-2",
+     "titulo": "[LPC] Imp 2",
+     "url": "https://opengameart.org/content/lpc-imp-2",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "aranha",
+   "nome": "Aranha",
+   "pacotes": [
+    "lpc-spider"
+   ],
+   "andar": {
+    "file": "img/spider01_7ff091.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "11 variações de cor, 10 quadros de andar por direção e morte (linha 5). Não identifiquei animação de ataque.",
+   "folha": "img/spider01_7ff091.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-spider",
+     "titulo": "[LPC] Spider",
+     "url": "https://opengameart.org/content/lpc-spider",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "besouro",
+   "nome": "Besouro",
+   "pacotes": [
+    "lpc-beetle"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "Uma única folha de 248x199 com fundo magenta (cor-chave) e só movimento de andar. Sem ataque. Serve de animal de cenário ou inimigo com avanço.",
+   "folha": "img/beetle5_eacd18.png",
+   "chroma": "#ff00ff",
+   "pacotes_info": [
+    {
+     "slug": "lpc-beetle",
+     "titulo": "LPC beetle",
+     "url": "https://opengameart.org/content/lpc-beetle",
+     "licencas": [
+      "CC-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esqueleto",
+   "nome": "Esqueleto",
+   "pacotes": [
+    "lpc-skeleton"
+   ],
+   "andar": {
+    "file": "img/skeleton_3_a8db2e.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "rows": {
+     "up": 8,
+     "left": 9,
+     "down": 10,
+     "right": 11
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/skeleton_3_a8db2e.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 12,
+     "left": 13,
+     "down": 14,
+     "right": 15
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Folha no formato LPC universal (andar, golpear, estocar, arco, conjurar, dano).",
+   "folha": "img/skeleton_3_a8db2e.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-skeleton",
+     "titulo": "[LPC] Skeleton",
+     "url": "https://opengameart.org/content/lpc-skeleton",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "zumbi",
+   "nome": "Zumbi",
+   "pacotes": [
+    "lpc-zombie"
+   ],
+   "andar": {
+    "file": "img/Zombie_0_ae1863.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "rows": {
+     "up": 8,
+     "left": 9,
+     "down": 10,
+     "right": 11
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/Zombie_0_ae1863.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 12,
+     "left": 13,
+     "down": 14,
+     "right": 15
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Formato LPC universal; vem com variações de ferimentos em arquivos separados.",
+   "folha": "img/Zombie_0_ae1863.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-zombie",
+     "titulo": "[LPC] Zombie",
+     "url": "https://opengameart.org/content/lpc-zombie",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lobisomem",
+   "nome": "Lobisomem",
+   "pacotes": [
+    "werewolf-lpc"
+   ],
+   "andar": {
+    "file": "img/werewolf_NESW_2_fa1b46.png",
+    "fw": 48,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     1
+    ],
+    "rows": {
+     "up": 0,
+     "right": 1,
+     "down": 2,
+     "left": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "Quadros de 48x64, só andar. Sem ataque.",
+   "folha": "img/werewolf_NESW_2_fa1b46.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "werewolf-lpc",
+     "titulo": "Werewolf (LPC)",
+     "url": "https://opengameart.org/content/werewolf-lpc",
+     "licencas": [
+      "CC-BY-SA 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "homem-javali",
+   "nome": "Homem-javali",
+   "pacotes": [
+    "lpc-boarman"
+   ],
+   "andar": {
+    "file": "img/boarman_universal_d92bb6.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "rows": {
+     "up": 8,
+     "left": 9,
+     "down": 10,
+     "right": 11
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "img/boarman_universal_d92bb6.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 12,
+     "left": 13,
+     "down": 14,
+     "right": 15
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Formato LPC universal; corpo e cabeça são camadas separadas, empilhadas aqui. Aceita equipamentos LPC.",
+   "folha": "img/Universal_eed25d.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-boarman",
+     "titulo": "LPC Boarman",
+     "url": "https://opengameart.org/content/lpc-boarman",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "homem-sapo",
+   "nome": "Homem-sapo",
+   "pacotes": [
+    "lpc-frogman"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "a_conferir",
+   "nota": "Folha de 480x864 com layout próprio (quadros maiores que 64 px); falta mapear andar/ataque. Mostro a folha crua.",
+   "folha": "img/frogman_1_149dc2.png",
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-frogman",
+     "titulo": "LPC Frogman",
+     "url": "https://opengameart.org/content/lpc-frogman",
+     "licencas": [
+      "CC-BY 3.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fada",
+   "nome": "Fada",
+   "pacotes": [
+    "lpc-fairy"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "indisponivel",
+   "nota": "O pacote só traz um arquivo .xcf (GIMP), sem PNG. Precisa ser exportado antes de entrar. Autor: Tuomo Untinen.",
+   "folha": null,
+   "chroma": null,
+   "pacotes_info": [
+    {
+     "slug": "lpc-fairy",
+     "titulo": "[LPC] Fairy",
+     "url": "https://opengameart.org/content/lpc-fairy",
+     "licencas": [
+      "CC-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0",
+      "GPL 2.0"
+     ]
+    }
+   ]
+  }
+ ],
+ "cenarios": [
+  {
+   "id": "tile-atlas",
+   "nome": "Tile Atlas e Tile Atlas 2",
+   "pacotes": [
+    "lpc-tile-atlas",
+    "lpc-tile-atlas2"
+   ],
+   "imagens": [
+    {
+     "nome": "terrain_atlas",
+     "file": "img/terrain_atlas_32dbd8.png"
+    },
+    {
+     "nome": "base_out_atlas",
+     "file": "img/base_out_atlas_b8e465.png"
+    },
+    {
+     "nome": "obj_misk_atlas",
+     "file": "img/obj_misk_atlas_6aa464.png"
+    },
+    {
+     "nome": "build_atlas",
+     "file": "img/build_atlas_84662f.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-tile-atlas",
+     "titulo": "LPC Tile Atlas",
+     "url": "https://opengameart.org/content/lpc-tile-atlas",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-tile-atlas2",
+     "titulo": "LPC Tile Atlas2",
+     "url": "https://opengameart.org/content/lpc-tile-atlas2",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "terrenos",
+   "nome": "Terrenos",
+   "pacotes": [
+    "lpc-terrains",
+    "lpc-terrain-repack"
+   ],
+   "imagens": [
+    {
+     "nome": "terrain-v7",
+     "file": "img/terrain_v7_5a2a3a.png"
+    },
+    {
+     "nome": "terrain (repack)",
+     "file": "img/terrain_83c677.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-terrains",
+     "titulo": "[LPC] Terrains",
+     "url": "https://opengameart.org/content/lpc-terrains",
+     "licencas": [
+      "CC-BY-SA 4.0",
+      "CC-BY-SA 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-terrain-repack",
+     "titulo": "[LPC] Terrain Repack",
+     "url": "https://opengameart.org/content/lpc-terrain-repack",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "floresta",
+   "nome": "Floresta",
+   "pacotes": [
+    "lpc-forest-tiles",
+    "lpc-trees",
+    "lpc-conifers"
+   ],
+   "imagens": [
+    {
+     "nome": "forest_tiles",
+     "file": "img/forest_tiles_77ca0a.png"
+    },
+    {
+     "nome": "trees-green",
+     "file": "img/trees_green_4c620e.png"
+    },
+    {
+     "nome": "conifers",
+     "file": "img/conifers_4fedb3.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-forest-tiles",
+     "titulo": "[LPC] Forest tiles",
+     "url": "https://opengameart.org/content/lpc-forest-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0",
+      "GPL 2.0"
+     ]
+    },
+    {
+     "slug": "lpc-trees",
+     "titulo": "[LPC] Trees",
+     "url": "https://opengameart.org/content/lpc-trees",
+     "licencas": [
+      "CC-BY-SA 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-conifers",
+     "titulo": "[LPC] Conifers",
+     "url": "https://opengameart.org/content/lpc-conifers",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0",
+      "GPL 2.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "caverna",
+   "nome": "Caverna e ruínas",
+   "pacotes": [
+    "lpc-cavern-and-ruin-tiles",
+    "lpc-caves"
+   ],
+   "imagens": [
+    {
+     "nome": "cavern_ruins",
+     "file": "img/cavern_ruins_4f8e3b.png"
+    },
+    {
+     "nome": "caves",
+     "file": "img/caves_673f2f.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-cavern-and-ruin-tiles",
+     "titulo": "[LPC] Cavern and ruin tiles",
+     "url": "https://opengameart.org/content/lpc-cavern-and-ruin-tiles",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0",
+      "GPL 2.0"
+     ]
+    },
+    {
+     "slug": "lpc-caves",
+     "titulo": "LPC Caves",
+     "url": "https://opengameart.org/content/lpc-caves",
+     "licencas": [
+      "CC0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "masmorra",
+   "nome": "Masmorra",
+   "pacotes": [
+    "lpc-dungeon-elements"
+   ],
+   "imagens": [
+    {
+     "nome": "dungeon10",
+     "file": "img/dungeon10_72c16f.png"
+    },
+    {
+     "nome": "dungeonex",
+     "file": "img/dungeonex_71d6d6.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-dungeon-elements",
+     "titulo": "[LPC] Dungeon Elements",
+     "url": "https://opengameart.org/content/lpc-dungeon-elements",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "selva",
+   "nome": "Selva e ruínas da selva",
+   "pacotes": [
+    "lpc-jungle",
+    "lpc-jungle-ruins"
+   ],
+   "imagens": [
+    {
+     "nome": "jungle",
+     "file": "img/jungle_b75cee.png"
+    },
+    {
+     "nome": "jungle-ruins",
+     "file": "img/jungle_ruins_91c334.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-jungle",
+     "titulo": "[LPC] Jungle",
+     "url": "https://opengameart.org/content/lpc-jungle",
+     "licencas": [
+      "CC-BY 4.0"
+     ]
+    },
+    {
+     "slug": "lpc-jungle-ruins",
+     "titulo": "[LPC] Jungle Ruins",
+     "url": "https://opengameart.org/content/lpc-jungle-ruins",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "praia-deserto",
+   "nome": "Praia, deserto e ruínas do deserto",
+   "pacotes": [
+    "lpc-beach-desert",
+    "lpc-desert-ruins"
+   ],
+   "imagens": [
+    {
+     "nome": "beach-desert",
+     "file": "img/beach_desert_ee9fa5.png"
+    },
+    {
+     "nome": "desert-ruins",
+     "file": "img/desert_ruins_ba17ec.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-beach-desert",
+     "titulo": "[LPC] Beach / Desert",
+     "url": "https://opengameart.org/content/lpc-beach-desert",
+     "licencas": [
+      "CC-BY-SA 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-desert-ruins",
+     "titulo": "[LPC] Desert Ruins",
+     "url": "https://opengameart.org/content/lpc-desert-ruins",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "inverno",
+   "nome": "Inverno e lago congelado",
+   "pacotes": [
+    "lpc-winter-tiles",
+    "frozen-lake-lpc"
+   ],
+   "imagens": [
+    {
+     "nome": "TilesA2",
+     "file": "img/TilesA2_f7aa0c.png"
+    },
+    {
+     "nome": "TilesB",
+     "file": "img/TilesB_8e8dcf.png"
+    },
+    {
+     "nome": "frozenlake",
+     "file": "img/frozenlake_b499f3.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-winter-tiles",
+     "titulo": "LPC Winter Tiles",
+     "url": "https://opengameart.org/content/lpc-winter-tiles",
+     "licencas": [
+      "CC-BY 3.0",
+      "OGA-BY 3.0",
+      "GPL 3.0",
+      "CC-BY-SA 3.0"
+     ]
+    },
+    {
+     "slug": "frozen-lake-lpc",
+     "titulo": "Frozen Lake [LPC]",
+     "url": "https://opengameart.org/content/frozen-lake-lpc",
+     "licencas": [
+      "CC-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "montanhas",
+   "nome": "Montanhas e rochas",
+   "pacotes": [
+    "lpc-mountains",
+    "lpc-rocks"
+   ],
+   "imagens": [
+    {
+     "nome": "mountains-v6",
+     "file": "img/mountains_v6_0f626f.png"
+    },
+    {
+     "nome": "rocks",
+     "file": "img/rocks_7d1f99.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-mountains",
+     "titulo": "[LPC] Mountains",
+     "url": "https://opengameart.org/content/lpc-mountains",
+     "licencas": [
+      "CC-BY-SA 4.0",
+      "CC-BY-SA 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-rocks",
+     "titulo": "[LPC] Rocks",
+     "url": "https://opengameart.org/content/lpc-rocks",
+     "licencas": [
+      "CC-BY-SA 4.0",
+      "CC-BY-SA 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cidade",
+   "nome": "Cidade (fora, dentro, casas, telhados, muros, ruas)",
+   "pacotes": [
+    "lpc-city-outside",
+    "lpc-city-inside",
+    "lpc-thatched-roof-cottage",
+    "lpc-roofs",
+    "lpc-walls",
+    "lpc-streets"
+   ],
+   "imagens": [
+    {
+     "nome": "city_outside",
+     "file": "img/city_outside_7e0d96.png"
+    },
+    {
+     "nome": "city_inside",
+     "file": "img/city_inside_37c803.png"
+    },
+    {
+     "nome": "cottage",
+     "file": "img/cottage_2c31a7.png"
+    },
+    {
+     "nome": "roofs",
+     "file": "img/roofs_d4812a.png"
+    },
+    {
+     "nome": "walls",
+     "file": "img/walls_c96f38.png"
+    },
+    {
+     "nome": "street_dark",
+     "file": "img/street_dark_930a53.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-city-outside",
+     "titulo": "[LPC] City outside",
+     "url": "https://opengameart.org/content/lpc-city-outside",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0",
+      "GPL 2.0"
+     ]
+    },
+    {
+     "slug": "lpc-city-inside",
+     "titulo": "[LPC] City inside",
+     "url": "https://opengameart.org/content/lpc-city-inside",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0",
+      "GPL 2.0"
+     ]
+    },
+    {
+     "slug": "lpc-thatched-roof-cottage",
+     "titulo": "[LPC] Thatched-roof Cottage",
+     "url": "https://opengameart.org/content/lpc-thatched-roof-cottage",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-roofs",
+     "titulo": "[LPC] Roofs",
+     "url": "https://opengameart.org/content/lpc-roofs",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-walls",
+     "titulo": "[LPC] Walls",
+     "url": "https://opengameart.org/content/lpc-walls",
+     "licencas": [
+      "CC-BY-SA 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-streets",
+     "titulo": "[LPC] Streets",
+     "url": "https://opengameart.org/content/lpc-streets",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ferreiro",
+   "nome": "Ferreiro",
+   "pacotes": [
+    "lpc-blacksmith"
+   ],
+   "imagens": [
+    {
+     "nome": "blacksmith-smelter",
+     "file": "img/blacksmith_smelter_dd2326.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-blacksmith",
+     "titulo": "[LPC] Blacksmith",
+     "url": "https://opengameart.org/content/lpc-blacksmith",
+     "licencas": [
+      "CC-BY 4.0",
+      "CC-BY 3.0",
+      "GPL 3.0",
+      "GPL 2.0",
+      "OGA-BY 3.0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "castelo",
+   "nome": "Castelo",
+   "pacotes": [
+    "lpc-castle",
+    "lpc-castle-mega-pack"
+   ],
+   "imagens": [
+    {
+     "nome": "lpc_castle_2",
+     "file": "img/lpc_castle_2_e4aa23.png"
+    },
+    {
+     "nome": "castle8",
+     "file": "img/castle8_0_ec82f2.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "lpc-castle",
+     "titulo": "LPC castle",
+     "url": "https://opengameart.org/content/lpc-castle",
+     "licencas": [
+      "CC-BY 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-castle-mega-pack",
+     "titulo": "[LPC] Castle Mega-Pack",
+     "url": "https://opengameart.org/content/lpc-castle-mega-pack",
+     "licencas": [
+      "CC-BY-SA 3.0"
+     ]
+    }
+   ]
+  }
+ ],
+ "sem_pacote": [
+  {
+   "nome": "Cemitério",
+   "nota": "Não encontrado como pacote próprio; procurar peças soltas em Dungeon Elements ou Misc."
+  },
+  {
+   "nome": "Pântano",
+   "nota": "Não encontrado como pacote próprio; a selva pode cumprir o papel."
+  },
+  {
+   "nome": "Cave Stairs",
+   "nota": "A página do pacote não foi encontrada no OpenGameArt (404). Verificar o nome exato."
+  }
+ ]
+}

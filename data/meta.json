@@ -1,0 +1,933 @@
+{
+ "cave-stairs": {
+  "slug": "cave-stairs",
+  "erro": "ERRO:HTTP Error 404: Not Found"
+ },
+ "frozen-lake-lpc": {
+  "atribuicao": "Credits to http://www.buko-studios.com/ Commissioned by PlayCraft: www.playcraftapp.com",
+  "slug": "frozen-lake-lpc",
+  "titulo": "Frozen Lake [LPC]",
+  "url": "https://opengameart.org/content/frozen-lake-lpc",
+  "autor": "zapaper",
+  "licencas": [
+   "CC-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/frozenlake.png",
+    "bytes": 58364
+   }
+  ]
+ },
+ "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles": {
+  "atribuicao": null,
+  "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+  "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
+  "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+  "autor": null,
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc_base_assets.zip",
+    "bytes": 712926
+   }
+  ]
+ },
+ "lpc-beach-desert": {
+  "atribuicao": "See CREDITS-beach-desert.txt. You MUST credit all authors with the information in this file, and you must link back to this page on OpenGameArt.",
+  "slug": "lpc-beach-desert",
+  "titulo": "[LPC] Beach / Desert",
+  "url": "https://opengameart.org/content/lpc-beach-desert",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-beach-desert_0.zip",
+    "bytes": 57270
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-beach-desert-v2.zip",
+    "bytes": 89590
+   }
+  ]
+ },
+ "lpc-beetle": {
+  "atribuicao": "Stephen Challener (Redshrike), hosted by OpenGameArt.org",
+  "slug": "lpc-beetle",
+  "titulo": "LPC beetle",
+  "url": "https://opengameart.org/content/lpc-beetle",
+  "autor": "redshrike",
+  "licencas": [
+   "CC-BY 3.0",
+   "CC-BY-SA 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/beetle5.PNG",
+    "bytes": 6445
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/mace.PNG",
+    "bytes": 615
+   }
+  ]
+ },
+ "lpc-blacksmith": {
+  "atribuicao": "\"[LPC] Blacksmith\" by bluecarrot16. License: OGA-BY 3.0, CC-BY 3.0+, GPL 2.0+. http://opengameart.org/content/lpc-blacksmith",
+  "slug": "lpc-blacksmith",
+  "titulo": "[LPC] Blacksmith",
+  "url": "https://opengameart.org/content/lpc-blacksmith",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-blacksmith.zip",
+    "bytes": 47451
+   }
+  ]
+ },
+ "lpc-boarman": {
+  "atribuicao": "\"LPC Boarman\" by Benjamin K. Smith (BenCreating), dalonedrau, Daniel Eddeland (daneeklu), ElizaWy, Johannes Sjölund (wulax), Stephen Challener (Redshrike), and William.Thompsonj. Commissioned by castelonia.",
+  "slug": "lpc-boarman",
+  "titulo": "LPC Boarman",
+  "url": "https://opengameart.org/content/lpc-boarman",
+  "autor": "bencreating",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc_boarman.zip",
+    "bytes": 135556
+   }
+  ]
+ },
+ "lpc-castle": {
+  "atribuicao": "Credit me and link back here. Credit Lanea Zimmerman (Sharm) for the use of the base LPC wood elements and Xenodora for the rounded towers.",
+  "slug": "lpc-castle",
+  "titulo": "LPC castle",
+  "url": "https://opengameart.org/content/lpc-castle",
+  "autor": "evert",
+  "licencas": [
+   "CC-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc_castle_2.png",
+    "bytes": 24484
+   }
+  ]
+ },
+ "lpc-castle-mega-pack": {
+  "atribuicao": "\"LPC Castle Mega-Pack\" by bluecarrot16. License: CC-BY-SA 3.0. Please link back to this page on OpenGameArt: http://opengameart.org/content/lpc-castle-mega-pack Based on: \"Castle Tiles for RPG's\" by Hyptosis, Zabin, Daniel Cook. CC-BY 3.0. http://opengameart.org/content/castle-tiles-for-rpgs \"LPC castle\" by Evert, Xenodora, and Lanea Zimmerman (Sharm). CC-BY 3.0. http://opengameart.org/content/lpc-castle , \"LPC Style Well\" by Xenodora, Lanea Zimmerman. CC-BY-3.0 / GPL 3.0. http://opengameart.org/content/lpc-style-well \"Another LPC style castle\" by theidiotmachine. CC-BY-SA 3.0. http://opengameart.org/content/another-lpc-style-castle \"LPC Base Assets\" (castlewalls.png, castle_outside.png) by Daniel Armstrong (HughSpectrum). http://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+  "slug": "lpc-castle-mega-pack",
+  "titulo": "[LPC] Castle Mega-Pack",
+  "url": "https://opengameart.org/content/lpc-castle-mega-pack",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/castle8_0.png",
+    "bytes": 161922
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/castle8dark.png",
+    "bytes": 161920
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/castle8brn.png",
+    "bytes": 161970
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/castle-extras_0.png",
+    "bytes": 25425
+   }
+  ]
+ },
+ "lpc-cavern-and-ruin-tiles": {
+  "atribuicao": "see credits.txt",
+  "slug": "lpc-cavern-and-ruin-tiles",
+  "titulo": "[LPC] Cavern and ruin tiles",
+  "url": "https://opengameart.org/content/lpc-cavern-and-ruin-tiles",
+  "autor": "reemax",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0",
+   "GPL 2.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC_cavern_ruins.zip",
+    "bytes": 383427
+   }
+  ]
+ },
+ "lpc-caves": {
+  "atribuicao": "I believe the original author is: Lanea Zimmerman (AKA Sharm) so please use that as the attibution",
+  "slug": "lpc-caves",
+  "titulo": "LPC Caves",
+  "url": "https://opengameart.org/content/lpc-caves",
+  "autor": null,
+  "licencas": [
+   "CC0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/caves.png",
+    "bytes": 16298
+   }
+  ]
+ },
+ "lpc-city-inside": {
+  "atribuicao": "see credits.txt",
+  "slug": "lpc-city-inside",
+  "titulo": "[LPC] City inside",
+  "url": "https://opengameart.org/content/lpc-city-inside",
+  "autor": "reemax",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0",
+   "GPL 2.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC_city_inside.zip",
+    "bytes": 382975
+   }
+  ]
+ },
+ "lpc-city-outside": {
+  "atribuicao": "see credits.txt",
+  "slug": "lpc-city-outside",
+  "titulo": "[LPC] City outside",
+  "url": "https://opengameart.org/content/lpc-city-outside",
+  "autor": "reemax",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0",
+   "GPL 2.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC_city_outside_1.zip",
+    "bytes": 653633
+   }
+  ]
+ },
+ "lpc-conifers": {
+  "atribuicao": "See CREDITS-conifers.txt. You MUST credit all authors with the information in this file, and you must link back to this page on OpenGameArt.",
+  "slug": "lpc-conifers",
+  "titulo": "[LPC] Conifers",
+  "url": "https://opengameart.org/content/lpc-conifers",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0",
+   "GPL 2.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-conifers.zip",
+    "bytes": 71061
+   }
+  ]
+ },
+ "lpc-desert-ruins": {
+  "atribuicao": "\"[LPC] Desert Ruins\" by bluecarrot16. Commissioned by Pierre Vigier (pvigier). Licenses: OGA-BY 3.0+, CC-BY 3.0+, GPL 2.0+. http://opengameart.org/content/lpc-desert-ruins",
+  "slug": "lpc-desert-ruins",
+  "titulo": "[LPC] Desert Ruins",
+  "url": "https://opengameart.org/content/lpc-desert-ruins",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-desert-ruins.zip",
+    "bytes": 9144513
+   }
+  ]
+ },
+ "lpc-dungeon-elements": {
+  "atribuicao": null,
+  "slug": "lpc-dungeon-elements",
+  "titulo": "[LPC] Dungeon Elements",
+  "url": "https://opengameart.org/content/lpc-dungeon-elements",
+  "autor": null,
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/dungeon_0.zip",
+    "bytes": 40406
+   }
+  ]
+ },
+ "lpc-fairy": {
+  "atribuicao": "Fairy by Tuomo Untinen",
+  "slug": "lpc-fairy",
+  "titulo": "[LPC] Fairy",
+  "url": "https://opengameart.org/content/lpc-fairy",
+  "autor": "reemax",
+  "licencas": [
+   "CC-BY 3.0",
+   "CC-BY-SA 3.0",
+   "GPL 3.0",
+   "GPL 2.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/fairy.xcf",
+    "bytes": 89356
+   }
+  ]
+ },
+ "lpc-forest-tiles": {
+  "atribuicao": "see credits.txt",
+  "slug": "lpc-forest-tiles",
+  "titulo": "[LPC] Forest tiles",
+  "url": "https://opengameart.org/content/lpc-forest-tiles",
+  "autor": "reemax",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0",
+   "GPL 2.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC_forest_0.zip",
+    "bytes": 471749
+   }
+  ]
+ },
+ "lpc-frogman": {
+  "atribuicao": "Stephen Challener (Redshrike) and Evert, hosted by OpenGameArt.org. If you use the revised leg animations for the sideward hop, credit Puffolotti. Include a link to this page, as well as the original work by Redshrike.",
+  "slug": "lpc-frogman",
+  "titulo": "LPC Frogman",
+  "url": "https://opengameart.org/content/lpc-frogman",
+  "autor": "evert",
+  "licencas": [
+   "CC-BY 3.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/frogman_1.png",
+    "bytes": 20055
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/frogman_2.png",
+    "bytes": 20365
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/frogman_crown.png",
+    "bytes": 25739
+   }
+  ]
+ },
+ "lpc-goblin": {
+  "atribuicao": "Attribute Stephen \"Redshrike\" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.",
+  "slug": "lpc-goblin",
+  "titulo": "[LPC] Goblin",
+  "url": "https://opengameart.org/content/lpc-goblin",
+  "autor": "williamthompsonj",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/goblin_0.png",
+    "bytes": 35496
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/sword_4.png",
+    "bytes": 6320
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/goblinsword_0.png",
+    "bytes": 39977
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/goblin%20sheeting.psd",
+    "bytes": 439233
+   }
+  ]
+ },
+ "lpc-golem": {
+  "atribuicao": "Attribute Stephen \"Redshrike\" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.",
+  "slug": "lpc-golem",
+  "titulo": "[LPC] Golem",
+  "url": "https://opengameart.org/content/lpc-golem",
+  "autor": "williamthompsonj",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/golem-walk.png",
+    "bytes": 25107
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/golem-atk.png",
+    "bytes": 27782
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/golem-die.png",
+    "bytes": 12330
+   }
+  ]
+ },
+ "lpc-imp": {
+  "atribuicao": null,
+  "slug": "lpc-imp",
+  "titulo": "[LPC] Imp",
+  "url": "https://opengameart.org/content/lpc-imp",
+  "autor": "williamthompsonj",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC%20imp_0.zip",
+    "bytes": 149236
+   }
+  ]
+ },
+ "lpc-imp-2": {
+  "atribuicao": null,
+  "slug": "lpc-imp-2",
+  "titulo": "[LPC] Imp 2",
+  "url": "https://opengameart.org/content/lpc-imp-2",
+  "autor": "williamthompsonj",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC%20Imp%202_0.zip",
+    "bytes": 457019
+   }
+  ]
+ },
+ "lpc-jungle": {
+  "atribuicao": "See CREDITS-jungle.txt. You MUST credit all authors with the information in this file, and you must link back to this page on OpenGameArt.",
+  "slug": "lpc-jungle",
+  "titulo": "[LPC] Jungle",
+  "url": "https://opengameart.org/content/lpc-jungle",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY 4.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-jungle-v2.zip",
+    "bytes": 270641
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-jungle_0.zip",
+    "bytes": 138862
+   }
+  ]
+ },
+ "lpc-jungle-ruins": {
+  "atribuicao": "\"[LPC] Jungle Ruins\" by bluecarrot16. Commissioned by Pierre Vigier (pvigier). Licenses: OGA-BY 3.0+, CC-BY 3.0+, GPL 2.0+. http://opengameart.org/content/lpc-jungle-ruins",
+  "slug": "lpc-jungle-ruins",
+  "titulo": "[LPC] Jungle Ruins",
+  "url": "https://opengameart.org/content/lpc-jungle-ruins",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-jungle-ruins.zip",
+    "bytes": 9058604
+   }
+  ]
+ },
+ "lpc-monsters": {
+  "atribuicao": "\"[LPC] Monsters\" by Charles Sanchez (CharlesGabriel), bagzie, and bluecarrot16. License: CC-BY-SA 3.0+ or GPL 3.0+. https://opengameart.org/content/lpc-monsters https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles https://opengameart.org/content/bat-sprite",
+  "slug": "lpc-monsters",
+  "titulo": "[LPC] Monsters",
+  "url": "https://opengameart.org/content/lpc-monsters",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-monsters.zip",
+    "bytes": 78120
+   }
+  ]
+ },
+ "lpc-mountains": {
+  "atribuicao": "See CREDITS-mountains.txt You MUST credit all authors with the information in this file, and you must link back to this page on OpenGameArt.",
+  "slug": "lpc-mountains",
+  "titulo": "[LPC] Mountains",
+  "url": "https://opengameart.org/content/lpc-mountains",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 4.0",
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/mountains.zip",
+    "bytes": 1695226
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/tiled_0.zip",
+    "bytes": 9647505
+   }
+  ]
+ },
+ "lpc-rocks": {
+  "atribuicao": "[LPC] Rocks by bluecarrot16, Johann Charlot, Yar, Hyptosis, Evert, Lanea Zimmerman (Sharm), Guillaume Lecollinet, Richard Kettering (Jetrel), Zachariah Husiar (Zabin), Jetrel, Hyptosis, Redshrike, Rayane Félix (RayaneFLX), Michele Bucelli (Buch) <https://opengameart.org/users/buch>. See CREDITS-rocks.txt . You MUST include all information in this file.",
+  "slug": "lpc-rocks",
+  "titulo": "[LPC] Rocks",
+  "url": "https://opengameart.org/content/lpc-rocks",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 4.0",
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/rocks.zip",
+    "bytes": 472590
+   }
+  ]
+ },
+ "lpc-roofs": {
+  "atribuicao": "\"[LPC] Roofs\" by bluecarrot16, Lanea Zimmerman (Sharm), Michele Bucelli (Buch), Casper Nilsson, Xenodora, keith karnage, NaRNeRZz, and Talon (Talosaurus). CC-BY-SA 3.0/GPL v3+. See CREDITS-roofs.txt",
+  "slug": "lpc-roofs",
+  "titulo": "[LPC] Roofs",
+  "url": "https://opengameart.org/content/lpc-roofs",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-roofs.zip",
+    "bytes": 729252
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-roofs-v2_0.zip",
+    "bytes": 772090
+   }
+  ]
+ },
+ "lpc-skeleton": {
+  "atribuicao": null,
+  "slug": "lpc-skeleton",
+  "titulo": "[LPC] Skeleton",
+  "url": "https://opengameart.org/content/lpc-skeleton",
+  "autor": null,
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/skeleton_3.png",
+    "bytes": 103670
+   }
+  ]
+ },
+ "lpc-spider": {
+  "atribuicao": null,
+  "slug": "lpc-spider",
+  "titulo": "[LPC] Spider",
+  "url": "https://opengameart.org/content/lpc-spider",
+  "autor": "williamthompsonj",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/LPC_Spiders.zip",
+    "bytes": 1013354
+   }
+  ]
+ },
+ "lpc-streets": {
+  "atribuicao": "Based on “[LPC] Skorpio's SciFi Sprite Pack” by Skorpio, which is dual licensed as CC-BY-SA 3.0 and GPL 3.0",
+  "slug": "lpc-streets",
+  "titulo": "[LPC] Streets",
+  "url": "https://opengameart.org/content/lpc-streets",
+  "autor": "ba%C5%9Dto",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/street_dark.png",
+    "bytes": 887
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/street_light.png",
+    "bytes": 887
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/road_markings_white_0.png",
+    "bytes": 3594
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/road_markings_yellow_0.png",
+    "bytes": 3594
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/road_markings_orange_0.png",
+    "bytes": 3594
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/street_misc.png",
+    "bytes": 459
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/road_signs_de.png",
+    "bytes": 2074
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/tiled.zip",
+    "bytes": 4650
+   }
+  ]
+ },
+ "lpc-terrain-repack": {
+  "atribuicao": null,
+  "slug": "lpc-terrain-repack",
+  "titulo": "[LPC] Terrain Repack",
+  "url": "https://opengameart.org/content/lpc-terrain-repack",
+  "autor": null,
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/terrain.zip",
+    "bytes": 170635
+   }
+  ]
+ },
+ "lpc-terrains": {
+  "atribuicao": "\"[LPC] Terrains\" by bluecarrot16, Lanea Zimmerman (Sharm), Daniel Eddeland (Daneeklu), Richard Kettering (Jetrel), Zachariah Husiar (Zabin), Hyptosis, Casper Nilsson, Buko Studios, Nushio, ZaPaper, billknye, William Thompson, caeles, Redshrike, Bertram, and Rayane Félix (RayaneFLX). See CREDITS-terrain.txt. You MUST credit all authors with the information in this file, and you must link back to this page on OpenGameArt.",
+  "slug": "lpc-terrains",
+  "titulo": "[LPC] Terrains",
+  "url": "https://opengameart.org/content/lpc-terrains",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 4.0",
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-terrains.zip",
+    "bytes": 9229182
+   }
+  ]
+ },
+ "lpc-thatched-roof-cottage": {
+  "atribuicao": "\"LPC Thatched-roof Cottage\" by bluecarrot16. License: CC-BY-SA 3.0 / GPL 3.0+ Based on: \"LPC Base Assets\" by Lanea Zimmerman (AKA Sharm) and Daniel Armstrong (AKA HughSpectrum). License: CC-BY-SA 3.0 / GPL 3.0+. http://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles \"LPC art entry\" by Casper Nilsson. License: CC-BY-SA 3.0 / GPL 3.0+. http://opengameart.org/content/lpc-cnilsson",
+  "slug": "lpc-thatched-roof-cottage",
+  "titulo": "[LPC] Thatched-roof Cottage",
+  "url": "https://opengameart.org/content/lpc-thatched-roof-cottage",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/cottage.png",
+    "bytes": 55774
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/thatched-roof.png",
+    "bytes": 51798
+   }
+  ]
+ },
+ "lpc-tile-atlas": {
+  "atribuicao": null,
+  "slug": "lpc-tile-atlas",
+  "titulo": "LPC Tile Atlas",
+  "url": "https://opengameart.org/content/lpc-tile-atlas",
+  "autor": null,
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/Atlas_0.zip",
+    "bytes": 544208
+   }
+  ]
+ },
+ "lpc-tile-atlas2": {
+  "atribuicao": null,
+  "slug": "lpc-tile-atlas2",
+  "titulo": "LPC Tile Atlas2",
+  "url": "https://opengameart.org/content/lpc-tile-atlas2",
+  "autor": null,
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/Atlas2.zip",
+    "bytes": 437079
+   }
+  ]
+ },
+ "lpc-trees": {
+  "atribuicao": "See CREDITS-trees.txt. You MUST credit all authors with the information in this file, and you must link back to this page on OpenGameArt.",
+  "slug": "lpc-trees",
+  "titulo": "[LPC] Trees",
+  "url": "https://opengameart.org/content/lpc-trees",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-trees.zip",
+    "bytes": 883467
+   }
+  ]
+ },
+ "lpc-walls": {
+  "atribuicao": "\"[LPC] Walls\" by bluecarrot16, Lanea Zimmerman (Sharm), Daniel Armstrong (HughSpectrum), William Thompson (William.Thompsonj), Hyptosis, Zabin, Daniel Cook, Guido Bos, SpiderDave, Cougarmint, Stephen Challener (Redshrike), Matthew Nash, Wolthera van Hövell tot Westerflier (TheraHedwig), Reemax, bleutailfly, NaRNeRZz, Sir Spummington, Casper Nilsson, KnoblePersona. CC-BY-SA 3.0. See CREDITS-walls.txt",
+  "slug": "lpc-walls",
+  "titulo": "[LPC] Walls",
+  "url": "https://opengameart.org/content/lpc-walls",
+  "autor": "bluecarrot16",
+  "licencas": [
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-walls.zip",
+    "bytes": 507050
+   }
+  ]
+ },
+ "lpc-wild-boar": {
+  "atribuicao": "\"LPC Wild Boar\" by Benjamin K. Smith (BenCreating), Daniel Eddeland (daneeklu), and Lanea Zimmerman (Sharm). Commissioned by Castelonia. https://opengameart.org/content/lpc-wild-boar",
+  "slug": "lpc-wild-boar",
+  "titulo": "LPC Wild Boar",
+  "url": "https://opengameart.org/content/lpc-wild-boar",
+  "autor": "bencreating",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/wild_boar_0.zip",
+    "bytes": 101553
+   }
+  ]
+ },
+ "lpc-winter-tiles": {
+  "atribuicao": "LPC Winter Tiles by Demetrius (https://opengameart.org/content/lpc-winter-tiles). Based on LPC: Modified Base tiles by Lanea Zimmerman, special thanks to William Thompson (https://opengameart.org/content/lpc-modified-base-tiles).",
+  "slug": "lpc-winter-tiles",
+  "titulo": "LPC Winter Tiles",
+  "url": "https://opengameart.org/content/lpc-winter-tiles",
+  "autor": "demetrius",
+  "licencas": [
+   "CC-BY 3.0",
+   "OGA-BY 3.0",
+   "GPL 3.0",
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/TilesA2.png",
+    "bytes": 10282
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/TilesA3.png",
+    "bytes": 1731
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/TilesB.png",
+    "bytes": 11909
+   }
+  ]
+ },
+ "lpc-wolf-animation": {
+  "atribuicao": null,
+  "slug": "lpc-wolf-animation",
+  "titulo": "[LPC] Wolf Animation",
+  "url": "https://opengameart.org/content/lpc-wolf-animation",
+  "autor": "williamthompsonj",
+  "licencas": [
+   "CC-BY 4.0",
+   "CC-BY 3.0",
+   "GPL 3.0",
+   "GPL 2.0",
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/howl_0.png",
+    "bytes": 1888
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheet1_0.png",
+    "bytes": 85794
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheet2_0.png",
+    "bytes": 84877
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheet3_0.png",
+    "bytes": 86161
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheet4_0.png",
+    "bytes": 86391
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheet5_0.png",
+    "bytes": 86293
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheet6_0.png",
+    "bytes": 86532
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/wolfsheetsSource.psd",
+    "bytes": 4348241
+   }
+  ]
+ },
+ "lpc-zombie": {
+  "atribuicao": "\"[LPC] Zombie\" by Benjamin K. Smith, commissioned by castelonia. Based on the male LPC base by Stephen Challener (Redshrike) and the thrust and shoot animations by Johannes Sjölund (wulax).",
+  "slug": "lpc-zombie",
+  "titulo": "[LPC] Zombie",
+  "url": "https://opengameart.org/content/lpc-zombie",
+  "autor": "bencreating",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/Zombie_0.png",
+    "bytes": 116628
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/Bleeding%20Eye.png",
+    "bytes": 25047
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/Bloody%20Arm.png",
+    "bytes": 33309
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/Bloody%20Mouth.png",
+    "bytes": 26931
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/Brain.png",
+    "bytes": 42015
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/Ribs.png",
+    "bytes": 37533
+   }
+  ]
+ },
+ "werewolf-lpc": {
+  "atribuicao": "Created by Stephen Challener (Redshrike), William Thompson (William.Thompsonj), & Jordan Irwin (AntumDeluge)",
+  "slug": "werewolf-lpc",
+  "titulo": "Werewolf (LPC)",
+  "url": "https://opengameart.org/content/werewolf-lpc",
+  "autor": "antumdeluge",
+  "licencas": [
+   "CC-BY-SA 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/werewolf-NESW_2.png",
+    "bytes": 3763
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/werewolf-SWEN_1.png",
+    "bytes": 3744
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/werewolf-alt-NESW_0.png",
+    "bytes": 3705
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/werewolf-alt-SWEN.png",
+    "bytes": 3689
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/werewolf-48x64_0.xcf",
+    "bytes": 116338
+   }
+  ]
+ }
+}

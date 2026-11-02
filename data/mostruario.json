@@ -1,0 +1,1164 @@
+{
+ "monstros": [
+  {
+   "id": "morcego",
+   "nome": "Morcego",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/bat.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/bat.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5,
+     6
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/bat.png",
+   "chroma": null
+  },
+  {
+   "id": "gosma",
+   "nome": "Gosma",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/slime.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/slime.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/slime.png",
+   "chroma": null
+  },
+  {
+   "id": "cobra",
+   "nome": "Cobra",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/snake.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/snake.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5,
+     6
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/snake.png",
+   "chroma": null
+  },
+  {
+   "id": "fantasma",
+   "nome": "Fantasma",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/ghost.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/ghost.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/ghost.png",
+   "chroma": null
+  },
+  {
+   "id": "olho-voador",
+   "nome": "Olho voador",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/eyeball.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/eyeball.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento. O ataque dispara um raio.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/eyeball.png",
+   "chroma": null
+  },
+  {
+   "id": "abelha-gigante",
+   "nome": "Abelha gigante",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/bee.png",
+    "fw": 32,
+    "fh": 32,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/bee.png",
+    "fw": 32,
+    "fh": 32,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "a_conferir",
+   "nota": "Quadros de 32 px (menor que os demais). Ataque inferido nas colunas 4-5; confirmar.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/bee.png",
+   "chroma": null
+  },
+  {
+   "id": "minhoca",
+   "nome": "Minhoca",
+   "pacotes": [
+    "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+    "lpc-monsters"
+   ],
+   "andar": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/big_worm.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/big_worm.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Quadros de animação identificados a olho (andar = 4 primeiros, ataque = colunas seguintes); conferir no movimento. Ataque: sair do chão. Há também small_worm.png no pacote.",
+   "folha": "lpc-monsters/x_lpc-monsters.zip/lpc-monsters/big_worm.png",
+   "chroma": null
+  },
+  {
+   "id": "lobo",
+   "nome": "Lobo",
+   "pacotes": [
+    "lpc-wolf-animation"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "Folha de layout irregular (quadros de 32 e 64 px misturados). Não identifiquei animação de ataque; há andar, uivo e deitar. Mostro a folha crua.",
+   "folha": "lpc-wolf-animation/wolfsheet1_0.png",
+   "chroma": null
+  },
+  {
+   "id": "javali",
+   "nome": "Javali selvagem",
+   "pacotes": [
+    "lpc-wild-boar"
+   ],
+   "andar": {
+    "file": "lpc-wild-boar/x_wild_boar_0.zip/Wild Boar/Boar/Boar Walk.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-wild-boar/x_wild_boar_0.zip/Wild Boar/Boar/Boar Attack.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": {
+    "file": "lpc-wild-boar/x_wild_boar_0.zip/Wild Boar/Boar/Boar Die.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "estado": "ok",
+   "nota": "Tem andar, ataque e morte (Boar Die.png). Ordem das linhas assumida como padrão LPC.",
+   "folha": "lpc-wild-boar/x_wild_boar_0.zip/Wild Boar/Boar/Boar Attack.png",
+   "chroma": null
+  },
+  {
+   "id": "goblin",
+   "nome": "Goblin",
+   "pacotes": [
+    "lpc-goblin"
+   ],
+   "andar": {
+    "file": "lpc-goblin/goblin_0.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-goblin/goblin_0.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     8,
+     9,
+     10
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Andar nas colunas 0-7; ataque (soco/estocada) nas colunas 8-10; linha 5 é a morte. Linhas na ordem frente, esquerda, costas, direita.",
+   "folha": "lpc-goblin/goblin_0.png",
+   "chroma": null
+  },
+  {
+   "id": "golem",
+   "nome": "Golem",
+   "pacotes": [
+    "lpc-golem"
+   ],
+   "andar": {
+    "file": "lpc-golem/golem-walk.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-golem/golem-atk.png",
+    "fw": 64,
+    "fh": 96,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": {
+    "file": "lpc-golem/golem-die.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "estado": "ok",
+   "nota": "Tem andar, ataque (quadros de 64x96) e morte (golem-die.png). As duas linhas da morte são variações, não direções.",
+   "folha": "lpc-golem/golem-atk.png",
+   "chroma": null
+  },
+  {
+   "id": "diabrete",
+   "nome": "Diabrete",
+   "pacotes": [
+    "lpc-imp",
+    "lpc-imp-2"
+   ],
+   "andar": {
+    "file": "lpc-imp-2/x_LPC%20Imp%202_0.zip/LPC Imp 2/red/walk - sword.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-imp-2/x_LPC%20Imp%202_0.zip/LPC Imp 2/red/attack - sword.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "rows": {
+     "down": 0,
+     "left": 1,
+     "up": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Variantes de arma (espada, forcado, escudo) e de cor (vermelho, verde, azul); morte em imp death.png. Mostrado: vermelho com espada.",
+   "folha": "lpc-imp-2/x_LPC%20Imp%202_0.zip/LPC Imp 2/red/attack - sword.png",
+   "chroma": null
+  },
+  {
+   "id": "aranha",
+   "nome": "Aranha",
+   "pacotes": [
+    "lpc-spider"
+   ],
+   "andar": {
+    "file": "lpc-spider/x_LPC_Spiders.zip/LPC_Spiders/spider01.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ],
+    "rows": {
+     "up": 0,
+     "left": 1,
+     "down": 2,
+     "right": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "11 variações de cor, 10 quadros de andar por direção e morte (linha 5). Não identifiquei animação de ataque.",
+   "folha": "lpc-spider/x_LPC_Spiders.zip/LPC_Spiders/spider01.png",
+   "chroma": null
+  },
+  {
+   "id": "besouro",
+   "nome": "Besouro",
+   "pacotes": [
+    "lpc-beetle"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "Uma única folha de 248x199 com fundo magenta (cor-chave) e só movimento de andar. Sem ataque. Serve de animal de cenário ou inimigo com avanço.",
+   "folha": "lpc-beetle/beetle5.PNG",
+   "chroma": "#ff00ff"
+  },
+  {
+   "id": "esqueleto",
+   "nome": "Esqueleto",
+   "pacotes": [
+    "lpc-skeleton"
+   ],
+   "andar": {
+    "file": "lpc-skeleton/skeleton_3.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "rows": {
+     "up": 8,
+     "left": 9,
+     "down": 10,
+     "right": 11
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-skeleton/skeleton_3.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 12,
+     "left": 13,
+     "down": 14,
+     "right": 15
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Folha no formato LPC universal (andar, golpear, estocar, arco, conjurar, dano).",
+   "folha": "lpc-skeleton/skeleton_3.png",
+   "chroma": null
+  },
+  {
+   "id": "zumbi",
+   "nome": "Zumbi",
+   "pacotes": [
+    "lpc-zombie"
+   ],
+   "andar": {
+    "file": "lpc-zombie/Zombie_0.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "rows": {
+     "up": 8,
+     "left": 9,
+     "down": 10,
+     "right": 11
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": {
+    "file": "lpc-zombie/Zombie_0.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 12,
+     "left": 13,
+     "down": 14,
+     "right": 15
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Formato LPC universal; vem com variações de ferimentos em arquivos separados.",
+   "folha": "lpc-zombie/Zombie_0.png",
+   "chroma": null
+  },
+  {
+   "id": "lobisomem",
+   "nome": "Lobisomem",
+   "pacotes": [
+    "werewolf-lpc"
+   ],
+   "andar": {
+    "file": "werewolf-lpc/werewolf-NESW_2.png",
+    "fw": 48,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     1
+    ],
+    "rows": {
+     "up": 0,
+     "right": 1,
+     "down": 2,
+     "left": 3
+    },
+    "x0": 0,
+    "y0": 0
+   },
+   "ataque": null,
+   "morte": null,
+   "estado": "sem_ataque",
+   "nota": "Quadros de 48x64, só andar. Sem ataque.",
+   "folha": "werewolf-lpc/werewolf-NESW_2.png",
+   "chroma": null
+  },
+  {
+   "id": "homem-javali",
+   "nome": "Homem-javali",
+   "pacotes": [
+    "lpc-boarman"
+   ],
+   "andar": {
+    "file": "boarman_universal.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "rows": {
+     "up": 8,
+     "left": 9,
+     "down": 10,
+     "right": 11
+    },
+    "x0": 0,
+    "y0": 0,
+    "layers": [
+     "lpc-boarman/x_lpc_boarman.zip/LPC Boarman/Boarman/Universal.png",
+     "lpc-boarman/x_lpc_boarman.zip/LPC Boarman/Head Overlays/Universal.png"
+    ]
+   },
+   "ataque": {
+    "file": "boarman_universal.png",
+    "fw": 64,
+    "fh": 64,
+    "frames": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "rows": {
+     "up": 12,
+     "left": 13,
+     "down": 14,
+     "right": 15
+    },
+    "x0": 0,
+    "y0": 0,
+    "layers": [
+     "lpc-boarman/x_lpc_boarman.zip/LPC Boarman/Boarman/Universal.png",
+     "lpc-boarman/x_lpc_boarman.zip/LPC Boarman/Head Overlays/Universal.png"
+    ]
+   },
+   "morte": null,
+   "estado": "ok",
+   "nota": "Formato LPC universal; corpo e cabeça são camadas separadas, empilhadas aqui. Aceita equipamentos LPC.",
+   "folha": "lpc-boarman/x_lpc_boarman.zip/LPC Boarman/Boarman/Universal.png",
+   "chroma": null
+  },
+  {
+   "id": "homem-sapo",
+   "nome": "Homem-sapo",
+   "pacotes": [
+    "lpc-frogman"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "a_conferir",
+   "nota": "Folha de 480x864 com layout próprio (quadros maiores que 64 px); falta mapear andar/ataque. Mostro a folha crua.",
+   "folha": "lpc-frogman/frogman_1.png",
+   "chroma": null
+  },
+  {
+   "id": "fada",
+   "nome": "Fada",
+   "pacotes": [
+    "lpc-fairy"
+   ],
+   "andar": null,
+   "ataque": null,
+   "morte": null,
+   "estado": "indisponivel",
+   "nota": "O pacote só traz um arquivo .xcf (GIMP), sem PNG. Precisa ser exportado antes de entrar. Autor: Tuomo Untinen.",
+   "folha": null,
+   "chroma": null
+  }
+ ],
+ "cenarios": [
+  {
+   "id": "tile-atlas",
+   "nome": "Tile Atlas e Tile Atlas 2",
+   "pacotes": [
+    "lpc-tile-atlas",
+    "lpc-tile-atlas2"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-tile-atlas/x_Atlas_0.zip/terrain_atlas.png",
+     "nome": "terrain_atlas"
+    },
+    {
+     "file": "lpc-tile-atlas/x_Atlas_0.zip/base_out_atlas.png",
+     "nome": "base_out_atlas"
+    },
+    {
+     "file": "lpc-tile-atlas2/x_Atlas2.zip/obj_misk_atlas.png",
+     "nome": "obj_misk_atlas"
+    },
+    {
+     "file": "lpc-tile-atlas2/x_Atlas2.zip/build_atlas.png",
+     "nome": "build_atlas"
+    }
+   ]
+  },
+  {
+   "id": "terrenos",
+   "nome": "Terrenos",
+   "pacotes": [
+    "lpc-terrains",
+    "lpc-terrain-repack"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-terrains/x_lpc-terrains.zip/lpc-terrains/terrain-v7.png",
+     "nome": "terrain-v7"
+    },
+    {
+     "file": "lpc-terrain-repack/x_terrain.zip/terrain.png",
+     "nome": "terrain (repack)"
+    }
+   ]
+  },
+  {
+   "id": "floresta",
+   "nome": "Floresta",
+   "pacotes": [
+    "lpc-forest-tiles",
+    "lpc-trees",
+    "lpc-conifers"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-forest-tiles/x_LPC_forest_0.zip/LPC_forest/forest_tiles.png",
+     "nome": "forest_tiles"
+    },
+    {
+     "file": "lpc-trees/x_lpc-trees.zip/lpc-trees/trees-green.png",
+     "nome": "trees-green"
+    },
+    {
+     "file": "lpc-conifers/x_lpc-conifers.zip/lpc-conifers/conifers.png",
+     "nome": "conifers"
+    }
+   ]
+  },
+  {
+   "id": "caverna",
+   "nome": "Caverna e ruínas",
+   "pacotes": [
+    "lpc-cavern-and-ruin-tiles",
+    "lpc-caves"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-cavern-and-ruin-tiles/x_LPC_cavern_ruins.zip/LPC_cavern_ruins/cavern_ruins.png",
+     "nome": "cavern_ruins"
+    },
+    {
+     "file": "lpc-caves/caves.png",
+     "nome": "caves"
+    }
+   ]
+  },
+  {
+   "id": "masmorra",
+   "nome": "Masmorra",
+   "pacotes": [
+    "lpc-dungeon-elements"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-dungeon-elements/x_dungeon_0.zip/dungeon10.png",
+     "nome": "dungeon10"
+    },
+    {
+     "file": "lpc-dungeon-elements/x_dungeon_0.zip/dungeonex.png",
+     "nome": "dungeonex"
+    }
+   ]
+  },
+  {
+   "id": "selva",
+   "nome": "Selva e ruínas da selva",
+   "pacotes": [
+    "lpc-jungle",
+    "lpc-jungle-ruins"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-jungle/x_lpc-jungle_0.zip/lpc-jungle/jungle.png",
+     "nome": "jungle"
+    },
+    {
+     "file": "lpc-jungle-ruins/x_lpc-jungle-ruins.zip/lpc-jungle-ruins/jungle-ruins.png",
+     "nome": "jungle-ruins"
+    }
+   ]
+  },
+  {
+   "id": "praia-deserto",
+   "nome": "Praia, deserto e ruínas do deserto",
+   "pacotes": [
+    "lpc-beach-desert",
+    "lpc-desert-ruins"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-beach-desert/x_lpc-beach-desert-v2.zip/lpc-beach-desert/beach-desert.png",
+     "nome": "beach-desert"
+    },
+    {
+     "file": "lpc-desert-ruins/x_lpc-desert-ruins.zip/lpc-desert-ruins/desert-ruins.png",
+     "nome": "desert-ruins"
+    }
+   ]
+  },
+  {
+   "id": "inverno",
+   "nome": "Inverno e lago congelado",
+   "pacotes": [
+    "lpc-winter-tiles",
+    "frozen-lake-lpc"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-winter-tiles/TilesA2.png",
+     "nome": "TilesA2"
+    },
+    {
+     "file": "lpc-winter-tiles/TilesB.png",
+     "nome": "TilesB"
+    },
+    {
+     "file": "frozen-lake-lpc/frozenlake.png",
+     "nome": "frozenlake"
+    }
+   ]
+  },
+  {
+   "id": "montanhas",
+   "nome": "Montanhas e rochas",
+   "pacotes": [
+    "lpc-mountains",
+    "lpc-rocks"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-mountains/x_mountains.zip/submission/mountains-v6.png",
+     "nome": "mountains-v6"
+    },
+    {
+     "file": "lpc-rocks/x_rocks.zip/rocks/rocks.png",
+     "nome": "rocks"
+    }
+   ]
+  },
+  {
+   "id": "cidade",
+   "nome": "Cidade (fora, dentro, casas, telhados, muros, ruas)",
+   "pacotes": [
+    "lpc-city-outside",
+    "lpc-city-inside",
+    "lpc-thatched-roof-cottage",
+    "lpc-roofs",
+    "lpc-walls",
+    "lpc-streets"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-city-outside/x_LPC_city_outside_1.zip/LPC_city_outside/city_outside.png",
+     "nome": "city_outside"
+    },
+    {
+     "file": "lpc-city-inside/x_LPC_city_inside.zip/LPC_city_inside/city_inside.png",
+     "nome": "city_inside"
+    },
+    {
+     "file": "lpc-thatched-roof-cottage/cottage.png",
+     "nome": "cottage"
+    },
+    {
+     "file": "lpc-roofs/x_lpc-roofs-v2_0.zip/lpc-roofs-v2/roofs.png",
+     "nome": "roofs"
+    },
+    {
+     "file": "lpc-walls/x_lpc-walls.zip/lpc-walls/walls.png",
+     "nome": "walls"
+    },
+    {
+     "file": "lpc-streets/street_dark.png",
+     "nome": "street_dark"
+    }
+   ]
+  },
+  {
+   "id": "ferreiro",
+   "nome": "Ferreiro",
+   "pacotes": [
+    "lpc-blacksmith"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-blacksmith/x_lpc-blacksmith.zip/lpc-blacksmith/blacksmith-smelter.png",
+     "nome": "blacksmith-smelter"
+    }
+   ]
+  },
+  {
+   "id": "castelo",
+   "nome": "Castelo",
+   "pacotes": [
+    "lpc-castle",
+    "lpc-castle-mega-pack"
+   ],
+   "imagens": [
+    {
+     "file": "lpc-castle/lpc_castle_2.png",
+     "nome": "lpc_castle_2"
+    },
+    {
+     "file": "lpc-castle-mega-pack/castle8_0.png",
+     "nome": "castle8"
+    }
+   ]
+  }
+ ],
+ "sem_pacote": [
+  {
+   "nome": "Cemitério",
+   "nota": "Não encontrado como pacote próprio; procurar peças soltas em Dungeon Elements ou Misc."
+  },
+  {
+   "nome": "Pântano",
+   "nota": "Não encontrado como pacote próprio; a selva pode cumprir o papel."
+  },
+  {
+   "nome": "Cave Stairs",
+   "nota": "A página do pacote não foi encontrada no OpenGameArt (404). Verificar o nome exato."
+  }
+ ]
+}
