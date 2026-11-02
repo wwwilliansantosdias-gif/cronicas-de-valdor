@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valdor – Mostruário</title>
+<style>
+:root{--bg:#1b1d26;--card:#262a37;--tx:#e8e8ef;--mut:#9aa0b4;--red:#ff4d4d;--amb:#ffb347;--ok:#5fd38d;--ln:#3a4052}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f1f2f6;--card:#fff;--tx:#1d2030;--mut:#5b6178;--ln:#d5d8e3}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,sans-serif;padding:0 16px 40px}
+header{position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--ln);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+h1{font-size:18px;margin:0}
+h2{font-size:17px;margin:26px 0 10px}
+label{color:var(--mut);font-size:13px}
+select,input{font:inherit;background:var(--card);color:var(--tx);border:1px solid var(--ln);border-radius:6px;padding:4px 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:10px}
+.card.bad{border-color:var(--red)}
+.card.warn{border-color:var(--amb)}
+.card h3{margin:0 0 4px;font-size:16px;display:flex;justify-content:space-between;gap:8px}
+.tag{font-size:11px;font-weight:700;border-radius:4px;padding:2px 6px;white-space:nowrap;align-self:flex-start}
+.tag.bad{background:var(--red);color:#fff}.tag.warn{background:var(--amb);color:#222}.tag.ok{background:var(--ok);color:#10321e}
+.row{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;margin:6px 0}
+.cell{text-align:center;font-size:10px;color:var(--mut)}
+canvas{display:block;background:#3a3f55;image-rendering:pixelated;border-radius:4px}
+.lbl{font-size:12px;color:var(--mut);margin-top:6px}
+.nota{font-size:13px;color:var(--mut);margin:6px 0}
+.src{font-size:12px;margin-top:6px}.src a{color:inherit}
+details summary{cursor:pointer;font-size:13px;color:var(--mut)}
+.sheet{overflow:auto;max-width:100%;margin-top:6px;background:#3a3f55;border-radius:4px}
+.sheet img{display:block;image-rendering:pixelated}
+.sc{margin:0 0 18px}.sc .sheet{max-height:420px}
+pre{white-space:pre-wrap;font-size:12px;background:var(--card);padding:10px;border-radius:8px;max-height:400px;overflow:auto}
+.none{font-size:13px;color:var(--red)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Crônicas de Valdor – Mostruário</h1>
+  <label>Zoom <select id="zoom"><option selected>1</option><option>2</option><option>3</option><option>4</option></select>×</label>
+  <label>Mostrar <select id="filtro"><option value="">todos</option><option value="sem_ataque">sem ataque (vermelho)</option><option value="a_conferir">a conferir</option><option value="ok">com ataque</option></select></label>
+  <a href="#creditos" style="color:var(--mut)">Créditos</a>
+</header>
+<h2>Monstros</h2>
+<p class="nota">Todos na mesma escala. Vermelho = sem animação de ataque. Âmbar = layout a conferir. Os quadros de andar e ataque foram identificados a olho nas folhas; se algo estiver errado, a folha crua está em cada cartão.</p>
+<div class="grid" id="monstros"></div>
+<h2>Cenários</h2>
+<p class="nota">Cada folha em escala real (peças de 32 px) com o mesmo zoom; role dentro do quadro.</p>
+<div id="cenarios"></div>
+<h2>Sem pacote próprio</h2>
+<div id="sem"></div>
+<h2 id="creditos">Créditos</h2>
+<p class="nota">Lista completa de autores e licenças de tudo o que está nesta página. Arquivo: <a href="CREDITOS.md">CREDITOS.md</a></p>
+<pre id="cred">carregando…</pre>
+<script>
+const DIR={up:'cima',left:'esquerda',down:'baixo',right:'direita'};
+const ESTADO={ok:['com ataque','ok'],sem_ataque:['SEM ATAQUE','bad'],a_conferir:['A CONFERIR','warn'],indisponivel:['SEM PNG','bad']};
+let Z=1, anims=[];
+const imgs={};
+function img(src){return imgs[src]||(imgs[src]=Object.assign(new Image(),{src}))}
+function mk(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function esc(s){return String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function animRow(a,titulo){
+  const wrap=mk('div'); wrap.appendChild(mk('div','lbl',titulo));
+  const row=mk('div','row'); wrap.appendChild(row);
+  for(const d of ['up','left','down','right']){
+    if(!(d in a.rows))continue;
+    const c=mk('canvas'); c.width=a.fw; c.height=a.fh; c.style.width=a.fw*Z+'px'; c.style.height=a.fh*Z+'px';
+    const cell=mk('div','cell'); cell.append(c,DIR[d]); row.appendChild(cell);
+    anims.push({c,a,row:a.rows[d],i:0});
+  }
+  return wrap;
+}
+function sheet(src,extra){
+  const d=mk('details'); d.appendChild(mk('summary','', 'Folha crua'+(extra||'')));
+  const s=mk('div','sheet'); const im=mk('img'); im.loading='lazy'; im.src=src; im.style.width='auto'; im.dataset.z='1'; s.appendChild(im); d.appendChild(s);
+  d.addEventListener('toggle',()=>{im.onload=()=>{im.style.width=im.naturalWidth*Z+'px'};if(im.complete&&im.naturalWidth)im.style.width=im.naturalWidth*Z+'px'});
+  return d;
+}
+function pacotes(p){return '<div class="src">'+p.map(x=>`<a href="${esc(x.url)}">${esc(x.titulo)}</a> (${esc(x.licencas.join(', '))})`).join('<br>')+'</div>'}
+function render(){
+  anims=[]; const f=document.getElementById('filtro').value;
+  const g=document.getElementById('monstros'); g.innerHTML='';
+  for(const m of D.monstros){
+    if(f&&m.estado!==f)continue;
+    const [t,k]=ESTADO[m.estado];
+    const c=mk('div','card '+(k==='ok'?'':k)); g.appendChild(c);
+    c.appendChild(mk('h3','',`<span>${esc(m.nome)}</span><span class="tag ${k}">${t}</span>`));
+    if(m.andar)c.appendChild(animRow(m.andar,'Andando'));
+    if(m.ataque)c.appendChild(animRow(m.ataque,'Atacando'));
+    else if(m.andar||m.folha)c.appendChild(mk('div','none','Sem animação de ataque identificada'));
+    if(m.morte)c.appendChild(animRow(m.morte,'Morrendo'));
+    c.appendChild(mk('div','nota',esc(m.nota)));
+    if(m.folha)c.appendChild(sheet(m.folha));
+    c.insertAdjacentHTML('beforeend',pacotes(m.pacotes_info));
+  }
+  const s=document.getElementById('cenarios'); s.innerHTML='';
+  for(const c of D.cenarios){
+    const b=mk('div','sc'); s.appendChild(b);
+    b.appendChild(mk('h3','',esc(c.nome)));
+    for(const i of c.imagens){const d=sheet(i.file,': '+i.nome); d.open=false; b.appendChild(d);}
+    b.insertAdjacentHTML('beforeend',pacotes(c.pacotes_info));
+  }
+}
+let D,last=0,tick=0;
+function loop(t){
+  if(t-last>110){last=t;tick++;
+    for(const n of anims){const a=n.a,im=img(a.file);if(!im.complete||!im.naturalWidth)continue;
+      const fr=a.frames[tick%a.frames.length],x=n.c.getContext('2d');x.clearRect(0,0,a.fw,a.fh);
+      x.drawImage(im,a.x0+fr*a.fw,a.y0+n.row*a.fh,a.fw,a.fh,0,0,a.fw,a.fh);}
+  }
+  requestAnimationFrame(loop);
+}
+document.getElementById('zoom').onchange=e=>{Z=+e.target.value;render()};
+document.getElementById('filtro').onchange=render;
+fetch("mostruario.json").then(r=>r.json()).then(d=>{
+  D=d; document.getElementById('sem').innerHTML=d.sem_pacote.map(x=>`<p class="nota"><b>${esc(x.nome)}:</b> ${esc(x.nota)}</p>`).join('');
+  render(); requestAnimationFrame(loop);
+});
+fetch('CREDITOS.md').then(r=>r.text()).then(t=>document.getElementById('cred').textContent=t).catch(()=>{});
+</script>
+</body>
+</html>

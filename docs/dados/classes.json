@@ -1,0 +1,6 @@
+{
+  "classes": [
+    { "id": "guerreiro", "nome": "Guerreiro", "implementada": true, "animacoes": ["andar", "golpear"] },
+    { "id": "arqueiro", "nome": "Arqueiro", "implementada": false, "animacoes": ["andar", "atirar"] }
+  ]
+}

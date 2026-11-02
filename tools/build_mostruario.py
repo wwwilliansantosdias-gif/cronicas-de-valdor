@@ -10,8 +10,12 @@ import re
 
 from PIL import Image
 
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import creditos_pecas  # noqa: E402
+
 RAW = "assets/raw"
-OUT = "docs"
+OUT = "docs/mostruario"
 spec = json.load(open("data/mostruario.json"))
 meta = json.load(open("data/meta.json"))
 copied = {}
@@ -115,8 +119,11 @@ lines += [
     "## Gerador de personagens LPC (Universal LPC Spritesheet Character Generator)", "",
     "- Projeto: https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator",
     "- Fonte dos créditos: `data/gerador/CREDITS.csv` (autor, licença e URL de cada peça, baixado do projeto).",
-    "- Nenhuma peça do gerador está no jogo ainda. Ao incluir uma, liste o caminho dela em `data/pecas_usadas.txt` e rode `python3 -I tools/creditos_pecas.py data/pecas_usadas.txt`; cole o resultado aqui.", "",
+    "- Peças usadas no jogo (listadas em `data/pecas_usadas.txt`; para incluir outra, acrescente o caminho lá e rode este script):", "",
 ]
+lines += creditos_pecas.linhas("data/pecas_usadas.txt")
+lines.append("")
 open("CREDITOS.md", "w", encoding="utf-8").write("\n".join(lines))
 open(os.path.join(OUT, "CREDITOS.md"), "w", encoding="utf-8").write("\n".join(lines))
+open("docs/CREDITOS.md", "w", encoding="utf-8").write("\n".join(lines))
 print(len(copied), "imagens copiadas;", len(slugs), "pacotes nos créditos")

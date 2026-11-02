@@ -1,0 +1,14 @@
+# Mata do Javali: área de caça da região 1
+mapa: mata-do-javali
+tamanho: 60x40
+semente: 7
+base: grama
+arvores: 0.10
+lagoas: 3
+clareira: 42,20,5
+saida: oeste pe-de-lenha
+spawn: javali 4
+spawn: goblin 3
+spawn: cobra 1
+spawn: abelha 1
+chefe: javali-coroado

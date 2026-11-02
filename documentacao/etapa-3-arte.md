@@ -5,7 +5,7 @@ Status: **aprovada por Willian**. Baseado no mostruário publicado e nas regras 
 ## 1. Escala e câmera
 - Quadro-base: 64×64 px (personagens e a maioria dos monstros). Exceções: abelha 32×32, lobisomem 48×64, golem (ataque) 64×96.
 - Peças de cenário: 32×32 px.
-- Tela deitada de celular: câmera mostra cerca de 15×8 peças de 32 px (480×256 de mundo) e é ampliada por número inteiro (2× ou 3×) para manter os pixels nítidos. Ajuste final de zoom é só um número, testado no aparelho.
+- Tela deitada de celular: a câmera usa zoom inteiro (2× em 844×390, 3× em telas maiores) para manter os pixels nítidos; no celular típico o mundo visível é de cerca de 13×6 peças de 32 px. Implementado como `Math.floor(min(largura/384, altura/192))`.
 - `image-rendering: pixelated`, sem suavização.
 
 ## 2. Coerência de estilo

@@ -1,0 +1,9 @@
+{
+  "monstros": [
+    { "id": "javali", "nome": "Javali", "sprite": "javali", "comportamento": "inimigo", "vida": 36, "dano": 6, "velocidade": 55, "alcance": 22, "xp": 9, "ouro": [2, 5], "escala": 1 },
+    { "id": "goblin", "nome": "Goblin", "sprite": "goblin", "comportamento": "inimigo", "vida": 28, "dano": 5, "velocidade": 50, "alcance": 22, "xp": 8, "ouro": [2, 6], "escala": 1 },
+    { "id": "cobra", "nome": "Cobra", "sprite": "cobra", "comportamento": "inimigo", "vida": 20, "dano": 4, "velocidade": 45, "alcance": 20, "xp": 6, "ouro": [1, 4], "escala": 1 },
+    { "id": "abelha", "nome": "Abelha gigante", "sprite": "abelha-gigante", "comportamento": "inimigo", "vida": 14, "dano": 3, "velocidade": 70, "alcance": 18, "xp": 5, "ouro": [1, 3], "escala": 1 },
+    { "id": "javali-coroado", "nome": "Javali Coroado", "sprite": "javali", "comportamento": "chefe", "vida": 240, "dano": 14, "velocidade": 60, "alcance": 34, "xp": 150, "ouro": [60, 90], "escala": 1.6 }
+  ]
+}

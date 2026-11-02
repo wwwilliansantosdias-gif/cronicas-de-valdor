@@ -1,0 +1,7 @@
+{
+  "missoes": [
+    { "id": "javalis", "cidade": "pe-de-lenha", "titulo": "Trilha limpa", "texto": "Mate 6 javalis da Mata.", "alvo": "javali", "quantidade": 6, "recompensa": { "xp": 40, "ouro": 30 } },
+    { "id": "goblins", "cidade": "pe-de-lenha", "titulo": "Goblins na lenha", "texto": "Mate 6 goblins.", "alvo": "goblin", "quantidade": 6, "recompensa": { "xp": 50, "ouro": 40 } },
+    { "id": "coroado", "cidade": "pe-de-lenha", "titulo": "O Javali Coroado", "texto": "Derrote o Javali Coroado na clareira.", "alvo": "javali-coroado", "quantidade": 1, "recompensa": { "xp": 120, "ouro": 100 } }
+  ]
+}

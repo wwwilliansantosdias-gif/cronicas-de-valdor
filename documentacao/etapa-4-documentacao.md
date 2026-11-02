@@ -15,12 +15,12 @@ index.html            jogo
 src/                  motor (módulos JS)
 data/                 regioes, monstros, itens, missoes, classes (JSON)
 mapas/                descrições em texto de cada mapa (ver seção 5)
-docs/                 mostruario (já publicado); o jogo irá para uma pasta de publicação definida na etapa 6
+docs/                 o jogo publicado (index.html, src/, dados/, mapas/, assets/); docs/mostruario/ guarda o mostruário
 documentacao/         estas etapas
 tools/                scripts de build e créditos
 ```
 
-Observação: o Pages publica `/docs`. Na etapa 6 o jogo passa a ser gerado para essa pasta (ou o Pages muda para `/`); decidir antes de codar.
+Decisão (aprovada): o Pages publica `/docs`; o jogo ocupa a raiz e o mostruário foi movido para `docs/mostruario/`. Os JSON do jogo ficam em `docs/dados/` (e não em `data/`, que guarda só metadados dos pacotes).
 
 ## 3. Módulos do motor
 | Módulo | Responsabilidade |

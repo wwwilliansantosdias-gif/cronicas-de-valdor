@@ -13,7 +13,7 @@ def carregar(*p):
     return json.load(open(os.path.join(RAIZ, *p), encoding="utf-8"))
 
 
-MOSTRUARIO = carregar("docs", "mostruario.json")
+MOSTRUARIO = carregar("docs", "mostruario", "mostruario.json")
 META = carregar("data", "meta.json")
 CREDITOS = open(os.path.join(RAIZ, "CREDITOS.md"), encoding="utf-8").read()
 ESTADOS = {"ok", "sem_ataque", "a_conferir", "indisponivel"}
@@ -50,7 +50,7 @@ def test_estados_validos_e_coerentes_com_animacao_de_ataque():
 @pytest.mark.parametrize("m", MOSTRUARIO["monstros"], ids=lambda m: m["id"])
 def test_quadros_cabem_na_imagem(m):
     for nome, a in anims(m):
-        caminho = os.path.join(RAIZ, "docs", a["file"])
+        caminho = os.path.join(RAIZ, "docs", "mostruario", a["file"])
         assert os.path.exists(caminho), (m["id"], nome)
         w, h = Image.open(caminho).size
         for fr in a["frames"]:
@@ -62,7 +62,7 @@ def test_quadros_cabem_na_imagem(m):
 def test_quadros_nao_sao_vazios():
     for m in MOSTRUARIO["monstros"]:
         for nome, a in anims(m):
-            im = Image.open(os.path.join(RAIZ, "docs", a["file"])).convert("RGBA")
+            im = Image.open(os.path.join(RAIZ, "docs", "mostruario", a["file"])).convert("RGBA")
             for d, linha in a["rows"].items():
                 for fr in a["frames"]:
                     box = (a["x0"] + fr * a["fw"], a["y0"] + linha * a["fh"], a["x0"] + (fr + 1) * a["fw"], a["y0"] + (linha + 1) * a["fh"])
@@ -82,7 +82,7 @@ def test_nenhum_arquivo_publicado_sem_uso():
             usados.add(s["folha"])
         for i in s.get("imagens", []):
             usados.add(i["file"])
-    existentes = {f"img/{f}" for f in os.listdir(os.path.join(RAIZ, "docs", "img"))}
+    existentes = {f"img/{f}" for f in os.listdir(os.path.join(RAIZ, "docs", "mostruario", "img"))}
     assert existentes == usados
 
 

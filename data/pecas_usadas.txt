@@ -1,0 +1,13 @@
+# pecas do gerador LPC usadas no Guerreiro (um caminho por linha, como em data/gerador/CREDITS.csv)
+body/bodies/male/walk.png
+body/bodies/male/slash.png
+head/heads/human/male/walk.png
+head/heads/human/male/slash.png
+legs/armour/plate/male/walk.png
+legs/armour/plate/male/slash.png
+torso/armour/plate/male/walk.png
+torso/armour/plate/male/slash.png
+hat/helmet/armet_simple/adult/walk.png
+hat/helmet/armet_simple/adult/slash.png
+weapon/sword/longsword/walk.png
+weapon/sword/longsword/slash_oversize.png

@@ -1,0 +1,14 @@
+# Pé-de-Lenha: cidade segura da região 1
+mapa: pe-de-lenha
+tamanho: 40x24
+semente: 11
+base: terra
+zona_segura: sim
+predio: 4,3
+predio: 30,3
+predio: 4,15
+npc: mercador 14,11
+npc: ferreiro 20,11
+npc: quadro 26,11
+portal: 35,12 caverna
+saida: leste mata-do-javali

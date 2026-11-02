@@ -1,0 +1,6 @@
+{
+  "name": "cronicas-de-valdor",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test tests/js/*.test.js" }
+}
