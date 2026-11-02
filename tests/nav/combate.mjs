@@ -59,7 +59,7 @@ const ven = await V(async () => {
 ok(ven.veneno && ven.barra, "bote da cobra envenena e a barra de vida fica verde");
 // monstros longe ficam parados; 16 no mapa
 const at = await V(() => { const V = window.__valdor; V.jogador.x = V.mapa.inicio.x * 32 + 16; V.jogador.y = V.mapa.inicio.y * 32 + 28; return new Promise((r) => setTimeout(() => r({ total: V.monstros.length, ativos: V.monstros.filter((m) => m.ativo).length }), 200)); });
-ok(at.total === 16 && at.ativos < at.total, "16 monstros, só os próximos ativos: " + JSON.stringify(at));
+ok(at.total >= 30 && at.ativos < at.total, "muitos monstros, só os próximos ativos: " + JSON.stringify(at));
 // tempo por quadro com todos ativos (pior caso): mede atualizar + desenhar
 const ms = await V(async () => {
   const V = window.__valdor; for (const m of V.monstros) { m.x = V.jogador.x + (Math.random() - 0.5) * 300; m.y = V.jogador.y + (Math.random() - 0.5) * 160; }
@@ -67,7 +67,7 @@ const ms = await V(async () => {
   await new Promise((r) => { let n = 0; const f = () => { const a = performance.now(); t.push(a - ant); ant = a; if (++n < 120) requestAnimationFrame(f); else r(); }; requestAnimationFrame(f); });
   t.sort((a, b) => a - b); return t[Math.floor(t.length / 2)];
 });
-ok(ms < 20, `quadro mediano com 16 monstros perto: ${ms.toFixed(1)} ms (≈${Math.round(1000 / ms)} qps no ambiente de teste)`);
+ok(ms < 20, `quadro mediano com todos os monstros perto: ${ms.toFixed(1)} ms (≈${Math.round(1000 / ms)} qps no ambiente de teste)`);
 await pag.screenshot({ path: saida + "/c3.png" });
 ok(erros.length === 0, "sem erros de console: " + erros.join("|"));
 await fim();

@@ -7,8 +7,8 @@ arvores: 0.10
 lagoas: 3
 clareira: 42,20,5
 saida: oeste pe-de-lenha
-spawn: javali 5
-spawn: goblin 4
-spawn: cobra 3
-spawn: abelha 3
+spawn: javali 4 grupo 3
+spawn: goblin 4 grupo 3
+spawn: cobra 3 grupo 2
+spawn: abelha 3 grupo 3
 chefe: javali-coroado

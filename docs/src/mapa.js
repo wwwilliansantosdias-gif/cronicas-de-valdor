@@ -26,7 +26,11 @@ export function lerMapaTexto(txt) {
     else if (k === "npc") { const [t, xy] = v.split(/\s+/); const [x, y] = num(xy); m.npcs.push({ tipo: t, x, y }); }
     else if (k === "portal") { const [xy, para] = v.split(/\s+/); const [x, y] = num(xy); m.portal = { x, y, para }; }
     else if (k === "saida") { const [lado, destino] = v.split(/\s+/); m.saidas.push({ lado, destino }); }
-    else if (k === "spawn") { const [t, n] = v.split(/\s+/); m.spawns.push({ tipo: t, n: Number(n) }); }
+    else if (k === "spawn") { // "spawn: tipo N" (N soltos) ou "spawn: tipo N grupo G" (N bandos de G)
+      const [t, n, g, tam] = v.split(/\s+/);
+      if (g !== undefined && g !== "grupo") throw new Error("spawn: esperava 'grupo' em: " + v);
+      m.spawns.push({ tipo: t, n: Number(n), grupo: tam ? Number(tam) : 1 });
+    }
     else if (k === "chefe") m.chefe = v;
     else throw new Error("chave de mapa desconhecida: " + k);
   }
@@ -127,15 +131,25 @@ export function gerarMapa(spec) {
     if (!spec.clareira || !ok(spec.clareira.x, spec.clareira.y)) throw new Error("chefe sem clareira alcançável");
     mapa.chefe = { tipo: spec.chefe, x: spec.clareira.x, y: spec.clareira.y };
   }
-  // monstros: peças livres, alcançáveis, longe da entrada e entre si
+  // monstros em bandos: centros livres, alcançáveis, longe da entrada, do chefe e de outros bandos;
+  // membros do bando em peças livres a até 2 peças do centro
+  const centros = [];
   for (const s of spec.spawns) {
     for (let n = 0, t = 0; n < s.n; t++) {
-      if (t > 4000) throw new Error("sem espaço para spawn de " + s.tipo);
+      if (t > 6000) throw new Error("sem espaço para spawn de " + s.tipo);
       const x = 2 + Math.floor(rng() * (w - 4)), y = 2 + Math.floor(rng() * (h - 4));
       if (!ok(x, y) || Math.hypot(x - inicio.x, y - inicio.y) < 10) continue;
-      if (mapa.spawns.some((p) => Math.hypot(p.x - x, p.y - y) < 4)) continue;
-      if (mapa.chefe && Math.hypot(mapa.chefe.x - x, mapa.chefe.y - y) < 4) continue;
-      mapa.spawns.push({ tipo: s.tipo, x, y }); n++;
+      if (centros.some((p) => Math.hypot(p.x - x, p.y - y) < 6)) continue;
+      if (mapa.chefe && Math.hypot(mapa.chefe.x - x, mapa.chefe.y - y) < 6) continue;
+      const membros = [{ x, y }];
+      for (let k = 0; k < 60 && membros.length < s.grupo; k++) {
+        const mx2 = x + Math.floor(rng() * 5) - 2, my2 = y + Math.floor(rng() * 5) - 2;
+        if (mx2 > 0 && my2 > 0 && mx2 < w - 1 && my2 < h - 1 && ok(mx2, my2) && !membros.some((p) => p.x === mx2 && p.y === my2)) membros.push({ x: mx2, y: my2 });
+      }
+      if (membros.length < s.grupo) continue;
+      centros.push({ x, y });
+      for (const p of membros) mapa.spawns.push({ tipo: s.tipo, x: p.x, y: p.y, bando: centros.length - 1 });
+      n++;
     }
   }
   // verificações: tudo que o jogador precisa alcançar

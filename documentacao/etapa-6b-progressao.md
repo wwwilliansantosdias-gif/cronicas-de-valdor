@@ -30,7 +30,7 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 2. ✅ Tela de atributos (manual, recomendado, redistribuir).
 3. ✅ (adiantado a pedido) Estocada e Giro, com pontos de habilidade.
 4. ✅ (adiantado a pedido) Ataques distintos dos monstros, com aviso visível.
-5. ✅ (adiantado a pedido) Até 16 monstros por área, só os próximos ativos; desempenho medido.
+5. ✅ (adiantado a pedido) Mais monstros por área, em bandos; só os próximos ativos; desempenho medido.
 6. Drops, mochila e equipar (números).
 7. Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
 8. Mais peças visuais por espaço.
@@ -61,3 +61,9 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
   - Javali Coroado: pisão em área (círculo vermelho que cresce), investida longa e mordida.
 - **16 monstros na Mata** (5 javalis, 4 goblins, 3 cobras, 3 abelhas e o chefe); só se movem os que estão a menos de 450 px do jogador e só são desenhados os que estão na tela. Teste de navegador com os 16 perto: 60 quadros por segundo no ambiente de teste (limite da tela); confirmar no celular.
 - **Ritmo recalibrado** pelo simulador, que agora considera as habilidades e os ataques dos monstros: `xp_base` 36 → nível 10 em cerca de 30 minutos (cerca de 440 abates).
+
+## 8. Volume de monstros (retorno de Willian: "baixo volume")
+- 16 monstros espalhados em 60×40 peças pareciam vazios. Mudança, no padrão dos jogos de referência (bandos do Diablo, concentrações do Conquer): **bandos** — o texto do mapa aceita `spawn: tipo N grupo G`.
+- Mata do Javali: 4 bandos de 3 javalis, 4 de 3 goblins, 3 de 2 cobras, 3 de 3 abelhas e o chefe = **40 monstros**; respawn de 25 s para **15 s** (`respawn_s` em `dados/progressao.json`).
+- Desempenho: só os monstros a menos de 450 px se movem (perto da entrada, 4 de 40); teste com os 40 perto do jogador mantém 60 quadros por segundo no ambiente de teste.
+- Simulador passou a lutar por bando (vários atacam juntos, o Giro atinge até 3); `xp_base` 38 → nível 10 em cerca de 30 minutos (cerca de 490 abates).

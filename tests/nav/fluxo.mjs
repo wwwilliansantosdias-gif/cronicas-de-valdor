@@ -52,8 +52,9 @@ const mortos = await V(async () => {
   return n;
 });
 ok(mortos === 4, "há 5 javalis na mata; matamos 4 (" + mortos + ")");
-ok((await V(() => window.__valdor.est.missoes.javalis.progresso)) === 4, "progresso da missão contado (4/6)");
-await V(() => { window.__valdor.est.missoes.javalis.progresso = 6; window.__valdor.est.missoes.javalis.estado = "pronta"; window.__valdor.entrar("pe-de-lenha", null); });
+const prog = await V(() => ({ p: window.__valdor.est.missoes.javalis.progresso, mortos: window.__valdor.monstros.filter((m) => m.def.id === "javali" && m.morto).length }));
+ok(prog.p === Math.min(6, prog.mortos) && prog.p >= 4, "progresso da missão = javalis mortos (bando conta junto) " + JSON.stringify(prog));
+await V(() => { if (window.__valdor.est.missoes.javalis.estado === "ativa") { window.__valdor.est.missoes.javalis.progresso = 6; window.__valdor.est.missoes.javalis.estado = "pronta"; } window.__valdor.entrar("pe-de-lenha", null); });
 const ouroAntes = await V(() => window.__valdor.est.ouro);
 await perto("quadro"); ok(await botao("Entregar: Trilha limpa"), "entrega missão"); await fechar();
 ok((await V(() => window.__valdor.est.ouro)) === ouroAntes + 30, "recompensa de ouro recebida");

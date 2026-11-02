@@ -54,7 +54,9 @@ test("nenhum monstro, npc ou portal nasce em peça bloqueada", () => {
 test("área de caça tem de 6 a 10 monstros; cidade é zona segura sem monstros", () => {
   const caca = gerar("mata-do-javali"), cidade = gerar("pe-de-lenha");
   const total = caca.spawns.length + (caca.chefe ? 1 : 0);
-  assert.ok(total >= 6 && total <= 16, "até 16 por área (média das referências): " + total);
+  const esperado = lerMapaTexto(mapasTxt["mata-do-javali"]).spawns.reduce((t, s) => t + s.n * s.grupo, 0) + 1;
+  assert.equal(total, esperado, "todo bando do texto do mapa é colocado inteiro");
+  assert.ok(total >= 30 && total <= 48, "volume de monstros por área: " + total);
   assert.equal(cidade.zonaSegura, true);
   assert.equal(cidade.spawns.length, 0);
   assert.deepEqual(cidade.npcs.map((n) => n.tipo).sort(), ["ferreiro", "mercador", "quadro"]);
@@ -67,6 +69,17 @@ test("spawns são de monstros que existem", () => {
     for (const s of m.spawns) assert.ok(ids.has(s.tipo), s.tipo);
     if (m.chefe) assert.ok(ids.has(m.chefe.tipo));
   }
+});
+
+test("bandos: membros ficam a até 2 peças do centro e bandos ficam separados", () => {
+  const m = gerar("mata-do-javali");
+  const porBando = {};
+  for (const p of m.spawns) (porBando[p.bando] ??= []).push(p);
+  const bandos = Object.values(porBando);
+  assert.ok(bandos.length >= 10);
+  for (const b of bandos) { assert.ok(b.every((p) => p.tipo === b[0].tipo)); for (const p of b) assert.ok(Math.abs(p.x - b[0].x) <= 2 && Math.abs(p.y - b[0].y) <= 2); }
+  for (let i = 0; i < bandos.length; i++) for (let j = i + 1; j < bandos.length; j++) assert.ok(Math.hypot(bandos[i][0].x - bandos[j][0].x, bandos[i][0].y - bandos[j][0].y) >= 6);
+  assert.throws(() => lerMapaTexto("mapa: x\ntamanho: 10x10\nspawn: javali 2 bando 3"));
 });
 
 test("mapa com chave desconhecida ou sem tamanho é recusado", () => {

@@ -2,8 +2,9 @@
 // Uso: node tools/simular.mjs [nivel-alvo]    (padrão 10)
 // Modelo (aproximado, de propósito simples):
 // - caça na área da região 1; cada monstro morto some e volta depois do respawn;
-// - luta: dano por segundo do jogador = soma das habilidades liberadas (dano x crítico médio / recarga) x eficiência
-//   (posicionar, errar); o Giro conta 1,5 alvo;
+// - caça por bando (como no mapa): caminha até um bando e luta com os membros vivos; todos atacam ao mesmo tempo;
+// - dano por segundo do jogador = soma das habilidades liberadas (dano x crítico médio / recarga) x eficiência
+//   (posicionar, errar); o Giro atinge até 3 membros do bando;
 // - o monstro usa o seu ataque mais forte em ciclo (aviso + recarga) e acerta parte deles (o resto o jogador desvia
 //   pelo aviso); veneno soma o dano contínuo; o jogador bebe poção abaixo de 35% de vida
 //   e, sem poção, volta à cidade (cura e compra poções);
@@ -16,7 +17,7 @@ import { criarPrng } from "../docs/src/prng.js";
 import { lerMapaTexto } from "../docs/src/mapa.js";
 
 const ler = (f) => JSON.parse(readFileSync(new URL("../docs/" + f, import.meta.url), "utf8"));
-export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 3, acertoMonstro: 0.5, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6, respawn: 25, respawnChefe: 120 };
+export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 4, entreMembros: 0.8, acertoMonstro: 0.5, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6 }; // respawn vem de dados/progressao.json
 
 export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES } = {}) {
   const P = dados?.P || ler("dados/progressao.json"), I = dados?.I || ler("dados/itens.json");
@@ -29,9 +30,9 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
   const est = novoEstado(P, I);
   est.autoDistribuir = true; // o simulador segue a distribuição recomendada
   for (const q of Q) est.missoes[q.id] = { estado: "ativa", progresso: 0 };
-  const pool = [];
-  for (const s of spec.spawns) for (let i = 0; i < s.n; i++) pool.push({ def: M[s.tipo], volta: 0 });
-  const chefe = { def: M[spec.chefe], volta: 0 };
+  const bandos = [];
+  for (const s of spec.spawns) for (let i = 0; i < s.n; i++) bandos.push(Array.from({ length: s.grupo }, () => ({ def: M[s.tipo], volta: 0 })));
+  const chefe = [{ def: M[spec.chefe], volta: 0 }];
   let t = 0, vida = derivados(P, I, est).vidaMax, mortes = 0, abates = 0, visitas = 0;
   const marcos = {};
   const preco = I.itens.find((i) => i.id === "pocao").preco;
@@ -47,23 +48,33 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
   while (est.nivel < alvo && t < 6 * 3600) {
     const sv = derivados(P, I, est);
     const critMedio = 1 + sv.critico * (sv.criticoMult - 1);
-    let dps = 0;
-    for (const h of habsClasse) if (est.habilidades[h.id]) dps += danoHabilidade(h, H.por_grau, sv.dano, est.habilidades[h.id]) * critMedio / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id]) * (h.forma === "circulo" ? 1.5 : 1);
-    dps *= sup.eficiencia;
-    let alvoM = null;
-    if (est.nivel >= sup.nivelChefe && chefe.volta <= t) alvoM = chefe;
-    else { const vivos = pool.filter((p) => p.volta <= t); if (vivos.length) alvoM = vivos[Math.floor(rng() * vivos.length)]; }
-    if (!alvoM) { t = Math.min(...pool.map((p) => p.volta)); continue; }
+    let dpsUm = 0, dpsArea = 0;
+    for (const h of habsClasse) if (est.habilidades[h.id]) {
+      const v = danoHabilidade(h, H.por_grau, sv.dano, est.habilidades[h.id]) * critMedio / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id]) * sup.eficiencia;
+      if (h.forma === "circulo") dpsArea += v; else dpsUm += v;
+    }
+    let bando = null;
+    if (est.nivel >= sup.nivelChefe && chefe[0].volta <= t) bando = chefe;
+    else { const com = bandos.filter((b) => b.some((m) => m.volta <= t)); if (com.length) bando = com[Math.floor(rng() * com.length)]; }
+    if (!bando) { t = Math.min(...bandos.flat().map((m) => m.volta)); continue; }
     if (vida < 0.35 * sv.vidaMax) { if (est.pocoes > 0) { est.pocoes--; vida = Math.min(sv.vidaMax, vida + 60); } else cidade(); continue; }
-    const def = alvoM.def, luta = def.vida / dps;
-    const recebido = dpsMonstro(def) * sup.acertoMonstro * luta;
-    t += sup.aproximacao + luta;
-    if (recebido >= vida) { mortes++; est.ouro = Math.floor(est.ouro * 0.8); cidade(); continue; }
-    vida -= recebido; abates++;
-    alvoM.volta = t + (alvoM === chefe ? sup.respawnChefe : sup.respawn);
-    est.ouro += (def.ouro[0] + def.ouro[1]) / 2 | 0;
-    for (const q of Q) { const e = est.missoes[q.id]; if (e.estado === "ativa" && q.alvo === def.id && ++e.progresso >= q.quantidade) e.estado = "pronta"; }
-    subir(ganharXp(P, est, def.xp));
+    const vivos = bando.filter((m) => m.volta <= t);
+    t += sup.aproximacao;
+    let morreu = false;
+    while (vivos.length) {
+      const alvoM = vivos[0], def = alvoM.def;
+      const luta = def.vida / (dpsUm + dpsArea * Math.min(vivos.length, 3)); // o dano em área conta para cada membro atingido
+      const recebido = vivos.reduce((s, m) => s + dpsMonstro(m.def), 0) * sup.acertoMonstro * luta;
+      t += luta + sup.entreMembros;
+      if (recebido >= vida) { morreu = true; break; }
+      vida -= recebido; abates++; vivos.shift();
+      alvoM.volta = t + (bando === chefe ? P.respawn_chefe_s : P.respawn_s);
+      est.ouro += (def.ouro[0] + def.ouro[1]) / 2 | 0;
+      for (const q of Q) { const e = est.missoes[q.id]; if (e.estado === "ativa" && q.alvo === def.id && ++e.progresso >= q.quantidade) e.estado = "pronta"; }
+      subir(ganharXp(P, est, def.xp));
+      if (vida < 0.25 * derivados(P, I, est).vidaMax && est.pocoes > 0) { est.pocoes--; vida += 60; }
+    }
+    if (morreu) { mortes++; est.ouro = Math.floor(est.ouro * 0.8); cidade(); }
   }
   return { minutos: t / 60, marcos: Object.fromEntries(Object.entries(marcos).map(([k, v]) => [k, +(v / 60).toFixed(1)])), mortes, abates, visitas, nivel: est.nivel };
 }

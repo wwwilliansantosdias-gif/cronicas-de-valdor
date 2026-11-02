@@ -243,7 +243,7 @@ function atualizar(dt) {
     }
     const raio = D.P.monstros_ativos_raio;
     for (const m of monstros) {
-      if (m.morto) { if (m.def.comportamento !== "chefe" ? performance.now() - m.mortoEm > 25000 : performance.now() - m.mortoEm > 120000) { Object.assign(m, criarMonstro(m.def, m.spawnX, m.spawnY)); } continue; }
+      if (m.morto) { if (performance.now() - m.mortoEm > 1000 * (m.def.comportamento === "chefe" ? D.P.respawn_chefe_s : D.P.respawn_s)) Object.assign(m, criarMonstro(m.def, m.spawnX, m.spawnY)); continue; }
       m.ativo = Math.hypot(m.x - jogador.x, m.y - jogador.y) <= raio; // longe do jogador: parado, sem gastar processamento
       if (!m.ativo) continue;
       const r = atualizarMonstro(m, jogador, dt, mapa);
