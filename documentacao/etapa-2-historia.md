@@ -1,6 +1,6 @@
 # Etapa 2 – História e regiões (proposta provisória)
 
-Status: **aprovada por Willian** (regiões, cidades e chefes). A aprovação visual de cada monstro no mostruário continua pendente; se algum for descartado ou corrigido, troca-se pelo reserva indicado. Usa só monstros que tiveram ataque identificado.
+Status: **aprovada por Willian** (regiões, cidades e chefes). Monstros do mostruário e nomes provisórios também aprovados por Willian. Usa só monstros que tiveram ataque identificado.
 
 ## 1. Premissa
 
@@ -50,4 +50,4 @@ Observações:
 Se algum capítulo pedir um chefe humano, monta-se o personagem no gerador LPC e creditam-se as peças com `tools/creditos_pecas.py`.
 
 ## 5. Pendente
-- Confirmar cada monstro no mostruário em movimento (e as correções de quadros de abelha, goblin, diabrete e javali).
+- Nenhuma decisão aberta. Quadros inferidos (abelha, goblin, diabrete, javali) seguem como estão no `data/mostruario.json` até aparecer erro no jogo.

@@ -1,6 +1,6 @@
 # Etapa 3 – Direção de arte
 
-Status: **rascunho** para aprovação. Baseado no mostruário publicado e nas regras do `CLAUDE.md`.
+Status: **aprovada por Willian**. Baseado no mostruário publicado e nas regras do `CLAUDE.md`.
 
 ## 1. Escala e câmera
 - Quadro-base: 64×64 px (personagens e a maioria dos monstros). Exceções: abelha 32×32, lobisomem 48×64, golem (ataque) 64×96.
