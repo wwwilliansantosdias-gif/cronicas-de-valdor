@@ -55,5 +55,37 @@ def test_regioes_referenciam_mapas_e_niveis_consistentes():
 
 
 def test_assets_do_jogo_existem():
-    for f in ("guerreiro_walk", "guerreiro_slash", "guerreiro_slash_arma", "forest_tiles", "dirt", "signs", "house", "soldier_altcolor", "princess"):
+    for f in ("forest_tiles", "dirt", "signs", "house", "soldier_altcolor", "princess"):
         assert os.path.exists(os.path.join(RAIZ, "docs", "assets", f + ".png")), f
+
+
+def test_todo_item_vestivel_tem_visual_com_as_animacoes_do_guerreiro():
+    from PIL import Image
+    for it in ITENS:
+        if it["tipo"] == "consumivel":
+            continue
+        v = it["visual"]
+        for anim in ("walk", "slash", "thrust"):
+            arq = os.path.join(RAIZ, "docs", "assets", "pecas", v[anim])
+            assert os.path.exists(arq), f"{it['id']}: falta {v[anim]}"
+            w, h = Image.open(arq).size
+            q = 192 if anim in v.get("grande", []) else 64
+            colunas = {"walk": 9, "slash": 6, "thrust": 8}[anim]
+            assert h == 4 * q and w >= colunas * q, f"{it['id']} {anim}: {w}x{h} não tem 4 direções x {colunas} quadros de {q}px"
+
+
+def test_corpo_do_personagem_tem_as_animacoes_e_esta_creditado():
+    I = json.load(open(os.path.join(RAIZ, "docs", "dados", "itens.json"), encoding="utf-8"))
+    for c in I["corpo"].values():
+        if not isinstance(c, dict):
+            continue
+        for pasta in (c["base"], c["cabeca"]):
+            for anim in ("walk", "slash", "thrust"):
+                assert os.path.exists(os.path.join(RAIZ, "docs", "assets", "pecas", f"{pasta}/{anim}.png"))
+                assert f"{pasta}/{anim}.png" in USADAS
+
+
+def test_cada_espaco_tem_mais_de_uma_aparencia_na_regiao_1():
+    for esp in ("arma", "capacete", "peitoral", "grevas"):
+        visuais = {it["visual"]["walk"] for it in ITENS if it.get("espaco") == esp and it.get("nivel", 1) <= 9}
+        assert len(visuais) >= 2, esp

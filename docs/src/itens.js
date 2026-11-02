@@ -22,11 +22,12 @@ export function basesQueCaem(I, classe, nivelMax) {
   return I.itens.filter((b) => b.tipo !== "consumivel" && (!b.classes || b.classes.includes(classe)) && (b.nivel || 1) <= nivelMax);
 }
 
-// sorteia o que um monstro derrubado larga (ou null): cai?, depois qual base, depois a qualidade e os bônus
+// sorteia o que um monstro derrubado larga (ou null): cai?, depois qual base, depois a qualidade e os bônus.
+// Só cai item de até "acima_do_nivel" níveis acima do jogador (e nunca acima da região): nada de item inútil por muito tempo.
 export function sortearDrop(I, P, def, est, nivelMaxRegiao, sor, rng) {
   const d = I.drops, chefe = def.comportamento === "chefe";
   if (rng() >= (chefe ? d.chance_chefe : d.chance)) return null;
-  const bases = basesQueCaem(I, est.classe, nivelMaxRegiao);
+  const bases = basesQueCaem(I, est.classe, Math.min(nivelMaxRegiao, est.nivel + d.acima_do_nivel));
   if (!bases.length) return null;
   const base = bases[Math.floor(rng() * bases.length)];
   const qual = sortearQualidade(I, sor, rng, chefe ? d.chefe_qualidade_min : null);

@@ -616,9 +616,9 @@
     ],
     "rows": {
      "down": 0,
-     "left": 1,
+     "right": 1,
      "up": 2,
-     "right": 3
+     "left": 3
     },
     "x0": 0,
     "y0": 0
@@ -634,16 +634,16 @@
     ],
     "rows": {
      "down": 0,
-     "left": 1,
+     "right": 1,
      "up": 2,
-     "right": 3
+     "left": 3
     },
     "x0": 0,
     "y0": 0
    },
    "morte": null,
    "estado": "ok",
-   "nota": "Andar nas colunas 0-7; ataque (soco/estocada) nas colunas 8-10; linha 5 é a morte. Linhas na ordem frente, esquerda, costas, direita.",
+   "nota": "Andar nas colunas 0-7; ataque (soco/estocada) nas colunas 8-10; linha 5 é a morte. Linhas na ordem frente, direita, costas, esquerda (corrigido após teste no jogo: estava andando de costas).",
    "folha": "img/goblin_0_c7d86b.png",
    "chroma": null,
    "pacotes_info": [
@@ -766,9 +766,9 @@
      3
     ],
     "rows": {
-     "down": 0,
+     "up": 0,
      "left": 1,
-     "up": 2,
+     "down": 2,
      "right": 3
     },
     "x0": 0,
@@ -785,9 +785,9 @@
      3
     ],
     "rows": {
-     "down": 0,
+     "up": 0,
      "left": 1,
-     "up": 2,
+     "down": 2,
      "right": 3
     },
     "x0": 0,
@@ -795,7 +795,7 @@
    },
    "morte": null,
    "estado": "ok",
-   "nota": "Variantes de arma (espada, forcado, escudo) e de cor (vermelho, verde, azul); morte em imp death.png. Mostrado: vermelho com espada.",
+   "nota": "Variantes de arma (espada, forcado, escudo) e de cor (vermelho, verde, azul); morte em imp death.png. Mostrado: vermelho com espada. Linhas de cima/baixo corrigidas após conferência visual.",
    "folha": "img/attack_sword_112b01.png",
    "chroma": null,
    "pacotes_info": [

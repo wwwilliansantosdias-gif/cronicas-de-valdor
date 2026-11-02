@@ -32,8 +32,13 @@ async function iniciar() {
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
     P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
-  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess", "guerreiro_walk", "guerreiro_slash", "guerreiro_slash_arma", "guerreiro_thrust", "guerreiro_thrust_arma"];
+  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess"];
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
+  // peças do personagem: corpo, cabeça e o visual de cada item (camadas empilhadas na hora)
+  const pecas = new Set();
+  for (const c of Object.values(itens.corpo)) if (c.base) for (const a of ["walk", "slash", "thrust"]) { pecas.add(`${c.base}/${a}.png`); pecas.add(`${c.cabeca}/${a}.png`); }
+  for (const it of itens.itens) for (const [k, v] of Object.entries(it.visual || {})) if (k !== "grande") pecas.add(v);
+  await Promise.all([...pecas].map(async (f) => { IMG[f] = await imagem("assets/pecas/" + f); }));
   const usados = new Set();
   for (const id in D.monstros) { const s = MSTR[D.monstros[id].sprite]; for (const k of ["andar", "ataque"]) if (s[k]) usados.add(s[k].file); }
   for (const f of usados) IMG[f] = await imagem("mostruario/" + f);
@@ -188,19 +193,24 @@ function comparar(i) {
 }
 function telaMochila(sel = -1) {
   const I = D.itens;
-  const eq = I.espacos.map((e) => { const it = EST.equip[e]; return `<tr><td>${NOME_ESPACO[e]}</td><td>${it ? `<span style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</span><br><small>${descreverItem(it)}</small>` : "<small>vazio</small>"}</td></tr>`; }).join("");
+  const eq = I.espacos.map((e) => { const it = EST.equip[e]; return `<tr data-e="${e}" class="${sel === e ? "sel" : ""}"><td>${NOME_ESPACO[e]}</td><td>${it ? `<span style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</span><br><small>${descreverItem(it)}</small>` : "<small>vazio</small>"}</td></tr>`; }).join("");
   const lista = EST.mochila.map((it, i) => `<button data-i="${i}" class="item${i === sel ? " sel" : ""}" style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</button>`).join("") || "<p><small>Vazia. Monstros às vezes deixam itens no chão: passe por cima para pegar.</small></p>";
-  let det = "<p><small>Toque num item para ver e equipar.</small></p>";
+  let det = "<p><small>Toque num item para ver e equipar, ou numa peça vestida para tirar.</small></p>";
   const acoes = [];
-  if (sel >= 0 && EST.mochila[sel]) {
+  if (typeof sel === "string" && EST.equip[sel]) {
+    const it = EST.equip[sel];
+    det = `<p style="color:${qualidade(I, it.qual).cor}"><b>${nomeItem(I, it)}</b></p><p><small>${NOME_ESPACO[sel]} (vestido) · ${descreverItem(it)}</small></p>`;
+    acoes.push(["Tirar", () => { if (comAjusteDeVida(() => desequipar(I, EST, sel))) msg(`Tirou: ${nomeItem(I, it)}`); else msg("Mochila cheia."); telaMochila(); }, EST.mochila.length >= I.mochila_max]);
+  } else if (sel >= 0 && EST.mochila[sel]) {
     const it = EST.mochila[sel], imp = impedimento(I, EST, it);
     det = `<p style="color:${qualidade(I, it.qual).cor}"><b>${nomeItem(I, it)}</b></p><p><small>${NOME_ESPACO[baseItem(I, it.base).espaco]} · ${descreverItem(it)}</small></p><p><small>Se equipar: ${comparar(sel)}</small></p>${imp ? `<p><small>Não pode equipar: ${imp}</small></p>` : ""}`;
-    acoes.push(["Equipar", () => { comAjusteDeVida(() => equipar(I, EST, sel)); telaMochila(); }, !!imp]);
+    acoes.push(["Equipar", () => { if (comAjusteDeVida(() => equipar(I, EST, sel))) msg(`Equipou: ${nomeItem(I, it)}`); telaMochila(); }, !!imp]);
     acoes.push(["Descartar", () => { if (confirm(`Descartar ${nomeItem(I, it)}?`)) { descartar(EST, sel); salvar(); telaMochila(); } }]);
   }
   painel(`<h3>Mochila <small>· ${EST.mochila.length}/${I.mochila_max}</small></h3><div class="duas"><div><table>${eq}</table></div><div class="dir"><div class="itens">${lista}</div>${det}</div></div>`, acoes);
   const dir = $("caixa").querySelector(".dir");
   for (const b of $("caixa").querySelectorAll("button[data-i]")) b.onclick = () => telaMochila(+b.dataset.i);
+  for (const r of $("caixa").querySelectorAll("tr[data-e]")) r.onclick = () => telaMochila(r.dataset.e);
   dir.append(...[...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
 }
 // provisório até o passo 4 (melhoria +1..+5 com chance e fragmentos): afiar sempre funciona, até +3
@@ -382,25 +392,35 @@ function desenharAvisos() {
   }
 }
 const ORDEM_GIRO = ["down", "left", "up", "right"];
+// camadas do personagem na ordem de itens.json ("corpo", "grevas", "peitoral", "cabeca", "capacete", "arma"):
+// cada item vestido desenha a sua peça LPC; folhas "grandes" (192 px, como a espada longa ao golpear) ficam centradas
+function camadas(anim) {
+  const I = D.itens, corpo = I.corpo[EST.classe], out = [];
+  for (const c of I.corpo.ordem_camadas) {
+    if (c === "corpo") out.push({ img: IMG[`${corpo.base}/${anim}.png`], grande: false });
+    else if (c === "cabeca") out.push({ img: IMG[`${corpo.cabeca}/${anim}.png`], grande: false });
+    else { const it = EST.equip[c]; if (!it) continue; const v = baseItem(I, it.base).visual; out.push({ img: IMG[v[anim]], grande: (v.grande || []).includes(anim) }); }
+  }
+  return out;
+}
+function desenharCamadas(anim, col, linha, ox, oy) {
+  for (const l of camadas(anim)) {
+    if (!l.img) continue;
+    if (l.grande) ctx.drawImage(l.img, col * 192, linha * 192, 192, 192, ox - 64, oy - 64, 192, 192);
+    else ctx.drawImage(l.img, col * 64, linha * 64, 64, 64, ox, oy, 64, 64);
+  }
+}
 function desenharJogador(t) {
   const g = jogador.golpe, h = jogador.hab;
   const dir = g >= 0 && h.animacao === "giro" ? ORDEM_GIRO[(ORDEM_GIRO.indexOf(jogador.dir) + Math.floor(g / h.duracao * 4)) % 4] : jogador.dir;
   const L = LINHA[dir], ox = Math.round(jogador.x - 32 - cam.x), oy = Math.round(jogador.y - 60 - cam.y);
   if (jogador.invul > 0 && Math.floor(t * 20) % 2) ctx.globalAlpha = 0.5;
-  if (g >= 0 && h.animacao === "thrust") {
-    const c = Math.min(7, Math.floor(g / h.duracao * 8));
-    ctx.drawImage(IMG.guerreiro_thrust, c * 64, L * 64, 64, 64, ox, oy, 64, 64);
-    ctx.drawImage(IMG.guerreiro_thrust_arma, c * 192, L * 192, 192, 192, ox - 64, oy - 64, 192, 192);
-  } else if (g >= 0) { // golpe e giro usam a folha de golpear; o giro troca de direção 4 vezes
+  if (g >= 0 && h.animacao === "thrust") desenharCamadas("thrust", Math.min(7, Math.floor(g / h.duracao * 8)), L, ox, oy);
+  else if (g >= 0) { // golpe e giro usam a animação de golpear; o giro troca de direção 4 vezes
     const passo = h.animacao === "giro" ? h.duracao / 4 : h.duracao;
-    const c = Math.min(5, Math.floor((g % passo) / passo * 6));
-    ctx.drawImage(IMG.guerreiro_slash, c * 64, L * 64, 64, 64, ox, oy, 64, 64);
-    ctx.drawImage(IMG.guerreiro_slash_arma, c * 192, L * 192, 192, 192, ox - 64, oy - 64, 192, 192);
+    desenharCamadas("slash", Math.min(5, Math.floor((g % passo) / passo * 6)), L, ox, oy);
     if (h.animacao === "giro") { ctx.save(); ctx.globalAlpha = 0.25; ctx.strokeStyle = "#dfefff"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(jogador.x - cam.x, jogador.y - 14 - cam.y, h.raio, h.raio * 0.7, 0, 0, 7); ctx.stroke(); ctx.restore(); }
-  } else {
-    const c = jogador.andando ? 1 + Math.floor(jogador.tAnim * 10) % 8 : 0;
-    ctx.drawImage(IMG.guerreiro_walk, c * 64, L * 64, 64, 64, ox, oy, 64, 64);
-  }
+  } else desenharCamadas("walk", jogador.andando ? 1 + Math.floor(jogador.tAnim * 10) % 8 : 0, L, ox, oy);
   ctx.globalAlpha = 1;
 }
 function etiqueta(txt, x, y) { ctx.font = "8px system-ui"; ctx.textAlign = "center"; ctx.fillStyle = "#000b"; ctx.fillText(txt, x + 1, y + 1); ctx.fillStyle = "#fff"; ctx.fillText(txt, x, y); }

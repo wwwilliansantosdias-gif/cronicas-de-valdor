@@ -44,6 +44,14 @@ test("só caem itens da classe e até o nível da região", () => {
   for (let i = 0; i < 3000; i++) { const it = sortearDrop(I, P, chefe, e, 9, 0, rng); const b = I.itens.find((x) => x.id === it.base); assert.ok(b.tipo !== "consumivel" && b.classes.includes("guerreiro") && (b.nivel || 1) <= 9); }
 });
 
+test("só cai item de até 2 níveis acima do jogador, e nunca acima da região", () => {
+  const rng = criarPrng(8), e = novoEstado(P, I);
+  const nivelBase = (it) => I.itens.find((x) => x.id === it.base).nivel || 1;
+  for (const nv of [1, 4, 9]) { e.nivel = nv; for (let i = 0; i < 2000; i++) { const it = sortearDrop(I, P, chefe, e, 9, 0, rng); assert.ok(nivelBase(it) <= Math.min(9, nv + I.drops.acima_do_nivel), `nível ${nv}: ${it.base}`); } }
+  e.nivel = 1; const vistos = new Set(); for (let i = 0; i < 3000; i++) vistos.add(sortearDrop(I, P, chefe, e, 9, 0, rng).base);
+  assert.ok(vistos.size >= 4, "variedade no começo: " + [...vistos]);
+});
+
 test("equipar troca com o item vestido, que volta para a mochila no mesmo lugar", () => {
   const e = novoEstado(P, I), velho = e.equip.arma, novo = novoItem("espada-longa", "raro", 0, { for: 2 });
   e.mochila.push(novoItem("elmo-armet"), novo);

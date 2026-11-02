@@ -33,7 +33,7 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 5. ✅ (adiantado a pedido) Mais monstros por área, em bandos; só os próximos ativos; desempenho medido.
 6. ✅ Drops, mochila e equipar (números).
 7. Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
-8. Mais peças visuais por espaço.
+8. ✅ (adiantado a pedido) Mais peças visuais por espaço; personagem montado em camadas na hora.
 9. Arqueiro.
 10. Regiões 2 e 3.
 11. Som.
@@ -75,3 +75,13 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - **Mercador** compra itens (metade do valor, mais por qualidade, +N e bônus).
 - Ainda sem visual novo: as 4 peças do Guerreiro são as mesmas em qualquer qualidade (passo 8).
 - O simulador não conta os itens (fica do lado conservador): na prática o ritmo deve ser um pouco mais rápido que os 30 minutos.
+
+## 10. Retorno de Willian: "equipar não funciona" e "goblins andam de costas"
+- **Equipar:** com toques reais o equipar trocava o item, mas nada mudava na tela (todas as quedas usavam as mesmas 4 peças da roupa inicial), não havia aviso e não dava para tirar uma peça. Correções:
+  - Cada item tem aparência própria (`visual` em `dados/itens.json`) e o personagem é montado em camadas durante o jogo (corpo, grevas, peitoral, cabeça, capacete, arma). Região 1: Adaga, Espada longa; Gibão de couro, Cota de malha, Couraça de legião, Peitoral de placas; Calça, Grevas de placas; Gorro de couro, Elmo nasal, Elmo bárbaro, Elmo armet (níveis 1 a 7). Personagem novo começa de couro; quem já tinha placas continua com elas.
+  - Só entram peças com andar, golpear e estocar (regra do projeto): por isso só duas armas; maça, sabre e machado do gerador não têm estocar.
+  - Mensagem "Equipou"/"Tirou"; tocar numa peça vestida mostra "Tirar".
+  - Queda limitada a itens de até 2 níveis acima do jogador (`acima_do_nivel`), para não cair item que não dá para usar.
+  - `data/pecas_usadas.txt` agora é gerado por `tools/build_jogo_assets.py` a partir dos itens: crédito nunca fica para trás.
+  - Teste de navegador com toques reais confere que vestir a cota de malha muda os pixels do personagem.
+- **Goblins de costas:** as linhas de esquerda e direita da folha do goblin estavam trocadas (mapeadas a olho no mostruário). Corrigido; conferidas as demais folhas mapeadas a olho: javali, cobra, abelha, morcego e esqueleto estavam certos; o diabrete tinha cima/baixo trocados (corrigido, ainda não usado no jogo).
