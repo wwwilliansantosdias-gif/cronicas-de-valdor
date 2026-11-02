@@ -151,5 +151,16 @@
       "peitoral": "armadura-placa",
       "grevas": "calca-placa"
     }
+  },
+  "mochila_max": 20,
+  "drops": {
+    "chance": 0.08,
+    "chance_chefe": 1.0,
+    "chefe_qualidade_min": "raro",
+    "sorte_k": 40,
+    "sorte_mult_max": 3,
+    "valor_bonus_atributo": 2,
+    "duracao_no_chao_s": 90,
+    "venda_fracao": 0.5
   }
 }

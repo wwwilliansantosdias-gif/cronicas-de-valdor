@@ -26,7 +26,12 @@ canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rend
 .btn.off{opacity:.45}
 #hpb.veneno i{background:#6bd04a}
 #bM{top:6px;right:8px;width:44px;height:44px;border-radius:10px}
-#bS{top:6px;right:60px;min-width:48px;height:44px;border-radius:10px;padding:0 10px}
+#bS{top:6px;right:132px;min-width:48px;height:44px;border-radius:10px;padding:0 10px}
+#bI{top:6px;right:60px;width:66px;height:44px;border-radius:10px}
+#caixa .itens{display:flex;flex-wrap:wrap;gap:4px;max-height:96px;overflow:auto;touch-action:pan-y}
+#caixa .itens button{width:auto;min-height:40px;margin:0;padding:4px 8px;font-size:12px}
+#caixa .itens button.sel{outline:2px solid #fff}
+#caixa .dir p{margin:4px 0}
 #bS.tem{background:#ffb347cc;color:#222;border-color:#ffb347;animation:pulso 1.2s infinite}
 @keyframes pulso{50%{transform:scale(1.08)}}
 #caixa .grade{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
@@ -60,6 +65,7 @@ canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rend
 <div class="btn" id="bH2">Nv 6</div>
 <div class="btn" id="bE">Falar</div>
 <div class="btn" id="bS">Atrib.</div>
+<div class="btn" id="bI">Mochila</div>
 <div class="btn" id="bM">☰</div>
 <div id="painel"><div id="caixa"></div></div>
 <div id="girar">Gire o celular para jogar<br>(tela deitada)</div>

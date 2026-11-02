@@ -18,11 +18,11 @@ export function migrarV1(P, I, v1) {
   return est;
 }
 
-function itemValido(I, it, espaco) {
+function itemValido(P, I, it, espaco) {
   if (!it || typeof it !== "object") return false;
   const b = I.itens.find((x) => x.id === it.base);
-  return !!b && (!espaco || b.espaco === espaco) && I.qualidades.some((q) => q.id === it.qual) && inteiro(it.mais, 0, I.melhoria.max)
-    && it.bonus && typeof it.bonus === "object";
+  return !!b && b.tipo !== "consumivel" && (!espaco || b.espaco === espaco) && I.qualidades.some((q) => q.id === it.qual) && inteiro(it.mais, 0, I.melhoria.max)
+    && !!it.bonus && typeof it.bonus === "object" && Object.entries(it.bonus).every(([a, n]) => P.atributos.includes(a) && inteiro(n, 1, 99));
 }
 
 // devolve o estado (migrado, se preciso) ou null se ausente/corrompido
@@ -44,8 +44,8 @@ export function validar(P, I, obj, mapasValidos) {
   let gastos = P.atributos.reduce((s, a) => s + obj.atributos[a] - P.atributo_inicial, 0);
   if (gastos > total) { obj.atributos = atributosIniciais(P); gastos = 0; }
   obj.pontosLivres = total - gastos;
-  if (!obj.equip || !I.espacos.every((e) => obj.equip[e] === null || itemValido(I, obj.equip[e], e))) return null;
-  if (!Array.isArray(obj.mochila) || obj.mochila.length > 20 || !obj.mochila.every((it) => itemValido(I, it))) return null;
+  if (!obj.equip || !I.espacos.every((e) => obj.equip[e] === null || itemValido(P, I, obj.equip[e], e))) return null;
+  if (!Array.isArray(obj.mochila) || obj.mochila.length > I.mochila_max || !obj.mochila.every((it) => itemValido(P, I, it))) return null;
   if (!obj.habilidades || typeof obj.habilidades !== "object" || !Object.values(obj.habilidades).every((g) => inteiro(g, 1, P.grau_max_habilidade))) return null;
   // pontos de habilidade também são consertados: graus acima do possível voltam para 1
   const totalHab = pontosHabilidadeAteNivel(P, obj.nivel);

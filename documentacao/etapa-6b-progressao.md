@@ -31,7 +31,7 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 3. ✅ (adiantado a pedido) Estocada e Giro, com pontos de habilidade.
 4. ✅ (adiantado a pedido) Ataques distintos dos monstros, com aviso visível.
 5. ✅ (adiantado a pedido) Mais monstros por área, em bandos; só os próximos ativos; desempenho medido.
-6. Drops, mochila e equipar (números).
+6. ✅ Drops, mochila e equipar (números).
 7. Qualidades e cores; ferreiro com melhoria até +5 e fragmentos.
 8. Mais peças visuais por espaço.
 9. Arqueiro.
@@ -67,3 +67,11 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - Mata do Javali: 4 bandos de 3 javalis, 4 de 3 goblins, 3 de 2 cobras, 3 de 3 abelhas e o chefe = **40 monstros**; respawn de 25 s para **15 s** (`respawn_s` em `dados/progressao.json`).
 - Desempenho: só os monstros a menos de 450 px se movem (perto da entrada, 4 de 40); teste com os 40 perto do jogador mantém 60 quadros por segundo no ambiente de teste.
 - Simulador passou a lutar por bando (vários atacam juntos, o Giro atinge até 3); `xp_base` 38 → nível 10 em cerca de 30 minutos (cerca de 490 abates).
+
+## 9. Resultado do passo 6 (itens)
+- **Queda** (`drops` em `dados/itens.json`): 8% por monstro comum, chefe sempre (Raro ou melhor). Sorteia a base (equipável, da classe, até o nível da região), depois a qualidade (pesos 70/22/7/1) e os bônus (Raro +1 atributo, Lendário +2, de +2 cada). Sorte multiplica os pesos acima de Comum por 1 + 2·sor/(sor+40): retorno decrescente, no máximo ×3.
+- **No chão:** brilho com a cor da qualidade (desenhado em código, sem imagem nova), nome por cima para Refinado ou melhor, pisca e some após 90 s. Pega ao passar por cima; mochila cheia avisa.
+- **Mochila** (botão no topo): equipamento vestido à esquerda; itens à direita com cor da qualidade; tocar mostra valores e "Se equipar: dano ±, vida ±"; Equipar troca com o vestido (que volta para a mochila); Descartar pede confirmação. Cabe sem rolar em 844×390.
+- **Mercador** compra itens (metade do valor, mais por qualidade, +N e bônus).
+- Ainda sem visual novo: as 4 peças do Guerreiro são as mesmas em qualquer qualidade (passo 8).
+- O simulador não conta os itens (fica do lado conservador): na prática o ritmo deve ser um pouco mais rápido que os 30 minutos.

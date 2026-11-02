@@ -2,7 +2,8 @@ import { lerMapaTexto, gerarMapa, TILE, bloqueadoTile } from "./mapa.js";
 import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from "./progresso.js";
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, mover, direcaoDe } from "./combate.js";
-import { derivados, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
+import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento } from "./itens.js";
+import { derivados, valoresItem, baseItem, qualidade, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -20,10 +21,10 @@ function ajustar() {
 }
 addEventListener("resize", ajustar); ajustar();
 
-let D, IMG, EST, MAPAS = {}, mapa, jogador, monstros = [], chefeDef, msgT = 0, parado = false, ultimoSave = 0;
+let D, IMG, EST, MAPAS = {}, mapa, jogador, monstros = [], chao = [], avisoCheia = 0, chefeDef, msgT = 0, parado = false, ultimoSave = 0;
 const MSTR = {};
 
-function msg(t, s = 2.4) { $("msg").textContent = t; $("msg").classList.add("on"); msgT = s; }
+function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; $("msg").classList.add("on"); msgT = s; }
 function salvar() { guardar(localStorage, EST); }
 
 async function iniciar() {
@@ -48,7 +49,7 @@ async function iniciar() {
 }
 
 function entrar(id, origem) {
-  EST.mapa = id; mapa = MAPAS[id]; monstros = [];
+  EST.mapa = id; mapa = MAPAS[id]; monstros = []; chao = [];
   let p = mapa.inicio;
   if (origem) { const s = mapa.saidas.find((x) => x.destino === origem); if (s) p = s.entrada; }
   if (!origem && mapa.zonaSegura) p = { x: 16, y: 14 };
@@ -83,6 +84,7 @@ $("bP").addEventListener("pointerdown", () => usarPocao());
 $("bE").addEventListener("pointerdown", () => interagir());
 $("bM").addEventListener("pointerdown", () => menu());
 $("bS").addEventListener("pointerdown", () => { if (!parado) telaAtributos(); });
+$("bI").addEventListener("pointerdown", () => { if (!parado) telaMochila(); });
 
 function stats() { return derivados(D.P, D.itens, EST); }
 function habsDaClasse() { return D.classes[EST.classe].habilidades.map((id) => D.hab[id]); }
@@ -121,6 +123,9 @@ function registrarMorte(m) {
   subiuNiveis(ganharXp(D.P, EST, def.xp));
   for (const q of D.missoes) { const e = EST.missoes[q.id]; if (e && e.estado === "ativa" && q.alvo === def.id) { e.progresso = Math.min(q.quantidade, e.progresso + 1); if (e.progresso >= q.quantidade) { e.estado = "pronta"; msg(`Missão pronta: ${q.titulo}`); } } }
   m.mortoEm = performance.now();
+  const reg = D.regioes.find((r) => r.cacada === mapa.id || r.cidade === mapa.id);
+  const it = sortearDrop(D.itens, D.P, def, EST, reg ? reg.niveis[1] : EST.nivel, stats().atributos.sor, Math.random);
+  if (it) chao.push({ it, x: m.x, y: m.y - 4, t: D.itens.drops.duracao_no_chao_s });
   salvar();
 }
 
@@ -154,7 +159,49 @@ function interagir() {
 }
 function telaMercador() {
   const preco = D.itens.itens.find((i) => i.id === "pocao").preco;
-  painel(`<h3>Mercador</h3><p>Ouro: ${EST.ouro} · Poções: ${EST.pocoes}</p>`, [[`Comprar poção de vida (${preco} ouro)`, () => { if (EST.ouro >= preco) { EST.ouro -= preco; EST.pocoes++; salvar(); telaMercador(); } }, EST.ouro < preco]]);
+  painel(`<h3>Mercador</h3><p>Ouro: ${EST.ouro} · Poções: ${EST.pocoes}${EST.mochila.length ? " · toque num item para vender" : ""}</p>`, [
+    [`Comprar poção de vida (${preco} ouro)`, () => { if (EST.ouro >= preco) { EST.ouro -= preco; EST.pocoes++; salvar(); telaMercador(); } }, EST.ouro < preco],
+    ...EST.mochila.map((it, i) => [`Vender ${nomeItem(D.itens, it)} (${precoVenda(D.itens, it)} ouro)`, () => { vender(D.itens, EST, i); salvar(); telaMercador(); }]),
+  ]);
+  colorirBotoes(EST.mochila, 1);
+}
+// cor da qualidade no texto dos botões de itens (a partir do botão de índice "desde")
+function colorirBotoes(itens, desde) {
+  const bs = [...$("caixa").querySelectorAll("button:not(.fechar)")];
+  itens.forEach((it, i) => { if (bs[desde + i]) bs[desde + i].style.color = qualidade(D.itens, it.qual).cor; });
+}
+
+const NOME_ESPACO = { arma: "Arma", capacete: "Capacete", peitoral: "Peitoral", grevas: "Grevas" };
+function descreverItem(it) {
+  const v = valoresItem(D.itens, it), partes = [];
+  if (v.dano) partes.push(`dano ${v.dano.toFixed(1)}`);
+  if (v.vida) partes.push(`vida ${Math.round(v.vida)}`);
+  for (const [a, n] of Object.entries(v.atributos)) partes.push(`+${n} ${NOME_ATR[a][0]}`);
+  return partes.join(", ");
+}
+// diferença em relação ao que está vestido no mesmo espaço (dano e vida finais do personagem)
+function comparar(i) {
+  const it = EST.mochila[i], esp = baseItem(D.itens, it.base).espaco, antes = stats();
+  const copia = { ...EST, equip: { ...EST.equip, [esp]: it } }, depois = derivados(D.P, D.itens, copia);
+  const f = (n, s = "") => (n > 0 ? `<span style="color:#7fd27f">+${n}${s}</span>` : n < 0 ? `<span style="color:#ff7a7a">${n}${s}</span>` : "=");
+  return `dano ${f(+(depois.dano - antes.dano).toFixed(1))}, vida ${f(depois.vidaMax - antes.vidaMax)}`;
+}
+function telaMochila(sel = -1) {
+  const I = D.itens;
+  const eq = I.espacos.map((e) => { const it = EST.equip[e]; return `<tr><td>${NOME_ESPACO[e]}</td><td>${it ? `<span style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</span><br><small>${descreverItem(it)}</small>` : "<small>vazio</small>"}</td></tr>`; }).join("");
+  const lista = EST.mochila.map((it, i) => `<button data-i="${i}" class="item${i === sel ? " sel" : ""}" style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</button>`).join("") || "<p><small>Vazia. Monstros às vezes deixam itens no chão: passe por cima para pegar.</small></p>";
+  let det = "<p><small>Toque num item para ver e equipar.</small></p>";
+  const acoes = [];
+  if (sel >= 0 && EST.mochila[sel]) {
+    const it = EST.mochila[sel], imp = impedimento(I, EST, it);
+    det = `<p style="color:${qualidade(I, it.qual).cor}"><b>${nomeItem(I, it)}</b></p><p><small>${NOME_ESPACO[baseItem(I, it.base).espaco]} · ${descreverItem(it)}</small></p><p><small>Se equipar: ${comparar(sel)}</small></p>${imp ? `<p><small>Não pode equipar: ${imp}</small></p>` : ""}`;
+    acoes.push(["Equipar", () => { comAjusteDeVida(() => equipar(I, EST, sel)); telaMochila(); }, !!imp]);
+    acoes.push(["Descartar", () => { if (confirm(`Descartar ${nomeItem(I, it)}?`)) { descartar(EST, sel); salvar(); telaMochila(); } }]);
+  }
+  painel(`<h3>Mochila <small>· ${EST.mochila.length}/${I.mochila_max}</small></h3><div class="duas"><div><table>${eq}</table></div><div class="dir"><div class="itens">${lista}</div>${det}</div></div>`, acoes);
+  const dir = $("caixa").querySelector(".dir");
+  for (const b of $("caixa").querySelectorAll("button[data-i]")) b.onclick = () => telaMochila(+b.dataset.i);
+  dir.append(...[...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
 }
 // provisório até o passo 4 (melhoria +1..+5 com chance e fragmentos): afiar sempre funciona, até +3
 function telaFerreiro() {
@@ -251,6 +298,15 @@ function atualizar(dt) {
         jogador.vida -= r.dano; jogador.invul = 0.5;
         if (r.veneno) { jogador.veneno = { ...r.veneno, t: r.veneno.duracao }; msg("Envenenado!", 1.2); }
         if (jogador.vida <= 0) morrer();
+      }
+    }
+    // itens no chão: somem com o tempo; pega ao passar por cima
+    for (let i = chao.length - 1; i >= 0; i--) {
+      const c = chao[i]; c.t -= dt;
+      if (c.t <= 0) { chao.splice(i, 1); continue; }
+      if (Math.hypot(c.x - jogador.x, c.y - jogador.y) < 22) {
+        if (pegar(D.itens, EST, c.it)) { chao.splice(i, 1); msg(`Pegou: ${nomeItem(D.itens, c.it)}`, 2); $("msg").style.color = qualidade(D.itens, c.it.qual).cor; salvar(); }
+        else if (performance.now() - avisoCheia > 3000) { avisoCheia = performance.now(); msg("Mochila cheia: venda ou descarte itens."); }
       }
     }
     // saídas do mapa
@@ -383,9 +439,17 @@ function desenhar(t) {
     etiqueta(aberto ? "Portal" : `Portal (nv ${reg.portal_proxima.nivel_minimo})`, px, py - 28);
   } }); }
   desenharAvisos();
+  for (const c of chao) { // brilho no chão com a cor da qualidade (desenhado em código: sem imagem nova)
+    const cor = qualidade(D.itens, c.it.qual).cor, x = Math.round(c.x - cam.x), y = Math.round(c.y - cam.y), p = 0.6 + 0.4 * Math.sin(t * 5 + c.x);
+    if (c.t < 10 && Math.floor(t * 6) % 2) continue; // pisca antes de sumir
+    ctx.save(); ctx.globalAlpha = 0.35 * p; ctx.fillStyle = cor; ctx.beginPath(); ctx.ellipse(x, y, 10, 5, 0, 0, 7); ctx.fill();
+    ctx.globalAlpha = 1; ctx.fillStyle = cor; ctx.strokeStyle = "#000a"; ctx.beginPath(); ctx.moveTo(x, y - 9); ctx.lineTo(x + 5, y - 4); ctx.lineTo(x, y + 1); ctx.lineTo(x - 5, y - 4); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
   for (const m of monstros) if (!m.morto && m.x > cam.x - 100 && m.x < cam.x + VW + 100 && m.y > cam.y - 60 && m.y < cam.y + VH + 140) fila.push({ y: m.y, f: () => desenharMonstro(m, t) });
   if (!jogador.morto) fila.push({ y: jogador.y, f: () => desenharJogador(t) });
   fila.sort((a, b) => a.y - b.y); for (const q of fila) q.f();
+  for (const c of chao) if (c.it.qual !== "comum") etiqueta(nomeItem(D.itens, c.it), Math.round(c.x - cam.x), Math.round(c.y - cam.y) - 12); // nomes por cima de tudo
 }
 
 let antes = 0, acum = 0;
@@ -395,6 +459,6 @@ function quadro(agora) {
   desenhar(agora / 1000);
   requestAnimationFrame(quadro);
 }
-window.__valdor = { get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir, usarHabilidade,
+window.__valdor = { get chao() { return chao; }, get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir, usarHabilidade,
   ganhar: (xp) => { subiuNiveis(ganharXp(D.P, EST, xp)); salvar(); } }; // ganchos para os testes de navegador
 iniciar().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<pre style="position:fixed;inset:0;background:#300;padding:12px;z-index:20;white-space:pre-wrap">Erro ao iniciar: ${String(e.message).replace(/</g, "&lt;")}</pre>`); console.error(e); });
