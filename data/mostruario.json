@@ -1079,14 +1079,19 @@
   },
   {
    "id": "cidade",
-   "nome": "Cidade (fora, dentro, casas, telhados, muros, ruas)",
+   "nome": "Cidade (fora, dentro, casas, telhados, muros, ruas, mercado, quadro, poço, fonte)",
    "pacotes": [
     "lpc-city-outside",
     "lpc-city-inside",
     "lpc-thatched-roof-cottage",
     "lpc-roofs",
     "lpc-walls",
-    "lpc-streets"
+    "lpc-streets",
+    "bulletin-board-and-items",
+    "lpc-bazaar-rework",
+    "lpc-style-well",
+    "lpc-hanging-signs",
+    "lpc-water-fountain"
    ],
    "imagens": [
     {
@@ -1112,6 +1117,34 @@
     {
      "file": "lpc-streets/street_dark.png",
      "nome": "street_dark"
+    },
+    {
+     "file": "bulletin-board-and-items/bulletin_board_0.png",
+     "nome": "quadro de avisos"
+    },
+    {
+     "file": "bulletin-board-and-items/bulletin_board_items.png",
+     "nome": "papéis do quadro"
+    },
+    {
+     "file": "lpc-bazaar-rework/x_lpc_bazaar_rework-1.0-1.zip/preview.png",
+     "nome": "barracas (bazaar)"
+    },
+    {
+     "file": "lpc-style-well/lpc-well.png",
+     "nome": "poço"
+    },
+    {
+     "file": "lpc-hanging-signs/lpc-hanging-signs_0.png",
+     "nome": "placas penduradas"
+    },
+    {
+     "file": "lpc-water-fountain/WaterFountain.png",
+     "nome": "fonte"
+    },
+    {
+     "file": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles/x_lpc_base_assets.zip/LPC Base Assets/tiles/house.png",
+     "nome": "casa (base)"
     }
    ]
   },

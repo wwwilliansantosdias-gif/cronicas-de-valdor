@@ -1,38 +1,131 @@
 {
  "monstros": {
-  "morcego": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "gosma": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "cobra": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "fantasma": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "olho-voador": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "abelha-gigante": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "minhoca": ["liberated-pixel-cup-lpc-base-assets-sprites-map-tiles","lpc-monsters"],
-  "lobo": ["lpc-wolf-animation"],
-  "javali": ["lpc-wild-boar"],
-  "goblin": ["lpc-goblin"],
-  "golem": ["lpc-golem"],
-  "diabrete": ["lpc-imp","lpc-imp-2"],
-  "aranha": ["lpc-spider"],
-  "besouro": ["lpc-beetle"],
-  "esqueleto": ["lpc-skeleton"],
-  "zumbi": ["lpc-zombie"],
-  "lobisomem": ["werewolf-lpc"],
-  "homem-javali": ["lpc-boarman"],
-  "homem-sapo": ["lpc-frogman"],
-  "fada": ["lpc-fairy"]
+  "morcego": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "gosma": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "cobra": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "fantasma": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "olho-voador": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "abelha-gigante": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "minhoca": [
+   "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+   "lpc-monsters"
+  ],
+  "lobo": [
+   "lpc-wolf-animation"
+  ],
+  "javali": [
+   "lpc-wild-boar"
+  ],
+  "goblin": [
+   "lpc-goblin"
+  ],
+  "golem": [
+   "lpc-golem"
+  ],
+  "diabrete": [
+   "lpc-imp",
+   "lpc-imp-2"
+  ],
+  "aranha": [
+   "lpc-spider"
+  ],
+  "besouro": [
+   "lpc-beetle"
+  ],
+  "esqueleto": [
+   "lpc-skeleton"
+  ],
+  "zumbi": [
+   "lpc-zombie"
+  ],
+  "lobisomem": [
+   "werewolf-lpc"
+  ],
+  "homem-javali": [
+   "lpc-boarman"
+  ],
+  "homem-sapo": [
+   "lpc-frogman"
+  ],
+  "fada": [
+   "lpc-fairy"
+  ]
  },
  "cenarios": {
-  "tile-atlas": ["lpc-tile-atlas","lpc-tile-atlas2"],
-  "terrenos": ["lpc-terrains","lpc-terrain-repack"],
-  "floresta": ["lpc-forest-tiles","lpc-trees","lpc-conifers"],
-  "caverna-ruinas": ["lpc-cavern-and-ruin-tiles","lpc-caves","cave-stairs"],
-  "masmorra": ["lpc-dungeon-elements"],
-  "selva": ["lpc-jungle","lpc-jungle-ruins"],
-  "praia-deserto": ["lpc-beach-desert","lpc-desert-ruins"],
-  "inverno": ["lpc-winter-tiles","frozen-lake-lpc"],
-  "montanhas": ["lpc-mountains","lpc-rocks"],
-  "cidade": ["lpc-city-outside","lpc-city-inside","lpc-thatched-roof-cottage","lpc-roofs","lpc-walls","lpc-streets"],
-  "ferreiro": ["lpc-blacksmith"],
-  "castelo": ["lpc-castle","lpc-castle-mega-pack"]
+  "tile-atlas": [
+   "lpc-tile-atlas",
+   "lpc-tile-atlas2"
+  ],
+  "terrenos": [
+   "lpc-terrains",
+   "lpc-terrain-repack"
+  ],
+  "floresta": [
+   "lpc-forest-tiles",
+   "lpc-trees",
+   "lpc-conifers"
+  ],
+  "caverna-ruinas": [
+   "lpc-cavern-and-ruin-tiles",
+   "lpc-caves",
+   "cave-stairs"
+  ],
+  "masmorra": [
+   "lpc-dungeon-elements"
+  ],
+  "selva": [
+   "lpc-jungle",
+   "lpc-jungle-ruins"
+  ],
+  "praia-deserto": [
+   "lpc-beach-desert",
+   "lpc-desert-ruins"
+  ],
+  "inverno": [
+   "lpc-winter-tiles",
+   "frozen-lake-lpc"
+  ],
+  "montanhas": [
+   "lpc-mountains",
+   "lpc-rocks"
+  ],
+  "cidade": [
+   "lpc-city-outside",
+   "lpc-city-inside",
+   "lpc-thatched-roof-cottage",
+   "lpc-roofs",
+   "lpc-walls",
+   "lpc-streets",
+   "bulletin-board-and-items",
+   "lpc-bazaar-rework",
+   "lpc-style-well",
+   "lpc-hanging-signs",
+   "lpc-water-fountain"
+  ],
+  "ferreiro": [
+   "lpc-blacksmith"
+  ],
+  "castelo": [
+   "lpc-castle",
+   "lpc-castle-mega-pack"
+  ]
  }
 }

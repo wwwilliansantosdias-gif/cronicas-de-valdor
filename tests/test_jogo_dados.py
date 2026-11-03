@@ -118,3 +118,17 @@ def test_qualidades_tem_cor_e_tinta_valida():
     assert tintas[0] == 0, "Comum mostra a peça original"
     assert all(0 <= t <= 0.6 for t in tintas) and tintas == sorted(tintas), "tinta cresce com a qualidade"
     assert all(q["cor"].startswith("#") and len(q["cor"]) == 7 for q in I["qualidades"])
+
+
+def test_toda_construcao_citada_nos_mapas_tem_imagem():
+    import glob
+    import re
+    for mapa in glob.glob(os.path.join(RAIZ, "docs", "mapas", "*.txt")):
+        for linha in open(mapa, encoding="utf-8"):
+            m = re.match(r"predio:\s+([a-z_]+)\s+\d+,\d+\s+(\d+)x(\d+)", linha)
+            if m:
+                arq = os.path.join(RAIZ, "docs", "assets", "cidade", m.group(1) + ".png")
+                assert os.path.exists(arq), f"{os.path.basename(mapa)}: falta {m.group(1)}.png"
+                from PIL import Image
+                w, h = Image.open(arq).size
+                assert w <= int(m.group(2)) * 32 + 32, f"{m.group(1)} mais larga que a área no mapa"

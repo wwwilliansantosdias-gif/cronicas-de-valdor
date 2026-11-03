@@ -4,11 +4,18 @@ tamanho: 40x24
 semente: 11
 base: terra
 zona_segura: sim
-predio: 4,3
-predio: 30,3
-predio: 4,15
-npc: mercador 14,11
-npc: ferreiro 20,11
-npc: quadro 26,11
+# construções: tipo (imagem em assets/cidade) x,y largura x altura em peças
+predio: casa_tijolo 2,2 3x7
+predio: casa_pedra 6,2 3x7
+predio: casa_tijolo 30,2 3x7
+predio: casa_pedra 2,14 3x7
+predio: fonte 19,5 2x3
+predio: barraca 10,9 3x3
+predio: quadro 15,9 3x3
+predio: forja 23,8 5x4
+predio: poco 9,17 2x2
+npc: mercador 11,12
+npc: quadro 16,12
+npc: ferreiro 25,12
 portal: 35,12 caverna
 saida: leste mata-do-javali

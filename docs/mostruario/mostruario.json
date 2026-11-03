@@ -1573,14 +1573,19 @@
   },
   {
    "id": "cidade",
-   "nome": "Cidade (fora, dentro, casas, telhados, muros, ruas)",
+   "nome": "Cidade (fora, dentro, casas, telhados, muros, ruas, mercado, quadro, poço, fonte)",
    "pacotes": [
     "lpc-city-outside",
     "lpc-city-inside",
     "lpc-thatched-roof-cottage",
     "lpc-roofs",
     "lpc-walls",
-    "lpc-streets"
+    "lpc-streets",
+    "bulletin-board-and-items",
+    "lpc-bazaar-rework",
+    "lpc-style-well",
+    "lpc-hanging-signs",
+    "lpc-water-fountain"
    ],
    "imagens": [
     {
@@ -1606,6 +1611,34 @@
     {
      "nome": "street_dark",
      "file": "img/street_dark_930a53.png"
+    },
+    {
+     "nome": "quadro de avisos",
+     "file": "img/bulletin_board_0_e9b556.png"
+    },
+    {
+     "nome": "papéis do quadro",
+     "file": "img/bulletin_board_items_9319fc.png"
+    },
+    {
+     "nome": "barracas (bazaar)",
+     "file": "img/preview_659973.png"
+    },
+    {
+     "nome": "poço",
+     "file": "img/lpc_well_0af487.png"
+    },
+    {
+     "nome": "placas penduradas",
+     "file": "img/lpc_hanging_signs_0_54814f.png"
+    },
+    {
+     "nome": "fonte",
+     "file": "img/WaterFountain_577296.png"
+    },
+    {
+     "nome": "casa (base)",
+     "file": "img/house_8a3dc0.png"
     }
    ],
    "pacotes_info": [
@@ -1662,6 +1695,50 @@
      "licencas": [
       "CC-BY-SA 3.0",
       "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "bulletin-board-and-items",
+     "titulo": "bulletin board and items",
+     "url": "https://opengameart.org/content/bulletin-board-and-items",
+     "licencas": [
+      "OGA-BY 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-bazaar-rework",
+     "titulo": "LPC Bazaar Rework",
+     "url": "https://opengameart.org/content/lpc-bazaar-rework",
+     "licencas": [
+      "CC-BY-SA 4.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-style-well",
+     "titulo": "LPC Style Well",
+     "url": "https://opengameart.org/content/lpc-style-well",
+     "licencas": [
+      "CC-BY 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-hanging-signs",
+     "titulo": "[LPC] Hanging signs",
+     "url": "https://opengameart.org/content/lpc-hanging-signs",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    },
+    {
+     "slug": "lpc-water-fountain",
+     "titulo": "[LPC] Water Fountain",
+     "url": "https://opengameart.org/content/lpc-water-fountain",
+     "licencas": [
+      "CC-BY 3.0"
      ]
     }
    ]

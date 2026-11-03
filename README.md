@@ -28,5 +28,6 @@ for t in fumaca fluxo atributos combate mochila arqueiro; do PLAYWRIGHT_PATH=$(n
 python3 -I tools/meta_packs.py && python3 -I tools/download_packs.py   # pacotes do OpenGameArt (assets/raw, não versionado)
 python3 -I tools/build_mostruario.py     # docs/mostruario + CREDITOS.md
 python3 -I tools/build_jogo_assets.py    # baixa as peças dos itens (gerador LPC), gera pecas_usadas.txt, copia tiles/NPCs
+python3 -I tools/build_cidade.py         # monta casas, forja, barraca, quadro, fonte e poço em docs/assets/cidade
 ```
 Item novo: acrescente em `docs/dados/itens.json` (com `peca_lpc` e `visual`) e rode `build_jogo_assets.py` e depois `build_mostruario.py` (créditos).

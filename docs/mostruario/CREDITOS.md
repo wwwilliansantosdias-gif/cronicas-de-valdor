@@ -5,6 +5,14 @@ Cada imagem usada no jogo ou no mostruário precisa ter o pacote de origem lista
 
 Licenças: CC-BY e CC-BY-SA exigem dar crédito aos autores; CC-BY-SA e GPL exigem que material derivado siga as mesmas regras. Onde há várias licenças, vale escolher uma delas, desde que cumprida.
 
+## bulletin board and items
+
+- Página: https://opengameart.org/content/bulletin-board-and-items
+- Autor na página: bleutailfly
+- Licenças: OGA-BY 3.0
+- Aviso de atribuição da página: a link back here will be fine.
+- O pacote não traz arquivo de créditos próprio.
+
 ## Frozen Lake [LPC]
 
 - Página: https://opengameart.org/content/frozen-lake-lpc
@@ -124,6 +132,47 @@ Castle work:
  - castle_outside.png
  - castlefloors_outside.png
  - castle_lightsources.png
+```
+
+## LPC Bazaar Rework
+
+- Página: https://opengameart.org/content/lpc-bazaar-rework
+- Autor na página: antumdeluge
+- Licenças: CC-BY-SA 4.0, CC-BY-SA 3.0, GPL 3.0
+- Aviso de atribuição da página: Created by Daniel Eddeland (daneeklu) https://opengameart.org/node/11117, Zachariah Husiar (Zabin), Tuomo Untinen (Reemax), Hyptosis, & Jetrel
+
+Arquivo `README.txt` do pacote:
+
+```text
+Name:
+  LPC Bazaar Rework
+Version:
+  1.0-1
+Description:
+  Reworked versions of LPC bazaar tilesets for use in Stendhal.
+Licensing:
+  - Creative Commons Attribution-ShareAlike (CC BY-SA) version 3.0 or later (see: LICENSE-CC-BY-SA-3.0.txt)
+  - GNU General Public License (GPL) version 3.0 or later (see: LICENSE-GPL-3.0.txt)
+Attribution:
+  Created by:
+  - Daniel Eddeland (daneeklu) https://opengameart.org/node/11117
+  - Zachariah Husiar (Zabin)
+  - Tuomo Untinen (Reemax)
+  - Hyptosis
+  - Jetrel
+Links:
+  - Stendhal: https://stendhalgame.org/
+  - OpenGameArt.org submission: https://opengameart.org/node/81369
+  - See also: sources.md
+Notes:
+  - Included works by Hyptosis & Jetrel are licensed under
+    CC0. Attribution is not required by these authors but
+    they are included in the Copyright/Attribution section.
+  - Currently, any changes I have made are licensed under
+    CC0 so that original licensing can be used with
+    attribution necessary to only the original author(s).
+    E.g. You do NOT need to credit me.
+  - Attribution requirements may change with future edits.
 ```
 
 ## [LPC] Beach / Desert
@@ -866,6 +915,14 @@ Forest_tiles.png
 - Aviso de atribuição da página: Attribute Stephen "Redshrike" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.
 - O pacote não traz arquivo de créditos próprio.
 
+## [LPC] Hanging signs
+
+- Página: https://opengameart.org/content/lpc-hanging-signs
+- Autor na página: reemax
+- Licenças: CC-BY-SA 3.0, GPL 3.0
+- Aviso de atribuição da página: Please use the LPC attribution instructions for this work
+- O pacote não traz arquivo de créditos próprio.
+
 ## [LPC] Imp
 
 - Página: https://opengameart.org/content/lpc-imp
@@ -1517,6 +1574,14 @@ https://opengameart.org/content/lpc-adobe-building-set
 - Autor na página: ba%C5%9Dto
 - Licenças: CC-BY-SA 3.0, GPL 3.0
 - Aviso de atribuição da página: Based on “[LPC] Skorpio's SciFi Sprite Pack” by Skorpio, which is dual licensed as CC-BY-SA 3.0 and GPL 3.0
+- O pacote não traz arquivo de créditos próprio.
+
+## LPC Style Well
+
+- Página: https://opengameart.org/content/lpc-style-well
+- Autor na página: xenodora
+- Licenças: CC-BY 3.0, GPL 3.0
+- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
 - O pacote não traz arquivo de créditos próprio.
 
 ## [LPC] Terrain Repack
@@ -2333,6 +2398,14 @@ KnoblePersona
 CC-BY 3.0
 https://opengameart.org/content/steampunk-level-tileset-mega-pack-level-tileset-16x16
 ```
+
+## [LPC] Water Fountain
+
+- Página: https://opengameart.org/content/lpc-water-fountain
+- Autor na página: (vários / não informado)
+- Licenças: CC-BY 3.0
+- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- O pacote não traz arquivo de créditos próprio.
 
 ## LPC Wild Boar
 

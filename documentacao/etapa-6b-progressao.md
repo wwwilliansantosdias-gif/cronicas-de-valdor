@@ -117,3 +117,8 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - **Mochila em grade** de 20 espaços com ícone, borda na cor da qualidade e "+N" no canto.
 - **Área cresce com o grau da habilidade** (`por_grau.area` = 8% por grau em alcance, raio e ângulo; ângulo até 170°): grau 5 da Dispersão alcança cerca de 224 px e abre cerca de 132°; a aba Habilidades mostra a área atual e a do próximo grau.
 - **Toques 2,5D:** sombra embaixo do personagem e dos monstros; flechas sobem e descem em arco com sombra correndo no chão; flechas da Chuva caem com a sombra crescendo.
+
+## 15. Cidade (retorno de Willian: casas só com teto, ferreiro e mercador soltos, missões num botão solto)
+- Casas inteiras montadas de peças LPC (telhado de ardósia, empena com janela de sótão, fachada de tijolo ou pedra, porta), forja (fornalha acesa, banco, suporte de armas, bigorna, placa da espada), barraca do mercador (toldo, poções, placa da bolsa), quadro de missões (quadro de avisos com papéis, sobre pés), fonte e poço. Montagem em `tools/build_cidade.py`; pacotes novos creditados: Bulletin Board and Items, [LPC] Bazaar rework, LPC style well, [LPC] Hanging signs, LPC Water Fountain.
+- Mapa por regras aceita `predio: tipo x,y LxA`; a praça foi redistribuída (fonte no centro, barraca, quadro e forja na rua, casas nos cantos).
+- O botão de interação diz o que faz: Loja, Forja, Missões, Portal.

@@ -1,4 +1,24 @@
 {
+ "bulletin-board-and-items": {
+  "atribuicao": "a link back here will be fine.",
+  "slug": "bulletin-board-and-items",
+  "titulo": "bulletin board and items",
+  "url": "https://opengameart.org/content/bulletin-board-and-items",
+  "autor": "bleutailfly",
+  "licencas": [
+   "OGA-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/bulletin_board_items.png",
+    "bytes": 4821
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/bulletin_board_0.png",
+    "bytes": 12073
+   }
+  ]
+ },
  "cave-stairs": {
   "slug": "cave-stairs",
   "erro": "ERRO:HTTP Error 404: Not Found"
@@ -33,6 +53,24 @@
    {
     "url": "https://opengameart.org/sites/default/files/lpc_base_assets.zip",
     "bytes": 712926
+   }
+  ]
+ },
+ "lpc-bazaar-rework": {
+  "atribuicao": "Created by Daniel Eddeland (daneeklu) https://opengameart.org/node/11117, Zachariah Husiar (Zabin), Tuomo Untinen (Reemax), Hyptosis, & Jetrel",
+  "slug": "lpc-bazaar-rework",
+  "titulo": "LPC Bazaar Rework",
+  "url": "https://opengameart.org/content/lpc-bazaar-rework",
+  "autor": "antumdeluge",
+  "licencas": [
+   "CC-BY-SA 4.0",
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc_bazaar_rework-1.0-1.zip",
+    "bytes": 96063
    }
   ]
  },
@@ -410,6 +448,23 @@
    }
   ]
  },
+ "lpc-hanging-signs": {
+  "atribuicao": "Please use the LPC attribution instructions for this work",
+  "slug": "lpc-hanging-signs",
+  "titulo": "[LPC] Hanging signs",
+  "url": "https://opengameart.org/content/lpc-hanging-signs",
+  "autor": "reemax",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-hanging-signs_0.png",
+    "bytes": 3114
+   }
+  ]
+ },
  "lpc-imp": {
   "atribuicao": null,
   "slug": "lpc-imp",
@@ -648,6 +703,27 @@
    }
   ]
  },
+ "lpc-style-well": {
+  "atribuicao": null,
+  "slug": "lpc-style-well",
+  "titulo": "LPC Style Well",
+  "url": "https://opengameart.org/content/lpc-style-well",
+  "autor": "xenodora",
+  "licencas": [
+   "CC-BY 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-well.png",
+    "bytes": 7215
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/lpc-well.xcf.gz",
+    "bytes": 33251
+   }
+  ]
+ },
  "lpc-terrain-repack": {
   "atribuicao": null,
   "slug": "lpc-terrain-repack",
@@ -766,6 +842,22 @@
    {
     "url": "https://opengameart.org/sites/default/files/lpc-walls.zip",
     "bytes": 507050
+   }
+  ]
+ },
+ "lpc-water-fountain": {
+  "atribuicao": null,
+  "slug": "lpc-water-fountain",
+  "titulo": "[LPC] Water Fountain",
+  "url": "https://opengameart.org/content/lpc-water-fountain",
+  "autor": null,
+  "licencas": [
+   "CC-BY 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/WaterFountain.png",
+    "bytes": 7212
    }
   ]
  },

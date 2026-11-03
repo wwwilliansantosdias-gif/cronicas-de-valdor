@@ -22,7 +22,11 @@ export function lerMapaTexto(txt) {
     else if (k === "arvores") m.arvores = Number(v);
     else if (k === "lagoas") m.lagoas = Number(v);
     else if (k === "clareira") { const [x, y, r] = num(v); m.clareira = { x, y, r }; }
-    else if (k === "predio") { const [x, y] = num(v); m.predios.push({ x, y }); }
+    else if (k === "predio") { // "predio: tipo x,y LxA" (construção montada em assets/cidade) ou o antigo "predio: x,y"
+      const p = v.split(/\s+/);
+      if (p.length === 1) { const [x, y] = num(p[0]); m.predios.push({ nome: "casa_antiga", x, y, w: 6, h: 5 }); }
+      else { const [x, y] = num(p[1]); const [w, h] = p[2].split("x").map(Number); m.predios.push({ nome: p[0], x, y, w, h }); }
+    }
     else if (k === "npc") { const [t, xy] = v.split(/\s+/); const [x, y] = num(xy); m.npcs.push({ tipo: t, x, y }); }
     else if (k === "portal") { const [xy, para] = v.split(/\s+/); const [x, y] = num(xy); m.portal = { x, y, para }; }
     else if (k === "saida") { const [lado, destino] = v.split(/\s+/); m.saidas.push({ lado, destino }); }
@@ -99,7 +103,7 @@ export function gerarMapa(spec) {
     marcar(reservado, w, h, alvoX - 1, Math.min(my, alvoY) - 1, 3, Math.abs(alvoY - my) + 3);
   }
   const objetos = [];
-  const pos = (tipo, x, y) => { const [tw, th] = TAM[tipo]; marcar(bloq, w, h, x, y, tw, th); objetos.push({ tipo, x, y, w: tw, h: th }); };
+  const pos = (tipo, x, y, tw = TAM[tipo][0], th = TAM[tipo][1], nome) => { marcar(bloq, w, h, x, y, tw, th); objetos.push({ tipo, x, y, w: tw, h: th, ...(nome ? { nome } : {}) }); };
   // reservas fixas
   if (spec.clareira) {
     const { x, y, r } = spec.clareira;
@@ -108,7 +112,7 @@ export function gerarMapa(spec) {
   for (const n of spec.npcs) marcar(reservado, w, h, n.x - 2, n.y - 2, 5, 5);
   if (spec.portal) marcar(reservado, w, h, spec.portal.x - 2, spec.portal.y - 2, 5, 5);
   // prédios (posição dada)
-  for (const p of spec.predios) pos("predio", p.x, p.y);
+  for (const p of spec.predios) pos("predio", p.x, p.y, p.w, p.h, p.nome);
   // lagoas e árvores
   for (let n = 0, t = 0; n < spec.lagoas && t < 500; t++) {
     const x = 2 + Math.floor(rng() * (w - 7)), y = 2 + Math.floor(rng() * (h - 7));

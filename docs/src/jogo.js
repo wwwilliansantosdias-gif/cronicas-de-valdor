@@ -76,7 +76,7 @@ async function iniciar() {
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
     P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
-  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess"];
+  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess", ...["casa_tijolo", "casa_pedra", "fonte", "barraca", "quadro", "forja", "poco"].map((c) => "cidade/" + c)];
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
   // peças do personagem: corpo, cabeça e o visual de cada item (camadas empilhadas na hora)
   const pecas = new Set();
@@ -444,7 +444,9 @@ function atualizar(dt) {
       const sai = (s.lado === "leste" && tx >= mapa.w - 1) || (s.lado === "oeste" && tx <= 0) || (s.lado === "norte" && ty <= 0) || (s.lado === "sul" && ty >= mapa.h - 1);
       if (sai) { const de = mapa.id; entrar(s.destino, de); break; }
     }
-    $("bE").style.display = perto() ? "flex" : "none";
+    const pp = perto();
+    $("bE").style.display = pp ? "flex" : "none";
+    if (pp) { const r = { mercador: "Loja", ferreiro: "Forja", quadro: "Missões", portal: "Portal" }[pp.tipo] || "Falar"; if ($("bE").textContent !== r) $("bE").textContent = r; }
   } else $("bE").style.display = "none";
   const pd = numeros(EST).poder;
   if (ultimoPoder && pd > ultimoPoder && !parado) flutuar(`+${pd - ultimoPoder} Poder`, jogador.x, jogador.y - 70, "#7fd27f");
@@ -631,11 +633,12 @@ function desenhar(t) {
     const px = o.x * TILE - cam.x, py = o.y * TILE - cam.y;
     if (o.tipo === "arvore") ctx.drawImage(IMG.forest_tiles, 0, (o.v ? 6 : 8) * 32, 64, 64, px, py, 64, 64);
     else if (o.tipo === "lagoa") ctx.drawImage(IMG.forest_tiles, 10 * 32, 8 * 32, 96, 96, px, py, 96, 96);
+    else if (o.nome && IMG["cidade/" + o.nome]) { const im = IMG["cidade/" + o.nome]; ctx.drawImage(im, px, py + o.h * TILE - im.height); }
     else ctx.drawImage(IMG.house, 0, 0, 192, 160, px, py, 192, 160);
   } });
   for (const n of mapa.npcs) fila.push({ y: n.y * TILE + 28, f: () => {
     const px = n.x * TILE - cam.x, py = n.y * TILE - cam.y;
-    if (n.tipo === "quadro") { ctx.drawImage(IMG.signs, 0, 0, 32, 32, px, py, 32, 32); etiqueta(NOMES[n.tipo], px + 16, py - 2); return; }
+    if (n.tipo === "quadro") { etiqueta(NOMES[n.tipo], px + 16, py - 98); return; } // o quadro é a construção logo acima
     const sp = n.tipo === "mercador" ? IMG.princess : IMG.soldier_altcolor;
     ctx.drawImage(sp, 0, 2 * 64, 64, 64, px - 16, py - 32, 64, 64); etiqueta(NOMES[n.tipo], px + 16, py - 28);
   } });
