@@ -309,7 +309,7 @@ test("save corrompido ou adulterado não derruba: devolve null", () => {
   assert.equal(carregar(s, mapasValidos), null);
   s.setItem("valdor-save", "{não é json");
   assert.equal(carregar(s, mapasValidos), null);
-  for (const mut of [{ nivel: 0 }, { nivel: 99 }, { ouro: -1 }, { mapa: "inexistente" }, { versao: 4 }, { xp: "x" },
+  for (const mut of [{ nivel: 0 }, { nivel: 99 }, { ouro: -1 }, { mapa: "inexistente" }, { versao: 99 }, { xp: "x" },
     { atributos: { for: 2, vit: 5, agi: 5, sor: 5 } }, { equip: { arma: { base: "nao-existe", qual: "comum", mais: 0, bonus: {} } } }, { mochila: "x" }]) {
     s.setItem("valdor-save", serializar({ ...novoEstado(), ...mut }));
     assert.equal(carregar(s, mapasValidos), null, JSON.stringify(mut));
@@ -345,7 +345,7 @@ test("save da versão 1 é migrado sem perder nível, ouro nem a arma afiada", (
   s.setItem("valdor-save", JSON.stringify(v1));
   const e = carregar(s, mapasValidos);
   assert.ok(e, "migrou");
-  assert.equal(e.versao, 3); assert.equal(e.nivel, 7); assert.equal(e.ouro, 55); assert.equal(e.mapa, "mata-do-javali");
+  assert.equal(e.versao, 4); assert.equal(e.nivel, 7); assert.equal(e.ouro, 55); assert.equal(e.mapa, "mata-do-javali");
   assert.equal(e.equip.arma.mais, 2);
   assert.deepEqual(e.missoes, v1.missoes);
   assert.equal(gastos(P, e) + e.pontosLivres, pontosAteNivel(P, 7));

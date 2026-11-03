@@ -38,6 +38,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:14px/1.
 #caixa tr[data-e]{cursor:pointer}
 #caixa .pers{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
 #caixa .esq{display:flex;gap:6px}#caixa .esq table.num{align-self:start}
+#caixa canvas.grande{width:192px;height:192px;image-rendering:pixelated;background:radial-gradient(#ffffff14,#0000 70%);border-radius:12px;cursor:pointer;display:block}#caixa .esq:has(canvas.grande){flex-direction:column;align-items:center}
+#caixa .apgrade{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}#caixa .atr.ap{text-align:center}#caixa .atr.ap button{width:44px;min-height:40px}
 #caixa .boneco{display:grid;grid-template-columns:40px 104px 40px;grid-template-rows:repeat(4,40px);grid-auto-flow:column;gap:2px 4px;align-items:center;justify-items:center}
 #caixa .boneco canvas{grid-column:2;grid-row:1/4;width:104px;height:104px;image-rendering:pixelated;background:radial-gradient(#ffffff14,#0000 70%);border-radius:10px;cursor:pointer}
 #caixa .s-capacete{grid-column:1;grid-row:1}#caixa .s-ombros{grid-column:1;grid-row:2}#caixa .s-bracos{grid-column:1;grid-row:3}#caixa .s-arma{grid-column:1;grid-row:4}#caixa .s-peitoral{grid-column:3;grid-row:1}#caixa .s-capa{grid-column:3;grid-row:2}#caixa .s-grevas{grid-column:3;grid-row:3}#caixa .s-botas{grid-column:3;grid-row:4}#caixa .s-escudo{grid-column:2;grid-row:4}#caixa .boneco canvas{grid-row:1/4}
@@ -51,7 +53,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:14px/1.
 #caixa .mgrade .slot{width:40px;height:40px;min-height:40px}#caixa .mgrade .slot img.ic{width:30px;height:30px}
 #caixa table.num{width:150px;font-size:11px;margin:0}#caixa table.num td{padding:1px 4px}
 #caixa .up{color:#7fd27f;font-weight:700}#caixa .down{color:#ff7a7a;font-weight:700}
-#caixa .abas{display:flex;gap:4px;margin-bottom:4px}#caixa .abas button.aba{width:auto;flex:1;min-height:34px;margin:0;padding:3px 6px;font-size:12px}
+#caixa .abas{display:flex;gap:4px;margin-bottom:4px;margin-right:72px}#caixa .abas button.aba{width:auto;flex:1;min-height:34px;margin:0;padding:3px 6px;font-size:12px}
 #caixa .abas button.aba.on{background:#5a6385;border-color:#fff8}
 #caixa .conteudo .det{margin:2px 0;font-size:12px}
 #caixa .conteudo > button{display:inline-block;width:auto;min-width:120px;margin:4px 6px 0 0}

@@ -3,7 +3,8 @@ import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from ".
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, escalarArea, mover, direcaoDe, dentroDaArea, VET } from "./combate.js";
 import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento, melhorar, proximaMelhoria, itemDoAlvo, sortearFragmentos } from "./itens.js";
-import { derivados, estatisticas, danoRecebido, valoresItem, baseItem, qualidade, conjuntosAtivos, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
+import { normalizar, alternar, aleatoria, opcoes, opcao, pares, recolorir, CAMPOS, NOMES_CAMPO } from "./aparencia.js";
+import { derivados, estatisticas, danoRecebido, equipamentoInicial, valoresItem, baseItem, qualidade, conjuntosAtivos, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -72,9 +73,9 @@ function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; 
 function salvar() { guardar(localStorage, EST); }
 
 async function iniciar() {
-  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json"].map(json));
+  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen, apar] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json", "dados/aparencia.json"].map(json));
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
-    CEN: cen, P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
+    CEN: cen, AP: apar, P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
   const arq = ["forest_tiles", "dirt", "cavern_ruins", "signs", "house", "soldier", "soldier_altcolor", "princess", ...["casa_tijolo", "casa_pedra", "fonte", "barraca", "quadro", "forja", "poco"].map((c) => "cidade/" + c)];
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
@@ -84,6 +85,7 @@ async function iniciar() {
   for (const c of Object.values(itens.corpo)) {
     for (const a of c.animacoes) { pecas.add(`${c.base}/${a}.png`); pecas.add(`${c.cabeca}/${a}.png`); }
     for (const e of Object.values(c.extras || {})) caminhos(e).forEach((f) => pecas.add(f));
+    for (const op of [...apar.rosto, ...apar.cabelo, ...apar.barba]) if (op.pasta) for (const a of c.animacoes) pecas.add(`${op.pasta}/${a}.png`);
   }
   for (const it of itens.itens) caminhos(it.visual).forEach((f) => pecas.add(f));
   await Promise.all([...pecas].map(async (f) => { IMG[f] = await imagem("assets/pecas/" + f); }));
@@ -92,7 +94,8 @@ async function iniciar() {
   for (const f of usados) IMG[f] = await imagem("mostruario/" + f);
   for (const [id, f] of Object.entries(D.mapasTxt)) MAPAS[id] = gerarMapa(lerMapaTexto(await texto(f)));
   EST = carregar(D.P, D.itens, localStorage, Object.keys(MAPAS));
-  if (!EST) { const c = await escolherClasse(); EST = novoEstado(D.P, D.itens, c, D.classes[c].habilidades[0]); }
+  if (!EST) { const c = await escolherClasse(), ap = await criarAparencia(c); EST = novoEstado(D.P, D.itens, c, D.classes[c].habilidades[0], ap); }
+  EST.aparencia = normalizar(D.AP, EST.aparencia); // heróis de saves antigos ganham a aparência padrão
   if (EST.autoDistribuir && EST.pontosLivres > 0) distribuirRecomendado(D.P, EST, D.classes[EST.classe].recomendado);
   desbloquearHabilidades(EST, habsDaClasse()); // saves anteriores ganham as habilidades que o nível já libera
   jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, cds: {}, invul: 0, veneno: null, semDano: 0 };
@@ -146,6 +149,26 @@ function escolherClasse() {
     const desc = { guerreiro: "Corpo a corpo: Golpe, Estocada e Giro. Aguenta mais pancada.", arqueiro: "À distância: Disparo, Dispersão (acerta vários de uma vez) e Chuva de flechas." };
     painel(`<h3>Novo personagem</h3><p>Escolha a classe:</p>${cs.map((c) => `<p><b>${c.nome}</b>: <small>${desc[c.id] || ""}</small></p>`).join("")}`, cs.map((c) => [c.nome, () => { fechar(); ok(c.id); }]));
     $("caixa").querySelector(".fechar")?.remove();
+  });
+}
+// linhas "◀ Cabelo: Liso ▶" da aparência (criação e aba Aparência)
+function linhasAparencia(ap) {
+  return CAMPOS.map((c) => `<div class="atr ap"><button data-ap="${c}" data-p="-1" aria-label="${NOMES_CAMPO[c]} anterior">◀</button><div><small>${NOMES_CAMPO[c]}</small><br><b>${opcao(D.AP, ap, c).nome}</b></div><button data-ap="${c}" data-p="1" aria-label="${NOMES_CAMPO[c]} seguinte">▶</button></div>`).join("");
+}
+// personagem novo: depois da classe, a aparência (com boneco andando)
+function criarAparencia(classe) {
+  return new Promise((ok) => {
+    let ap = aleatoria(D.AP);
+    const tela = () => {
+      painel(`<h3>Aparência <small>· ${D.classes[classe].nome}</small></h3><div class="pers"><div class="esq"><canvas id="previa" class="grande" width="64" height="64" aria-label="personagem"></canvas><small>Toque no boneco para girar</small></div><div class="dirp"><div class="conteudo apgrade">${linhasAparencia(ap)}</div></div></div>`,
+        [["Sortear", () => { ap = aleatoria(D.AP); tela(); }], ["Começar", () => { fechar(); ok(ap); }]]);
+      const cx = $("caixa"); cx.querySelector(".fechar")?.remove(); cx.style.width = "720px";
+      for (const b of cx.querySelectorAll("button[data-ap]")) b.onclick = () => { ap = alternar(D.AP, ap, b.dataset.ap, +b.dataset.p); tela(); };
+      const cv = $("previa"); cv.onclick = () => { ABA.dir = ORDEM_GIRO[(ORDEM_GIRO.indexOf(ABA.dir) + 1) % 4]; };
+      animarPrevia(cv, { ...equipamentoInicial(D.itens, classe), capacete: null }, classe, () => ap); // sem chapéu, para ver o cabelo
+      encaixarPainel();
+    };
+    tela();
   });
 }
 $("bP").addEventListener("pointerdown", () => usarPocao());
@@ -350,7 +373,7 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
     return `<button class="slot s-${e}${sel === e ? " sel" : ""}${it && it === provando ? " prova" : ""}" data-e="${e}" aria-label="${NOME_ESPACO[e]}" style="border-color:${it ? qualidade(I, it.qual).cor : "#fff3"}">${it ? imgIcone(it) + (it.mais ? `<i>+${it.mais}</i>` : "") : `<small>${NOME_ESPACO[e]}</small>`}</button>`; };
   const boneco = `<div class="boneco">${["capacete", "ombros", "bracos", "arma", "peitoral", "capa", "grevas", "botas", "escudo"].map(slot).join("")}<canvas id="previa" width="64" height="64" aria-label="personagem"></canvas></div>`;
   const resumoConjuntos = (eq) => conjuntosAtivos(I, eq).map((c) => `<span style="color:${c.conjunto.cor}">Conjunto ${c.conjunto.nome} ${c.n}/${c.total}</span>`).join(" · ");
-  const abas = [["equip", "Equipamento"], ["atrib", `Atributos${EST.pontosLivres ? ` (+${EST.pontosLivres})` : ""}`], ["hab", `Habilidades${EST.pontosHab ? ` (+${EST.pontosHab})` : ""}`]]
+  const abas = [["equip", "Equipamento"], ["visual", "Aparência"], ["atrib", `Atributos${EST.pontosLivres ? ` (+${EST.pontosLivres})` : ""}`], ["hab", `Habilidades${EST.pontosHab ? ` (+${EST.pontosHab})` : ""}`]]
     .map(([id, t]) => `<button class="aba${aba === id ? " on" : ""}" data-aba="${id}">${t}</button>`).join("");
   let corpo = "", acoes = [];
   if (aba === "equip") {
@@ -378,6 +401,9 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
       [`Distribuir sozinho: ${EST.autoDistribuir ? "ligado" : "desligado"}`, () => { EST.autoDistribuir = !EST.autoDistribuir; salvar(); telaPersonagem("atrib"); }],
       [naCidade ? `Redistribuir (${custo} ouro)` : "Redistribuir: só na cidade", () => { if (confirm(`Devolver todos os pontos distribuídos por ${custo} ouro?`)) { comAjusteDeVida(() => redistribuir(P, EST)); telaPersonagem("atrib"); } }, !naCidade || EST.ouro < custo || gastos(P, EST) === 0],
     ];
+  } else if (aba === "visual") {
+    corpo = `<p class="det"><small>Muda na hora, sem custo. Toque no boneco para girar.</small></p>` + linhasAparencia(EST.aparencia) +
+      `<div class="atr"><div><small>Combinação sorteada</small></div><button data-sorteio="1" style="width:auto;padding:0 12px">Sortear</button></div>`;
   } else {
     corpo = `<p class="det"><small>${EST.pontosHab} ponto${EST.pontosHab === 1 ? "" : "s"} de habilidade · 1 a cada ${P.nivel_por_ponto_habilidade} níveis · cada grau: +${Math.round(D.porGrau.mult * 100)}% dano, ${Math.round(D.porGrau.recarga * 100)}% recarga, +${Math.round(D.porGrau.area * 100)}% área</small></p>` +
       habsDaClasse().map((h) => { const g = EST.habilidades[h.id] || 0, a = escalarArea(h, D.porGrau, g || 1), b = escalarArea(h, D.porGrau, Math.min(P.grau_max_habilidade, (g || 1) + 1));
@@ -394,18 +420,20 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
   for (const b of cx.querySelectorAll("button[data-i]")) b.onclick = () => telaPersonagem("equip", +b.dataset.i);
   for (const b of cx.querySelectorAll("button[data-e]")) b.onclick = () => telaPersonagem("equip", EST.equip[b.dataset.e] ? b.dataset.e : -1);
   for (const b of cx.querySelectorAll("button[data-a]")) b.onclick = () => { comAjusteDeVida(() => distribuir(P, EST, b.dataset.a, 1)); telaPersonagem("atrib"); };
+  for (const b of cx.querySelectorAll("button[data-ap]")) b.onclick = () => { EST.aparencia = alternar(D.AP, EST.aparencia, b.dataset.ap, +b.dataset.p); salvar(); telaPersonagem("visual"); };
+  for (const b of cx.querySelectorAll("button[data-sorteio]")) b.onclick = () => { EST.aparencia = aleatoria(D.AP); salvar(); telaPersonagem("visual"); };
   for (const b of cx.querySelectorAll("button[data-h]")) b.onclick = () => { melhorarHabilidade(P, EST, b.dataset.h); salvar(); telaPersonagem("hab"); };
   const cv = $("previa"); cv.onclick = () => { ABA.dir = ORDEM_GIRO[(ORDEM_GIRO.indexOf(ABA.dir) + 1) % 4]; };
   animarPrevia(cv, equipPrevia);
 }
 // boneco da tela de Personagem: anda no lugar, com o equipamento (ou a prova) em camadas
-function animarPrevia(cv, equip) {
+function animarPrevia(cv, equip, classe, ap) {
   const x = cv.getContext("2d"); x.imageSmoothingEnabled = false;
   const passo = (t) => {
     if (!document.body.contains(cv)) return;
     x.clearRect(0, 0, 64, 64);
     x.fillStyle = "#0004"; x.beginPath(); x.ellipse(32, 60, 12, 4, 0, 0, 7); x.fill();
-    desenharCamadas("walk", 1 + Math.floor(t / 100) % 8, LINHA[ABA.dir], 0, 0, x, equip);
+    desenharCamadas("walk", 1 + Math.floor(t / 100) % 8, LINHA[ABA.dir], 0, 0, x, equip, classe, typeof ap === "function" ? ap() : ap);
     requestAnimationFrame(passo);
   };
   requestAnimationFrame(passo);
@@ -581,6 +609,20 @@ const tingidas = {};
 // peça com a cor da qualidade e do material, feita em código a partir da própria peça LPC (resultado em cache):
 // pixels de metal (pouca saturação) seguem a rampa do material (qualidade Refinado/Raro/Lendário, senão o material
 // do item, ex.: bronze, Cinzaltar); couro e tecido recebem só uma tinta leve da cor da qualidade
+// peça do corpo com a paleta da aparência (pele, olhos, cor do cabelo), guardada pronta
+const paletadas = {};
+function pecaPaleta(caminho, ap, campos) {
+  const img = IMG[caminho], trocas = campos.flatMap((c) => pares(D.AP, c, ap[c]));
+  if (!img || !trocas.length) return img;
+  const k = caminho + "|" + campos.map((c) => ap[c]).join("|");
+  if (!paletadas[k]) {
+    const c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
+    const x = c.getContext("2d"); x.drawImage(img, 0, 0);
+    const dados = x.getImageData(0, 0, c.width, c.height); recolorir(dados.data, trocas); x.putImageData(dados, 0, 0);
+    paletadas[k] = c;
+  }
+  return paletadas[k];
+}
 function pecaTingida(entrada, qual, materialItem = null) {
   const caminho = arqDe(entrada);
   const q = qualidade(D.itens, qual), img = IMG[caminho], mat = q.material || materialItem;
@@ -626,11 +668,12 @@ const imgIcone = (it) => `<img class="ic" alt="" src="${iconeItem(it)}">`;
 
 // camadas do personagem na ordem da classe (itens.json "corpo"[classe].ordem): corpo, cabeça, extras da classe
 // (aljava, flecha), "fundo_arma" (parte de trás do arco) e cada item vestido; folhas "grandes" (192 px) ficam centradas
-function camadas(anim, equip = EST.equip) {
-  const I = D.itens, corpo = I.corpo[EST.classe], out = [];
+function camadas(anim, equip = EST.equip, classe = EST.classe, ap = EST.aparencia) {
+  const I = D.itens, corpo = I.corpo[classe], out = [];
   for (const c of corpo.ordem) {
-    if (c === "corpo") out.push({ img: IMG[`${corpo.base}/${anim}.png`] });
-    else if (c === "cabeca") out.push({ img: IMG[`${corpo.cabeca}/${anim}.png`] });
+    if (c === "corpo") out.push({ img: pecaPaleta(`${corpo.base}/${anim}.png`, ap, ["pele"]) });
+    else if (c === "cabeca") out.push({ img: pecaPaleta(`${(opcao(D.AP, ap, "rosto") || { pasta: corpo.cabeca }).pasta}/${anim}.png`, ap, ["pele", "olhos"]) });
+    else if (c === "cabelo" || c === "barba") { const o = opcao(D.AP, ap, c); if (o && o.pasta) out.push({ img: pecaPaleta(`${o.pasta}/${anim}.png`, ap, ["cor_cabelo"]) }); }
     else if (corpo.extras && corpo.extras[c]) { const e = corpo.extras[c][anim]; if (e) out.push({ img: IMG[arqDe(e)], coluna: e.coluna }); }
     else if (c.startsWith("fundo:")) { // parte de trás de capa, escudo e arco
       const it = equip[c.slice(6)], b = it && baseItem(I, it.base), f = b && b.visual.fundo;
@@ -643,8 +686,8 @@ function camadas(anim, equip = EST.equip) {
   }
   return out;
 }
-function desenharCamadas(anim, col, linha, ox, oy, alvo = ctx, equip = EST.equip) {
-  for (const l of camadas(anim, equip)) {
+function desenharCamadas(anim, col, linha, ox, oy, alvo = ctx, equip = EST.equip, classe, ap) {
+  for (const l of camadas(anim, equip, classe, ap)) {
     if (!l.img) continue;
     const c = l.coluna ?? col;
     if (l.grande) alvo.drawImage(l.img, c * 192, linha * 192, 192, 192, ox - 64, oy - 64, 192, 192);

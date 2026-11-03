@@ -1719,6 +1719,8 @@
         "ombros",
         "capa",
         "cabeca",
+        "barba",
+        "cabelo",
         "capacete",
         "arma",
         "escudo"
@@ -1748,6 +1750,8 @@
         "capa",
         "aljava",
         "cabeca",
+        "barba",
+        "cabelo",
         "capacete",
         "flecha",
         "arma"

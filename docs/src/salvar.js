@@ -2,7 +2,7 @@
 import { atributosIniciais, pontosAteNivel, pontosHabilidadeAteNivel, equipamentoInicial } from "./personagem.js";
 
 const CHAVE = "valdor-save";
-export const VERSAO = 3;
+export const VERSAO = 4;
 
 export function serializar(est) { return JSON.stringify(est); }
 
@@ -25,6 +25,9 @@ export function migrarV2(I, v2) {
   return { ...v2, versao: 3, equip };
 }
 
+// v3 -> v4: aparência escolhida (pele, rosto, cabelo...). Heróis antigos ganham a aparência padrão (ver jogo: Aparência)
+export function migrarV3(v3) { return { ...v3, versao: 4, aparencia: null }; }
+
 function itemValido(P, I, it, espaco, classe) {
   if (!it || typeof it !== "object") return false;
   const b = I.itens.find((x) => x.id === it.base);
@@ -40,11 +43,14 @@ export function validar(P, I, obj, mapasValidos) {
     obj = migrarV1(P, I, obj);
   }
   if (obj.versao === 2) obj = migrarV2(I, obj);
+  if (obj.versao === 3) obj = migrarV3(obj);
   if (obj.versao !== VERSAO || !I.equipamento_inicial[obj.classe]) return null;
   if (!inteiro(obj.nivel, 1, P.nivel_max) || !inteiro(obj.ouro, 0, 1e9) || !inteiro(obj.pocoes, 0, 999)) return null;
   if (typeof obj.xp !== "number" || !(obj.xp >= 0)) return null;
   if (!mapasValidos.includes(obj.mapa)) return null;
   if (!obj.missoes || typeof obj.missoes !== "object") return null;
+  // aparência: só a forma aqui (ids desconhecidos voltam ao padrão em aparencia.normalizar, sem perder o save)
+  if (obj.aparencia != null && (typeof obj.aparencia !== "object" || Array.isArray(obj.aparencia) || !Object.values(obj.aparencia).every((v) => typeof v === "string" && v.length < 40))) obj.aparencia = null;
   if (!obj.atributos || !P.atributos.every((a) => inteiro(obj.atributos[a], P.atributo_inicial, 999))) return null;
   if (!inteiro(obj.pontosLivres, 0, 999) || !inteiro(obj.pontosHab, 0, 99) || !inteiro(obj.fragmentos, 0, 1e6)) return null;
   // pontos inconsistentes com o nível são consertados, não descartados: o progresso nunca é apagado

@@ -119,6 +119,7 @@ lines += [
     "## Gerador de personagens LPC (Universal LPC Spritesheet Character Generator)", "",
     "- Projeto: https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator",
     "- Fonte dos créditos: `data/gerador/CREDITS.csv` (autor, licença e URL de cada peça, baixado do projeto).",
+    "- Cores de pele, cabelo e olhos da tela de Aparência: paletas `ulpc` do mesmo projeto (`palette_definitions/body`, `hair` e `eye`), copiadas para `docs/dados/aparencia.json`.",
     "- Peças usadas no jogo (listadas em `data/pecas_usadas.txt`; para incluir outra, acrescente o caminho lá e rode este script):", "",
 ]
 lines += creditos_pecas.linhas("data/pecas_usadas.txt")

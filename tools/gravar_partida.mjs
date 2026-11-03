@@ -51,7 +51,8 @@ if (modo === "regioes") {
 // regiões 2 e 3: personagem preparado no save, entra pela cidade e sai pela borda leste
 const novo = async (classe) => {
   await pag.waitForFunction(() => document.getElementById("caixa").innerText.includes("Novo personagem")); await espera(800);
-  await V((c) => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === c).click(), classe);
+  await V((c) => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === c).click(), classe); await espera(1500);
+  await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Começar").click());
   await pag.waitForFunction(() => document.body.dataset.pronto === "1"); await espera(500);
 };
 const preparar = (cfg) => V((c) => { const V = window.__valdor, E = V.est; while (E.nivel < c.nivel) V.ganhar(500); E.pontosLivres = 0; E.atributos = c.atributos;
@@ -86,7 +87,8 @@ await cacar(20000);
 await pag.goto(`http://localhost:${srv.address().port}/`);
 await pag.waitForFunction(() => document.getElementById("caixa").innerText.includes("Novo personagem"));
 await espera(1500);
-await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Guerreiro").click());
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Guerreiro").click()); await espera(1500);
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Começar").click());
 await pag.waitForFunction(() => document.body.dataset.pronto === "1"); await espera(1200);
 // cidade: quadro de missões
 await irPara(16, 12); await espera(300);

@@ -1,0 +1,428 @@
+{
+ "_sobre": "aparência do herói: rosto, cabelo e barba são peças do gerador LPC (créditos via data/pecas_usadas.txt); pele, cabelo e olhos são trocas de paleta como no gerador (palette_definitions/body, hair e eye, paletas 'ulpc' do Universal LPC Spritesheet Character Generator). 'base' é a paleta em que as folhas foram desenhadas.",
+ "pele": {
+  "base": "light",
+  "opcoes": [
+   {
+    "id": "light",
+    "nome": "Clara",
+    "cores": [
+     "#271920",
+     "#99423c",
+     "#cc8665",
+     "#E4A47C",
+     "#F9D5BA",
+     "#FAECE7"
+    ]
+   },
+   {
+    "id": "amber",
+    "nome": "Âmbar",
+    "cores": [
+     "#281716",
+     "#9E3E37",
+     "#D28144",
+     "#EA9F54",
+     "#FDD082",
+     "#FBE7A4"
+    ]
+   },
+   {
+    "id": "olive",
+    "nome": "Oliva",
+    "cores": [
+     "#271920",
+     "#442725",
+     "#7F4C31",
+     "#AE6B3F",
+     "#D38B59",
+     "#E4A47C"
+    ]
+   },
+   {
+    "id": "taupe",
+    "nome": "Morena clara",
+    "cores": [
+     "#271920",
+     "#503734",
+     "#785946",
+     "#936849",
+     "#BA8454",
+     "#C7935F"
+    ]
+   },
+   {
+    "id": "bronze",
+    "nome": "Bronze",
+    "cores": [
+     "#1A1213",
+     "#442725",
+     "#644133",
+     "#7F4C31",
+     "#AE6B3F",
+     "#D38B59"
+    ]
+   },
+   {
+    "id": "brown",
+    "nome": "Morena",
+    "cores": [
+     "#120E10",
+     "#412B29",
+     "#5F4539",
+     "#76513A",
+     "#9C663E",
+     "#B8773F"
+    ]
+   },
+   {
+    "id": "black",
+    "nome": "Negra",
+    "cores": [
+     "#000000",
+     "#1A1213",
+     "#2E1F1C",
+     "#442725",
+     "#603429",
+     "#7F4C31"
+    ]
+   }
+  ],
+  "base_cores": [
+   "#271920",
+   "#99423c",
+   "#cc8665",
+   "#E4A47C",
+   "#F9D5BA",
+   "#FAECE7"
+  ]
+ },
+ "olhos": {
+  "base": "blue",
+  "base_cores": [
+   "#2a3c49",
+   "#5686ae",
+   "#57cee4"
+  ],
+  "opcoes": [
+   {
+    "id": "blue",
+    "nome": "Azuis",
+    "cores": [
+     "#2a3c49",
+     "#5686ae",
+     "#57cee4"
+    ]
+   },
+   {
+    "id": "green",
+    "nome": "Verdes",
+    "cores": [
+     "#2b4b29",
+     "#53b351",
+     "#84ec50"
+    ]
+   },
+   {
+    "id": "brown",
+    "nome": "Castanhos",
+    "cores": [
+     "#232017",
+     "#544c2e",
+     "#7e4e20"
+    ]
+   },
+   {
+    "id": "gray",
+    "nome": "Cinza",
+    "cores": [
+     "#3d3c37",
+     "#8b8979",
+     "#ada18f"
+    ]
+   }
+  ]
+ },
+ "cor_cabelo": {
+  "base": "orange",
+  "base_cores": [
+   "#260D14",
+   "#6A1108",
+   "#A42600",
+   "#BF4000",
+   "#E55600",
+   "#FF8A00"
+  ],
+  "opcoes": [
+   {
+    "id": "dark_brown",
+    "nome": "Castanho escuro",
+    "cores": [
+     "#050100",
+     "#160701",
+     "#290E02",
+     "#421603",
+     "#5F1F04",
+     "#792806"
+    ]
+   },
+   {
+    "id": "chestnut",
+    "nome": "Castanho",
+    "cores": [
+     "#200C0D",
+     "#3A130E",
+     "#63200B",
+     "#81310A",
+     "#B6550E",
+     "#D28102"
+    ]
+   },
+   {
+    "id": "light_brown",
+    "nome": "Castanho claro",
+    "cores": [
+     "#1A0E04",
+     "#301B07",
+     "#60350F",
+     "#7D4513",
+     "#AE682A",
+     "#C88D58"
+    ]
+   },
+   {
+    "id": "black",
+    "nome": "Preto",
+    "cores": [
+     "#000000",
+     "#080A0A",
+     "#101414",
+     "#1C2222",
+     "#31313E",
+     "#4A5057"
+    ]
+   },
+   {
+    "id": "blonde",
+    "nome": "Loiro",
+    "cores": [
+     "#331313",
+     "#552B15",
+     "#AC5D1F",
+     "#E09E2B",
+     "#FCCF56",
+     "#FFE67D"
+    ]
+   },
+   {
+    "id": "platinum",
+    "nome": "Platinado",
+    "cores": [
+     "#1C0E06",
+     "#7D5D5D",
+     "#A87D52",
+     "#C0AB81",
+     "#EDDF95",
+     "#F6F6F3"
+    ]
+   },
+   {
+    "id": "redhead",
+    "nome": "Ruivo",
+    "cores": [
+     "#260D14",
+     "#3E111A",
+     "#73171E",
+     "#9E1F1F",
+     "#C7341B",
+     "#E74716"
+    ]
+   },
+   {
+    "id": "ginger",
+    "nome": "Acobreado",
+    "cores": [
+     "#300500",
+     "#6A1A00",
+     "#9C3B01",
+     "#CC6901",
+     "#FAA301",
+     "#FFE01E"
+    ]
+   },
+   {
+    "id": "gray",
+    "nome": "Grisalho",
+    "cores": [
+     "#0E0E0E",
+     "#292929",
+     "#4B4B4B",
+     "#777777",
+     "#AAAAAA",
+     "#D9D9D9"
+    ]
+   },
+   {
+    "id": "white",
+    "nome": "Branco",
+    "cores": [
+     "#1D1D21",
+     "#484E57",
+     "#8B9498",
+     "#B8BBBC",
+     "#D8DCDC",
+     "#FFFFFF"
+    ]
+   }
+  ]
+ },
+ "rosto": [
+  {
+   "id": "male",
+   "nome": "Padrão",
+   "pasta": "head/heads/human/male"
+  },
+  {
+   "id": "male_gaunt",
+   "nome": "Magro",
+   "pasta": "head/heads/human/male_gaunt"
+  },
+  {
+   "id": "male_plump",
+   "nome": "Cheio",
+   "pasta": "head/heads/human/male_plump"
+  },
+  {
+   "id": "male_elderly",
+   "nome": "Idoso",
+   "pasta": "head/heads/human/male_elderly"
+  }
+ ],
+ "cabelo": [
+  {
+   "id": "nenhum",
+   "nome": "Careca",
+   "pasta": null
+  },
+  {
+   "id": "plain",
+   "nome": "Liso",
+   "pasta": "hair/plain/adult"
+  },
+  {
+   "id": "parted",
+   "nome": "Repartido",
+   "pasta": "hair/parted/adult"
+  },
+  {
+   "id": "messy1",
+   "nome": "Bagunçado",
+   "pasta": "hair/messy1/adult"
+  },
+  {
+   "id": "bedhead",
+   "nome": "Despenteado",
+   "pasta": "hair/bedhead/adult"
+  },
+  {
+   "id": "spiked",
+   "nome": "Espetado",
+   "pasta": "hair/spiked/adult"
+  },
+  {
+   "id": "buzzcut",
+   "nome": "Raspado",
+   "pasta": "hair/buzzcut/adult"
+  },
+  {
+   "id": "high_and_tight",
+   "nome": "Militar",
+   "pasta": "hair/high_and_tight/adult"
+  },
+  {
+   "id": "curly_short",
+   "nome": "Cacheado curto",
+   "pasta": "hair/curly_short/adult"
+  },
+  {
+   "id": "afro",
+   "nome": "Black power",
+   "pasta": "hair/afro/adult"
+  },
+  {
+   "id": "natural",
+   "nome": "Crespo",
+   "pasta": "hair/natural/adult"
+  },
+  {
+   "id": "long",
+   "nome": "Longo",
+   "pasta": "hair/long/adult"
+  },
+  {
+   "id": "long_messy",
+   "nome": "Longo solto",
+   "pasta": "hair/long_messy/adult"
+  },
+  {
+   "id": "shorthawk",
+   "nome": "Moicano",
+   "pasta": "hair/shorthawk/adult"
+  },
+  {
+   "id": "balding",
+   "nome": "Calvo",
+   "pasta": "hair/balding/adult"
+  },
+  {
+   "id": "unkempt",
+   "nome": "Desgrenhado",
+   "pasta": "hair/unkempt/adult"
+  },
+  {
+   "id": "swoop",
+   "nome": "Topete",
+   "pasta": "hair/swoop/adult"
+  }
+ ],
+ "barba": [
+  {
+   "id": "nenhuma",
+   "nome": "Sem barba",
+   "pasta": null
+  },
+  {
+   "id": "sombra",
+   "nome": "Por fazer",
+   "pasta": "beards/beard/5oclock_shadow"
+  },
+  {
+   "id": "aparada",
+   "nome": "Aparada",
+   "pasta": "beards/beard/trimmed"
+  },
+  {
+   "id": "cheia",
+   "nome": "Cheia",
+   "pasta": "beards/beard/basic"
+  },
+  {
+   "id": "media",
+   "nome": "Média",
+   "pasta": "beards/beard/medium"
+  },
+  {
+   "id": "bigode",
+   "nome": "Bigode",
+   "pasta": "beards/mustache/basic"
+  }
+ ],
+ "padrao": {
+  "pele": "light",
+  "rosto": "male",
+  "cabelo": "plain",
+  "cor_cabelo": "dark_brown",
+  "barba": "nenhuma",
+  "olhos": "blue"
+ }
+}

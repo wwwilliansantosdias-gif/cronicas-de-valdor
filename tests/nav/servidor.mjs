@@ -24,9 +24,14 @@ export async function abrir({ largura = 844, altura = 390, toque = false } = {})
   const base = `http://localhost:${srv.address().port}/`;
   // espera o jogo carregar; sem save, escolhe a classe (Guerreiro por padrão) na tela de personagem novo
   const pronto = async (classe = "Guerreiro") => {
-    await pag.waitForFunction(() => document.body.dataset.pronto === "1" || document.getElementById("caixa").innerText.includes("Novo personagem"), null, { timeout: 15000 });
-    if (await pag.evaluate(() => document.body.dataset.pronto !== "1"))
+    await pag.waitForFunction(() => document.body.dataset.pronto === "1" || document.getElementById("caixa").innerText.includes("Novo personagem") || !!document.querySelector('#caixa button[data-ap]'), null, { timeout: 15000 });
+    if (await pag.evaluate(() => document.body.dataset.pronto !== "1" && !document.querySelector('#caixa button[data-ap]')))
       await pag.evaluate((c) => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === c).click(), classe);
+    // personagem novo: depois da classe vem a tela de aparência
+    if (await pag.evaluate(() => document.body.dataset.pronto !== "1")) {
+      await pag.waitForFunction(() => [...document.querySelectorAll("#caixa button")].some((b) => b.textContent === "Começar"), null, { timeout: 15000 });
+      await pag.evaluate(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Começar").click());
+    }
     await pag.waitForFunction(() => document.body.dataset.pronto === "1", null, { timeout: 15000 });
   };
   const fim = async () => { await nav.close(); srv.close(); console.log(falhas ? `${falhas} falha(s)` : "tudo certo"); process.exit(falhas ? 1 : 0); };

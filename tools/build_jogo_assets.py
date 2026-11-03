@@ -4,7 +4,7 @@ Rodar da raiz: python3 -I tools/build_jogo_assets.py
 - Peças dos personagens (corpo, cabeça e extras de cada classe, e o visual de cada item de
   docs/dados/itens.json) são baixadas do gerador LPC para assets/raw/gerador/ (não versionado) e copiadas
   para docs/assets/pecas/; o jogo empilha as camadas na hora, então trocar um item troca a aparência.
-- data/pecas_usadas.txt é gerado daqui (corpo, extras e "peca_lpc" de cada item), para os créditos nunca
+- data/pecas_usadas.txt é gerado daqui (corpo, extras, aparência e "peca_lpc" de cada item), para os créditos nunca
   ficarem para trás.
 - Tiles e NPCs vêm do pacote base e da floresta.
 """
@@ -57,6 +57,15 @@ for classe, c in itens["corpo"].items():
         for caminho in arquivos(extra):
             baixar(caminho)
         usadas += [p for p in extra["peca_lpc"] if p not in usadas]
+# aparência do herói (rosto, cabelo, barba): as mesmas animações das classes
+apar = json.load(open("docs/dados/aparencia.json", encoding="utf-8"))
+anims = sorted({a for c in itens["corpo"].values() for a in c["animacoes"]})
+for op in apar["rosto"] + apar["cabelo"] + apar["barba"]:
+    if op["pasta"]:
+        for a in anims:
+            baixar(f"{op['pasta']}/{a}.png")
+            if f"{op['pasta']}/{a}.png" not in usadas:
+                usadas.append(f"{op['pasta']}/{a}.png")
 for it in itens["itens"]:
     for caminho in arquivos(it.get("visual")):
         baixar(caminho)
