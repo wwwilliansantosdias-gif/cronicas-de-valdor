@@ -8,7 +8,7 @@
 :root{--bg:#14161d;--tx:#f1f1f6;--pn:#262a37cc;--bd:#3a4052;--ac:#ffb347;--vd:#e04a4a;--xp:#4aa3e0}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:none;user-select:none;-webkit-user-select:none}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:14px/1.3 system-ui,sans-serif;overflow:hidden}
-canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rendering:pixelated;background:#000}
+#tela{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rendering:pixelated;background:#000}
 #hud{position:fixed;left:8px;top:6px;right:8px;display:flex;gap:10px;align-items:flex-start;pointer-events:none;text-shadow:0 1px 2px #000}
 .barra{width:120px;height:10px;background:#0008;border:1px solid #fff5;border-radius:3px;overflow:hidden;margin-top:3px}
 .barra i{display:block;height:100%}
@@ -34,6 +34,27 @@ canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rend
 #caixa .itens.lista{max-height:62vh;align-content:flex-start}
 #caixa .dir p{margin:4px 0}
 #caixa tr[data-e]{cursor:pointer}
+#caixa .pers{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+#caixa .esq{display:flex;flex-direction:column;gap:4px}
+#caixa .boneco{display:grid;grid-template-columns:44px 112px 44px;grid-template-rows:54px 54px;gap:2px 4px;align-items:center;justify-items:center}
+#caixa .boneco canvas{grid-column:2;grid-row:1/3;width:112px;height:112px;image-rendering:pixelated;background:radial-gradient(#ffffff14,#0000 70%);border-radius:10px;cursor:pointer}
+#caixa .s-capacete{grid-column:1;grid-row:1}#caixa .s-arma{grid-column:1;grid-row:2}#caixa .s-peitoral{grid-column:3;grid-row:1}#caixa .s-grevas{grid-column:3;grid-row:2}
+#caixa .slot{position:relative;width:44px;height:44px;min-height:44px;margin:0;padding:0;border:2px solid #fff3;border-radius:8px;background:#0003;display:flex;align-items:center;justify-content:center}
+#caixa .slot img.ic{width:34px;height:34px;margin:0;background:none}
+#caixa .slot i{position:absolute;right:2px;bottom:0;font-size:10px;font-style:normal;font-weight:700;color:#fff;text-shadow:0 1px 2px #000}
+#caixa .slot small{font-size:8px;color:#aab}
+#caixa .slot.sel{outline:2px solid #fff;outline-offset:1px}#caixa .slot.prova{box-shadow:0 0 8px #fff8}
+#caixa .slot.vazio{border-style:dashed;border-color:#fff1}
+#caixa .mgrade{display:grid;grid-template-columns:repeat(10,40px);gap:3px;margin:2px 0}
+#caixa .mgrade .slot{width:40px;height:40px;min-height:40px}#caixa .mgrade .slot img.ic{width:30px;height:30px}
+#caixa table.num{width:208px;font-size:11px;margin:0}#caixa table.num td{padding:1px 4px}
+#caixa .up{color:#7fd27f;font-weight:700}#caixa .down{color:#ff7a7a;font-weight:700}
+#caixa .abas{display:flex;gap:4px;margin-bottom:4px}#caixa .abas button.aba{width:auto;flex:1;min-height:36px;margin:0;padding:4px 6px;font-size:12px}
+#caixa .abas button.aba.on{background:#5a6385;border-color:#fff8}
+#caixa .conteudo .det{margin:2px 0;font-size:12px}
+#caixa .conteudo > button{display:inline-block;width:auto;min-width:120px;margin:4px 6px 0 0}
+#caixa .conteudo .atr button{width:52px;min-height:38px}#caixa .conteudo .atr{font-size:12px;padding:0}
+#caixa .conteudo > button{min-height:38px;padding:4px 8px;font-size:12px}
 #caixa img.ic{width:24px;height:24px;image-rendering:pixelated;vertical-align:middle;margin-right:4px;background:#0003;border-radius:4px}
 #caixa .itens button{display:inline-flex;align-items:center}#caixa tr.sel td{background:#ffffff1a}
 #bS.tem{background:#ffb347cc;color:#222;border-color:#ffb347;animation:pulso 1.2s infinite}
@@ -47,7 +68,7 @@ canvas{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);image-rend
 #caixa table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}#caixa td{padding:3px 4px;border-bottom:1px solid #fff2}#caixa td:last-child{text-align:right}
 #painel{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:5}
 #painel.on{display:flex}
-#caixa{position:relative;background:#262a37;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;max-width:min(680px,94vw);max-height:90vh;overflow:auto;touch-action:pan-y}
+#caixa{position:relative;background:#262a37;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;max-width:min(820px,96vw);max-height:90vh;overflow:auto;touch-action:pan-y}
 #caixa h3{margin:0 0 8px;padding-right:90px}
 #caixa button.fechar{position:absolute;top:8px;right:8px;width:auto;min-height:40px;padding:4px 14px;margin:0}
 #caixa .dir button{min-height:44px;margin:6px 0 0;padding:6px}

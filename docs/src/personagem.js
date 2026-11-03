@@ -96,3 +96,12 @@ export function derivados(P, I, est) {
 export function equipamentoInicial(I, classe) {
   return Object.fromEntries(Object.entries(I.equipamento_inicial[classe]).map(([e, id]) => [e, novoItem(id)]));
 }
+
+// "Poder": um número só que resume a força do personagem (como a força de combate do Conquer), para o jogador
+// perceber o progresso por nível, pontos e itens. Usa o dano por segundo do ataque básico (com crítico médio) e a vida.
+export function estatisticas(P, sv, habBasica) {
+  const critMedio = 1 + sv.critico * (sv.criticoMult - 1);
+  const recarga = habBasica.recarga * sv.recargaMult;
+  const dps = sv.dano * habBasica.mult * critMedio / recarga;
+  return { ataquesPorSeg: 1 / recarga, dps, poder: Math.round(dps * P.poder.por_dps + sv.vidaMax * P.poder.por_vida) };
+}

@@ -108,3 +108,12 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - **Classe ao começar:** personagem novo escolhe Guerreiro ou Arqueiro; menu "Novo personagem" apaga o progresso e volta à escolha. Save aceita qualquer classe implementada e recusa arma de outra classe vestida.
 - **Ritmo:** simulador por classe; arqueiro chega ao nível 10 em cerca de 28 minutos (guerreiro cerca de 30); teste de ritmo cobre as duas classes.
 - Sobre o visual do Conquer: é 2,5D (cenário desenhado à mão, personagens e monstros 3D em câmera fixa). Fica como referência para o protótipo 3D (`futuro-3d.md`).
+
+## 14. Percepção de progresso (pedido de Willian antes das regiões 2 e 3)
+- **Tela de Personagem** (botões "Atrib." e "Mochila" abrem a aba certa): boneco animado com o equipamento em camadas e os 4 espaços em volta (toque no boneco gira a direção); números ao lado: Poder, Dano, Ataques/s, Dano/s, Vida, Velocidade, Crítico; abas Equipamento, Atributos e Habilidades. Cabe sem rolar em 844×390.
+- **Provar antes de equipar:** tocar num item da mochila veste o item no boneco e mostra a diferença de cada número em verde/vermelho; equipar avisa "Poder X → Y".
+- **Poder** (`estatisticas` em `personagem.js`; pesos em `progressao.json` → `poder`): dano por segundo do ataque básico (com crítico médio) × 6 + vida × 0,5. Aparece no topo ("Nv 6 · Poder 254"); quando sobe, surge "+N Poder" em verde sobre o personagem; o título da tela mostra o ganho desde que ela foi aberta.
+- **Subir de nível** avisa os pontos ganhos ("Nível 7! +3 pontos").
+- **Mochila em grade** de 20 espaços com ícone, borda na cor da qualidade e "+N" no canto.
+- **Área cresce com o grau da habilidade** (`por_grau.area` = 8% por grau em alcance, raio e ângulo; ângulo até 170°): grau 5 da Dispersão alcança cerca de 224 px e abre cerca de 132°; a aba Habilidades mostra a área atual e a do próximo grau.
+- **Toques 2,5D:** sombra embaixo do personagem e dos monstros; flechas sobem e descem em arco com sombra correndo no chão; flechas da Chuva caem com a sombra crescendo.

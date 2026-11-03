@@ -54,6 +54,20 @@ await pag.waitForTimeout(150);
 const px1 = await pixelsJogador();
 ok((await V(() => window.__valdor.est.equip.peitoral.base)) === "cota-malha" && px0 !== px1, "vestir a cota de malha muda a aparência do personagem");
 await pag.screenshot({ path: saida + "/m3.png" });
+// prova no boneco: escolher um item da mochila muda o boneco e mostra a diferença; equipar sobe o Poder do topo
+await V(() => { const V = window.__valdor; V.est.mochila = [{ base: "elmo-barbaro", qual: "lendario", mais: 2, bonus: { vit: 2 } }]; });
+await toque("#bI"); await pag.waitForTimeout(250);
+const previa = () => V(() => Array.from(document.getElementById("previa").getContext("2d").getImageData(0, 0, 64, 64).data).filter((x, i) => i % 4 === 3 && x > 0).length + "|" + Array.from(document.getElementById("previa").getContext("2d").getImageData(0, 0, 64, 64).data).slice(0, 4096).join(""));
+const pv0 = await V(() => { const c = document.getElementById("previa"); return c.toDataURL(); });
+await toque("#caixa button[data-i]"); await pag.waitForTimeout(250);
+const pv1 = await V(() => document.getElementById("previa").toDataURL());
+ok(pv0 !== pv1, "boneco prova o elmo antes de equipar");
+ok(await V(() => /\+\d+/.test(document.querySelector("#caixa h3").innerText)), "título mostra o ganho de Poder ao provar");
+await pag.screenshot({ path: saida + "/m4.png" });
+const hud0 = await V(() => +document.getElementById("nv").textContent.match(/Poder (\d+)/)[1]);
+await toque("#caixa button", "Equipar"); await toque("#caixa button", "Fechar"); await pag.waitForTimeout(200);
+const hud1 = await V(() => +document.getElementById("nv").textContent.match(/Poder (\d+)/)[1]);
+ok(hud1 > hud0, `Poder no topo subiu ao equipar (${hud0} → ${hud1})`);
 // qualidade muda a aparência da mesma peça (tinta) e os itens têm ícone
 await V(() => { window.__valdor.est.equip.peitoral = { base: "cota-malha", qual: "lendario", mais: 0, bonus: {} }; });
 await pag.waitForTimeout(150);
@@ -62,7 +76,7 @@ await toque("#bI");
 ok(await V(() => document.querySelectorAll("#caixa img.ic").length >= 4), "ícones dos itens na mochila");
 await toque("#caixa button", "Fechar");
 // tirar uma peça vestida
-await toque("#bI"); await toque("#caixa tr[data-e='capacete']");
+await toque("#bI"); await toque("#caixa [data-e='capacete']");
 ok(await toque("#caixa button", "Tirar"), "toca em Tirar");
 ok((await V(() => window.__valdor.est.equip.capacete)) === null, "capacete foi para a mochila");
 const pecaVestida = await V(() => JSON.stringify(window.__valdor.est.equip));

@@ -1,9 +1,9 @@
 import { lerMapaTexto, gerarMapa, TILE, bloqueadoTile } from "./mapa.js";
 import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from "./progresso.js";
 import { carregar, guardar, apagar } from "./salvar.js";
-import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, mover, direcaoDe, dentroDaArea, VET } from "./combate.js";
+import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, escalarArea, mover, direcaoDe, dentroDaArea, VET } from "./combate.js";
 import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento, melhorar, proximaMelhoria, itemDoAlvo, sortearFragmentos } from "./itens.js";
-import { derivados, valoresItem, baseItem, qualidade, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
+import { derivados, estatisticas, valoresItem, baseItem, qualidade, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -46,13 +46,17 @@ function desenharEfeitos(dt) {
     if (e.t >= e.dur + 0.05) { efeitos.splice(i, 1); continue; }
     if (e.t < 0) continue;
     const p = Math.min(1, e.t / e.dur);
-    ctx.save(); ctx.strokeStyle = "#6b4a2b"; ctx.fillStyle = "#e8e8f0"; ctx.lineWidth = 1.5;
-    if (e.tipo === "voo") {
-      const x = e.x0 + Math.cos(e.ang) * e.d * p - cam.x, y = e.y0 + Math.sin(e.ang) * e.d * p - cam.y;
-      ctx.beginPath(); ctx.moveTo(x - Math.cos(e.ang) * 12, y - Math.sin(e.ang) * 12); ctx.lineTo(x, y); ctx.stroke();
-      ctx.fillRect(Math.round(x - 1), Math.round(y - 1), 3, 3);
+    ctx.save(); ctx.strokeStyle = "#7a5432"; ctx.fillStyle = "#f2f2f8"; ctx.lineWidth = 2;
+    if (e.tipo === "voo") { // 2,5D: a flecha sobe e desce em arco; a sombra corre reta no chão
+      const gx = e.x0 + Math.cos(e.ang) * e.d * p - cam.x, gy = e.y0 + 22 + Math.sin(e.ang) * e.d * p - cam.y;
+      const alt = Math.sin(Math.PI * p) * Math.min(26, e.d * 0.12) + 22, x = gx, y = gy - alt;
+      const inc = Math.cos(Math.PI * p) * 0.6, dx = Math.cos(e.ang), dy = Math.sin(e.ang) - inc * Math.abs(Math.cos(e.ang));
+      ctx.save(); ctx.globalAlpha = 0.35; ctx.fillStyle = "#000"; ctx.fillRect(Math.round(gx - 4), Math.round(gy), 8, 2); ctx.restore();
+      ctx.beginPath(); ctx.moveTo(x - dx * 16, y - dy * 16); ctx.lineTo(x, y); ctx.stroke();
+      ctx.fillRect(Math.round(x - 2), Math.round(y - 2), 4, 4);
     } else if (e.tipo === "queda") {
       const x = e.x - cam.x, y = e.y - cam.y - (1 - p) * 90;
+      ctx.save(); ctx.globalAlpha = 0.15 + 0.3 * p; ctx.fillStyle = "#000"; ctx.beginPath(); ctx.ellipse(e.x - cam.x, e.y - cam.y, 1 + 3 * p, 1 + p, 0, 0, 7); ctx.fill(); ctx.restore();
       ctx.beginPath(); ctx.moveTo(x, y - 12); ctx.lineTo(x, y); ctx.stroke(); ctx.fillRect(Math.round(x - 1), Math.round(y - 1), 3, 3);
     } else if (e.tipo === "anel") {
       ctx.globalAlpha = 0.25 + 0.35 * p; ctx.strokeStyle = "#ffe08a"; ctx.lineWidth = 2;
@@ -62,6 +66,7 @@ function desenharEfeitos(dt) {
   }
 }
 const flutuantes = [];
+let ultimoPoder = 0;
 function flutuar(txt, x, y, cor) { flutuantes.push({ txt, x, y, cor, t: 1.2 }); }
 function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; $("msg").classList.add("on"); msgT = s; }
 function salvar() { guardar(localStorage, EST); }
@@ -154,7 +159,8 @@ function subiuNiveis(n) {
   aoSubir(D.P, EST, n, D.classes[EST.classe].recomendado, habsDaClasse());
   jogador.vida = stats().vidaMax;
   const nova = habsDaClasse().find((h) => EST.habilidades[h.id] && !antes[h.id]);
-  msg(nova ? `Nível ${EST.nivel}! Nova habilidade: ${nova.nome}` : `Nível ${EST.nivel}!`, nova ? 3.5 : 2.4);
+  const ganhos = `+${n * D.P.pontos_por_nivel} pontos${EST.autoDistribuir ? " (distribuídos)" : ""}`;
+  msg(nova ? `Nível ${EST.nivel}! Nova habilidade: ${nova.nome} · ${ganhos}` : `Nível ${EST.nivel}! ${ganhos}`, nova ? 3.5 : 2.6);
 }
 
 // usa uma habilidade (Golpe, Estocada, Giro...) se liberada, fora da cidade, sem outra ação em curso e sem recarga
@@ -163,7 +169,7 @@ function usarHabilidade(id) {
   if (!h || parado || jogador.morto || mapa.zonaSegura || jogador.golpe >= 0) return false;
   if (!EST.habilidades[id]) { msg(`${h.nome}: libera no nível ${h.nivel}`); return false; }
   if ((jogador.cds[id] || 0) > 0) return false;
-  jogador.golpe = 0; jogador.hab = h;
+  jogador.golpe = 0; jogador.hab = escalarArea(h, D.porGrau, EST.habilidades[id]); // área cresce com o grau
   jogador.cds[id] = recargaHabilidade(h, D.porGrau, stats().recargaMult, EST.habilidades[id]);
   return true;
 }
@@ -248,29 +254,6 @@ function comparar(i) {
   const f = (n, s = "") => (n > 0 ? `<span style="color:#7fd27f">+${n}${s}</span>` : n < 0 ? `<span style="color:#ff7a7a">${n}${s}</span>` : "=");
   return `dano ${f(+(depois.dano - antes.dano).toFixed(1))}, vida ${f(depois.vidaMax - antes.vidaMax)}`;
 }
-function telaMochila(sel = -1) {
-  const I = D.itens;
-  const eq = I.espacos.map((e) => { const it = EST.equip[e]; return `<tr data-e="${e}" class="${sel === e ? "sel" : ""}"><td>${NOME_ESPACO[e]}</td><td>${it ? `${imgIcone(it)}<span style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</span><br><small>${descreverItem(it)}</small>` : "<small>vazio</small>"}</td></tr>`; }).join("");
-  const lista = EST.mochila.map((it, i) => `<button data-i="${i}" class="item${i === sel ? " sel" : ""}" style="color:${qualidade(I, it.qual).cor}">${imgIcone(it)}${nomeItem(I, it)}</button>`).join("") || "<p><small>Vazia. Monstros às vezes deixam itens no chão: passe por cima para pegar.</small></p>";
-  let det = "<p><small>Toque num item para ver e equipar, ou numa peça vestida para tirar.</small></p>";
-  const acoes = [];
-  if (typeof sel === "string" && EST.equip[sel]) {
-    const it = EST.equip[sel];
-    det = `<p style="color:${qualidade(I, it.qual).cor}"><b>${nomeItem(I, it)}</b></p><p><small>${NOME_ESPACO[sel]} (vestido) · ${descreverItem(it)}</small></p>`;
-    acoes.push(["Tirar", () => { if (comAjusteDeVida(() => desequipar(I, EST, sel))) msg(`Tirou: ${nomeItem(I, it)}`); else msg("Mochila cheia."); telaMochila(); }, EST.mochila.length >= I.mochila_max]);
-  } else if (sel >= 0 && EST.mochila[sel]) {
-    const it = EST.mochila[sel], imp = impedimento(I, EST, it);
-    det = `<p style="color:${qualidade(I, it.qual).cor}"><b>${nomeItem(I, it)}</b></p><p><small>${NOME_ESPACO[baseItem(I, it.base).espaco]} · ${descreverItem(it)}</small></p><p><small>Se equipar: ${comparar(sel)}</small></p>${imp ? `<p><small>Não pode equipar: ${imp}</small></p>` : ""}`;
-    acoes.push(["Equipar", () => { if (comAjusteDeVida(() => equipar(I, EST, sel))) msg(`Equipou: ${nomeItem(I, it)}`); telaMochila(); }, !!imp]);
-    acoes.push(["Descartar", () => { if (confirm(`Descartar ${nomeItem(I, it)}?`)) { descartar(EST, sel); salvar(); telaMochila(); } }]);
-  }
-  painel(`<h3>Mochila <small>· ${EST.mochila.length}/${I.mochila_max}</small></h3><div class="duas"><div><table>${eq}</table></div><div class="dir"><div class="itens">${lista}</div>${det}</div></div>`, acoes);
-  const dir = $("caixa").querySelector(".dir");
-  for (const b of $("caixa").querySelectorAll("button[data-i]")) b.onclick = () => telaMochila(+b.dataset.i);
-  for (const r of $("caixa").querySelectorAll("tr[data-e]")) r.onclick = () => telaMochila(r.dataset.e);
-  dir.append(...[...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
-}
-// ferreiro: melhora itens vestidos ou da mochila de +1 a +5; pode falhar, mas o item nunca quebra
 function telaFerreiro(alvo = null, resultado = "") {
   const I = D.itens;
   const alvos = [...I.espacos.filter((e) => EST.equip[e]).map((e) => ({ espaco: e })), ...EST.mochila.map((_, i) => ({ i }))];
@@ -308,33 +291,92 @@ function telaQuadro() {
 const NOME_ATR = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
 // mexer em atributos pode mudar a vida máxima: mantém a vida perdida, não a proporção
 function comAjusteDeVida(fn) { const antes = stats().vidaMax, r = fn(); jogador.vida = Math.max(1, Math.min(stats().vidaMax, jogador.vida + stats().vidaMax - antes)); salvar(); return r; }
-function telaHabilidades() {
-  const P = D.P;
-  const html = `<h3>Habilidades <small>· ${EST.pontosHab} ponto${EST.pontosHab === 1 ? "" : "s"} (1 a cada ${P.nivel_por_ponto_habilidade} níveis)</small></h3>` +
-    habsDaClasse().map((h) => { const g = EST.habilidades[h.id];
-      return `<div class="atr"><div><b>${h.nome}</b> ${g ? `grau ${g}/${P.grau_max_habilidade}` : `<small>libera no nível ${h.nivel}</small>`}<br><small>${h.descricao} Dano ${Math.round(h.mult * (1 + D.porGrau.mult * ((g || 1) - 1)) * 100)}%, recarga ${(h.recarga * (1 + D.porGrau.recarga * ((g || 1) - 1))).toFixed(1)} s</small></div>
-        <button data-h="${h.id}" ${!g || g >= P.grau_max_habilidade || EST.pontosHab < 1 ? "disabled" : ""} aria-label="+1 grau ${h.nome}">+1</button></div>`; }).join("");
-  painel(html, [["Voltar aos atributos", () => telaAtributos()]]);
-  for (const b of $("caixa").querySelectorAll("button[data-h]")) b.onclick = () => { melhorarHabilidade(P, EST, b.dataset.h); salvar(); telaHabilidades(); };
+// ---------- tela de Personagem: boneco, números e abas (Equipamento, Atributos, Habilidades) ----------
+const ABA = { aba: "equip", sel: -1, dir: "down" };
+function telaMochila(sel = -1) { telaPersonagem("equip", sel); }
+function telaAtributos() { telaPersonagem("atrib"); }
+function telaHabilidades() { telaPersonagem("hab"); }
+function numeros(est) { const sv = derivados(D.P, D.itens, est); return { sv, ...estatisticas(D.P, sv, D.hab[habN(0)]) }; }
+function telaPersonagem(aba = ABA.aba, sel = -1) {
+  ABA.aba = aba; ABA.sel = sel;
+  const I = D.itens, P = D.P, agora = numeros(EST);
+  if (!$("painel").classList.contains("on") || !$("previa")) ABA.poderAoAbrir = agora.poder; // ganho mostrado no título
+  const ganho = agora.poder - ABA.poderAoAbrir;
+  // provar: item escolhido na mochila aparece vestido no boneco e os números mostram a diferença
+  const provando = aba === "equip" && typeof sel === "number" && EST.mochila[sel] ? EST.mochila[sel] : null;
+  const equipPrevia = provando ? { ...EST.equip, [baseItem(I, provando.base).espaco]: provando } : EST.equip;
+  const depois = provando ? numeros({ ...EST, equip: equipPrevia }) : null;
+  const dif = (a, b, casas = 0, suf = "") => { if (!depois) return ""; const d = +(b - a).toFixed(casas); return d > 0 ? ` <span class="up">+${d}${suf}</span>` : d < 0 ? ` <span class="down">${d}${suf}</span>` : ""; };
+  const sv = agora.sv, dv = depois && depois.sv;
+  const linhasNum = [
+    ["Poder", agora.poder, dif(agora.poder, depois?.poder)],
+    ["Dano", sv.dano.toFixed(1), dif(sv.dano, dv?.dano, 1)],
+    ["Ataques/s", agora.ataquesPorSeg.toFixed(2), dif(agora.ataquesPorSeg, depois?.ataquesPorSeg, 2)],
+    ["Dano/s", agora.dps.toFixed(1), dif(agora.dps, depois?.dps, 1)],
+    ["Vida", sv.vidaMax, dif(sv.vidaMax, dv?.vidaMax)],
+    ["Velocidade", Math.round(sv.velocidade), dif(sv.velocidade, dv?.velocidade)],
+    ["Crítico", `${Math.round(sv.critico * 100)}%`, dif(sv.critico * 100, dv?.critico * 100, 0, "%")],
+  ].map(([k, v, d]) => `<tr><td>${k}</td><td>${v}${d}</td></tr>`).join("");
+  const slot = (e) => { const it = equipPrevia[e]; return `<button class="slot s-${e}${sel === e ? " sel" : ""}${it && it === provando ? " prova" : ""}" data-e="${e}" aria-label="${NOME_ESPACO[e]}" style="border-color:${it ? qualidade(I, it.qual).cor : "#fff3"}">${it ? imgIcone(it) + (it.mais ? `<i>+${it.mais}</i>` : "") : `<small>${NOME_ESPACO[e]}</small>`}</button>`; };
+  const boneco = `<div class="boneco">${slot("capacete")}${slot("arma")}<canvas id="previa" width="64" height="64" aria-label="personagem"></canvas>${slot("peitoral")}${slot("grevas")}</div>`;
+  const abas = [["equip", "Equipamento"], ["atrib", `Atributos${EST.pontosLivres ? ` (+${EST.pontosLivres})` : ""}`], ["hab", `Habilidades${EST.pontosHab ? ` (+${EST.pontosHab})` : ""}`]]
+    .map(([id, t]) => `<button class="aba${aba === id ? " on" : ""}" data-aba="${id}">${t}</button>`).join("");
+  let corpo = "", acoes = [];
+  if (aba === "equip") {
+    const grade = Array.from({ length: I.mochila_max }, (_, i) => { const it = EST.mochila[i];
+      return it ? `<button class="slot${i === sel ? " sel" : ""}" data-i="${i}" aria-label="${nomeItem(I, it)}" style="border-color:${qualidade(I, it.qual).cor}">${imgIcone(it)}${it.mais ? `<i>+${it.mais}</i>` : ""}</button>` : `<span class="slot vazio"></span>`; }).join("");
+    let det = `<small>Mochila ${EST.mochila.length}/${I.mochila_max}. Toque num item para provar no boneco.</small>`;
+    if (typeof sel === "string" && EST.equip[sel]) {
+      const it = EST.equip[sel];
+      det = `<b style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</b> <small>· ${NOME_ESPACO[sel]} (vestido) · ${descreverItem(it)}</small>`;
+      acoes.push(["Tirar", () => { if (comAjusteDeVida(() => desequipar(I, EST, sel))) msg(`Tirou: ${nomeItem(I, it)}`); else msg("Mochila cheia."); telaPersonagem("equip"); }, EST.mochila.length >= I.mochila_max]);
+    } else if (provando) {
+      const imp = impedimento(I, EST, provando);
+      det = `<b style="color:${qualidade(I, provando.qual).cor}">${nomeItem(I, provando)}</b> <small>· ${NOME_ESPACO[baseItem(I, provando.base).espaco]} · ${descreverItem(provando)}</small><br><small>Se equipar: ${comparar(sel)}${imp ? ` · <b>não pode: ${imp}</b>` : ""}</small>`;
+      acoes.push(["Equipar", () => { const p0 = numeros(EST).poder; if (comAjusteDeVida(() => equipar(I, EST, sel))) msg(`Equipou: ${nomeItem(I, provando)} · Poder ${p0} → ${numeros(EST).poder}`); telaPersonagem("equip"); }, !!imp]);
+      acoes.push(["Descartar", () => { if (confirm(`Descartar ${nomeItem(I, provando)}?`)) { descartar(EST, sel); salvar(); telaPersonagem("equip"); } }]);
+    }
+    corpo = `<div class="mgrade">${grade}</div><div class="det">${det}</div>`;
+  } else if (aba === "atrib") {
+    const rec = D.classes[EST.classe].recomendado, custo = custoRedistribuir(P, EST), naCidade = mapa.zonaSegura, sem = EST.pontosLivres <= 0;
+    corpo = `<p class="det"><small>${EST.pontosLivres} ponto${EST.pontosLivres === 1 ? "" : "s"} livre${EST.pontosLivres === 1 ? "" : "s"} · ${P.pontos_por_nivel} por nível</small></p>` +
+      P.atributos.map((a) => `<div class="atr"><div><b>${NOME_ATR[a][0]}</b> ${sv.atributos[a]}${sv.atributos[a] !== EST.atributos[a] ? ` <small>(${EST.atributos[a]} + itens)</small>` : ""}<small> · ${NOME_ATR[a][1]}</small></div><button data-a="${a}" ${sem ? "disabled" : ""} aria-label="+1 ${NOME_ATR[a][0]}">+1</button></div>`).join("");
+    acoes = [
+      [`Recomendado (${P.atributos.filter((a) => rec[a]).map((a) => `${rec[a]} ${NOME_ATR[a][0].slice(0, 3)}`).join(" : ")})`, () => { comAjusteDeVida(() => distribuirRecomendado(P, EST, rec)); telaPersonagem("atrib"); }, sem],
+      [`Distribuir sozinho: ${EST.autoDistribuir ? "ligado" : "desligado"}`, () => { EST.autoDistribuir = !EST.autoDistribuir; salvar(); telaPersonagem("atrib"); }],
+      [naCidade ? `Redistribuir (${custo} ouro)` : "Redistribuir: só na cidade", () => { if (confirm(`Devolver todos os pontos distribuídos por ${custo} ouro?`)) { comAjusteDeVida(() => redistribuir(P, EST)); telaPersonagem("atrib"); } }, !naCidade || EST.ouro < custo || gastos(P, EST) === 0],
+    ];
+  } else {
+    corpo = `<p class="det"><small>${EST.pontosHab} ponto${EST.pontosHab === 1 ? "" : "s"} de habilidade · 1 a cada ${P.nivel_por_ponto_habilidade} níveis · cada grau: +${Math.round(D.porGrau.mult * 100)}% dano, ${Math.round(D.porGrau.recarga * 100)}% recarga, +${Math.round(D.porGrau.area * 100)}% área</small></p>` +
+      habsDaClasse().map((h) => { const g = EST.habilidades[h.id] || 0, a = escalarArea(h, D.porGrau, g || 1), b = escalarArea(h, D.porGrau, Math.min(P.grau_max_habilidade, (g || 1) + 1));
+        const area = h.forma === "leque" ? `${Math.round(a.alcance)} px, ${Math.round(a.angulo)}°` : h.forma === "linha" ? `${Math.round(a.alcance)} px` : `raio ${Math.round(a.raio)} px`;
+        const prox = g && g < P.grau_max_habilidade ? ` → ${h.forma === "leque" ? `${Math.round(b.alcance)} px, ${Math.round(b.angulo)}°` : h.forma === "linha" ? `${Math.round(b.alcance)} px` : `raio ${Math.round(b.raio)} px`}` : "";
+        return `<div class="atr"><div><b>${h.nome}</b> ${g ? `grau ${g}/${P.grau_max_habilidade}` : `<small>libera no nível ${h.nivel}</small>`}<br><small>${Math.round(h.mult * (1 + D.porGrau.mult * ((g || 1) - 1)) * 100)}% dano · ${(h.recarga * (1 + D.porGrau.recarga * ((g || 1) - 1))).toFixed(1)} s · área ${area}${prox}</small></div>
+          <button data-h="${h.id}" ${!g || g >= P.grau_max_habilidade || EST.pontosHab < 1 ? "disabled" : ""} aria-label="+1 grau ${h.nome}">+1</button></div>`; }).join("");
+  }
+  painel(`<h3>Personagem <small>· ${D.classes[EST.classe].nome} nível ${EST.nivel} · Poder <b>${agora.poder}</b>${depois ? dif(agora.poder, depois.poder) : ganho > 0 ? ` <span class="up">(+${ganho} agora)</span>` : ""}</small></h3>
+    <div class="pers"><div class="esq">${boneco}<table class="num">${linhasNum}</table></div><div class="dirp"><div class="abas">${abas}</div><div class="conteudo">${corpo}</div></div></div>`, acoes);
+  const cx = $("caixa");
+  cx.querySelector(".conteudo").append(...[...cx.children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar")));
+  for (const b of cx.querySelectorAll("button[data-aba]")) b.onclick = () => telaPersonagem(b.dataset.aba);
+  for (const b of cx.querySelectorAll("button[data-i]")) b.onclick = () => telaPersonagem("equip", +b.dataset.i);
+  for (const b of cx.querySelectorAll("button[data-e]")) b.onclick = () => telaPersonagem("equip", EST.equip[b.dataset.e] ? b.dataset.e : -1);
+  for (const b of cx.querySelectorAll("button[data-a]")) b.onclick = () => { comAjusteDeVida(() => distribuir(P, EST, b.dataset.a, 1)); telaPersonagem("atrib"); };
+  for (const b of cx.querySelectorAll("button[data-h]")) b.onclick = () => { melhorarHabilidade(P, EST, b.dataset.h); salvar(); telaPersonagem("hab"); };
+  const cv = $("previa"); cv.onclick = () => { ABA.dir = ORDEM_GIRO[(ORDEM_GIRO.indexOf(ABA.dir) + 1) % 4]; };
+  animarPrevia(cv, equipPrevia);
 }
-
-function telaAtributos() {
-  const P = D.P, sv = stats(), rec = D.classes[EST.classe].recomendado, custo = custoRedistribuir(P, EST), naCidade = mapa.zonaSegura;
-  const sem = EST.pontosLivres <= 0;
-  const linhas = P.atributos.map((a) => `<div class="atr"><div><b>${NOME_ATR[a][0]}</b> ${sv.atributos[a]}${sv.atributos[a] !== EST.atributos[a] ? ` <small>(${EST.atributos[a]} + itens)</small>` : ""}<br><small>${NOME_ATR[a][1]}</small></div><button data-a="${a}" ${sem ? "disabled" : ""} aria-label="+1 ${NOME_ATR[a][0]}">+1</button></div>`).join("");
-  const html = `<h3>Atributos <small>· ${EST.pontosLivres} ponto${EST.pontosLivres === 1 ? "" : "s"} livre${EST.pontosLivres === 1 ? "" : "s"} (${P.pontos_por_nivel} por nível)</small></h3>
-    <div class="duas"><div>${linhas}</div><div class="dir"><table><tr><td>Dano</td><td>${sv.dano.toFixed(1)}</td></tr><tr><td>Vida máxima</td><td>${sv.vidaMax}</td></tr>
-    <tr><td>Recarga dos ataques</td><td>${Math.round(sv.recargaMult * 100)}%</td></tr><tr><td>Crítico</td><td>${(sv.critico * 100).toFixed(0)}% (×${sv.criticoMult})</td></tr></table></div></div>`;
-  painel(html, [
-    [`Habilidades${EST.pontosHab ? ` (+${EST.pontosHab} ponto${EST.pontosHab === 1 ? "" : "s"})` : ""}`, () => telaHabilidades()],
-    [`Recomendado (${P.atributos.filter((a) => rec[a]).map((a) => `${rec[a]} ${NOME_ATR[a][0].slice(0, 3)}`).join(" : ")})`, () => { comAjusteDeVida(() => distribuirRecomendado(P, EST, rec)); telaAtributos(); }, sem],
-    [`Distribuir sozinho: ${EST.autoDistribuir ? "ligado" : "desligado"}`, () => { EST.autoDistribuir = !EST.autoDistribuir; salvar(); telaAtributos(); }],
-    [naCidade ? `Redistribuir pontos (${custo} ouro)` : "Redistribuir: só na cidade", () => { if (confirm(`Devolver todos os pontos distribuídos por ${custo} ouro?`)) { comAjusteDeVida(() => redistribuir(P, EST)); telaAtributos(); } }, !naCidade || EST.ouro < custo || gastos(P, EST) === 0],
-  ]);
-  for (const b of $("caixa").querySelectorAll("button[data-a]")) b.onclick = () => { comAjusteDeVida(() => distribuir(P, EST, b.dataset.a, 1)); telaAtributos(); };
-  const acoes = [...$("caixa").children].filter((e) => e.tagName === "BUTTON" && !e.classList.contains("fechar"));
-  $("caixa").querySelector(".duas > div").append(acoes.shift()); // Habilidades fica embaixo dos atributos
-  $("caixa").querySelector(".dir").append(...acoes);
+// boneco da tela de Personagem: anda no lugar, com o equipamento (ou a prova) em camadas
+function animarPrevia(cv, equip) {
+  const x = cv.getContext("2d"); x.imageSmoothingEnabled = false;
+  const passo = (t) => {
+    if (!document.body.contains(cv)) return;
+    x.clearRect(0, 0, 64, 64);
+    x.fillStyle = "#0004"; x.beginPath(); x.ellipse(32, 60, 12, 4, 0, 0, 7); x.fill();
+    desenharCamadas("walk", 1 + Math.floor(t / 100) % 8, LINHA[ABA.dir], 0, 0, x, equip);
+    requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
 }
 
 async function menu() {
@@ -404,7 +446,10 @@ function atualizar(dt) {
     }
     $("bE").style.display = perto() ? "flex" : "none";
   } else $("bE").style.display = "none";
-  $("nv").textContent = `Nv ${EST.nivel}`;
+  const pd = numeros(EST).poder;
+  if (ultimoPoder && pd > ultimoPoder && !parado) flutuar(`+${pd - ultimoPoder} Poder`, jogador.x, jogador.y - 70, "#7fd27f");
+  const rot = `Nv ${EST.nivel} · Poder ${pd}`;
+  ultimoPoder = pd; if ($("nv").textContent !== rot) $("nv").textContent = rot;
   const bS = $("bS"), livres = EST.pontosLivres + EST.pontosHab;
   if (bS.dataset.n !== String(livres)) { bS.dataset.n = livres; bS.textContent = livres > 0 ? `+${livres}` : "Atrib."; bS.classList.toggle("tem", livres > 0); }
   for (const [bid, hid] of [["bH1", habN(1)], ["bH2", habN(2)]]) {
@@ -438,6 +483,7 @@ function desenharMonstro(m, t) {
   const fr = !atacando ? quadroAnim(a, t, m.spawnX) : m.estado === "preparar" ? a.frames[0] : a.frames[Math.min(a.frames.length - 1, 1 + Math.floor(m.t * 12))];
   const s = m.def.escala, w = a.fw * s, h = a.fh * s;
   const dx = Math.round(m.x - w / 2 - cam.x), dy = Math.round(m.y - h + 6 * s - cam.y);
+  ctx.fillStyle = "#0005"; ctx.beginPath(); ctx.ellipse(Math.round(m.x - cam.x), Math.round(m.y - 1 - cam.y), 11 * s, 4 * s, 0, 0, 7); ctx.fill(); // sombra
   if (m.flash > 0) ctx.globalAlpha = 0.55;
   ctx.drawImage(IMG[a.file], a.x0 + fr * a.fw, a.y0 + linha * a.fh, a.fw, a.fh, dx, dy, w, h);
   ctx.globalAlpha = 1;
@@ -508,29 +554,30 @@ const imgIcone = (it) => `<img class="ic" alt="" src="${iconeItem(it)}">`;
 
 // camadas do personagem na ordem da classe (itens.json "corpo"[classe].ordem): corpo, cabeça, extras da classe
 // (aljava, flecha), "fundo_arma" (parte de trás do arco) e cada item vestido; folhas "grandes" (192 px) ficam centradas
-function camadas(anim) {
+function camadas(anim, equip = EST.equip) {
   const I = D.itens, corpo = I.corpo[EST.classe], out = [];
   for (const c of corpo.ordem) {
     if (c === "corpo") out.push({ img: IMG[`${corpo.base}/${anim}.png`] });
     else if (c === "cabeca") out.push({ img: IMG[`${corpo.cabeca}/${anim}.png`] });
     else if (corpo.extras && corpo.extras[c]) { const e = corpo.extras[c][anim]; if (e) out.push({ img: IMG[arqDe(e)], coluna: e.coluna }); }
-    else if (c === "fundo_arma") { const it = EST.equip.arma, f = it && baseItem(I, it.base).visual.fundo; if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual), coluna: f[anim].coluna }); }
-    else { const it = EST.equip[c]; if (!it) continue; const v = baseItem(I, it.base).visual; if (!v[anim]) continue; out.push({ img: pecaTingida(v[anim], it.qual), grande: (v.grande || []).includes(anim), coluna: v[anim].coluna }); }
+    else if (c === "fundo_arma") { const it = equip.arma, f = it && baseItem(I, it.base).visual.fundo; if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual), coluna: f[anim].coluna }); }
+    else { const it = equip[c]; if (!it) continue; const v = baseItem(I, it.base).visual; if (!v[anim]) continue; out.push({ img: pecaTingida(v[anim], it.qual), grande: (v.grande || []).includes(anim), coluna: v[anim].coluna }); }
   }
   return out;
 }
-function desenharCamadas(anim, col, linha, ox, oy) {
-  for (const l of camadas(anim)) {
+function desenharCamadas(anim, col, linha, ox, oy, alvo = ctx, equip = EST.equip) {
+  for (const l of camadas(anim, equip)) {
     if (!l.img) continue;
     const c = l.coluna ?? col;
-    if (l.grande) ctx.drawImage(l.img, c * 192, linha * 192, 192, 192, ox - 64, oy - 64, 192, 192);
-    else ctx.drawImage(l.img, c * 64, linha * 64, 64, 64, ox, oy, 64, 64);
+    if (l.grande) alvo.drawImage(l.img, c * 192, linha * 192, 192, 192, ox - 64, oy - 64, 192, 192);
+    else alvo.drawImage(l.img, c * 64, linha * 64, 64, 64, ox, oy, 64, 64);
   }
 }
 function desenharJogador(t) {
   const g = jogador.golpe, h = jogador.hab;
   const dir = g >= 0 && h.animacao === "giro" ? ORDEM_GIRO[(ORDEM_GIRO.indexOf(jogador.dir) + Math.floor(g / h.duracao * 4)) % 4] : jogador.dir;
   const L = LINHA[dir], ox = Math.round(jogador.x - 32 - cam.x), oy = Math.round(jogador.y - 60 - cam.y);
+  ctx.fillStyle = "#0005"; ctx.beginPath(); ctx.ellipse(Math.round(jogador.x - cam.x), Math.round(jogador.y - 1 - cam.y), 12, 4, 0, 0, 7); ctx.fill(); // sombra
   desenharAura(t);
   if (jogador.invul > 0 && Math.floor(t * 20) % 2) ctx.globalAlpha = 0.5;
   if (g >= 0 && h.animacao === "shoot") desenharCamadas("shoot", Math.min(12, Math.floor(g / Math.min(h.duracao, 0.55) * 13)), L, ox, oy);

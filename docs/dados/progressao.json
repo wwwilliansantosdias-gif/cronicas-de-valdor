@@ -29,5 +29,9 @@
   "monstros_ativos_raio": 450,
   "_referencia": "médias de Conquer Online, Kritika e Diablo 2 (ver documentacao/etapa-6b-progressao.md); ritmo-alvo: nível 10 em ~30 min",
   "respawn_s": 15,
-  "respawn_chefe_s": 120
+  "respawn_chefe_s": 120,
+  "poder": {
+    "por_dps": 6,
+    "por_vida": 0.5
+  }
 }

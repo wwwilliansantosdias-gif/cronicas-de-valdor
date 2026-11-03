@@ -61,6 +61,14 @@ export function dentroDaArea(j, m, h) {
   throw new Error("forma de habilidade desconhecida: " + h.forma);
 }
 
+// área da habilidade no grau g: alcance, raio e ângulo crescem "por_grau.area" a cada grau (a área fica maior com o progresso)
+export function escalarArea(h, porGrau, grau = 1) {
+  const f = 1 + (porGrau.area || 0) * (grau - 1), o = { ...h };
+  for (const k of ["alcance", "raio", "angulo", "distancia"]) if (h[k]) o[k] = h[k] * f;
+  if (o.angulo) o.angulo = Math.min(170, o.angulo);
+  return o;
+}
+
 // dano final de uma habilidade no grau g
 export function danoHabilidade(h, porGrau, danoBase, grau = 1) { return danoBase * h.mult * (1 + porGrau.mult * (grau - 1)); }
 export function recargaHabilidade(h, porGrau, recargaMult, grau = 1) { return h.recarga * recargaMult * (1 + porGrau.recarga * (grau - 1)); }

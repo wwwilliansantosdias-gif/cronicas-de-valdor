@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { lerMapaTexto, gerarMapa, alcancaveis, bloqueadoTile } from "../../docs/src/mapa.js";
 import { ganharXp, novoEstado as novoEstadoBase, xpParaProximo, portalLiberado, aoMorrer } from "../../docs/src/progresso.js";
-import { criarMonstro, danoEm, atingir, atualizarMonstro, dentroDaArea, danoHabilidade, recargaHabilidade } from "../../docs/src/combate.js";
+import { criarMonstro, danoEm, atingir, atualizarMonstro, dentroDaArea, danoHabilidade, recargaHabilidade, escalarArea } from "../../docs/src/combate.js";
 import { carregar as carregarBase, guardar, serializar, migrarV1 } from "../../docs/src/salvar.js";
-import { derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem, desbloquearHabilidades, melhorarHabilidade } from "../../docs/src/personagem.js";
+import { estatisticas, derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem, desbloquearHabilidades, melhorarHabilidade } from "../../docs/src/personagem.js";
 import { media } from "../../tools/simular.mjs";
 
 const ler = (f) => readFileSync(new URL("../../docs/" + f, import.meta.url), "utf8");
@@ -395,4 +395,24 @@ test("arqueiro: começa com Disparo e arco; save aceita arqueiro e recusa arco v
 test("ritmo do arqueiro: nível 10 em cerca de 30 minutos, como o guerreiro", () => {
   const m = media(10, 20, { classe: "arqueiro" });
   assert.ok(m.minutos >= 25 && m.minutos <= 35, `${m.minutos.toFixed(1)} min`);
+});
+
+test("área da habilidade cresce com o grau (alcance, raio e ângulo), sem mudar o dano", () => {
+  const d1 = escalarArea(hab("dispersao"), H.por_grau, 1), d5 = escalarArea(hab("dispersao"), H.por_grau, 5);
+  assert.ok(d5.alcance > d1.alcance && d5.angulo > d1.angulo && d5.angulo <= 170);
+  assert.equal(d5.mult, d1.mult);
+  const j = { x: 200, y: 200, dir: "right" }, m = criarMonstro(monstros[0], 200 + d1.alcance + 20, 200);
+  assert.equal(dentroDaArea(j, m, d1), false); assert.equal(dentroDaArea(j, m, d5), true, "grau 5 alcança mais longe");
+  const g5 = escalarArea(hab("giro"), H.por_grau, 5); assert.ok(g5.raio > hab("giro").raio);
+  assert.deepEqual(escalarArea(hab("golpe"), H.por_grau, 1), hab("golpe"));
+});
+
+test("Poder sobe com pontos de atributo e com item melhor; ataques/s sobe com Agilidade", () => {
+  const e = novoEstado(), base = estatisticas(P, derivados(P, I, e), hab("golpe"));
+  e.atributos.for += 3; const forca = estatisticas(P, derivados(P, I, e), hab("golpe"));
+  assert.ok(forca.poder > base.poder);
+  e.equip.peitoral = novoItem("armadura-placa", "lendario", 3); const item = estatisticas(P, derivados(P, I, e), hab("golpe"));
+  assert.ok(item.poder > forca.poder);
+  e.atributos.agi += 5; const agi = estatisticas(P, derivados(P, I, e), hab("golpe"));
+  assert.ok(agi.ataquesPorSeg > item.ataquesPorSeg && agi.dps > item.dps);
 });
