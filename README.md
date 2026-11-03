@@ -20,7 +20,7 @@ Abrir `docs/` num servidor estático (ex.: `python3 -m http.server -d docs`). Te
 pip install pytest pillow && python3 -m pytest -q tests     # dados e créditos
 node --test tests/js/*.test.js                               # motor (mapas, combate, xp, atributos, salvar, ritmo)
 node tools/simular.mjs 10 arqueiro                           # tempo estimado até o nível 10 (guerreiro ou arqueiro)
-for t in fumaca fluxo atributos combate mochila arqueiro; do PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/$t.mjs; done   # navegador, tela deitada
+for t in fumaca fluxo atributos combate mochila arqueiro telas; do PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tests/nav/$t.mjs; done   # navegador, tela deitada
 ```
 
 ## Regenerar assets e créditos
@@ -31,3 +31,6 @@ python3 -I tools/build_jogo_assets.py    # baixa as peças dos itens (gerador LP
 python3 -I tools/build_cidade.py         # monta casas, forja, barraca, quadro, fonte e poço em docs/assets/cidade
 ```
 Item novo: acrescente em `docs/dados/itens.json` (com `peca_lpc` e `visual`) e rode `build_jogo_assets.py` e depois `build_mostruario.py` (créditos).
+
+## Gravar uma partida
+`PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta>` grava um vídeo (webm) de um robô jogando.

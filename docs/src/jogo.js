@@ -3,7 +3,7 @@ import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from ".
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, escalarArea, mover, direcaoDe, dentroDaArea, VET } from "./combate.js";
 import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento, melhorar, proximaMelhoria, itemDoAlvo, sortearFragmentos } from "./itens.js";
-import { derivados, estatisticas, valoresItem, baseItem, qualidade, conjuntosAtivos, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
+import { derivados, estatisticas, danoRecebido, valoresItem, baseItem, qualidade, conjuntosAtivos, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -14,7 +14,7 @@ const LINHA = { up: 0, left: 1, down: 2, right: 3 };
 const tela = $("tela"), ctx = tela.getContext("2d");
 let Z = 2, VW = 0, VH = 0;
 function ajustar() {
-  Z = Math.max(1, Math.floor(Math.min(innerWidth / 384, innerHeight / 192)));
+  Z = Math.max(1, Math.floor(Math.min(innerWidth / 384, innerHeight / 192) * 2) / 2); // passos de 0,5: celular deitado baixo fica em 1,5×
   VW = Math.floor(innerWidth / Z); VH = Math.floor(innerHeight / Z);
   tela.width = VW; tela.height = VH; tela.style.width = VW * Z + "px"; tela.style.height = VH * Z + "px";
   ctx.imageSmoothingEnabled = false;
@@ -67,7 +67,7 @@ function desenharEfeitos(dt) {
 }
 const flutuantes = [];
 let ultimoPoder = 0;
-function flutuar(txt, x, y, cor) { flutuantes.push({ txt, x, y, cor, t: 1.2 }); }
+function flutuar(txt, x, y, cor, tam = 9) { flutuantes.push({ txt, x, y, cor, tam, t: 1.2 }); }
 function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; $("msg").classList.add("on"); msgT = s; }
 function salvar() { guardar(localStorage, EST); }
 
@@ -206,12 +206,26 @@ function perto() {
   return melhor;
 }
 function painel(html, acoes = []) {
-  parado = true; $("caixa").innerHTML = html;
+  parado = true; $("caixa").innerHTML = html; $("caixa").style.width = ""; $("caixa").style.transform = "";
   for (const [t, fn, off] of acoes) { const b = document.createElement("button"); b.textContent = t; b.disabled = !!off; b.onclick = () => { fn(); }; $("caixa").appendChild(b); }
   const f = document.createElement("button"); f.textContent = "Fechar"; f.className = "fechar"; f.onclick = fechar; $("caixa").prepend(f);
   $("painel").classList.add("on");
+  encaixarPainel();
 }
 function fechar() { parado = false; $("painel").classList.remove("on"); }
+// a caixa diminui de escala para caber em telas baixas (celular deitado com a barra do navegador); texto muito longo
+// (como os Créditos) continua rolando em vez de ficar minúsculo
+function encaixarPainel() {
+  const c = $("caixa"); if (!$("painel").classList.contains("on")) return;
+  c.style.transform = ""; c.style.maxHeight = "none"; c.style.maxWidth = "none";
+  // telas largas (Personagem) têm largura de layout fixa e diminuem inteiras; as outras usam a largura do conteúdo
+  const larg = c.querySelector(".pers") ? 840 : Math.min(820, Math.max(280, c.scrollWidth));
+  c.style.width = larg + "px";
+  const s = Math.min(1, (innerHeight - 10) / c.scrollHeight, (innerWidth - 10) / larg);
+  if (s < 0.62) { c.style.maxHeight = "94vh"; c.style.maxWidth = ""; c.style.width = ""; return; }
+  if (s < 1) c.style.transform = `scale(${s.toFixed(3)})`;
+}
+addEventListener("resize", encaixarPainel);
 function interagir() {
   if (parado || jogador.morto) return;
   const a = perto(); if (!a) return;
@@ -252,6 +266,7 @@ function descreverItem(it) {
   const v = valoresItem(D.itens, it), partes = [];
   if (v.dano) partes.push(`dano ${v.dano.toFixed(1)}`);
   if (v.vida) partes.push(`vida ${Math.round(v.vida)}`);
+  if (v.defesa) partes.push(`defesa ${Math.round(v.defesa)}`);
   for (const [a, n] of Object.entries(v.atributos)) partes.push(`+${n} ${NOME_ATR[a][0]}`);
   return partes.join(", ");
 }
@@ -260,7 +275,7 @@ function comparar(i) {
   const it = EST.mochila[i], esp = baseItem(D.itens, it.base).espaco, antes = stats();
   const copia = { ...EST, equip: { ...EST.equip, [esp]: it } }, depois = derivados(D.P, D.itens, copia);
   const f = (n, s = "") => (n > 0 ? `<span style="color:#7fd27f">+${n}${s}</span>` : n < 0 ? `<span style="color:#ff7a7a">${n}${s}</span>` : "=");
-  return `dano ${f(+(depois.dano - antes.dano).toFixed(1))}, vida ${f(depois.vidaMax - antes.vidaMax)}`;
+  return `dano ${f(+(depois.dano - antes.dano).toFixed(1))}, vida ${f(depois.vidaMax - antes.vidaMax)}, defesa ${f(depois.defesa - antes.defesa)}`;
 }
 function telaFerreiro(alvo = null, resultado = "") {
   const I = D.itens;
@@ -322,6 +337,7 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
     ["Ataques/s", agora.ataquesPorSeg.toFixed(2), dif(agora.ataquesPorSeg, depois?.ataquesPorSeg, 2)],
     ["Dano/s", agora.dps.toFixed(1), dif(agora.dps, depois?.dps, 1)],
     ["Vida", sv.vidaMax, dif(sv.vidaMax, dv?.vidaMax)],
+    ["Defesa", `${sv.defesa} (−${Math.round(sv.reducao * 100)}%)`, dif(sv.defesa, dv?.defesa)],
     ["Velocidade", Math.round(sv.velocidade), dif(sv.velocidade, dv?.velocidade)],
     ["Crítico", `${Math.round(sv.critico * 100)}%`, dif(sv.critico * 100, dv?.critico * 100, 0, "%")],
   ].map(([k, v, d]) => `<tr><td>${k}</td><td>${v}${d}</td></tr>`).join("");
@@ -409,6 +425,7 @@ function atualizar(dt) {
   const sv = stats();
   if (jogador.veneno && !jogador.morto) { // veneno: dano contínuo, ignora invulnerabilidade, não mata sozinho abaixo de 1
     const v = jogador.veneno; v.t -= dt; jogador.vida = Math.max(1, jogador.vida - v.dps * dt);
+    v.acum = (v.acum || 0) + v.dps * dt; if (v.acum >= 2) { flutuar(`-${Math.floor(v.acum)}`, jogador.x, jogador.y - 64, "#6bd04a", 10); v.acum -= Math.floor(v.acum); }
     if (v.t <= 0 || mapa.zonaSegura) jogador.veneno = null;
   }
   if (!parado && !jogador.morto) {
@@ -425,6 +442,7 @@ function atualizar(dt) {
       if (h.animacao === "shoot" && antes < SOLTAR && jogador.golpe >= SOLTAR) soltarFlechas(h);
       if (antes < h.impacto && jogador.golpe >= h.impacto) {
         const r = atingir(jogador, monstros, h, danoHabilidade(h, D.porGrau, sv.dano, EST.habilidades[h.id] || 1), sv.critico, sv.criticoMult);
+        for (const gp of r.golpes) flutuar(gp.crit ? `${Math.round(gp.dano)}!` : `${Math.round(gp.dano)}`, gp.m.x + (Math.random() - 0.5) * 8, gp.m.y - 30 - 18 * gp.m.def.escala, gp.crit ? "#ffd84a" : "#ffffff", gp.crit ? 12 : 9);
         for (const m of r.mortos) registrarMorte(m);
       }
       if (jogador.golpe >= h.duracao) jogador.golpe = -1;
@@ -436,7 +454,9 @@ function atualizar(dt) {
       if (!m.ativo) continue;
       const r = atualizarMonstro(m, jogador, dt, mapa);
       if (r.dano && jogador.invul <= 0 && !jogador.morto) {
-        jogador.vida -= r.dano; jogador.invul = 0.5;
+        const d = danoRecebido(D.P, sv, r.dano); // a Defesa do equipamento reduz o golpe
+        jogador.vida -= d; jogador.invul = 0.5;
+        flutuar(`-${d}`, jogador.x + (Math.random() - 0.5) * 10, jogador.y - 64, "#ff6b6b", 11);
         if (r.veneno) { jogador.veneno = { ...r.veneno, t: r.veneno.duracao }; msg("Envenenado!", 1.2); }
         if (jogador.vida <= 0) morrer();
       }
@@ -720,7 +740,7 @@ function desenhar(t) {
   desenharEfeitos(1 / 60);
   for (const c of chao) if (c.it.qual !== "comum") etiqueta(nomeItem(D.itens, c.it), Math.round(c.x - cam.x), Math.round(c.y - cam.y) - 12); // nomes por cima de tudo
   for (let i = flutuantes.length - 1; i >= 0; i--) { const f = flutuantes[i]; f.t -= 1 / 60; f.y -= 0.4; if (f.t <= 0) { flutuantes.splice(i, 1); continue; }
-    ctx.save(); ctx.globalAlpha = Math.min(1, f.t * 2); ctx.font = "bold 9px system-ui"; ctx.textAlign = "center"; ctx.fillStyle = "#000b"; ctx.fillText(f.txt, f.x - cam.x + 1, f.y - cam.y + 1); ctx.fillStyle = f.cor; ctx.fillText(f.txt, f.x - cam.x, f.y - cam.y); ctx.restore(); }
+    ctx.save(); ctx.globalAlpha = Math.min(1, f.t * 2); ctx.font = `bold ${f.tam}px system-ui`; ctx.textAlign = "center"; ctx.fillStyle = "#000b"; ctx.fillText(f.txt, f.x - cam.x + 1, f.y - cam.y + 1); ctx.fillStyle = f.cor; ctx.fillText(f.txt, f.x - cam.x, f.y - cam.y); ctx.restore(); }
 }
 
 let antes = 0, acum = 0;

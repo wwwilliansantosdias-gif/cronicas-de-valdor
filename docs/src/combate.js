@@ -76,7 +76,7 @@ export function recargaHabilidade(h, porGrau, recargaMult, grau = 1) { return h.
 // aplica a habilidade; devolve { mortos, atingidos, criticos }
 // "alvos" limita quantos são atingidos (os mais próximos primeiro): o Disparo para no primeiro da linha.
 export function atingir(j, monstros, h, dano, critico = 0, critMult = 1.5, rnd = Math.random) {
-  const r = { mortos: [], atingidos: 0, criticos: 0 };
+  const r = { mortos: [], atingidos: 0, criticos: 0, golpes: [] };
   let alvos = monstros.filter((m) => !m.morto && dentroDaArea(j, m, h));
   if (h.alvos) alvos = alvos.sort((a, b) => Math.hypot(a.x - j.x, a.y - j.y) - Math.hypot(b.x - j.x, b.y - j.y)).slice(0, h.alvos);
   for (const m of alvos) {
@@ -84,7 +84,9 @@ export function atingir(j, monstros, h, dano, critico = 0, critMult = 1.5, rnd =
     const kx = m.x - j.x, ky = m.y - j.y, n = Math.hypot(kx, ky) || 1, emp = h.empurrao || 60;
     m.recuo = [kx / n * emp, ky / n * emp];
     r.atingidos++; if (crit) r.criticos++;
-    if (danoEm(m, crit ? dano * critMult : dano)) r.mortos.push(m); else if (m.estado === "vagar") m.estado = "perseguir";
+    const d = crit ? dano * critMult : dano;
+    r.golpes.push({ m, dano: d, crit });
+    if (danoEm(m, d)) r.mortos.push(m); else if (m.estado === "vagar") m.estado = "perseguir";
   }
   return r;
 }

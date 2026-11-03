@@ -66,3 +66,9 @@ Item com faixa de nível (início/fim de cada região), valores crescendo por fa
 - **Conjuntos:** do Lenhador (capuz, luvas, botas dobradas, calça reforçada, ombreiras de manto), do Mineiro (6 peças de bronze) e de Cinzaltar (6 peças roxas). Bônus a 2, 4 e conjunto completo (atributos, vida/dano e aura com a cor do conjunto). O equipamento inicial não conta para conjunto.
 - **Brilho do +N** (`brilho`): halo de luz na mão a partir de +3, mais forte no +4 e faíscas no +5, na cor da qualidade.
 - Testes: dados (cada item tem as animações das classes que o usam; regiões completas; materiais e conjuntos válidos), motor (bônus de conjunto, migração v2→v3) e navegador (escudo e capa aparecem; arma +5 brilha mais que +0).
+
+## 7. Defesa, números de dano e telas pequenas (retorno de Willian)
+- **Defesa:** armaduras e capacetes dão defesa igual à vida que já davam; escudos dão 1,6×. Dano recebido = dano × (1 − defesa/(defesa+60)), mínimo 1 (`progressao.json` → `defesa`). Equipamento da Floresta ≈ 25% de redução; Cinzaltar completo ≈ 64%. O Poder passa a usar a vida efetiva (vida com a defesa).
+- **Números na tela:** dano recebido em vermelho sobre o herói (o mesmo golpe tira menos conforme a defesa cresce), veneno em verde, dano causado em branco sobre o monstro e crítico em amarelo com "!".
+- **Telas em celular baixo:** o zoom aceita meio passo (1,5× em celular deitado com a barra do navegador); painéis diminuem de escala para caber; a tela de Personagem tem largura de layout fixa e encolhe inteira. Teste `tests/nav/telas.mjs` em 844×390, 740×320, 667×300 e 568×300.
+- **Gravação:** `tools/gravar_partida.mjs` grava um robô jogando com teclado de verdade (cidade, missão, caça, habilidades, poção); a segunda metade usa um personagem evoluído preparado no save.

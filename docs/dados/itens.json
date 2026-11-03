@@ -463,7 +463,8 @@
         "slash": "torso/armour/leather/male/slash.png",
         "thrust": "torso/armour/leather/male/thrust.png",
         "shoot": "torso/armour/leather/male/shoot.png"
-      }
+      },
+      "defesa": 6
     },
     {
       "id": "cota-malha",
@@ -488,7 +489,8 @@
         "slash": "torso/chainmail/male/slash.png",
         "thrust": "torso/chainmail/male/thrust.png",
         "shoot": "torso/chainmail/male/shoot.png"
-      }
+      },
+      "defesa": 9
     },
     {
       "id": "couraca-legiao",
@@ -513,7 +515,8 @@
         "slash": "torso/armour/legion/male/slash.png",
         "thrust": "torso/armour/legion/male/thrust.png",
         "shoot": "torso/armour/legion/male/shoot.png"
-      }
+      },
+      "defesa": 13
     },
     {
       "id": "malha-mineiro",
@@ -539,7 +542,8 @@
         "thrust": "torso/chainmail/male/thrust.png",
         "shoot": "torso/chainmail/male/shoot.png"
       },
-      "material": "bronze"
+      "material": "bronze",
+      "defesa": 17
     },
     {
       "id": "armadura-placa",
@@ -564,7 +568,8 @@
         "slash": "torso/armour/plate/male/slash.png",
         "thrust": "torso/armour/plate/male/thrust.png",
         "shoot": "torso/armour/plate/male/shoot.png"
-      }
+      },
+      "defesa": 21
     },
     {
       "id": "placas-cinzaltar",
@@ -590,7 +595,8 @@
         "thrust": "torso/armour/plate/male/thrust.png",
         "shoot": "torso/armour/plate/male/shoot.png"
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 26
     },
     {
       "id": "calca",
@@ -615,7 +621,8 @@
         "slash": "legs/pants/male/slash.png",
         "thrust": "legs/pants/male/thrust.png",
         "shoot": "legs/pants/male/shoot.png"
-      }
+      },
+      "defesa": 2
     },
     {
       "id": "calca-reforcada",
@@ -640,7 +647,8 @@
         "slash": "legs/pants2/male/slash.png",
         "thrust": "legs/pants2/male/thrust.png",
         "shoot": "legs/pants2/male/shoot.png"
-      }
+      },
+      "defesa": 3
     },
     {
       "id": "saia-legiao",
@@ -665,7 +673,8 @@
         "slash": "legs/skirts/legion/male/slash.png",
         "thrust": "legs/skirts/legion/male/thrust.png",
         "shoot": "legs/skirts/legion/male/shoot.png"
-      }
+      },
+      "defesa": 6
     },
     {
       "id": "grevas-mineiro",
@@ -691,7 +700,8 @@
         "thrust": "legs/armour/plate/male/thrust.png",
         "shoot": "legs/armour/plate/male/shoot.png"
       },
-      "material": "bronze"
+      "material": "bronze",
+      "defesa": 8
     },
     {
       "id": "calca-placa",
@@ -716,7 +726,8 @@
         "slash": "legs/armour/plate/male/slash.png",
         "thrust": "legs/armour/plate/male/thrust.png",
         "shoot": "legs/armour/plate/male/shoot.png"
-      }
+      },
+      "defesa": 10
     },
     {
       "id": "grevas-cinzaltar",
@@ -742,7 +753,8 @@
         "thrust": "legs/armour/plate/male/thrust.png",
         "shoot": "legs/armour/plate/male/shoot.png"
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 13
     },
     {
       "id": "gorro-couro",
@@ -767,7 +779,8 @@
         "slash": "hat/cloth/leather_cap/adult/slash.png",
         "thrust": "hat/cloth/leather_cap/adult/thrust.png",
         "shoot": "hat/cloth/leather_cap/adult/shoot.png"
-      }
+      },
+      "defesa": 2
     },
     {
       "id": "capuz",
@@ -792,7 +805,8 @@
         "slash": "hat/cloth/hood/adult/slash.png",
         "thrust": "hat/cloth/hood/adult/thrust.png",
         "shoot": "hat/cloth/hood/adult/shoot.png"
-      }
+      },
+      "defesa": 3
     },
     {
       "id": "elmo-nasal",
@@ -817,7 +831,8 @@
         "slash": "hat/helmet/nasal/adult/slash.png",
         "thrust": "hat/helmet/nasal/adult/thrust.png",
         "shoot": "hat/helmet/nasal/adult/shoot.png"
-      }
+      },
+      "defesa": 4
     },
     {
       "id": "elmo-bascinet",
@@ -842,7 +857,8 @@
         "slash": "hat/helmet/bascinet/adult/slash.png",
         "thrust": "hat/helmet/bascinet/adult/thrust.png",
         "shoot": "hat/helmet/bascinet/adult/shoot.png"
-      }
+      },
+      "defesa": 6
     },
     {
       "id": "elmo-barbaro",
@@ -867,7 +883,8 @@
         "slash": "hat/helmet/barbarian/adult/slash.png",
         "thrust": "hat/helmet/barbarian/adult/thrust.png",
         "shoot": "hat/helmet/barbarian/adult/shoot.png"
-      }
+      },
+      "defesa": 7
     },
     {
       "id": "elmo-mineiro",
@@ -893,7 +910,8 @@
         "thrust": "hat/helmet/bascinet/adult/thrust.png",
         "shoot": "hat/helmet/bascinet/adult/shoot.png"
       },
-      "material": "bronze"
+      "material": "bronze",
+      "defesa": 8
     },
     {
       "id": "elmo-spangenhelm",
@@ -918,7 +936,8 @@
         "slash": "hat/helmet/spangenhelm/adult/slash.png",
         "thrust": "hat/helmet/spangenhelm/adult/thrust.png",
         "shoot": "hat/helmet/spangenhelm/adult/shoot.png"
-      }
+      },
+      "defesa": 9
     },
     {
       "id": "elmo-legiao",
@@ -943,7 +962,8 @@
         "slash": "hat/helmet/legion/adult/slash.png",
         "thrust": "hat/helmet/legion/adult/thrust.png",
         "shoot": "hat/helmet/legion/adult/shoot.png"
-      }
+      },
+      "defesa": 10
     },
     {
       "id": "elmo-armet",
@@ -968,7 +988,8 @@
         "slash": "hat/helmet/armet_simple/adult/slash.png",
         "thrust": "hat/helmet/armet_simple/adult/thrust.png",
         "shoot": "hat/helmet/armet_simple/adult/shoot.png"
-      }
+      },
+      "defesa": 11
     },
     {
       "id": "elmo-cinzaltar",
@@ -994,7 +1015,8 @@
         "thrust": "hat/helmet/horned/adult/thrust.png",
         "shoot": "hat/helmet/horned/adult/shoot.png"
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 13
     },
     {
       "id": "ombreiras-manto",
@@ -1019,7 +1041,8 @@
         "slash": "shoulders/mantal/male/slash.png",
         "thrust": "shoulders/mantal/male/thrust.png",
         "shoot": "shoulders/mantal/male/shoot.png"
-      }
+      },
+      "defesa": 2
     },
     {
       "id": "ombreiras-placas",
@@ -1044,7 +1067,8 @@
         "slash": "shoulders/pauldrons/male/slash.png",
         "thrust": "shoulders/pauldrons/male/thrust.png",
         "shoot": "shoulders/pauldrons/male/shoot.png"
-      }
+      },
+      "defesa": 4
     },
     {
       "id": "ombreiras-mineiro",
@@ -1070,7 +1094,8 @@
         "thrust": "shoulders/pauldrons/male/thrust.png",
         "shoot": "shoulders/pauldrons/male/shoot.png"
       },
-      "material": "bronze"
+      "material": "bronze",
+      "defesa": 6
     },
     {
       "id": "ombreiras-largas",
@@ -1095,7 +1120,8 @@
         "slash": "shoulders/bauldron/male/slash.png",
         "thrust": "shoulders/bauldron/male/thrust.png",
         "shoot": "shoulders/bauldron/male/shoot.png"
-      }
+      },
+      "defesa": 8
     },
     {
       "id": "ombreiras-cinzaltar",
@@ -1121,7 +1147,8 @@
         "thrust": "shoulders/legion/male/thrust.png",
         "shoot": "shoulders/legion/male/shoot.png"
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 10
     },
     {
       "id": "bracadeiras-couro",
@@ -1146,7 +1173,8 @@
         "slash": "arms/bracers/male/slash.png",
         "thrust": "arms/bracers/male/thrust.png",
         "shoot": "arms/bracers/male/shoot.png"
-      }
+      },
+      "defesa": 1
     },
     {
       "id": "luvas",
@@ -1171,7 +1199,8 @@
         "slash": "arms/hands/gloves/male/slash.png",
         "thrust": "arms/hands/gloves/male/thrust.png",
         "shoot": "arms/hands/gloves/male/shoot.png"
-      }
+      },
+      "defesa": 2
     },
     {
       "id": "bracadeiras-mineiro",
@@ -1197,7 +1226,8 @@
         "thrust": "arms/bracers/male/thrust.png",
         "shoot": "arms/bracers/male/shoot.png"
       },
-      "material": "bronze"
+      "material": "bronze",
+      "defesa": 5
     },
     {
       "id": "bracos-placa",
@@ -1222,7 +1252,8 @@
         "slash": "arms/armour/plate/male/slash.png",
         "thrust": "arms/armour/plate/male/thrust.png",
         "shoot": "arms/armour/plate/male/shoot.png"
-      }
+      },
+      "defesa": 7
     },
     {
       "id": "bracos-cinzaltar",
@@ -1248,7 +1279,8 @@
         "thrust": "arms/armour/plate/male/thrust.png",
         "shoot": "arms/armour/plate/male/shoot.png"
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 9
     },
     {
       "id": "botas-couro",
@@ -1273,7 +1305,8 @@
         "slash": "feet/boots/basic/male/slash.png",
         "thrust": "feet/boots/basic/male/thrust.png",
         "shoot": "feet/boots/basic/male/shoot.png"
-      }
+      },
+      "defesa": 1
     },
     {
       "id": "botas-dobradas",
@@ -1298,7 +1331,8 @@
         "slash": "feet/boots/fold/male/slash.png",
         "thrust": "feet/boots/fold/male/thrust.png",
         "shoot": "feet/boots/fold/male/shoot.png"
-      }
+      },
+      "defesa": 2
     },
     {
       "id": "botas-placa",
@@ -1323,7 +1357,8 @@
         "slash": "feet/armour/plate/male/slash.png",
         "thrust": "feet/armour/plate/male/thrust.png",
         "shoot": "feet/armour/plate/male/shoot.png"
-      }
+      },
+      "defesa": 4
     },
     {
       "id": "botas-mineiro",
@@ -1349,7 +1384,8 @@
         "thrust": "feet/armour/plate/male/thrust.png",
         "shoot": "feet/armour/plate/male/shoot.png"
       },
-      "material": "bronze"
+      "material": "bronze",
+      "defesa": 5
     },
     {
       "id": "botas-cinzaltar",
@@ -1375,7 +1411,8 @@
         "thrust": "feet/armour/plate/male/thrust.png",
         "shoot": "feet/armour/plate/male/shoot.png"
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 9
     },
     {
       "id": "capa-lisa",
@@ -1411,7 +1448,8 @@
           "shoot": "cape/solid/bg/shoot.png"
         }
       },
-      "icone_linha": 0
+      "icone_linha": 0,
+      "defesa": 3
     },
     {
       "id": "capa-viagem",
@@ -1448,7 +1486,8 @@
         }
       },
       "material": "bronze",
-      "icone_linha": 0
+      "icone_linha": 0,
+      "defesa": 5
     },
     {
       "id": "capa-esfarrapada",
@@ -1484,7 +1523,8 @@
           "shoot": "cape/tattered/bg/shoot.png"
         }
       },
-      "icone_linha": 0
+      "icone_linha": 0,
+      "defesa": 7
     },
     {
       "id": "capa-cinzaltar",
@@ -1521,7 +1561,8 @@
         }
       },
       "material": "cinzaltar",
-      "icone_linha": 0
+      "icone_linha": 0,
+      "defesa": 9
     },
     {
       "id": "escudo-redondo",
@@ -1543,7 +1584,8 @@
         "walk": "shield/round/walk.png",
         "slash": "shield/round/slash.png",
         "thrust": "shield/round/thrust.png"
-      }
+      },
+      "defesa": 8
     },
     {
       "id": "escudo-pipa",
@@ -1565,7 +1607,8 @@
         "walk": "shield/kite/male/walk/kite_gray.png",
         "slash": "shield/kite/male/slash/kite_gray.png",
         "thrust": "shield/kite/male/thrust/kite_gray.png"
-      }
+      },
+      "defesa": 16
     },
     {
       "id": "escudo-cruzado",
@@ -1595,7 +1638,8 @@
           "slash": "shield/crusader/bg/slash.png",
           "thrust": "shield/crusader/bg/thrust.png"
         }
-      }
+      },
+      "defesa": 26
     },
     {
       "id": "escudo-cinzaltar",
@@ -1626,7 +1670,8 @@
           "thrust": "shield/crusader/bg/thrust.png"
         }
       },
-      "material": "cinzaltar"
+      "material": "cinzaltar",
+      "defesa": 32
     }
   ],
   "equipamento_inicial": {

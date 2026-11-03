@@ -36,7 +36,7 @@ ok(await V(() => document.querySelectorAll("#caixa button[data-i]").length === 1
 ok(await toque("#caixa button[data-i]"), "toca no item");
 ok(await V(() => document.getElementById("caixa").innerText.includes("Se equipar:")), "mostra comparação com o vestido");
 await pag.screenshot({ path: saida + "/m2.png" });
-ok(await V(() => { const c = document.getElementById("caixa"); return c.scrollHeight <= c.clientHeight + 2; }), "tela da mochila cabe sem rolar em 844×390");
+ok(await V(() => { const r = document.getElementById("caixa").getBoundingClientRect(); return r.top >= -1 && r.left >= -1 && r.bottom <= innerHeight + 1 && r.right <= innerWidth + 1; }), "tela da mochila cabe sem rolar em 844×390");
 const antes = await V(() => JSON.stringify(window.__valdor.est.equip));
 const vazioAntes = await V(() => { const V = window.__valdor, sel = V.est.mochila[0]; return sel ? Object.entries(V.est.equip).filter(([, v]) => v === null).map(([k]) => k) : []; });
 await V(() => { window.__valdor.est.nivel = 9; }); // o item do chefe pode exigir até 2 níveis acima

@@ -64,7 +64,7 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     while (vivos.length) {
       const alvoM = vivos[0], def = alvoM.def;
       const luta = def.vida / (dpsUm + dpsArea * Math.min(vivos.length, 3)); // o dano em área conta para cada membro atingido
-      const recebido = vivos.reduce((s, m) => s + dpsMonstro(m.def), 0) * sup.acertoMonstro * luta;
+      const recebido = vivos.reduce((s, m) => s + dpsMonstro(m.def), 0) * sup.acertoMonstro * luta * (1 - (sv.reducao || 0));
       t += luta + sup.entreMembros;
       if (recebido >= vida) { morreu = true; break; }
       vida -= recebido; abates++; vivos.shift();

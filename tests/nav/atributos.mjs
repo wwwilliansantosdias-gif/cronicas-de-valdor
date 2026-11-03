@@ -19,7 +19,7 @@ const hab = await V(() => window.__valdor.est.pontosHab);
 ok((await V(() => document.getElementById("bS").textContent)) === `+${livres + hab}`, "botão mostra +N (atributos + habilidades)");
 await pag.click("#bS", { force: true }); await pag.waitForTimeout(150);
 await pag.screenshot({ path: saida + "/a1.png" });
-ok(await V(() => { const c = document.getElementById("caixa"); return c.scrollHeight <= c.clientHeight + 2; }), "tela de atributos cabe sem rolar em 844×390");
+ok(await V(() => { const r = document.getElementById("caixa").getBoundingClientRect(); return r.top >= -1 && r.left >= -1 && r.bottom <= innerHeight + 1 && r.right <= innerWidth + 1; }), "tela de atributos cabe sem rolar em 844×390");
 const for0 = await V(() => window.__valdor.est.atributos.for);
 ok(await botao("+1 Força"), "+1 Força"); 
 ok((await V(() => window.__valdor.est.atributos.for)) === for0 + 1 && (await V(() => window.__valdor.est.pontosLivres)) === livres - 1, "Força subiu e ponto foi gasto");

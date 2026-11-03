@@ -70,7 +70,7 @@ export function novoItem(base, qual = "comum", mais = 0, bonus = {}) { return { 
 export function valoresItem(I, item) {
   const b = baseItem(I, item.base), q = qualidade(I, item.qual);
   const f = q.mult * (1 + I.melhoria.bonus_por_nivel * item.mais);
-  return { dano: (b.dano || 0) * f, vida: (b.vida || 0) * f, atributos: { ...(item.bonus || {}) } };
+  return { dano: (b.dano || 0) * f, vida: (b.vida || 0) * f, defesa: (b.defesa || 0) * f, atributos: { ...(item.bonus || {}) } };
 }
 
 // conjuntos: quantas peças de cada conjunto estão vestidas e quais bônus (2, 4, 6...) estão ativos
@@ -85,22 +85,24 @@ export function conjuntosAtivos(I, equip) {
 
 export function derivados(P, I, est) {
   const D = P.derivados, at = { ...est.atributos };
-  let danoItens = 0, vidaItens = 0;
+  let danoItens = 0, vidaItens = 0, defesa = 0;
   for (const it of Object.values(est.equip)) {
     if (!it) continue;
     const v = valoresItem(I, it);
-    danoItens += v.dano; vidaItens += v.vida;
+    danoItens += v.dano; vidaItens += v.vida; defesa += v.defesa;
     for (const [a, n] of Object.entries(v.atributos)) at[a] = (at[a] || 0) + n;
   }
   for (const c of conjuntosAtivos(I, est.equip)) for (const k of c.ativos) {
     const b = c.conjunto.bonus[k];
-    danoItens += b.dano || 0; vidaItens += b.vida || 0;
+    danoItens += b.dano || 0; vidaItens += b.vida || 0; defesa += b.defesa || 0;
     for (const [a, n] of Object.entries(b.atributos || {})) at[a] = (at[a] || 0) + n;
   }
   return {
     atributos: at,
     dano: D.dano_base + D.dano_por_for * at.for + danoItens,
     vidaMax: Math.round(D.vida_base + D.vida_por_vit * at.vit + vidaItens),
+    defesa: Math.round(defesa),
+    reducao: P.defesa ? defesa / (defesa + P.defesa.k) : 0,
     recargaMult: Math.max(D.recarga_min, 1 - D.recarga_por_agi * at.agi),
     velocidade: D.velocidade_base + D.velocidade_por_agi * at.agi,
     critico: Math.min(D.critico_max, D.critico_por_sor * at.sor),
@@ -115,9 +117,16 @@ export function equipamentoInicial(I, classe) {
 
 // "Poder": um número só que resume a força do personagem (como a força de combate do Conquer), para o jogador
 // perceber o progresso por nível, pontos e itens. Usa o dano por segundo do ataque básico (com crítico médio) e a vida.
+// dano que o herói realmente recebe: a Defesa reduz por defesa/(defesa+k) — quanto mais defesa, menos cada ponto rende
+export function danoRecebido(P, sv, dano) {
+  if (!P.defesa) return dano;
+  return Math.max(P.defesa.dano_minimo, Math.round(dano * (1 - sv.reducao)));
+}
+
 export function estatisticas(P, sv, habBasica) {
   const critMedio = 1 + sv.critico * (sv.criticoMult - 1);
   const recarga = habBasica.recarga * sv.recargaMult;
   const dps = sv.dano * habBasica.mult * critMedio / recarga;
-  return { ataquesPorSeg: 1 / recarga, dps, poder: Math.round(dps * P.poder.por_dps + sv.vidaMax * P.poder.por_vida) };
+  const vidaEfetiva = sv.vidaMax / (1 - (sv.reducao || 0)); // vida com a defesa: quanto dano aguenta de verdade
+  return { ataquesPorSeg: 1 / recarga, dps, vidaEfetiva, poder: Math.round(dps * P.poder.por_dps + vidaEfetiva * P.poder.por_vida) };
 }

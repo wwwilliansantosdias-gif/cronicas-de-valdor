@@ -32,6 +32,11 @@
   "respawn_chefe_s": 120,
   "poder": {
     "por_dps": 6,
-    "por_vida": 0.5
+    "por_vida": 0.5,
+    "por_defesa_k": 60
+  },
+  "defesa": {
+    "k": 60,
+    "dano_minimo": 1
   }
 }
