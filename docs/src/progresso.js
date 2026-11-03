@@ -5,7 +5,7 @@ export function xpParaProximo(P, n) { return Math.round(P.xp_base * n ** P.xp_ex
 
 // habInicial: a habilidade de nível 1 da classe (classes.json "habilidades"[0])
 export function novoEstado(P, I, classe = "guerreiro", habInicial = "golpe") {
-  return { versao: 2, classe, nivel: 1, xp: 0, ouro: 0, pocoes: 1, mapa: "pe-de-lenha", missoes: {},
+  return { versao: 3, classe, nivel: 1, xp: 0, ouro: 0, pocoes: 1, mapa: "pe-de-lenha", missoes: {},
     atributos: atributosIniciais(P), pontosLivres: 0, autoDistribuir: false,
     habilidades: { [habInicial]: 1 }, pontosHab: 0, equip: equipamentoInicial(I, classe), mochila: [], fragmentos: 0 };
 }

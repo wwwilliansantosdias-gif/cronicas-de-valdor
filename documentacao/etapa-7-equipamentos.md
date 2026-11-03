@@ -1,6 +1,6 @@
 # Etapa 7 – Plano de equipamentos (todas as regiões)
 
-Status: **proposta** para aprovação. Nada implementado ainda. Motivo (Willian): a história é curta; o que muda de região para região é cenário e monstro, então **o desenho do equipamento, a percepção de estrutura e os efeitos** carregam boa parte do interesse do jogo.
+Status: **aprovada por Willian e implementada** (respostas: 1 todos os espaços, 2 aceita o improviso das armas, 3 material por qualidade, 4 conjuntos). Motivo (Willian): a história é curta; o que muda de região para região é cenário e monstro, então **o desenho do equipamento, a percepção de estrutura e os efeitos** carregam boa parte do interesse do jogo.
 
 ![Proposta visual por região](img/proposta-equipamentos.png)
 
@@ -57,3 +57,12 @@ Item com faixa de nível (início/fim de cada região), valores crescendo por fa
 2. Catálogo da Floresta e da Caverna com as peças novas; material por qualidade.
 3. Conjuntos e brilho do +N.
 4. Regiões 2 e 3 já usando o catálogo pronto.
+
+## 6. Implementado
+- **9 espaços:** arma, escudo (só Guerreiro), capacete, ombros, peitoral, braços, capa, grevas, botas. Save versão 3 com migração (espaços novos entram vazios). Boneco da tela de Personagem com os 9 espaços em volta.
+- **60 itens** de 1 a 29 (`dados/itens.json`), todos com peças LPC creditadas; cada região tem item em todos os espaços (teste). Floresta: adaga, espada longa, maça, sabre; arcos simples e recurvo; gibão, cota de malha; calça, calça reforçada; gorro, capuz, elmo nasal; ombreiras de manto; braçadeiras, luvas; botas de couro e dobradas; capa lisa; escudo redondo. Caverna e Ruínas já prontas para quando as regiões existirem.
+- **Armas sem estocar** (maça, sabre, machado, mangual, florete, espadas brilhantes): marcadas `estocada_com_golpe`; com elas a Estocada usa a animação de golpe.
+- **Material:** rampas em `materiais` (polido, azul, ouro, bronze, cinzaltar). Refinado = metal polido, Raro = aço azulado, Lendário = ouro; itens do Mineiro em bronze e de Cinzaltar em roxo. Só os pixels de metal mudam; couro e tecido recebem tinta leve.
+- **Conjuntos:** do Lenhador (capuz, luvas, botas dobradas, calça reforçada, ombreiras de manto), do Mineiro (6 peças de bronze) e de Cinzaltar (6 peças roxas). Bônus a 2, 4 e conjunto completo (atributos, vida/dano e aura com a cor do conjunto). O equipamento inicial não conta para conjunto.
+- **Brilho do +N** (`brilho`): halo de luz na mão a partir de +3, mais forte no +4 e faíscas no +5, na cor da qualidade.
+- Testes: dados (cada item tem as animações das classes que o usam; regiões completas; materiais e conjuntos válidos), motor (bônus de conjunto, migração v2→v3) e navegador (escudo e capa aparecem; arma +5 brilha mais que +0).

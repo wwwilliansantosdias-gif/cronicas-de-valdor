@@ -4,7 +4,7 @@ RPG de ação 2D de uso pessoal, no navegador do celular (tela deitada), com art
 
 **Jogar:** https://wwwilliansantosdias-gif.github.io/cronicas-de-valdor/ · **Mostruário de arte:** `.../mostruario/`
 
-Estado: região 1 (Floresta) jogável com o Guerreiro ou o Arqueiro (escolha ao criar o personagem): cidade Pé-de-Lenha (mercador, ferreiro com melhoria até +5, quadro de missões, portal selado até o nível 10) e Mata do Javali (40 monstros em bandos, ataques com aviso, Javali Coroado). Atributos, habilidades (Guerreiro: Golpe, Estocada, Giro; Arqueiro: Disparo, Dispersão, Chuva), itens com qualidade que caem dos monstros e aparecem no personagem. Caverna e Ruínas ainda não existem. Progressão: `documentacao/etapa-6b-progressao.md`.
+Estado: região 1 (Floresta) jogável com o Guerreiro ou o Arqueiro (escolha ao criar o personagem): cidade Pé-de-Lenha (mercador, ferreiro com melhoria até +5, quadro de missões, portal selado até o nível 10) e Mata do Javali (40 monstros em bandos, ataques com aviso, Javali Coroado). Atributos, habilidades (Guerreiro: Golpe, Estocada, Giro; Arqueiro: Disparo, Dispersão, Chuva), itens com qualidade que caem dos monstros e aparecem no personagem (9 espaços, material por qualidade, conjuntos, brilho do +N; ver `documentacao/etapa-7-equipamentos.md`). Caverna e Ruínas ainda não existem. Progressão: `documentacao/etapa-6b-progressao.md`.
 
 ## Pastas
 - `docs/` – o que o GitHub Pages publica (Settings → Pages → branch `main`, pasta `/docs`): jogo (`index.html`, `src/`, `dados/`, `mapas/`, `assets/`), `mostruario/` e `CREDITOS.md`.

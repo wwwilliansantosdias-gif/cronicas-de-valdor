@@ -3,7 +3,7 @@ import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from ".
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, escalarArea, mover, direcaoDe, dentroDaArea, VET } from "./combate.js";
 import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento, melhorar, proximaMelhoria, itemDoAlvo, sortearFragmentos } from "./itens.js";
-import { derivados, estatisticas, valoresItem, baseItem, qualidade, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
+import { derivados, estatisticas, valoresItem, baseItem, qualidade, conjuntosAtivos, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
 const json = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
@@ -239,7 +239,15 @@ function colorirBotoes(itens, desde) {
   itens.forEach((it, i) => { if (bs[desde + i]) bs[desde + i].style.color = qualidade(D.itens, it.qual).cor; });
 }
 
-const NOME_ESPACO = { arma: "Arma", capacete: "Capacete", peitoral: "Peitoral", grevas: "Grevas" };
+const NOME_ESPACO = { arma: "Arma", escudo: "Escudo", capacete: "Capacete", ombros: "Ombros", peitoral: "Peitoral", bracos: "Braços", capa: "Capa", grevas: "Grevas", botas: "Botas" };
+function descreverConjunto(it) {
+  const c = (D.itens.conjuntos || []).find((x) => x.pecas.includes(it.base));
+  if (!c) return "";
+  const n = conjuntosAtivos(D.itens, EST.equip).find((x) => x.conjunto.id === c.id)?.n || 0;
+  const txt = Object.entries(c.bonus).map(([k, b]) => { const p = [...Object.entries(b.atributos || {}).map(([a, v]) => `+${v} ${NOME_ATR[a][0]}`), b.vida ? `+${b.vida} vida` : "", b.dano ? `+${b.dano} dano` : "", b.aura ? "aura" : ""].filter(Boolean).join(", ");
+    return `<span class="${n >= +k ? "up" : ""}">${k}: ${p}</span>`; }).join(" · ");
+  return `<br><small style="color:${c.cor}">Conjunto ${c.nome} (${n}/${c.pecas.length} vestidas)</small> <small>${txt}</small>`;
+}
 function descreverItem(it) {
   const v = valoresItem(D.itens, it), partes = [];
   if (v.dano) partes.push(`dano ${v.dano.toFixed(1)}`);
@@ -317,22 +325,26 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
     ["Velocidade", Math.round(sv.velocidade), dif(sv.velocidade, dv?.velocidade)],
     ["Crítico", `${Math.round(sv.critico * 100)}%`, dif(sv.critico * 100, dv?.critico * 100, 0, "%")],
   ].map(([k, v, d]) => `<tr><td>${k}</td><td>${v}${d}</td></tr>`).join("");
-  const slot = (e) => { const it = equipPrevia[e]; return `<button class="slot s-${e}${sel === e ? " sel" : ""}${it && it === provando ? " prova" : ""}" data-e="${e}" aria-label="${NOME_ESPACO[e]}" style="border-color:${it ? qualidade(I, it.qual).cor : "#fff3"}">${it ? imgIcone(it) + (it.mais ? `<i>+${it.mais}</i>` : "") : `<small>${NOME_ESPACO[e]}</small>`}</button>`; };
-  const boneco = `<div class="boneco">${slot("capacete")}${slot("arma")}<canvas id="previa" width="64" height="64" aria-label="personagem"></canvas>${slot("peitoral")}${slot("grevas")}</div>`;
+  const semEscudo = EST.classe !== "guerreiro";
+  const slot = (e) => { const it = equipPrevia[e]; if (e === "escudo" && semEscudo) return `<span class="slot s-escudo vazio" title="o Arqueiro usa as duas mãos"><small>—</small></span>`;
+    return `<button class="slot s-${e}${sel === e ? " sel" : ""}${it && it === provando ? " prova" : ""}" data-e="${e}" aria-label="${NOME_ESPACO[e]}" style="border-color:${it ? qualidade(I, it.qual).cor : "#fff3"}">${it ? imgIcone(it) + (it.mais ? `<i>+${it.mais}</i>` : "") : `<small>${NOME_ESPACO[e]}</small>`}</button>`; };
+  const boneco = `<div class="boneco">${["capacete", "ombros", "bracos", "arma", "peitoral", "capa", "grevas", "botas", "escudo"].map(slot).join("")}<canvas id="previa" width="64" height="64" aria-label="personagem"></canvas></div>`;
+  const resumoConjuntos = (eq) => conjuntosAtivos(I, eq).map((c) => `<span style="color:${c.conjunto.cor}">Conjunto ${c.conjunto.nome} ${c.n}/${c.total}</span>`).join(" · ");
   const abas = [["equip", "Equipamento"], ["atrib", `Atributos${EST.pontosLivres ? ` (+${EST.pontosLivres})` : ""}`], ["hab", `Habilidades${EST.pontosHab ? ` (+${EST.pontosHab})` : ""}`]]
     .map(([id, t]) => `<button class="aba${aba === id ? " on" : ""}" data-aba="${id}">${t}</button>`).join("");
   let corpo = "", acoes = [];
   if (aba === "equip") {
     const grade = Array.from({ length: I.mochila_max }, (_, i) => { const it = EST.mochila[i];
       return it ? `<button class="slot${i === sel ? " sel" : ""}" data-i="${i}" aria-label="${nomeItem(I, it)}" style="border-color:${qualidade(I, it.qual).cor}">${imgIcone(it)}${it.mais ? `<i>+${it.mais}</i>` : ""}</button>` : `<span class="slot vazio"></span>`; }).join("");
-    let det = `<small>Mochila ${EST.mochila.length}/${I.mochila_max}. Toque num item para provar no boneco.</small>`;
+    const rc = resumoConjuntos(EST.equip);
+    let det = `<small>Mochila ${EST.mochila.length}/${I.mochila_max}. Toque num item para provar no boneco.${rc ? "<br>" + rc : ""}</small>`;
     if (typeof sel === "string" && EST.equip[sel]) {
       const it = EST.equip[sel];
-      det = `<b style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</b> <small>· ${NOME_ESPACO[sel]} (vestido) · ${descreverItem(it)}</small>`;
+      det = `<b style="color:${qualidade(I, it.qual).cor}">${nomeItem(I, it)}</b> <small>· ${NOME_ESPACO[sel]} (vestido) · ${descreverItem(it)}</small>${descreverConjunto(it)}`;
       acoes.push(["Tirar", () => { if (comAjusteDeVida(() => desequipar(I, EST, sel))) msg(`Tirou: ${nomeItem(I, it)}`); else msg("Mochila cheia."); telaPersonagem("equip"); }, EST.mochila.length >= I.mochila_max]);
     } else if (provando) {
       const imp = impedimento(I, EST, provando);
-      det = `<b style="color:${qualidade(I, provando.qual).cor}">${nomeItem(I, provando)}</b> <small>· ${NOME_ESPACO[baseItem(I, provando.base).espaco]} · ${descreverItem(provando)}</small><br><small>Se equipar: ${comparar(sel)}${imp ? ` · <b>não pode: ${imp}</b>` : ""}</small>`;
+      det = `<b style="color:${qualidade(I, provando.qual).cor}">${nomeItem(I, provando)}</b> <small>· ${NOME_ESPACO[baseItem(I, provando.base).espaco]} · nível ${baseItem(I, provando.base).nivel} · ${descreverItem(provando)}</small><br><small>Se equipar: ${comparar(sel)}${imp ? ` · <b>não pode: ${imp}</b>` : ""}</small>${descreverConjunto(provando)}`;
       acoes.push(["Equipar", () => { const p0 = numeros(EST).poder; if (comAjusteDeVida(() => equipar(I, EST, sel))) msg(`Equipou: ${nomeItem(I, provando)} · Poder ${p0} → ${numeros(EST).poder}`); telaPersonagem("equip"); }, !!imp]);
       acoes.push(["Descartar", () => { if (confirm(`Descartar ${nomeItem(I, provando)}?`)) { descartar(EST, sel); salvar(); telaPersonagem("equip"); } }]);
     }
@@ -523,15 +535,27 @@ const ORDEM_GIRO = ["down", "left", "up", "right"];
 const arqDe = (v) => (typeof v === "string" ? v : v && v.arquivo);
 // peça tingida com a cor da qualidade (em código, a partir da própria peça LPC; resultado guardado em cache)
 const tingidas = {};
-function pecaTingida(entrada, qual) {
+// peça com a cor da qualidade e do material, feita em código a partir da própria peça LPC (resultado em cache):
+// pixels de metal (pouca saturação) seguem a rampa do material (qualidade Refinado/Raro/Lendário, senão o material
+// do item, ex.: bronze, Cinzaltar); couro e tecido recebem só uma tinta leve da cor da qualidade
+function pecaTingida(entrada, qual, materialItem = null) {
   const caminho = arqDe(entrada);
-  const q = qualidade(D.itens, qual), img = IMG[caminho];
-  if (!img || !q.tinta) return img;
-  const k = caminho + "|" + qual;
+  const q = qualidade(D.itens, qual), img = IMG[caminho], mat = q.material || materialItem;
+  if (!img || (!q.tinta && !mat)) return img;
+  const k = caminho + "|" + qual + "|" + (mat || "");
   if (!tingidas[k]) {
     const c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
     const x = c.getContext("2d"); x.drawImage(img, 0, 0);
-    x.globalCompositeOperation = "source-atop"; x.globalAlpha = q.tinta; x.fillStyle = q.cor; x.fillRect(0, 0, c.width, c.height);
+    const dados = x.getImageData(0, 0, c.width, c.height), px = dados.data, rampa = mat && D.itens.materiais[mat];
+    const [tr, tg, tb] = [1, 3, 5].map((i) => parseInt(q.cor.slice(i, i + 2), 16));
+    for (let i = 0; i < px.length; i += 4) {
+      if (!px[i + 3]) continue;
+      const r = px[i], g = px[i + 1], b = px[i + 2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 510;
+      const sat = mx === mn ? 0 : (mx - mn) / (l > 0.5 ? 510 - mx - mn : mx + mn);
+      if (rampa && sat < 0.18) { const cor = rampa[Math.min(rampa.length - 1, Math.floor(l * rampa.length))]; px[i] = cor[0]; px[i + 1] = cor[1]; px[i + 2] = cor[2]; }
+      else if (q.tinta) { px[i] += (tr - r) * q.tinta; px[i + 1] += (tg - g) * q.tinta; px[i + 2] += (tb - b) * q.tinta; }
+    }
+    x.putImageData(dados, 0, 0);
     tingidas[k] = c;
   }
   return tingidas[k];
@@ -541,9 +565,12 @@ const icones = {};
 function iconeItem(it) {
   const k = it.base + "|" + it.qual;
   if (icones[k]) return icones[k];
-  const v = baseItem(D.itens, it.base).visual, img = pecaTingida(v.walk, it.qual), col = v.walk.coluna || 0;
+  if (!IMG[arqDe(baseItem(D.itens, it.base).visual.walk)]) return "";
+  const b = baseItem(D.itens, it.base), v = b.visual, img = pecaTingida(v.walk, it.qual, b.material), col = v.walk.coluna || 0, lin = b.icone_linha ?? 2;
   const t = document.createElement("canvas"); t.width = 64; t.height = 64;
-  const tx = t.getContext("2d"); tx.drawImage(img, col * 64, 128, 64, 64, 0, 0, 64, 64);
+  const tx = t.getContext("2d");
+  if (v.fundo && v.fundo.walk) tx.drawImage(pecaTingida(v.fundo.walk, it.qual, b.material), col * 64, lin * 64, 64, 64, 0, 0, 64, 64);
+  tx.drawImage(img, col * 64, lin * 64, 64, 64, 0, 0, 64, 64);
   const px = tx.getImageData(0, 0, 64, 64).data; let x0 = 64, y0 = 64, x1 = 0, y1 = 0;
   for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) if (px[(y * 64 + x) * 4 + 3] > 20) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
   const lado = Math.max(8, x1 - x0 + 1, y1 - y0 + 1), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
@@ -562,8 +589,14 @@ function camadas(anim, equip = EST.equip) {
     if (c === "corpo") out.push({ img: IMG[`${corpo.base}/${anim}.png`] });
     else if (c === "cabeca") out.push({ img: IMG[`${corpo.cabeca}/${anim}.png`] });
     else if (corpo.extras && corpo.extras[c]) { const e = corpo.extras[c][anim]; if (e) out.push({ img: IMG[arqDe(e)], coluna: e.coluna }); }
-    else if (c === "fundo_arma") { const it = equip.arma, f = it && baseItem(I, it.base).visual.fundo; if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual), coluna: f[anim].coluna }); }
-    else { const it = equip[c]; if (!it) continue; const v = baseItem(I, it.base).visual; if (!v[anim]) continue; out.push({ img: pecaTingida(v[anim], it.qual), grande: (v.grande || []).includes(anim), coluna: v[anim].coluna }); }
+    else if (c.startsWith("fundo:")) { // parte de trás de capa, escudo e arco
+      const it = equip[c.slice(6)], b = it && baseItem(I, it.base), f = b && b.visual.fundo;
+      if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual, b.material), coluna: f[anim].coluna });
+    } else {
+      const it = equip[c]; if (!it) continue;
+      const b = baseItem(I, it.base), v = b.visual; if (!v[anim]) continue;
+      out.push({ img: pecaTingida(v[anim], it.qual, b.material), grande: (v.grande || []).includes(anim), coluna: v[anim].coluna });
+    }
   }
   return out;
 }
@@ -575,6 +608,7 @@ function desenharCamadas(anim, col, linha, ox, oy, alvo = ctx, equip = EST.equip
     else alvo.drawImage(l.img, c * 64, linha * 64, 64, 64, ox, oy, 64, 64);
   }
 }
+function armaSemEstocar() { const a = EST.equip.arma; return !!(a && baseItem(D.itens, a.base).estocada_com_golpe); }
 function desenharJogador(t) {
   const g = jogador.golpe, h = jogador.hab;
   const dir = g >= 0 && h.animacao === "giro" ? ORDEM_GIRO[(ORDEM_GIRO.indexOf(jogador.dir) + Math.floor(g / h.duracao * 4)) % 4] : jogador.dir;
@@ -583,24 +617,48 @@ function desenharJogador(t) {
   desenharAura(t);
   if (jogador.invul > 0 && Math.floor(t * 20) % 2) ctx.globalAlpha = 0.5;
   if (g >= 0 && h.animacao === "shoot") desenharCamadas("shoot", Math.min(12, Math.floor(g / Math.min(h.duracao, 0.55) * 13)), L, ox, oy);
-  else if (g >= 0 && h.animacao === "thrust") desenharCamadas("thrust", Math.min(7, Math.floor(g / h.duracao * 8)), L, ox, oy);
+  else if (g >= 0 && h.animacao === "thrust" && !armaSemEstocar()) desenharCamadas("thrust", Math.min(7, Math.floor(g / h.duracao * 8)), L, ox, oy);
+  else if (g >= 0 && h.animacao === "thrust") desenharCamadas("slash", Math.min(5, Math.floor(g / h.duracao * 6)), L, ox, oy); // improviso: arma sem estocar
   else if (g >= 0) { // golpe e giro usam a animação de golpear; o giro troca de direção 4 vezes
     const passo = h.animacao === "giro" ? h.duracao / 4 : h.duracao;
     desenharCamadas("slash", Math.min(5, Math.floor((g % passo) / passo * 6)), L, ox, oy);
     if (h.animacao === "giro") { ctx.save(); ctx.globalAlpha = 0.25; ctx.strokeStyle = "#dfefff"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(jogador.x - cam.x, jogador.y - 14 - cam.y, h.raio, h.raio * 0.7, 0, 0, 7); ctx.stroke(); ctx.restore(); }
   } else desenharCamadas("walk", jogador.andando ? 1 + Math.floor(jogador.tAnim * 10) % 8 : 0, L, ox, oy);
   ctx.globalAlpha = 1;
-  if (g >= 0 && (h.animacao === "slash" || h.animacao === "giro")) desenharRastro(dir, g, h);
+  if (g >= 0 && (h.animacao === "slash" || h.animacao === "giro" || (h.animacao === "thrust" && armaSemEstocar()))) desenharRastro(dir, g, h);
+  desenharBrilhoArma(t, dir);
 }
 // aura nos pés conforme a melhor qualidade vestida (Raro: azul; Lendário: dourada com faíscas)
+// aura nos pés: conjunto completo (cor do conjunto) ou melhor qualidade vestida (Raro azul; Lendário dourada com faíscas)
 function desenharAura(t) {
-  const ordem = D.itens.qualidades.map((q) => q.id);
-  const melhor = Math.max(...Object.values(EST.equip).filter(Boolean).map((it) => ordem.indexOf(it.qual)));
+  const ordem = D.itens.qualidades.map((q) => q.id), x = jogador.x - cam.x, y = jogador.y - 2 - cam.y, p = 0.5 + 0.5 * Math.sin(t * 3);
+  const completo = conjuntosAtivos(D.itens, EST.equip).find((c) => c.completo);
+  const melhor = Math.max(-1, ...Object.values(EST.equip).filter(Boolean).map((it) => ordem.indexOf(it.qual)));
+  if (completo) { // conjunto completo: anel de luz com a cor do conjunto
+    ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.strokeStyle = completo.conjunto.cor; ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.35 + 0.3 * p; ctx.beginPath(); ctx.ellipse(x, y, 18 + 3 * p, 7 + p, 0, 0, 7); ctx.stroke();
+    ctx.globalAlpha = 0.15 + 0.1 * p; ctx.fillStyle = completo.conjunto.cor; ctx.fill(); ctx.restore();
+  }
   if (melhor < ordem.indexOf("raro")) return;
-  const q = D.itens.qualidades[melhor], x = jogador.x - cam.x, y = jogador.y - 2 - cam.y, p = 0.5 + 0.5 * Math.sin(t * 3);
+  const q = D.itens.qualidades[melhor];
   ctx.save(); ctx.fillStyle = q.cor; ctx.globalAlpha = 0.18 + 0.12 * p;
   ctx.beginPath(); ctx.ellipse(x, y, 16 + 2 * p, 6 + p, 0, 0, 7); ctx.fill();
   if (q.id === "lendario") { ctx.globalAlpha = 0.9; for (let k = 0; k < 3; k++) { const a = t * 2 + k * 2.1; ctx.fillRect(Math.round(x + Math.cos(a) * 14), Math.round(y - 18 + Math.sin(a * 1.3) * 16), 2, 2); } }
+  ctx.restore();
+}
+// brilho do +N na arma (luz somada, sem imagem): +3 halo, +4 halo mais forte, +5 faíscas
+const MAO = { down: [10, -26], up: [-10, -28], left: [-14, -26], right: [14, -26] };
+function desenharBrilhoArma(t, dir) {
+  const a = EST.equip.arma, cfg = D.itens.brilho;
+  if (!a || a.mais < cfg.a_partir_de) return;
+  const q = qualidade(D.itens, a.qual), cor = a.qual === "comum" ? "#fff2c0" : q.cor, [mx, my] = MAO[dir];
+  const x = jogador.x + mx - cam.x, y = jogador.y + my - cam.y, p = 0.6 + 0.4 * Math.sin(t * 5), r = 8 + 4 * (a.mais - cfg.a_partir_de) + 2 * p;
+  ctx.save(); ctx.globalCompositeOperation = "lighter";
+  const gr = ctx.createRadialGradient(x, y, 0, x, y, r);
+  gr.addColorStop(0, cor); gr.addColorStop(1, "#0000");
+  ctx.globalAlpha = 0.25 + 0.12 * (a.mais - cfg.a_partir_de) + 0.1 * p; ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
+  if (a.mais >= cfg.faiscas_em) { ctx.globalAlpha = 1; ctx.fillStyle = "#fff";
+    for (let k = 0; k < 4; k++) { const ang = t * 3 + k * 1.57, d = 6 + 6 * ((t * 2 + k * 0.37) % 1); ctx.fillRect(Math.round(x + Math.cos(ang) * d), Math.round(y + Math.sin(ang) * d - ((t * 20 + k * 5) % 10)), 1, 1); } }
   ctx.restore();
 }
 // rastro da arma ao golpear: cor da qualidade da arma, mais forte com o +N

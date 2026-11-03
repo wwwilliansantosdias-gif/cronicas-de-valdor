@@ -87,6 +87,8 @@ def test_todo_item_vestivel_tem_visual_com_as_animacoes_de_cada_classe_que_o_usa
         v = it["visual"]
         for classe in it["classes"]:
             for anim in CORPO[classe]["animacoes"]:
+                if anim == "thrust" and it.get("estocada_com_golpe"):
+                    continue  # improviso aprovado: com essa arma a Estocada usa a animação de golpe
                 assert anim in v, f"{it['id']} ({classe}): sem animação {anim}"
                 _confere_folha(it["id"], v[anim], anim, anim in v.get("grande", []))
                 if "fundo" in v and anim in v["fundo"]:
@@ -107,7 +109,7 @@ def test_corpo_e_extras_de_cada_classe_tem_as_animacoes_e_estao_creditados():
 
 
 def test_cada_espaco_tem_mais_de_uma_aparencia_na_regiao_1():
-    for esp in ("arma", "capacete", "peitoral", "grevas"):
+    for esp in ("arma", "capacete", "peitoral", "grevas", "bracos", "botas"):
         visuais = {_arq(it["visual"]["walk"]) for it in ITENS if it.get("espaco") == esp and it.get("nivel", 1) <= 9}
         assert len(visuais) >= 2, esp
 
@@ -132,3 +134,25 @@ def test_toda_construcao_citada_nos_mapas_tem_imagem():
                 from PIL import Image
                 w, h = Image.open(arq).size
                 assert w <= int(m.group(2)) * 32 + 32, f"{m.group(1)} mais larga que a área no mapa"
+
+
+def test_cada_regiao_tem_equipamento_para_todos_os_espacos():
+    I = json.load(open(os.path.join(RAIZ, "docs", "dados", "itens.json"), encoding="utf-8"))
+    for lo, hi in ((1, 9), (10, 19), (20, 29)):
+        for esp in I["espacos"]:
+            if esp == "capa" and lo == 1:
+                continue
+            assert any(it.get("espaco") == esp and lo <= it["nivel"] <= hi for it in I["itens"]), f"{esp} sem item entre {lo} e {hi}"
+
+
+def test_materiais_e_conjuntos_validos():
+    I = json.load(open(os.path.join(RAIZ, "docs", "dados", "itens.json"), encoding="utf-8"))
+    for it in I["itens"]:
+        if it.get("material"):
+            assert it["material"] in I["materiais"], it["id"]
+    for q in I["qualidades"]:
+        assert q["material"] is None or q["material"] in I["materiais"]
+    ids = {it["id"] for it in I["itens"]}
+    for c in I["conjuntos"]:
+        assert all(p in ids for p in c["pecas"]), c["id"]
+        assert not set(c["pecas"]) & set(I["equipamento_inicial"]["guerreiro"].values()), "conjunto não pode vir no equipamento inicial"

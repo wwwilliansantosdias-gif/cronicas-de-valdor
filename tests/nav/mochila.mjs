@@ -38,11 +38,13 @@ ok(await V(() => document.getElementById("caixa").innerText.includes("Se equipar
 await pag.screenshot({ path: saida + "/m2.png" });
 ok(await V(() => { const c = document.getElementById("caixa"); return c.scrollHeight <= c.clientHeight + 2; }), "tela da mochila cabe sem rolar em 844×390");
 const antes = await V(() => JSON.stringify(window.__valdor.est.equip));
+const vazioAntes = await V(() => { const V = window.__valdor, sel = V.est.mochila[0]; return sel ? Object.entries(V.est.equip).filter(([, v]) => v === null).map(([k]) => k) : []; });
 await V(() => { window.__valdor.est.nivel = 9; }); // o item do chefe pode exigir até 2 níveis acima
 await toque("#caixa button[data-i]");
 ok(await toque("#caixa button", "Equipar"), "toca em Equipar");
-const depois = await V(() => ({ equip: JSON.stringify(window.__valdor.est.equip), moch: window.__valdor.est.mochila.length, msg: document.getElementById("msg").textContent }));
-ok(depois.equip !== antes && depois.moch === 1, "item vestido mudou e o antigo voltou para a mochila");
+const depois = await V(() => ({ equip: JSON.stringify(window.__valdor.est.equip), moch: window.__valdor.est.mochila.length, msg: document.getElementById("msg").textContent, vazios: Object.entries(window.__valdor.est.equip).filter(([, v]) => v === null).map(([k]) => k) }));
+const ocupouVazio = depois.vazios.length < vazioAntes.length;
+ok(depois.equip !== antes && depois.moch === (ocupouVazio ? 0 : 1), `item vestido mudou e o antigo voltou para a mochila (${ocupouVazio ? "espaço estava vazio" : "troca"})`);
 ok(depois.msg.startsWith("Equipou:"), "avisa que equipou");
 await toque("#caixa button", "Fechar");
 // aparência: vestir uma cota de malha muda os pixels do personagem
@@ -55,7 +57,7 @@ const px1 = await pixelsJogador();
 ok((await V(() => window.__valdor.est.equip.peitoral.base)) === "cota-malha" && px0 !== px1, "vestir a cota de malha muda a aparência do personagem");
 await pag.screenshot({ path: saida + "/m3.png" });
 // prova no boneco: escolher um item da mochila muda o boneco e mostra a diferença; equipar sobe o Poder do topo
-await V(() => { const V = window.__valdor; V.est.mochila = [{ base: "elmo-barbaro", qual: "lendario", mais: 2, bonus: { vit: 2 } }]; });
+await V(() => { const V = window.__valdor; V.est.equip.capacete = { base: "gorro-couro", qual: "comum", mais: 0, bonus: {} }; V.est.mochila = [{ base: "capuz", qual: "lendario", mais: 2, bonus: { vit: 2 } }]; });
 await toque("#bI"); await pag.waitForTimeout(250);
 const previa = () => V(() => Array.from(document.getElementById("previa").getContext("2d").getImageData(0, 0, 64, 64).data).filter((x, i) => i % 4 === 3 && x > 0).length + "|" + Array.from(document.getElementById("previa").getContext("2d").getImageData(0, 0, 64, 64).data).slice(0, 4096).join(""));
 const pv0 = await V(() => { const c = document.getElementById("previa"); return c.toDataURL(); });
@@ -91,5 +93,21 @@ await botao("Fechar");
 // persiste
 await pag.reload(); await pronto();
 ok((await V(() => JSON.stringify(window.__valdor.est.equip))) === pecaVestida, "equipamento salvo");
+// espaços novos e brilho do +N
+await V(() => { const V = window.__valdor; V.entrar("mata-do-javali", "pe-de-lenha"); V.jogador.invul = 0; V.jogador.dir = "down"; V.est.nivel = 29; V.est.equip.escudo = null; V.est.equip.capa = null; });
+await pag.waitForTimeout(200);
+const semEscudo = await pixelsJogador();
+await V(() => { const V = window.__valdor; V.est.equip.escudo = { base: "escudo-cruzado", qual: "comum", mais: 0, bonus: {} }; V.est.equip.capa = { base: "capa-lisa", qual: "comum", mais: 0, bonus: {} }; });
+await pag.waitForTimeout(200);
+ok(semEscudo !== await pixelsJogador(), "escudo e capa aparecem no personagem");
+const luzMao = () => V(() => { const c = document.getElementById("tela"), x = c.getContext("2d"), j = window.__valdor.jogador;
+  const cam = { x: Math.max(0, Math.min(window.__valdor.mapa.w * 32 - c.width, j.x - c.width / 2)), y: Math.max(0, Math.min(window.__valdor.mapa.h * 32 - c.height, j.y - 30 - c.height / 2)) };
+  const d = x.getImageData(Math.round(j.x + 10 - cam.x) - 12, Math.round(j.y - 26 - cam.y) - 12, 24, 24).data; let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2]; return s; });
+await V(() => { window.__valdor.est.equip.arma = { base: "espada-longa", qual: "lendario", mais: 0, bonus: {} }; });
+await pag.waitForTimeout(150); const luz0 = await luzMao();
+await V(() => { window.__valdor.est.equip.arma.mais = 5; });
+await pag.waitForTimeout(150); const luz5 = await luzMao();
+ok(luz5 > luz0 * 1.05, `arma +5 brilha (${luz0} → ${luz5})`);
+await pag.screenshot({ path: saida + "/m5.png" });
 ok(erros.length === 0, "sem erros de console: " + erros.join("|"));
 await fim();

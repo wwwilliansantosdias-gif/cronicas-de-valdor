@@ -63,10 +63,10 @@ test("equipar troca com o item vestido, que volta para a mochila no mesmo lugar"
 
 test("não equipa item de nível maior, de outra classe ou consumível", () => {
   const e = novoEstado(P, I);
-  const I2 = { ...I, itens: [...I.itens, { id: "machado", tipo: "arma", espaco: "arma", nivel: 15, classes: ["guerreiro"], dano: 9 }, { id: "arco", tipo: "arma", espaco: "arma", nivel: 1, classes: ["arqueiro"], dano: 5 }] };
-  assert.match(impedimento(I2, e, novoItem("machado")), /nível 15/);
-  assert.match(impedimento(I2, e, novoItem("arco")), /classe/);
-  e.mochila.push(novoItem("machado"));
+  const I2 = { ...I, itens: [...I.itens, { id: "machado-teste", tipo: "arma", espaco: "arma", nivel: 15, classes: ["guerreiro"], dano: 9 }, { id: "arco-teste", tipo: "arma", espaco: "arma", nivel: 1, classes: ["arqueiro"], dano: 5 }] };
+  assert.match(impedimento(I2, e, novoItem("machado-teste")), /nível 15/);
+  assert.match(impedimento(I2, e, novoItem("arco-teste")), /classe/);
+  e.mochila.push(novoItem("machado-teste"));
   assert.equal(equipar(I2, e, 0), false);
 });
 
@@ -146,4 +146,42 @@ test("fragmentos: comum com a chance configurada; chefe sempre dá vários", () 
   for (let i = 0; i < N; i++) n += sortearFragmentos(I, comum, rng);
   assert.ok(Math.abs(n / N - I.drops.fragmento_chance) < 0.01);
   assert.equal(sortearFragmentos(I, chefe, rng), I.drops.fragmentos_chefe);
+});
+
+import { conjuntosAtivos } from "../../docs/src/personagem.js";
+import { migrarV2 } from "../../docs/src/salvar.js";
+
+test("conjunto: bônus por peças vestidas (2, 4, completo), cumulativos; personagem novo não começa com bônus", () => {
+  const e = novoEstado(P, I);
+  assert.equal(conjuntosAtivos(I, e.equip).length, 0, "equipamento inicial não é conjunto");
+  const c = I.conjuntos.find((x) => x.id === "lenhador"), base = derivados(P, I, e);
+  const vestir = (ids) => { for (const id of ids) { const b = I.itens.find((x) => x.id === id); e.equip[b.espaco] = novoItem(id); } };
+  vestir(c.pecas.slice(0, 2));
+  let a = conjuntosAtivos(I, e.equip).find((x) => x.conjunto.id === "lenhador");
+  assert.deepEqual(a.ativos, [2]);
+  vestir(c.pecas);
+  a = conjuntosAtivos(I, e.equip).find((x) => x.conjunto.id === "lenhador");
+  assert.ok(a.completo); assert.deepEqual(a.ativos, Object.keys(c.bonus).map(Number));
+  const d = derivados(P, I, e);
+  assert.ok(d.atributos.vit >= base.atributos.vit + c.bonus["2"].atributos.vit);
+});
+
+test("todo conjunto aponta para itens que existem, de qualidade/visual próprios, e cada peça é de um espaço diferente", () => {
+  for (const c of I.conjuntos) {
+    const esp = c.pecas.map((id) => { const b = I.itens.find((x) => x.id === id); assert.ok(b, `${c.id}: ${id}`); return b.espaco; });
+    assert.equal(new Set(esp).size, esp.length, c.id + " repete espaço");
+    assert.ok(Object.keys(c.bonus).every((k) => +k <= c.pecas.length));
+  }
+});
+
+test("save v2 vira v3 com os espaços novos vazios, sem perder o que estava vestido", () => {
+  const v2 = { ...novoEstado(P, I), versao: 2 }; delete v2.equip.ombros; delete v2.equip.capa; delete v2.equip.escudo;
+  const v3 = migrarV2(I, v2);
+  assert.equal(v3.versao, 3);
+  for (const e of I.espacos) assert.ok(e in v3.equip);
+  assert.equal(v3.equip.ombros, null); assert.equal(v3.equip.arma.base, v2.equip.arma.base);
+});
+
+test("armas sem estocar ficam marcadas (a Estocada usa o golpe) e só existem para o guerreiro", () => {
+  for (const it of I.itens.filter((x) => x.estocada_com_golpe)) { assert.ok(!it.visual.thrust); assert.ok(it.visual.slash); assert.deepEqual(it.classes, ["guerreiro"]); }
 });

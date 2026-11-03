@@ -73,6 +73,16 @@ export function valoresItem(I, item) {
   return { dano: (b.dano || 0) * f, vida: (b.vida || 0) * f, atributos: { ...(item.bonus || {}) } };
 }
 
+// conjuntos: quantas peças de cada conjunto estão vestidas e quais bônus (2, 4, 6...) estão ativos
+export function conjuntosAtivos(I, equip) {
+  const vestidos = new Set(Object.values(equip).filter(Boolean).map((it) => it.base));
+  return (I.conjuntos || []).map((c) => {
+    const n = c.pecas.filter((p) => vestidos.has(p)).length;
+    const ativos = Object.keys(c.bonus).map(Number).filter((k) => n >= k).sort((a, b) => a - b);
+    return { conjunto: c, n, total: c.pecas.length, ativos, completo: n >= c.pecas.length };
+  }).filter((x) => x.n > 0);
+}
+
 export function derivados(P, I, est) {
   const D = P.derivados, at = { ...est.atributos };
   let danoItens = 0, vidaItens = 0;
@@ -81,6 +91,11 @@ export function derivados(P, I, est) {
     const v = valoresItem(I, it);
     danoItens += v.dano; vidaItens += v.vida;
     for (const [a, n] of Object.entries(v.atributos)) at[a] = (at[a] || 0) + n;
+  }
+  for (const c of conjuntosAtivos(I, est.equip)) for (const k of c.ativos) {
+    const b = c.conjunto.bonus[k];
+    danoItens += b.dano || 0; vidaItens += b.vida || 0;
+    for (const [a, n] of Object.entries(b.atributos || {})) at[a] = (at[a] || 0) + n;
   }
   return {
     atributos: at,
@@ -94,7 +109,8 @@ export function derivados(P, I, est) {
 }
 
 export function equipamentoInicial(I, classe) {
-  return Object.fromEntries(Object.entries(I.equipamento_inicial[classe]).map(([e, id]) => [e, novoItem(id)]));
+  const ini = I.equipamento_inicial[classe];
+  return Object.fromEntries(I.espacos.map((e) => [e, ini[e] ? novoItem(ini[e]) : null]));
 }
 
 // "Poder": um número só que resume a força do personagem (como a força de combate do Conquer), para o jogador

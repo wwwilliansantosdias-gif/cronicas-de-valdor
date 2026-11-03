@@ -1,9 +1,14 @@
 {
   "espacos": [
     "arma",
+    "escudo",
     "capacete",
+    "ombros",
     "peitoral",
-    "grevas"
+    "bracos",
+    "capa",
+    "grevas",
+    "botas"
   ],
   "qualidades": [
     {
@@ -13,7 +18,8 @@
       "bonus_atributos": 0,
       "peso": 70,
       "cor": "#e8e8ef",
-      "tinta": 0
+      "tinta": 0,
+      "material": null
     },
     {
       "id": "refinado",
@@ -22,7 +28,8 @@
       "bonus_atributos": 0,
       "peso": 22,
       "cor": "#7fd27f",
-      "tinta": 0.14
+      "tinta": 0.06,
+      "material": "polido"
     },
     {
       "id": "raro",
@@ -31,7 +38,8 @@
       "bonus_atributos": 1,
       "peso": 7,
       "cor": "#5fa8ff",
-      "tinta": 0.28
+      "tinta": 0.12,
+      "material": "azul"
     },
     {
       "id": "lendario",
@@ -40,7 +48,8 @@
       "bonus_atributos": 2,
       "peso": 1,
       "cor": "#ffc23a",
-      "tinta": 0.4
+      "tinta": 0.18,
+      "material": "ouro"
     }
   ],
   "melhoria": {
@@ -128,6 +137,174 @@
       }
     },
     {
+      "id": "maca",
+      "nome": "Maça",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 5,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 5.5,
+      "preco": 35,
+      "peca_lpc": [
+        "weapon/blunt/mace/walk.png",
+        "weapon/blunt/mace/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/blunt/mace/walk/mace.png",
+        "slash": "weapon/blunt/mace/attack_slash/mace.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
+      "id": "sabre",
+      "nome": "Sabre",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 8,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 6.5,
+      "preco": 45,
+      "peca_lpc": [
+        "weapon/sword/saber/walk.png",
+        "weapon/sword/saber/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/sword/saber/walk/saber.png",
+        "slash": "weapon/sword/saber/attack_slash/saber.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
+      "id": "machado",
+      "nome": "Machado de guerra",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 12,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 8,
+      "preco": 60,
+      "peca_lpc": [
+        "weapon/blunt/waraxe/walk.png",
+        "weapon/blunt/waraxe/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/blunt/waraxe/walk/waraxe.png",
+        "slash": "weapon/blunt/waraxe/attack_slash/waraxe.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
+      "id": "mangual",
+      "nome": "Mangual",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 16,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 9.5,
+      "preco": 75,
+      "peca_lpc": [
+        "weapon/blunt/flail/walk.png",
+        "weapon/blunt/flail/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/blunt/flail/walk/flail.png",
+        "slash": "weapon/blunt/flail/attack_slash/flail.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
+      "id": "florete",
+      "nome": "Florete",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 20,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 11,
+      "preco": 90,
+      "peca_lpc": [
+        "weapon/sword/rapier/walk.png",
+        "weapon/sword/rapier/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/sword/rapier/walk/rapier.png",
+        "slash": "weapon/sword/rapier/attack_slash/rapier.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
+      "id": "espada-brilhante-azul",
+      "nome": "Espada brilhante azul",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 23,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 13,
+      "preco": 120,
+      "peca_lpc": [
+        "weapon/sword/glowsword/walk.png",
+        "weapon/sword/glowsword/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/sword/glowsword/walk/blue.png",
+        "slash": "weapon/sword/glowsword/attack_slash/blue.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
+      "id": "espada-brilhante-rubra",
+      "nome": "Espada brilhante rubra",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 27,
+      "classes": [
+        "guerreiro"
+      ],
+      "dano": 15,
+      "preco": 150,
+      "peca_lpc": [
+        "weapon/sword/glowsword/walk.png",
+        "weapon/sword/glowsword/slash_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/sword/glowsword/walk/red.png",
+        "slash": "weapon/sword/glowsword/attack_slash/red.png",
+        "grande": [
+          "slash"
+        ]
+      },
+      "estocada_com_golpe": true
+    },
+    {
       "id": "arco-simples",
       "nome": "Arco simples",
       "tipo": "arma",
@@ -162,7 +339,7 @@
       "nome": "Arco recurvo",
       "tipo": "arma",
       "espaco": "arma",
-      "nivel": 4,
+      "nivel": 6,
       "classes": [
         "arqueiro"
       ],
@@ -192,7 +369,7 @@
       "nome": "Arco longo",
       "tipo": "arma",
       "espaco": "arma",
-      "nivel": 7,
+      "nivel": 12,
       "classes": [
         "arqueiro"
       ],
@@ -208,6 +385,60 @@
         },
         "shoot": "weapon/ranged/bow/great/universal/foreground/shoot/great.png"
       }
+    },
+    {
+      "id": "arco-recurvo-bronze",
+      "nome": "Arco recurvo de bronze",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 17,
+      "classes": [
+        "arqueiro"
+      ],
+      "dano": 10,
+      "preco": 80,
+      "peca_lpc": [
+        "weapon/ranged/bow/recurve/universal/foreground/shoot.png",
+        "weapon/ranged/bow/recurve/universal/background/shoot.png"
+      ],
+      "visual": {
+        "walk": {
+          "arquivo": "weapon/ranged/bow/recurve/universal/foreground/shoot/recurve.png",
+          "coluna": 0
+        },
+        "shoot": "weapon/ranged/bow/recurve/universal/foreground/shoot/recurve.png",
+        "fundo": {
+          "walk": {
+            "arquivo": "weapon/ranged/bow/recurve/universal/background/shoot/recurve.png",
+            "coluna": 0
+          },
+          "shoot": "weapon/ranged/bow/recurve/universal/background/shoot/recurve.png"
+        }
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "arco-longo-cinzaltar",
+      "nome": "Arco longo de Cinzaltar",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 25,
+      "classes": [
+        "arqueiro"
+      ],
+      "dano": 14,
+      "preco": 140,
+      "peca_lpc": [
+        "weapon/ranged/bow/great/universal/foreground/shoot.png"
+      ],
+      "visual": {
+        "walk": {
+          "arquivo": "weapon/ranged/bow/great/universal/foreground/shoot/great.png",
+          "coluna": 0
+        },
+        "shoot": "weapon/ranged/bow/great/universal/foreground/shoot/great.png"
+      },
+      "material": "cinzaltar"
     },
     {
       "id": "gibao-couro",
@@ -239,7 +470,7 @@
       "nome": "Cota de malha",
       "tipo": "armadura",
       "espaco": "peitoral",
-      "nivel": 3,
+      "nivel": 5,
       "classes": [
         "guerreiro",
         "arqueiro"
@@ -264,12 +495,12 @@
       "nome": "Couraça de legião",
       "tipo": "armadura",
       "espaco": "peitoral",
-      "nivel": 5,
+      "nivel": 10,
       "classes": [
         "guerreiro",
         "arqueiro"
       ],
-      "vida": 11,
+      "vida": 13,
       "preco": 45,
       "peca_lpc": [
         "torso/armour/legion/male/walk.png",
@@ -285,16 +516,42 @@
       }
     },
     {
-      "id": "armadura-placa",
-      "nome": "Peitoral de placas",
+      "id": "malha-mineiro",
+      "nome": "Malha do Mineiro",
       "tipo": "armadura",
       "espaco": "peitoral",
-      "nivel": 7,
+      "nivel": 15,
       "classes": [
         "guerreiro",
         "arqueiro"
       ],
-      "vida": 14,
+      "vida": 17,
+      "preco": 70,
+      "peca_lpc": [
+        "torso/chainmail/male/walk.png",
+        "torso/chainmail/male/slash.png",
+        "torso/chainmail/male/thrust.png",
+        "torso/chainmail/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "torso/chainmail/male/walk.png",
+        "slash": "torso/chainmail/male/slash.png",
+        "thrust": "torso/chainmail/male/thrust.png",
+        "shoot": "torso/chainmail/male/shoot.png"
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "armadura-placa",
+      "nome": "Peitoral de placas",
+      "tipo": "armadura",
+      "espaco": "peitoral",
+      "nivel": 20,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 21,
       "preco": 60,
       "peca_lpc": [
         "torso/armour/plate/male/walk.png",
@@ -308,6 +565,32 @@
         "thrust": "torso/armour/plate/male/thrust.png",
         "shoot": "torso/armour/plate/male/shoot.png"
       }
+    },
+    {
+      "id": "placas-cinzaltar",
+      "nome": "Placas de Cinzaltar",
+      "tipo": "armadura",
+      "espaco": "peitoral",
+      "nivel": 25,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 26,
+      "preco": 140,
+      "peca_lpc": [
+        "torso/armour/plate/male/walk.png",
+        "torso/armour/plate/male/slash.png",
+        "torso/armour/plate/male/thrust.png",
+        "torso/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "torso/armour/plate/male/walk.png",
+        "slash": "torso/armour/plate/male/slash.png",
+        "thrust": "torso/armour/plate/male/thrust.png",
+        "shoot": "torso/armour/plate/male/shoot.png"
+      },
+      "material": "cinzaltar"
     },
     {
       "id": "calca",
@@ -335,16 +618,92 @@
       }
     },
     {
-      "id": "calca-placa",
-      "nome": "Grevas de placas",
+      "id": "calca-reforcada",
+      "nome": "Calça reforçada",
       "tipo": "armadura",
       "espaco": "grevas",
-      "nivel": 5,
+      "nivel": 4,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 3,
+      "preco": 15,
+      "peca_lpc": [
+        "legs/pants2/male/walk.png",
+        "legs/pants2/male/slash.png",
+        "legs/pants2/male/thrust.png",
+        "legs/pants2/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "legs/pants2/male/walk.png",
+        "slash": "legs/pants2/male/slash.png",
+        "thrust": "legs/pants2/male/thrust.png",
+        "shoot": "legs/pants2/male/shoot.png"
+      }
+    },
+    {
+      "id": "saia-legiao",
+      "nome": "Saia de legião",
+      "tipo": "armadura",
+      "espaco": "grevas",
+      "nivel": 10,
       "classes": [
         "guerreiro",
         "arqueiro"
       ],
       "vida": 6,
+      "preco": 35,
+      "peca_lpc": [
+        "legs/skirts/legion/male/walk.png",
+        "legs/skirts/legion/male/slash.png",
+        "legs/skirts/legion/male/thrust.png",
+        "legs/skirts/legion/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "legs/skirts/legion/male/walk.png",
+        "slash": "legs/skirts/legion/male/slash.png",
+        "thrust": "legs/skirts/legion/male/thrust.png",
+        "shoot": "legs/skirts/legion/male/shoot.png"
+      }
+    },
+    {
+      "id": "grevas-mineiro",
+      "nome": "Grevas do Mineiro",
+      "tipo": "armadura",
+      "espaco": "grevas",
+      "nivel": 15,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 8,
+      "preco": 55,
+      "peca_lpc": [
+        "legs/armour/plate/male/walk.png",
+        "legs/armour/plate/male/slash.png",
+        "legs/armour/plate/male/thrust.png",
+        "legs/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "legs/armour/plate/male/walk.png",
+        "slash": "legs/armour/plate/male/slash.png",
+        "thrust": "legs/armour/plate/male/thrust.png",
+        "shoot": "legs/armour/plate/male/shoot.png"
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "calca-placa",
+      "nome": "Grevas de placas",
+      "tipo": "armadura",
+      "espaco": "grevas",
+      "nivel": 20,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 10,
       "preco": 35,
       "peca_lpc": [
         "legs/armour/plate/male/walk.png",
@@ -358,6 +717,32 @@
         "thrust": "legs/armour/plate/male/thrust.png",
         "shoot": "legs/armour/plate/male/shoot.png"
       }
+    },
+    {
+      "id": "grevas-cinzaltar",
+      "nome": "Grevas de Cinzaltar",
+      "tipo": "armadura",
+      "espaco": "grevas",
+      "nivel": 25,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 13,
+      "preco": 110,
+      "peca_lpc": [
+        "legs/armour/plate/male/walk.png",
+        "legs/armour/plate/male/slash.png",
+        "legs/armour/plate/male/thrust.png",
+        "legs/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "legs/armour/plate/male/walk.png",
+        "slash": "legs/armour/plate/male/slash.png",
+        "thrust": "legs/armour/plate/male/thrust.png",
+        "shoot": "legs/armour/plate/male/shoot.png"
+      },
+      "material": "cinzaltar"
     },
     {
       "id": "gorro-couro",
@@ -385,11 +770,36 @@
       }
     },
     {
+      "id": "capuz",
+      "nome": "Capuz",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 3,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 3,
+      "preco": 15,
+      "peca_lpc": [
+        "hat/cloth/hood/adult/walk.png",
+        "hat/cloth/hood/adult/slash.png",
+        "hat/cloth/hood/adult/thrust.png",
+        "hat/cloth/hood/adult/shoot.png"
+      ],
+      "visual": {
+        "walk": "hat/cloth/hood/adult/walk.png",
+        "slash": "hat/cloth/hood/adult/slash.png",
+        "thrust": "hat/cloth/hood/adult/thrust.png",
+        "shoot": "hat/cloth/hood/adult/shoot.png"
+      }
+    },
+    {
       "id": "elmo-nasal",
       "nome": "Elmo nasal",
       "tipo": "capacete",
       "espaco": "capacete",
-      "nivel": 3,
+      "nivel": 6,
       "classes": [
         "guerreiro",
         "arqueiro"
@@ -410,16 +820,41 @@
       }
     },
     {
-      "id": "elmo-barbaro",
-      "nome": "Elmo bárbaro",
+      "id": "elmo-bascinet",
+      "nome": "Elmo bascinet",
       "tipo": "capacete",
       "espaco": "capacete",
-      "nivel": 5,
+      "nivel": 10,
       "classes": [
         "guerreiro",
         "arqueiro"
       ],
-      "vida": 5,
+      "vida": 6,
+      "preco": 35,
+      "peca_lpc": [
+        "hat/helmet/bascinet/adult/walk.png",
+        "hat/helmet/bascinet/adult/slash.png",
+        "hat/helmet/bascinet/adult/thrust.png",
+        "hat/helmet/bascinet/adult/shoot.png"
+      ],
+      "visual": {
+        "walk": "hat/helmet/bascinet/adult/walk.png",
+        "slash": "hat/helmet/bascinet/adult/slash.png",
+        "thrust": "hat/helmet/bascinet/adult/thrust.png",
+        "shoot": "hat/helmet/bascinet/adult/shoot.png"
+      }
+    },
+    {
+      "id": "elmo-barbaro",
+      "nome": "Elmo bárbaro",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 13,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 7,
       "preco": 35,
       "peca_lpc": [
         "hat/helmet/barbarian/adult/walk.png",
@@ -435,16 +870,92 @@
       }
     },
     {
-      "id": "elmo-armet",
-      "nome": "Elmo armet",
+      "id": "elmo-mineiro",
+      "nome": "Elmo do Mineiro",
       "tipo": "capacete",
       "espaco": "capacete",
-      "nivel": 7,
+      "nivel": 15,
       "classes": [
         "guerreiro",
         "arqueiro"
       ],
-      "vida": 7,
+      "vida": 8,
+      "preco": 55,
+      "peca_lpc": [
+        "hat/helmet/bascinet/adult/walk.png",
+        "hat/helmet/bascinet/adult/slash.png",
+        "hat/helmet/bascinet/adult/thrust.png",
+        "hat/helmet/bascinet/adult/shoot.png"
+      ],
+      "visual": {
+        "walk": "hat/helmet/bascinet/adult/walk.png",
+        "slash": "hat/helmet/bascinet/adult/slash.png",
+        "thrust": "hat/helmet/bascinet/adult/thrust.png",
+        "shoot": "hat/helmet/bascinet/adult/shoot.png"
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "elmo-spangenhelm",
+      "nome": "Elmo spangenhelm",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 18,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 9,
+      "preco": 70,
+      "peca_lpc": [
+        "hat/helmet/spangenhelm/adult/walk.png",
+        "hat/helmet/spangenhelm/adult/slash.png",
+        "hat/helmet/spangenhelm/adult/thrust.png",
+        "hat/helmet/spangenhelm/adult/shoot.png"
+      ],
+      "visual": {
+        "walk": "hat/helmet/spangenhelm/adult/walk.png",
+        "slash": "hat/helmet/spangenhelm/adult/slash.png",
+        "thrust": "hat/helmet/spangenhelm/adult/thrust.png",
+        "shoot": "hat/helmet/spangenhelm/adult/shoot.png"
+      }
+    },
+    {
+      "id": "elmo-legiao",
+      "nome": "Elmo de legião",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 20,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 10,
+      "preco": 85,
+      "peca_lpc": [
+        "hat/helmet/legion/adult/walk.png",
+        "hat/helmet/legion/adult/slash.png",
+        "hat/helmet/legion/adult/thrust.png",
+        "hat/helmet/legion/adult/shoot.png"
+      ],
+      "visual": {
+        "walk": "hat/helmet/legion/adult/walk.png",
+        "slash": "hat/helmet/legion/adult/slash.png",
+        "thrust": "hat/helmet/legion/adult/thrust.png",
+        "shoot": "hat/helmet/legion/adult/shoot.png"
+      }
+    },
+    {
+      "id": "elmo-armet",
+      "nome": "Elmo armet",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 22,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 11,
       "preco": 50,
       "peca_lpc": [
         "hat/helmet/armet_simple/adult/walk.png",
@@ -458,6 +969,664 @@
         "thrust": "hat/helmet/armet_simple/adult/thrust.png",
         "shoot": "hat/helmet/armet_simple/adult/shoot.png"
       }
+    },
+    {
+      "id": "elmo-cinzaltar",
+      "nome": "Elmo de Cinzaltar",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 25,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 13,
+      "preco": 120,
+      "peca_lpc": [
+        "hat/helmet/horned/adult/walk.png",
+        "hat/helmet/horned/adult/slash.png",
+        "hat/helmet/horned/adult/thrust.png",
+        "hat/helmet/horned/adult/shoot.png"
+      ],
+      "visual": {
+        "walk": "hat/helmet/horned/adult/walk.png",
+        "slash": "hat/helmet/horned/adult/slash.png",
+        "thrust": "hat/helmet/horned/adult/thrust.png",
+        "shoot": "hat/helmet/horned/adult/shoot.png"
+      },
+      "material": "cinzaltar"
+    },
+    {
+      "id": "ombreiras-manto",
+      "nome": "Ombreiras de manto",
+      "tipo": "armadura",
+      "espaco": "ombros",
+      "nivel": 4,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 2,
+      "preco": 15,
+      "peca_lpc": [
+        "shoulders/mantal/male/walk.png",
+        "shoulders/mantal/male/slash.png",
+        "shoulders/mantal/male/thrust.png",
+        "shoulders/mantal/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "shoulders/mantal/male/walk.png",
+        "slash": "shoulders/mantal/male/slash.png",
+        "thrust": "shoulders/mantal/male/thrust.png",
+        "shoot": "shoulders/mantal/male/shoot.png"
+      }
+    },
+    {
+      "id": "ombreiras-placas",
+      "nome": "Ombreiras de placas",
+      "tipo": "armadura",
+      "espaco": "ombros",
+      "nivel": 10,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 4,
+      "preco": 35,
+      "peca_lpc": [
+        "shoulders/pauldrons/male/walk.png",
+        "shoulders/pauldrons/male/slash.png",
+        "shoulders/pauldrons/male/thrust.png",
+        "shoulders/pauldrons/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "shoulders/pauldrons/male/walk.png",
+        "slash": "shoulders/pauldrons/male/slash.png",
+        "thrust": "shoulders/pauldrons/male/thrust.png",
+        "shoot": "shoulders/pauldrons/male/shoot.png"
+      }
+    },
+    {
+      "id": "ombreiras-mineiro",
+      "nome": "Ombreiras do Mineiro",
+      "tipo": "armadura",
+      "espaco": "ombros",
+      "nivel": 15,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 6,
+      "preco": 55,
+      "peca_lpc": [
+        "shoulders/pauldrons/male/walk.png",
+        "shoulders/pauldrons/male/slash.png",
+        "shoulders/pauldrons/male/thrust.png",
+        "shoulders/pauldrons/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "shoulders/pauldrons/male/walk.png",
+        "slash": "shoulders/pauldrons/male/slash.png",
+        "thrust": "shoulders/pauldrons/male/thrust.png",
+        "shoot": "shoulders/pauldrons/male/shoot.png"
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "ombreiras-largas",
+      "nome": "Ombreiras largas",
+      "tipo": "armadura",
+      "espaco": "ombros",
+      "nivel": 20,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 8,
+      "preco": 80,
+      "peca_lpc": [
+        "shoulders/bauldron/male/walk.png",
+        "shoulders/bauldron/male/slash.png",
+        "shoulders/bauldron/male/thrust.png",
+        "shoulders/bauldron/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "shoulders/bauldron/male/walk.png",
+        "slash": "shoulders/bauldron/male/slash.png",
+        "thrust": "shoulders/bauldron/male/thrust.png",
+        "shoot": "shoulders/bauldron/male/shoot.png"
+      }
+    },
+    {
+      "id": "ombreiras-cinzaltar",
+      "nome": "Ombreiras de Cinzaltar",
+      "tipo": "armadura",
+      "espaco": "ombros",
+      "nivel": 25,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 10,
+      "preco": 110,
+      "peca_lpc": [
+        "shoulders/legion/male/walk.png",
+        "shoulders/legion/male/slash.png",
+        "shoulders/legion/male/thrust.png",
+        "shoulders/legion/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "shoulders/legion/male/walk.png",
+        "slash": "shoulders/legion/male/slash.png",
+        "thrust": "shoulders/legion/male/thrust.png",
+        "shoot": "shoulders/legion/male/shoot.png"
+      },
+      "material": "cinzaltar"
+    },
+    {
+      "id": "bracadeiras-couro",
+      "nome": "Braçadeiras de couro",
+      "tipo": "armadura",
+      "espaco": "bracos",
+      "nivel": 1,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 1,
+      "preco": 10,
+      "peca_lpc": [
+        "arms/bracers/male/walk.png",
+        "arms/bracers/male/slash.png",
+        "arms/bracers/male/thrust.png",
+        "arms/bracers/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "arms/bracers/male/walk.png",
+        "slash": "arms/bracers/male/slash.png",
+        "thrust": "arms/bracers/male/thrust.png",
+        "shoot": "arms/bracers/male/shoot.png"
+      }
+    },
+    {
+      "id": "luvas",
+      "nome": "Luvas",
+      "tipo": "armadura",
+      "espaco": "bracos",
+      "nivel": 5,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 2,
+      "preco": 20,
+      "peca_lpc": [
+        "arms/hands/gloves/male/walk.png",
+        "arms/hands/gloves/male/slash.png",
+        "arms/hands/gloves/male/thrust.png",
+        "arms/hands/gloves/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "arms/hands/gloves/male/walk.png",
+        "slash": "arms/hands/gloves/male/slash.png",
+        "thrust": "arms/hands/gloves/male/thrust.png",
+        "shoot": "arms/hands/gloves/male/shoot.png"
+      }
+    },
+    {
+      "id": "bracadeiras-mineiro",
+      "nome": "Braçadeiras do Mineiro",
+      "tipo": "armadura",
+      "espaco": "bracos",
+      "nivel": 15,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 5,
+      "preco": 50,
+      "peca_lpc": [
+        "arms/bracers/male/walk.png",
+        "arms/bracers/male/slash.png",
+        "arms/bracers/male/thrust.png",
+        "arms/bracers/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "arms/bracers/male/walk.png",
+        "slash": "arms/bracers/male/slash.png",
+        "thrust": "arms/bracers/male/thrust.png",
+        "shoot": "arms/bracers/male/shoot.png"
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "bracos-placa",
+      "nome": "Braços de placas",
+      "tipo": "armadura",
+      "espaco": "bracos",
+      "nivel": 20,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 7,
+      "preco": 80,
+      "peca_lpc": [
+        "arms/armour/plate/male/walk.png",
+        "arms/armour/plate/male/slash.png",
+        "arms/armour/plate/male/thrust.png",
+        "arms/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "arms/armour/plate/male/walk.png",
+        "slash": "arms/armour/plate/male/slash.png",
+        "thrust": "arms/armour/plate/male/thrust.png",
+        "shoot": "arms/armour/plate/male/shoot.png"
+      }
+    },
+    {
+      "id": "bracos-cinzaltar",
+      "nome": "Braços de Cinzaltar",
+      "tipo": "armadura",
+      "espaco": "bracos",
+      "nivel": 25,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 9,
+      "preco": 110,
+      "peca_lpc": [
+        "arms/armour/plate/male/walk.png",
+        "arms/armour/plate/male/slash.png",
+        "arms/armour/plate/male/thrust.png",
+        "arms/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "arms/armour/plate/male/walk.png",
+        "slash": "arms/armour/plate/male/slash.png",
+        "thrust": "arms/armour/plate/male/thrust.png",
+        "shoot": "arms/armour/plate/male/shoot.png"
+      },
+      "material": "cinzaltar"
+    },
+    {
+      "id": "botas-couro",
+      "nome": "Botas de couro",
+      "tipo": "armadura",
+      "espaco": "botas",
+      "nivel": 1,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 1,
+      "preco": 10,
+      "peca_lpc": [
+        "feet/boots/basic/male/walk.png",
+        "feet/boots/basic/male/slash.png",
+        "feet/boots/basic/male/thrust.png",
+        "feet/boots/basic/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "feet/boots/basic/male/walk.png",
+        "slash": "feet/boots/basic/male/slash.png",
+        "thrust": "feet/boots/basic/male/thrust.png",
+        "shoot": "feet/boots/basic/male/shoot.png"
+      }
+    },
+    {
+      "id": "botas-dobradas",
+      "nome": "Botas dobradas",
+      "tipo": "armadura",
+      "espaco": "botas",
+      "nivel": 6,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 2,
+      "preco": 20,
+      "peca_lpc": [
+        "feet/boots/fold/male/walk.png",
+        "feet/boots/fold/male/slash.png",
+        "feet/boots/fold/male/thrust.png",
+        "feet/boots/fold/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "feet/boots/fold/male/walk.png",
+        "slash": "feet/boots/fold/male/slash.png",
+        "thrust": "feet/boots/fold/male/thrust.png",
+        "shoot": "feet/boots/fold/male/shoot.png"
+      }
+    },
+    {
+      "id": "botas-placa",
+      "nome": "Botas de placas",
+      "tipo": "armadura",
+      "espaco": "botas",
+      "nivel": 12,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 4,
+      "preco": 45,
+      "peca_lpc": [
+        "feet/armour/plate/male/walk.png",
+        "feet/armour/plate/male/slash.png",
+        "feet/armour/plate/male/thrust.png",
+        "feet/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "feet/armour/plate/male/walk.png",
+        "slash": "feet/armour/plate/male/slash.png",
+        "thrust": "feet/armour/plate/male/thrust.png",
+        "shoot": "feet/armour/plate/male/shoot.png"
+      }
+    },
+    {
+      "id": "botas-mineiro",
+      "nome": "Botas do Mineiro",
+      "tipo": "armadura",
+      "espaco": "botas",
+      "nivel": 15,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 5,
+      "preco": 55,
+      "peca_lpc": [
+        "feet/armour/plate/male/walk.png",
+        "feet/armour/plate/male/slash.png",
+        "feet/armour/plate/male/thrust.png",
+        "feet/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "feet/armour/plate/male/walk.png",
+        "slash": "feet/armour/plate/male/slash.png",
+        "thrust": "feet/armour/plate/male/thrust.png",
+        "shoot": "feet/armour/plate/male/shoot.png"
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "botas-cinzaltar",
+      "nome": "Botas de Cinzaltar",
+      "tipo": "armadura",
+      "espaco": "botas",
+      "nivel": 25,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 9,
+      "preco": 110,
+      "peca_lpc": [
+        "feet/armour/plate/male/walk.png",
+        "feet/armour/plate/male/slash.png",
+        "feet/armour/plate/male/thrust.png",
+        "feet/armour/plate/male/shoot.png"
+      ],
+      "visual": {
+        "walk": "feet/armour/plate/male/walk.png",
+        "slash": "feet/armour/plate/male/slash.png",
+        "thrust": "feet/armour/plate/male/thrust.png",
+        "shoot": "feet/armour/plate/male/shoot.png"
+      },
+      "material": "cinzaltar"
+    },
+    {
+      "id": "capa-lisa",
+      "nome": "Capa lisa",
+      "tipo": "armadura",
+      "espaco": "capa",
+      "nivel": 7,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 3,
+      "preco": 25,
+      "peca_lpc": [
+        "cape/solid/fg/walk.png",
+        "cape/solid/fg/slash.png",
+        "cape/solid/fg/thrust.png",
+        "cape/solid/fg/shoot.png",
+        "cape/solid/bg/walk.png",
+        "cape/solid/bg/slash.png",
+        "cape/solid/bg/thrust.png",
+        "cape/solid/bg/shoot.png"
+      ],
+      "visual": {
+        "walk": "cape/solid/fg/walk.png",
+        "slash": "cape/solid/fg/slash.png",
+        "thrust": "cape/solid/fg/thrust.png",
+        "shoot": "cape/solid/fg/shoot.png",
+        "fundo": {
+          "walk": "cape/solid/bg/walk.png",
+          "slash": "cape/solid/bg/slash.png",
+          "thrust": "cape/solid/bg/thrust.png",
+          "shoot": "cape/solid/bg/shoot.png"
+        }
+      },
+      "icone_linha": 0
+    },
+    {
+      "id": "capa-viagem",
+      "nome": "Capa de viagem",
+      "tipo": "armadura",
+      "espaco": "capa",
+      "nivel": 14,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 5,
+      "preco": 50,
+      "peca_lpc": [
+        "cape/solid/fg/walk.png",
+        "cape/solid/fg/slash.png",
+        "cape/solid/fg/thrust.png",
+        "cape/solid/fg/shoot.png",
+        "cape/solid/bg/walk.png",
+        "cape/solid/bg/slash.png",
+        "cape/solid/bg/thrust.png",
+        "cape/solid/bg/shoot.png"
+      ],
+      "visual": {
+        "walk": "cape/solid/fg/walk.png",
+        "slash": "cape/solid/fg/slash.png",
+        "thrust": "cape/solid/fg/thrust.png",
+        "shoot": "cape/solid/fg/shoot.png",
+        "fundo": {
+          "walk": "cape/solid/bg/walk.png",
+          "slash": "cape/solid/bg/slash.png",
+          "thrust": "cape/solid/bg/thrust.png",
+          "shoot": "cape/solid/bg/shoot.png"
+        }
+      },
+      "material": "bronze",
+      "icone_linha": 0
+    },
+    {
+      "id": "capa-esfarrapada",
+      "nome": "Capa esfarrapada",
+      "tipo": "armadura",
+      "espaco": "capa",
+      "nivel": 20,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 7,
+      "preco": 80,
+      "peca_lpc": [
+        "cape/tattered/fg/walk.png",
+        "cape/tattered/fg/slash.png",
+        "cape/tattered/fg/thrust.png",
+        "cape/tattered/fg/shoot.png",
+        "cape/tattered/bg/walk.png",
+        "cape/tattered/bg/slash.png",
+        "cape/tattered/bg/thrust.png",
+        "cape/tattered/bg/shoot.png"
+      ],
+      "visual": {
+        "walk": "cape/tattered/fg/walk.png",
+        "slash": "cape/tattered/fg/slash.png",
+        "thrust": "cape/tattered/fg/thrust.png",
+        "shoot": "cape/tattered/fg/shoot.png",
+        "fundo": {
+          "walk": "cape/tattered/bg/walk.png",
+          "slash": "cape/tattered/bg/slash.png",
+          "thrust": "cape/tattered/bg/thrust.png",
+          "shoot": "cape/tattered/bg/shoot.png"
+        }
+      },
+      "icone_linha": 0
+    },
+    {
+      "id": "capa-cinzaltar",
+      "nome": "Capa de Cinzaltar",
+      "tipo": "armadura",
+      "espaco": "capa",
+      "nivel": 26,
+      "classes": [
+        "guerreiro",
+        "arqueiro"
+      ],
+      "vida": 9,
+      "preco": 120,
+      "peca_lpc": [
+        "cape/tattered/fg/walk.png",
+        "cape/tattered/fg/slash.png",
+        "cape/tattered/fg/thrust.png",
+        "cape/tattered/fg/shoot.png",
+        "cape/tattered/bg/walk.png",
+        "cape/tattered/bg/slash.png",
+        "cape/tattered/bg/thrust.png",
+        "cape/tattered/bg/shoot.png"
+      ],
+      "visual": {
+        "walk": "cape/tattered/fg/walk.png",
+        "slash": "cape/tattered/fg/slash.png",
+        "thrust": "cape/tattered/fg/thrust.png",
+        "shoot": "cape/tattered/fg/shoot.png",
+        "fundo": {
+          "walk": "cape/tattered/bg/walk.png",
+          "slash": "cape/tattered/bg/slash.png",
+          "thrust": "cape/tattered/bg/thrust.png",
+          "shoot": "cape/tattered/bg/shoot.png"
+        }
+      },
+      "material": "cinzaltar",
+      "icone_linha": 0
+    },
+    {
+      "id": "escudo-redondo",
+      "nome": "Escudo redondo",
+      "tipo": "escudo",
+      "espaco": "escudo",
+      "nivel": 3,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 5,
+      "preco": 25,
+      "peca_lpc": [
+        "shield/round/walk.png",
+        "shield/round/slash.png",
+        "shield/round/thrust.png"
+      ],
+      "visual": {
+        "walk": "shield/round/walk.png",
+        "slash": "shield/round/slash.png",
+        "thrust": "shield/round/thrust.png"
+      }
+    },
+    {
+      "id": "escudo-pipa",
+      "nome": "Escudo pipa",
+      "tipo": "escudo",
+      "espaco": "escudo",
+      "nivel": 10,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 10,
+      "preco": 50,
+      "peca_lpc": [
+        "shield/kite/male/walk.png",
+        "shield/kite/male/slash.png",
+        "shield/kite/male/thrust.png"
+      ],
+      "visual": {
+        "walk": "shield/kite/male/walk/kite_gray.png",
+        "slash": "shield/kite/male/slash/kite_gray.png",
+        "thrust": "shield/kite/male/thrust/kite_gray.png"
+      }
+    },
+    {
+      "id": "escudo-cruzado",
+      "nome": "Escudo cruzado",
+      "tipo": "escudo",
+      "espaco": "escudo",
+      "nivel": 20,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 16,
+      "preco": 90,
+      "peca_lpc": [
+        "shield/crusader/fg/male/walk.png",
+        "shield/crusader/fg/male/slash.png",
+        "shield/crusader/fg/male/thrust.png",
+        "shield/crusader/bg/walk.png",
+        "shield/crusader/bg/slash.png",
+        "shield/crusader/bg/thrust.png"
+      ],
+      "visual": {
+        "walk": "shield/crusader/fg/male/walk/crusader.png",
+        "slash": "shield/crusader/fg/male/slash/crusader.png",
+        "thrust": "shield/crusader/fg/male/thrust/crusader.png",
+        "fundo": {
+          "walk": "shield/crusader/bg/walk.png",
+          "slash": "shield/crusader/bg/slash.png",
+          "thrust": "shield/crusader/bg/thrust.png"
+        }
+      }
+    },
+    {
+      "id": "escudo-cinzaltar",
+      "nome": "Escudo de Cinzaltar",
+      "tipo": "escudo",
+      "espaco": "escudo",
+      "nivel": 26,
+      "classes": [
+        "guerreiro"
+      ],
+      "vida": 20,
+      "preco": 130,
+      "peca_lpc": [
+        "shield/crusader/fg/male/walk.png",
+        "shield/crusader/fg/male/slash.png",
+        "shield/crusader/fg/male/thrust.png",
+        "shield/crusader/bg/walk.png",
+        "shield/crusader/bg/slash.png",
+        "shield/crusader/bg/thrust.png"
+      ],
+      "visual": {
+        "walk": "shield/crusader/fg/male/walk/crusader.png",
+        "slash": "shield/crusader/fg/male/slash/crusader.png",
+        "thrust": "shield/crusader/fg/male/thrust/crusader.png",
+        "fundo": {
+          "walk": "shield/crusader/bg/walk.png",
+          "slash": "shield/crusader/bg/slash.png",
+          "thrust": "shield/crusader/bg/thrust.png"
+        }
+      },
+      "material": "cinzaltar"
     }
   ],
   "equipamento_inicial": {
@@ -465,13 +1634,15 @@
       "arma": "espada-longa",
       "capacete": "gorro-couro",
       "peitoral": "gibao-couro",
-      "grevas": "calca"
+      "grevas": "calca",
+      "botas": "botas-couro"
     },
     "arqueiro": {
       "arma": "arco-simples",
       "capacete": "gorro-couro",
       "peitoral": "gibao-couro",
-      "grevas": "calca"
+      "grevas": "calca",
+      "botas": "botas-couro"
     }
   },
   "mochila_max": 20,
@@ -493,12 +1664,19 @@
       "base": "body/bodies/male",
       "cabeca": "head/heads/human/male",
       "ordem": [
+        "fundo:capa",
+        "fundo:escudo",
         "corpo",
+        "botas",
         "grevas",
         "peitoral",
+        "bracos",
+        "ombros",
+        "capa",
         "cabeca",
         "capacete",
-        "arma"
+        "arma",
+        "escudo"
       ],
       "animacoes": [
         "walk",
@@ -514,10 +1692,15 @@
         "shoot"
       ],
       "ordem": [
-        "fundo_arma",
+        "fundo:capa",
+        "fundo:arma",
         "corpo",
+        "botas",
         "grevas",
         "peitoral",
+        "bracos",
+        "ombros",
+        "capa",
         "aljava",
         "cabeca",
         "capacete",
@@ -541,5 +1724,284 @@
         }
       }
     }
+  },
+  "materiais": {
+    "polido": [
+      [
+        40,
+        44,
+        52
+      ],
+      [
+        78,
+        84,
+        96
+      ],
+      [
+        120,
+        128,
+        142
+      ],
+      [
+        164,
+        172,
+        186
+      ],
+      [
+        204,
+        212,
+        224
+      ],
+      [
+        232,
+        238,
+        246
+      ],
+      [
+        250,
+        252,
+        255
+      ]
+    ],
+    "azul": [
+      [
+        16,
+        26,
+        52
+      ],
+      [
+        34,
+        56,
+        104
+      ],
+      [
+        58,
+        92,
+        156
+      ],
+      [
+        92,
+        132,
+        200
+      ],
+      [
+        136,
+        176,
+        232
+      ],
+      [
+        184,
+        214,
+        250
+      ],
+      [
+        226,
+        240,
+        255
+      ]
+    ],
+    "ouro": [
+      [
+        48,
+        30,
+        8
+      ],
+      [
+        96,
+        64,
+        16
+      ],
+      [
+        150,
+        104,
+        24
+      ],
+      [
+        204,
+        152,
+        40
+      ],
+      [
+        240,
+        200,
+        80
+      ],
+      [
+        255,
+        236,
+        150
+      ],
+      [
+        255,
+        250,
+        210
+      ]
+    ],
+    "bronze": [
+      [
+        40,
+        22,
+        10
+      ],
+      [
+        82,
+        46,
+        20
+      ],
+      [
+        124,
+        74,
+        34
+      ],
+      [
+        166,
+        106,
+        52
+      ],
+      [
+        200,
+        140,
+        76
+      ],
+      [
+        230,
+        178,
+        112
+      ],
+      [
+        250,
+        214,
+        160
+      ]
+    ],
+    "cinzaltar": [
+      [
+        26,
+        18,
+        40
+      ],
+      [
+        52,
+        36,
+        80
+      ],
+      [
+        84,
+        62,
+        120
+      ],
+      [
+        120,
+        96,
+        160
+      ],
+      [
+        160,
+        140,
+        196
+      ],
+      [
+        200,
+        188,
+        226
+      ],
+      [
+        236,
+        230,
+        250
+      ]
+    ]
+  },
+  "conjuntos": [
+    {
+      "id": "lenhador",
+      "nome": "do Lenhador",
+      "cor": "#7fd27f",
+      "pecas": [
+        "capuz",
+        "luvas",
+        "botas-dobradas",
+        "calca-reforcada",
+        "ombreiras-manto"
+      ],
+      "bonus": {
+        "2": {
+          "atributos": {
+            "vit": 3
+          }
+        },
+        "4": {
+          "atributos": {
+            "for": 3
+          }
+        },
+        "5": {
+          "vida": 25,
+          "aura": true
+        }
+      }
+    },
+    {
+      "id": "mineiro",
+      "nome": "do Mineiro",
+      "cor": "#d8a04c",
+      "pecas": [
+        "malha-mineiro",
+        "grevas-mineiro",
+        "elmo-mineiro",
+        "ombreiras-mineiro",
+        "bracadeiras-mineiro",
+        "botas-mineiro"
+      ],
+      "bonus": {
+        "2": {
+          "atributos": {
+            "vit": 4
+          }
+        },
+        "4": {
+          "atributos": {
+            "for": 4
+          }
+        },
+        "6": {
+          "vida": 60,
+          "aura": true
+        }
+      }
+    },
+    {
+      "id": "cinzaltar",
+      "nome": "de Cinzaltar",
+      "cor": "#a98be0",
+      "pecas": [
+        "placas-cinzaltar",
+        "grevas-cinzaltar",
+        "elmo-cinzaltar",
+        "ombreiras-cinzaltar",
+        "bracos-cinzaltar",
+        "botas-cinzaltar"
+      ],
+      "bonus": {
+        "2": {
+          "atributos": {
+            "for": 6
+          }
+        },
+        "4": {
+          "atributos": {
+            "vit": 6
+          }
+        },
+        "6": {
+          "dano": 12,
+          "aura": true
+        }
+      }
+    }
+  ],
+  "brilho": {
+    "a_partir_de": 3,
+    "faiscas_em": 5
   }
 }

@@ -2,7 +2,7 @@
 import { atributosIniciais, pontosAteNivel, pontosHabilidadeAteNivel, equipamentoInicial } from "./personagem.js";
 
 const CHAVE = "valdor-save";
-export const VERSAO = 2;
+export const VERSAO = 3;
 
 export function serializar(est) { return JSON.stringify(est); }
 
@@ -16,6 +16,13 @@ export function migrarV1(P, I, v1) {
   est.equip.arma.mais = Math.min(I.melhoria.max, v1.armaNivel || 0);
   delete est.armaNivel;
   return est;
+}
+
+// v2 -> v3: espaços novos de equipamento (ombros, braços, botas, capa, escudo) entram vazios
+export function migrarV2(I, v2) {
+  const equip = { ...(v2.equip || {}) };
+  for (const e of I.espacos) if (!(e in equip)) equip[e] = null;
+  return { ...v2, versao: 3, equip };
 }
 
 function itemValido(P, I, it, espaco, classe) {
@@ -32,6 +39,7 @@ export function validar(P, I, obj, mapasValidos) {
     if (!inteiro(obj.nivel, 1, P.nivel_max) || !inteiro(obj.armaNivel ?? 0, 0, 9)) return null;
     obj = migrarV1(P, I, obj);
   }
+  if (obj.versao === 2) obj = migrarV2(I, obj);
   if (obj.versao !== VERSAO || !I.equipamento_inicial[obj.classe]) return null;
   if (!inteiro(obj.nivel, 1, P.nivel_max) || !inteiro(obj.ouro, 0, 1e9) || !inteiro(obj.pocoes, 0, 999)) return null;
   if (typeof obj.xp !== "number" || !(obj.xp >= 0)) return null;
