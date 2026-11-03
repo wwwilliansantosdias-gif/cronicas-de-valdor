@@ -93,7 +93,7 @@ def test_todo_item_vestivel_tem_visual_com_as_animacoes_de_cada_classe_que_o_usa
                 assert anim in v, f"{it['id']} ({classe}): sem animação {anim}"
                 _confere_folha(it["id"], v[anim], anim, anim in v.get("grande", []))
                 if "fundo" in v and anim in v["fundo"]:
-                    _confere_folha(it["id"] + " (fundo)", v["fundo"][anim], anim)
+                    _confere_folha(it["id"] + " (fundo)", v["fundo"][anim], anim, anim in v["fundo"].get("grande", []))
 
 
 def test_corpo_e_extras_de_cada_classe_tem_as_animacoes_e_estao_creditados():

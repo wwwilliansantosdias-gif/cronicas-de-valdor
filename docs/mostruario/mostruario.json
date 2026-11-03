@@ -1805,6 +1805,50 @@
      ]
     }
    ]
+  },
+  {
+   "id": "efeitos-magia",
+   "nome": "Efeitos de magia (Mago)",
+   "pacotes": [
+    "extended-lpc-magic-pack"
+   ],
+   "imagens": [
+    {
+     "nome": "leão de fogo",
+     "file": "img/firelion_right_365428.png"
+    },
+    {
+     "nome": "garra de raio",
+     "file": "img/lightningclaw_750b22.png"
+    },
+    {
+     "nome": "espinhos de gelo",
+     "file": "img/spikes_3655c8.png"
+    },
+    {
+     "nome": "escudo de gelo",
+     "file": "img/iceshield_371966.png"
+    },
+    {
+     "nome": "tornado",
+     "file": "img/tornado_495389.png"
+    },
+    {
+     "nome": "tentáculo de gelo",
+     "file": "img/icetacle_6608a3.png"
+    }
+   ],
+   "pacotes_info": [
+    {
+     "slug": "extended-lpc-magic-pack",
+     "titulo": "Extended LPC Magic pack",
+     "url": "https://opengameart.org/content/extended-lpc-magic-pack",
+     "licencas": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ]
+    }
+   ]
   }
  ],
  "sem_pacote": [

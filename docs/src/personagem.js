@@ -120,9 +120,10 @@ export function equipamentoInicial(I, classe) {
 // "Poder": um número só que resume a força do personagem (como a força de combate do Conquer), para o jogador
 // perceber o progresso por nível, pontos e itens. Usa o dano por segundo do ataque básico (com crítico médio) e a vida.
 // dano que o herói realmente recebe: a Defesa reduz por defesa/(defesa+k) — quanto mais defesa, menos cada ponto rende
-export function danoRecebido(P, sv, dano) {
-  if (!P.defesa) return dano;
-  return Math.max(P.defesa.dano_minimo, Math.round(dano * (1 - sv.reducao)));
+// escudo: redução extra temporária (Escudo de Gelo do Mago), somada à da Defesa de forma multiplicativa
+export function danoRecebido(P, sv, dano, escudo = 0) {
+  if (!P.defesa) return Math.max(1, Math.round(dano * (1 - escudo)));
+  return Math.max(P.defesa.dano_minimo, Math.round(dano * (1 - sv.reducao) * (1 - escudo)));
 }
 
 export function estatisticas(P, sv, habBasica) {

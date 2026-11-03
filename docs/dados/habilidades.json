@@ -166,6 +166,109 @@
       "impacto": 0.32,
       "implementada": true,
       "descricao": "Flecha que atravessa a fila inteira."
+    },
+    {
+      "id": "faisca",
+      "nome": "Faísca",
+      "classe": "mago",
+      "nivel": 1,
+      "forma": "linha",
+      "alcance": 180,
+      "raio": 12,
+      "alvos": 1,
+      "mult": 1.0,
+      "recarga": 0.6,
+      "animacao": "thrust",
+      "duracao": 0.48,
+      "impacto": 0.3,
+      "efeito": {
+        "folha": "raio",
+        "onde": "alvo"
+      },
+      "implementada": true,
+      "descricao": "Raio no primeiro inimigo à frente, de longe."
+    },
+    {
+      "id": "leao",
+      "nome": "Leão de Fogo",
+      "classe": "mago",
+      "nivel": 3,
+      "forma": "linha",
+      "alcance": 200,
+      "raio": 18,
+      "mult": 0.9,
+      "recarga": 2.5,
+      "animacao": "thrust",
+      "duracao": 0.48,
+      "impacto": 0.3,
+      "efeito": {
+        "folha": "leao",
+        "onde": "corre"
+      },
+      "implementada": true,
+      "descricao": "Um leão de fogo corre à frente e atravessa todos no caminho."
+    },
+    {
+      "id": "espinhos",
+      "nome": "Espinhos de Gelo",
+      "classe": "mago",
+      "nivel": 6,
+      "forma": "circulo",
+      "alcance": 0,
+      "raio": 60,
+      "mult": 1.1,
+      "recarga": 4,
+      "animacao": "thrust",
+      "duracao": 0.48,
+      "impacto": 0.3,
+      "efeito": {
+        "folha": "espinhos",
+        "onde": "volta"
+      },
+      "implementada": true,
+      "descricao": "Espinhos de gelo brotam em volta: atinge todos perto."
+    },
+    {
+      "id": "escudo",
+      "nome": "Escudo de Gelo",
+      "classe": "mago",
+      "nivel": 12,
+      "forma": "escudo",
+      "reducao": 0.5,
+      "duracao_efeito": 5,
+      "recarga": 14,
+      "mult": 0,
+      "animacao": "thrust",
+      "duracao": 0.48,
+      "impacto": 0.3,
+      "efeito": {
+        "folha": "escudo",
+        "onde": "jogador"
+      },
+      "implementada": true,
+      "descricao": "Escudo de gelo: metade do dano por 5 segundos."
+    },
+    {
+      "id": "tornado",
+      "nome": "Tornado",
+      "classe": "mago",
+      "nivel": 20,
+      "forma": "circulo",
+      "distancia": 120,
+      "raio": 60,
+      "mult": 0.7,
+      "tiques": 4,
+      "intervalo": 0.4,
+      "recarga": 7,
+      "animacao": "thrust",
+      "duracao": 0.48,
+      "impacto": 0.3,
+      "efeito": {
+        "folha": "tornado",
+        "onde": "distancia"
+      },
+      "implementada": true,
+      "descricao": "Tornado numa área à frente: acerta o bando 4 vezes."
     }
   ],
   "por_grau": {

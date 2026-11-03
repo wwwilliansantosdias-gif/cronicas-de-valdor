@@ -26,7 +26,17 @@ let D, IMG, EST, MAPAS = {}, mapa, jogador, monstros = [], chao = [], avisoCheia
 const MSTR = {};
 
 // flechas visuais (desenhadas em código): o dano vem da forma da habilidade no "impacto"; aqui é só o que se vê
-const SOLTAR = 0.32, efeitos = [];
+const SOLTAR = 0.32, efeitos = [], zonas = [];
+// efeitos de magia em folha (dados/efeitos.json): no alvo, correndo à frente, em volta, no jogador ou à distância
+function efeitoFolha(h, j, golpes) {
+  const e = h.efeito, f = D.EF[e.folha], [vx, vy] = VET[j.dir];
+  const img = f.img ? IMG[f.img] : IMG[f.img_por_direcao[j.dir]], base = { tipo: "folha", f, img, t: 0, dur: f.dur };
+  if (e.onde === "alvo") { const alvos = golpes.length ? golpes.map((g) => g.m) : [{ x: j.x + vx * h.alcance, y: j.y + vy * h.alcance }]; for (const m of alvos) efeitos.push({ ...base, x: m.x, y: m.y - 16 }); }
+  else if (e.onde === "corre") efeitos.push({ ...base, x0: j.x + vx * 16, y0: j.y - 20 + vy * 8, x1: j.x + vx * h.alcance, y1: j.y - 20 + vy * h.alcance });
+  else if (e.onde === "volta") for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2; efeitos.push({ ...base, x: j.x + Math.cos(a) * h.raio * 0.7, y: j.y + Math.sin(a) * h.raio * 0.45 - 8, t: -k * 0.02 }); }
+  else if (e.onde === "jogador") efeitos.push({ ...base, segue: j, dur: h.duracao_efeito, y: -26 });
+  else if (e.onde === "distancia") efeitos.push({ ...base, x: j.x + vx * h.distancia, y: j.y - 24 + vy * h.distancia, dur: (h.tiques || 1) * (h.intervalo || 0.5) });
+}
 function soltarFlechas(h) {
   const [vx, vy] = VET[jogador.dir], ox = jogador.x, oy = jogador.y - 26, ang = Math.atan2(vy, vx);
   if (h.forma === "linha") {
@@ -48,7 +58,13 @@ function desenharEfeitos(dt) {
     if (e.t < 0) continue;
     const p = Math.min(1, e.t / e.dur);
     ctx.save(); ctx.strokeStyle = "#7a5432"; ctx.fillStyle = "#f2f2f8"; ctx.lineWidth = 2;
-    if (e.tipo === "voo") { // 2,5D: a flecha sobe e desce em arco; a sombra corre reta no chão
+    if (e.tipo === "folha") { // quadro da folha de efeito, centrado no ponto
+      const f = e.f, q = f.repete ? Math.floor(e.t / f.dur * f.quadros) % f.quadros : Math.min(f.quadros - 1, Math.floor(p * f.quadros));
+      const sx = (q % f.colunas) * f.fw, sy = (f.linha0 + Math.floor(q / f.colunas)) * f.fw, lado = Math.round(f.fw * f.escala);
+      const x = e.segue ? e.segue.x : e.x0 != null ? e.x0 + (e.x1 - e.x0) * p : e.x, y = e.segue ? e.segue.y + e.y : e.y0 != null ? e.y0 + (e.y1 - e.y0) * p : e.y;
+      if (e.segue) ctx.globalAlpha = 0.75;
+      if (e.img) ctx.drawImage(e.img, sx, sy, f.fw, f.fw, Math.round(x - lado / 2 - cam.x), Math.round(y - lado / 2 - cam.y), lado, lado);
+    } else if (e.tipo === "voo") { // 2,5D: a flecha sobe e desce em arco; a sombra corre reta no chão
       const gx = e.x0 + Math.cos(e.ang) * e.d * p - cam.x, gy = e.y0 + 22 + Math.sin(e.ang) * e.d * p - cam.y;
       const alt = Math.sin(Math.PI * p) * Math.min(26, e.d * 0.12) + 22, x = gx, y = gy - alt;
       const inc = Math.cos(Math.PI * p) * 0.6, dx = Math.cos(e.ang), dy = Math.sin(e.ang) - inc * Math.abs(Math.cos(e.ang));
@@ -73,11 +89,12 @@ function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; 
 function salvar() { guardar(localStorage, EST); }
 
 async function iniciar() {
-  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen, apar] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json", "dados/aparencia.json"].map(json));
+  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen, apar, efe] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json", "dados/aparencia.json", "dados/efeitos.json"].map(json));
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
-    CEN: cen, AP: apar, P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
+    CEN: cen, AP: apar, EF: efe, P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
   const arq = ["forest_tiles", "dirt", "cavern_ruins", "signs", "house", "soldier", "soldier_altcolor", "princess", ...["casa_tijolo", "casa_pedra", "fonte", "barraca", "quadro", "forja", "poco"].map((c) => "cidade/" + c)];
+  for (const [k, e] of Object.entries(efe)) if (k[0] !== "_") arq.push(...(e.img ? [e.img] : Object.values(e.img_por_direcao)));
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
   // peças do personagem: corpo, cabeça e o visual de cada item (camadas empilhadas na hora)
   const pecas = new Set();
@@ -146,7 +163,7 @@ function habN(n) { return D.classes[EST.classe].habilidades[n]; }
 function escolherClasse() {
   return new Promise((ok) => {
     const cs = Object.values(D.classes).filter((c) => c.implementada);
-    const desc = { guerreiro: "Corpo a corpo: Golpe, Estocada e Giro. Aguenta mais pancada.", arqueiro: "À distância: Disparo, Dispersão (acerta vários de uma vez) e Chuva de flechas." };
+    const desc = { guerreiro: "Corpo a corpo: Golpe, Estocada e Giro. Aguenta mais pancada.", arqueiro: "À distância: Disparo, Dispersão (acerta vários de uma vez) e Chuva de flechas.", mago: "Feitiços: Faísca, Leão de Fogo, Espinhos de Gelo, Escudo de Gelo e Tornado. Muito dano em área, pouca vida." };
     painel(`<h3>Novo personagem</h3><p>Escolha a classe:</p>${cs.map((c) => `<p><b>${c.nome}</b>: <small>${desc[c.id] || ""}</small></p>`).join("")}`, cs.map((c) => [c.nome, () => { fechar(); ok(c.id); }]));
     $("caixa").querySelector(".fechar")?.remove();
   });
@@ -338,7 +355,9 @@ function telaQuadro() {
   });
   painel("<h3>Quadro de missões</h3>", acoes);
 }
-const NOME_ATR = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima e recuperação"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
+const NOME_ATR_BASE = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima e recuperação"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
+// o Mago chama a Força de "Magia" (classes.json "nome_atributo"); o atributo é o mesmo
+const NOME_ATR = new Proxy(NOME_ATR_BASE, { get: (t, a) => (EST && D.classes[EST.classe].nome_atributo?.[a]) || t[a] });
 // mexer em atributos pode mudar a vida máxima: mantém a vida perdida, não a proporção
 function comAjusteDeVida(fn) { const antes = stats().vidaMax, r = fn(); jogador.vida = Math.max(1, Math.min(stats().vidaMax, jogador.vida + stats().vidaMax - antes)); salvar(); return r; }
 // ---------- tela de Personagem: boneco, números e abas (Equipamento, Atributos, Habilidades) ----------
@@ -453,6 +472,14 @@ async function menu() {
 function atualizar(dt) {
   if (msgT > 0) { msgT -= dt; if (msgT <= 0) $("msg").classList.remove("on"); }
   for (const k in jogador.cds) jogador.cds[k] = Math.max(0, jogador.cds[k] - dt);
+  for (let i = zonas.length - 1; i >= 0; i--) { // áreas que ficam (Tornado): acertam a cada "intervalo"
+    const z = zonas[i]; z.t -= dt; if (z.t > 0) continue;
+    const sv0 = stats(), r = atingir(z.o, monstros, z.h, z.dano, sv0.critico, sv0.criticoMult);
+    for (const gp of r.golpes) flutuar(gp.crit ? `${Math.round(gp.dano)}!` : `${Math.round(gp.dano)}`, gp.m.x, gp.m.y - 30 - 18 * gp.m.def.escala, gp.crit ? "#ffd84a" : "#ffffff", gp.crit ? 12 : 9);
+    for (const m of r.mortos) registrarMorte(m);
+    z.n--; z.t = z.h.intervalo; if (z.n <= 0 || mapa.zonaSegura) zonas.splice(i, 1);
+  }
+  if (jogador.escudo) { jogador.escudo.t -= dt; if (jogador.escudo.t <= 0) jogador.escudo = null; }
   if (jogador.repete && !jogador.morto) { // Rajada: as flechas seguintes saem em sequência
     const rp = jogador.repete; rp.t -= dt;
     if (rp.t <= 0) { const sv0 = stats(), r = atingir(jogador, monstros, rp.h, danoHabilidade(rp.h, D.porGrau, sv0.dano, EST.habilidades[rp.h.id] || 1), sv0.critico, sv0.criticoMult);
@@ -483,8 +510,13 @@ function atualizar(dt) {
     if (jogador.golpe >= 0) {
       const h = jogador.hab, antes = jogador.golpe; jogador.golpe += dt;
       if (h.animacao === "shoot" && antes < SOLTAR && jogador.golpe >= SOLTAR) soltarFlechas(h);
-      if (antes < h.impacto && jogador.golpe >= h.impacto) {
-        const r = atingir(jogador, monstros, h, danoHabilidade(h, D.porGrau, sv.dano, EST.habilidades[h.id] || 1), sv.critico, sv.criticoMult);
+      if (antes < h.impacto && jogador.golpe >= h.impacto && h.forma === "escudo") { // Escudo de Gelo: sem dano, protege
+        jogador.escudo = { t: h.duracao_efeito, reducao: h.reducao }; efeitoFolha(h, jogador, []); msg(`${h.nome}: −${Math.round(h.reducao * 100)}% de dano`, 1.4);
+      } else if (antes < h.impacto && jogador.golpe >= h.impacto) {
+        const dano = danoHabilidade(h, D.porGrau, sv.dano, EST.habilidades[h.id] || 1);
+        if (h.tiques > 1) zonas.push({ h, o: { x: jogador.x, y: jogador.y, dir: jogador.dir }, n: h.tiques - 1, t: h.intervalo, dano }); // Tornado: a área fica e acerta de novo
+        const r = atingir(jogador, monstros, h, dano, sv.critico, sv.criticoMult);
+        if (h.efeito) efeitoFolha(h, jogador, r.golpes);
         if (h.avanco) { const [vx, vy] = VET[jogador.dir]; for (let k = 0; k < 10; k++) mover(jogador, vx * h.avanco / 10, vy * h.avanco / 10, mapa); }
         if (h.repeticoes > 1) jogador.repete = { h, n: h.repeticoes - 1, t: 0.13 };
         for (const gp of r.golpes) flutuar(gp.crit ? `${Math.round(gp.dano)}!` : `${Math.round(gp.dano)}`, gp.m.x + (Math.random() - 0.5) * 8, gp.m.y - 30 - 18 * gp.m.def.escala, gp.crit ? "#ffd84a" : "#ffffff", gp.crit ? 12 : 9);
@@ -499,7 +531,7 @@ function atualizar(dt) {
       if (!m.ativo) continue;
       const r = atualizarMonstro(m, jogador, dt, mapa);
       if (r.dano && jogador.invul <= 0 && !jogador.morto) {
-        const d = danoRecebido(D.P, sv, r.dano); // a Defesa do equipamento reduz o golpe
+        const d = danoRecebido(D.P, sv, r.dano, jogador.escudo ? jogador.escudo.reducao : 0); // Defesa do equipamento e Escudo de Gelo
         jogador.vida -= d; jogador.invul = 0.5; jogador.semDano = 0;
         flutuar(`-${d}`, jogador.x + (Math.random() - 0.5) * 10, jogador.y - 64, "#ff6b6b", 11);
         if (r.veneno) { jogador.veneno = { ...r.veneno, t: r.veneno.duracao }; msg("Envenenado!", 1.2); }
@@ -677,7 +709,7 @@ function camadas(anim, equip = EST.equip, classe = EST.classe, ap = EST.aparenci
     else if (corpo.extras && corpo.extras[c]) { const e = corpo.extras[c][anim]; if (e) out.push({ img: IMG[arqDe(e)], coluna: e.coluna }); }
     else if (c.startsWith("fundo:")) { // parte de trás de capa, escudo e arco
       const it = equip[c.slice(6)], b = it && baseItem(I, it.base), f = b && b.visual.fundo;
-      if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual, b.material), coluna: f[anim].coluna });
+      if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual, b.material), coluna: f[anim].coluna, grande: (f.grande || []).includes(anim) });
     } else {
       const it = equip[c]; if (!it) continue;
       const b = baseItem(I, it.base), v = b.visual; if (!v[anim]) continue;
@@ -817,6 +849,6 @@ function quadro(agora) {
   desenhar(agora / 1000);
   requestAnimationFrame(quadro);
 }
-window.__valdor = { get chao() { return chao; }, get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir, usarHabilidade,
+window.__valdor = { get chao() { return chao; }, efeitos: () => efeitos, get est() { return EST; }, get mapa() { return mapa; }, get jogador() { return jogador; }, get monstros() { return monstros; }, entrar, atacar, interagir, usarHabilidade,
   ganhar: (xp) => { subiuNiveis(ganharXp(D.P, EST, xp)); salvar(); } }; // ganchos para os testes de navegador
 iniciar().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<pre style="position:fixed;inset:0;background:#300;padding:12px;z-index:20;white-space:pre-wrap">Erro ao iniciar: ${String(e.message).replace(/</g, "&lt;")}</pre>`); console.error(e); });

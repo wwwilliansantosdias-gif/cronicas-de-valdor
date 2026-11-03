@@ -126,6 +126,9 @@
   "castelo": [
    "lpc-castle",
    "lpc-castle-mega-pack"
+  ],
+  "efeitos-magia": [
+   "extended-lpc-magic-pack"
   ]
  }
 }

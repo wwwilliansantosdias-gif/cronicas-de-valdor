@@ -193,3 +193,14 @@ test("região 2 e 3 largam mais itens e de qualidade melhor que a Floresta", () 
   assert.ok(Math.abs(c.taxa - R[1].drops.chance) < 0.01 && c.taxa > f.taxa * 1.3 && r.taxa > c.taxa, JSON.stringify({ f, c, r }));
   assert.ok(c.boas > f.boas * 1.2 && r.boas > c.boas, JSON.stringify({ f, c, r }));
 });
+
+test("mago: cajados e chapéus só para o mago; armaduras leves e pesadas servem; drop do mago só traz cajado como arma", () => {
+  const cajados = I.itens.filter((b) => b.id.startsWith("cajado-")), chapeus = I.itens.filter((b) => b.id.startsWith("chapeu-"));
+  assert.ok(cajados.length >= 5 && chapeus.length >= 4);
+  for (const b of [...cajados, ...chapeus]) assert.deepEqual(b.classes, ["mago"]);
+  assert.ok(I.itens.find((b) => b.id === "gibao-couro").classes.includes("mago"));
+  const e = novoEstado(P, I, "mago", "faisca"); e.nivel = 29; const rng = criarPrng(21);
+  for (let i = 0; i < 2000; i++) { const it = sortearDrop(I, P, chefe, e, 29, 0, rng); const b = I.itens.find((x) => x.id === it.base); assert.ok(b.classes.includes("mago"), b.id); if (b.espaco === "arma") assert.ok(b.id.startsWith("cajado-")); }
+  const g = novoEstado(P, I); g.equip.arma = novoItem("cajado-retorcido");
+  assert.equal(validar(P, I, JSON.parse(JSON.stringify(g)), ["pe-de-lenha"]), null, "guerreiro com cajado é inválido");
+});

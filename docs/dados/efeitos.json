@@ -1,0 +1,55 @@
+{
+  "_sobre": "folhas de efeito do Extended LPC Magic pack (Daniel Eddeland, CC-BY-SA 3.0 / GPL 3.0), copiadas por tools/build_jogo_assets.py para docs/assets/efeitos/. fw = largura do quadro na folha; escala = tamanho no jogo; linha0/quadros/colunas descrevem a sequência.",
+  "raio": {
+    "img": "efeitos/lightningclaw",
+    "fw": 128,
+    "colunas": 4,
+    "linha0": 0,
+    "quadros": 16,
+    "dur": 0.55,
+    "escala": 0.5
+  },
+  "leao": {
+    "img_por_direcao": {
+      "down": "efeitos/firelion_down",
+      "up": "efeitos/firelion_up",
+      "left": "efeitos/firelion_left",
+      "right": "efeitos/firelion_right"
+    },
+    "fw": 128,
+    "colunas": 4,
+    "linha0": 0,
+    "quadros": 16,
+    "dur": 0.5,
+    "escala": 0.5
+  },
+  "espinhos": {
+    "img": "efeitos/spikes",
+    "fw": 64,
+    "colunas": 10,
+    "linha0": 3,
+    "quadros": 10,
+    "dur": 0.55,
+    "escala": 0.7
+  },
+  "escudo": {
+    "img": "efeitos/iceshield",
+    "fw": 128,
+    "colunas": 4,
+    "linha0": 0,
+    "quadros": 16,
+    "dur": 0.8,
+    "escala": 0.5,
+    "repete": true
+  },
+  "tornado": {
+    "img": "efeitos/tornado",
+    "fw": 128,
+    "colunas": 4,
+    "linha0": 0,
+    "quadros": 16,
+    "dur": 0.8,
+    "escala": 0.5,
+    "repete": true
+  }
+}

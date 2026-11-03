@@ -1178,6 +1178,39 @@
      "nome": "castle8"
     }
    ]
+  },
+  {
+   "id": "efeitos-magia",
+   "nome": "Efeitos de magia (Mago)",
+   "pacotes": [
+    "extended-lpc-magic-pack"
+   ],
+   "imagens": [
+    {
+     "file": "extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/firelion_right.png",
+     "nome": "leão de fogo"
+    },
+    {
+     "file": "extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/lightningclaw.png",
+     "nome": "garra de raio"
+    },
+    {
+     "file": "extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/spikes.png",
+     "nome": "espinhos de gelo"
+    },
+    {
+     "file": "extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/iceshield.png",
+     "nome": "escudo de gelo"
+    },
+    {
+     "file": "extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/tornado.png",
+     "nome": "tornado"
+    },
+    {
+     "file": "extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/icetacle.png",
+     "nome": "tentáculo de gelo"
+    }
+   ]
   }
  ],
  "sem_pacote": [

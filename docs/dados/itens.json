@@ -448,7 +448,8 @@
       "nivel": 1,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 6,
       "preco": 15,
@@ -474,7 +475,8 @@
       "nivel": 5,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 9,
       "preco": 30,
@@ -500,7 +502,8 @@
       "nivel": 10,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 13,
       "preco": 45,
@@ -526,7 +529,8 @@
       "nivel": 15,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 17,
       "preco": 70,
@@ -553,7 +557,8 @@
       "nivel": 20,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 21,
       "preco": 60,
@@ -579,7 +584,8 @@
       "nivel": 25,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 26,
       "preco": 140,
@@ -606,7 +612,8 @@
       "nivel": 1,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 2,
       "preco": 10,
@@ -632,7 +639,8 @@
       "nivel": 4,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 3,
       "preco": 15,
@@ -658,7 +666,8 @@
       "nivel": 10,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 6,
       "preco": 35,
@@ -684,7 +693,8 @@
       "nivel": 15,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 8,
       "preco": 55,
@@ -711,7 +721,8 @@
       "nivel": 20,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 10,
       "preco": 35,
@@ -737,7 +748,8 @@
       "nivel": 25,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 13,
       "preco": 110,
@@ -764,7 +776,8 @@
       "nivel": 1,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 2,
       "preco": 10,
@@ -790,7 +803,8 @@
       "nivel": 3,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 3,
       "preco": 15,
@@ -816,7 +830,8 @@
       "nivel": 6,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 4,
       "preco": 25,
@@ -842,7 +857,8 @@
       "nivel": 10,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 6,
       "preco": 35,
@@ -868,7 +884,8 @@
       "nivel": 13,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 7,
       "preco": 35,
@@ -894,7 +911,8 @@
       "nivel": 15,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 8,
       "preco": 55,
@@ -921,7 +939,8 @@
       "nivel": 18,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 9,
       "preco": 70,
@@ -947,7 +966,8 @@
       "nivel": 20,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 10,
       "preco": 85,
@@ -973,7 +993,8 @@
       "nivel": 22,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 11,
       "preco": 50,
@@ -999,7 +1020,8 @@
       "nivel": 25,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 13,
       "preco": 120,
@@ -1026,7 +1048,8 @@
       "nivel": 4,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 2,
       "preco": 15,
@@ -1052,7 +1075,8 @@
       "nivel": 10,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 4,
       "preco": 35,
@@ -1078,7 +1102,8 @@
       "nivel": 15,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 6,
       "preco": 55,
@@ -1105,7 +1130,8 @@
       "nivel": 20,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 8,
       "preco": 80,
@@ -1131,7 +1157,8 @@
       "nivel": 25,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 10,
       "preco": 110,
@@ -1158,7 +1185,8 @@
       "nivel": 1,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 1,
       "preco": 10,
@@ -1184,7 +1212,8 @@
       "nivel": 5,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 2,
       "preco": 20,
@@ -1210,7 +1239,8 @@
       "nivel": 15,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 5,
       "preco": 50,
@@ -1237,7 +1267,8 @@
       "nivel": 20,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 7,
       "preco": 80,
@@ -1263,7 +1294,8 @@
       "nivel": 25,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 9,
       "preco": 110,
@@ -1290,7 +1322,8 @@
       "nivel": 1,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 1,
       "preco": 10,
@@ -1316,7 +1349,8 @@
       "nivel": 6,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 2,
       "preco": 20,
@@ -1342,7 +1376,8 @@
       "nivel": 12,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 4,
       "preco": 45,
@@ -1368,7 +1403,8 @@
       "nivel": 15,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 5,
       "preco": 55,
@@ -1395,7 +1431,8 @@
       "nivel": 25,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 9,
       "preco": 110,
@@ -1422,7 +1459,8 @@
       "nivel": 7,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 3,
       "preco": 25,
@@ -1459,7 +1497,8 @@
       "nivel": 14,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 5,
       "preco": 50,
@@ -1497,7 +1536,8 @@
       "nivel": 20,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 7,
       "preco": 80,
@@ -1534,7 +1574,8 @@
       "nivel": 26,
       "classes": [
         "guerreiro",
-        "arqueiro"
+        "arqueiro",
+        "mago"
       ],
       "vida": 9,
       "preco": 120,
@@ -1672,6 +1713,253 @@
       },
       "material": "cinzaltar",
       "defesa": 32
+    },
+    {
+      "id": "cajado-retorcido",
+      "nome": "Cajado retorcido",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 1,
+      "classes": [
+        "mago"
+      ],
+      "dano": 4,
+      "preco": 20,
+      "peca_lpc": [
+        "weapon/magic/gnarled/universal/foreground/walk.png",
+        "weapon/magic/gnarled/universal/background/walk.png",
+        "weapon/magic/gnarled/thrust/foreground/thrust_oversize.png",
+        "weapon/magic/gnarled/thrust/background/thrust_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/magic/gnarled/universal/foreground/walk/medium.png",
+        "thrust": "weapon/magic/gnarled/thrust/foreground/medium.png",
+        "grande": [
+          "thrust"
+        ],
+        "fundo": {
+          "walk": "weapon/magic/gnarled/universal/background/walk/medium.png",
+          "thrust": "weapon/magic/gnarled/thrust/background/medium.png",
+          "grande": [
+            "thrust"
+          ]
+        }
+      }
+    },
+    {
+      "id": "cajado-laco",
+      "nome": "Cajado de laço",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 6,
+      "classes": [
+        "mago"
+      ],
+      "dano": 6,
+      "preco": 40,
+      "peca_lpc": [
+        "weapon/magic/loop/universal/foreground/walk.png",
+        "weapon/magic/loop/universal/background/walk.png",
+        "weapon/magic/loop/thrust/foreground/thrust_oversize.png",
+        "weapon/magic/loop/thrust/background/thrust_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/magic/loop/universal/foreground/walk/light.png",
+        "thrust": "weapon/magic/loop/thrust/foreground/light.png",
+        "grande": [
+          "thrust"
+        ],
+        "fundo": {
+          "walk": "weapon/magic/loop/universal/background/walk/light.png",
+          "thrust": "weapon/magic/loop/thrust/background/light.png",
+          "grande": [
+            "thrust"
+          ]
+        }
+      }
+    },
+    {
+      "id": "cajado-s",
+      "nome": "Cajado serpente",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 12,
+      "classes": [
+        "mago"
+      ],
+      "dano": 8,
+      "preco": 60,
+      "peca_lpc": [
+        "weapon/magic/s/universal/foreground/walk.png",
+        "weapon/magic/s/universal/background/walk.png",
+        "weapon/magic/s/thrust/foreground/thrust_oversize.png",
+        "weapon/magic/s/thrust/background/thrust_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/magic/s/universal/foreground/walk/dark.png",
+        "thrust": "weapon/magic/s/thrust/foreground/dark.png",
+        "grande": [
+          "thrust"
+        ],
+        "fundo": {
+          "walk": "weapon/magic/s/universal/background/walk/dark.png",
+          "thrust": "weapon/magic/s/thrust/background/dark.png",
+          "grande": [
+            "thrust"
+          ]
+        }
+      }
+    },
+    {
+      "id": "cajado-diamante",
+      "nome": "Cajado de diamante",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 17,
+      "classes": [
+        "mago"
+      ],
+      "dano": 10,
+      "preco": 80,
+      "peca_lpc": [
+        "weapon/magic/diamond/universal/foreground/walk.png",
+        "weapon/magic/diamond/universal/background/walk.png",
+        "weapon/magic/diamond/thrust/foreground/thrust_oversize.png",
+        "weapon/magic/diamond/thrust/background/thrust_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/magic/diamond/universal/foreground/walk/bronze.png",
+        "thrust": "weapon/magic/diamond/thrust/foreground/bronze.png",
+        "grande": [
+          "thrust"
+        ],
+        "fundo": {
+          "walk": "weapon/magic/diamond/universal/background/walk/bronze.png",
+          "thrust": "weapon/magic/diamond/thrust/background/bronze.png",
+          "grande": [
+            "thrust"
+          ]
+        }
+      },
+      "material": "bronze"
+    },
+    {
+      "id": "cajado-cristal",
+      "nome": "Cajado de cristal",
+      "tipo": "arma",
+      "espaco": "arma",
+      "nivel": 25,
+      "classes": [
+        "mago"
+      ],
+      "dano": 14,
+      "preco": 140,
+      "peca_lpc": [
+        "weapon/magic/crystal/universal/foreground/walk.png",
+        "weapon/magic/crystal/universal/background/walk.png",
+        "weapon/magic/crystal/thrust/foreground/thrust_oversize.png",
+        "weapon/magic/crystal/thrust/background/thrust_oversize.png"
+      ],
+      "visual": {
+        "walk": "weapon/magic/crystal/universal/foreground/walk/purple.png",
+        "thrust": "weapon/magic/crystal/thrust/foreground/purple.png",
+        "grande": [
+          "thrust"
+        ],
+        "fundo": {
+          "walk": "weapon/magic/crystal/universal/background/walk/purple.png",
+          "thrust": "weapon/magic/crystal/thrust/background/purple.png",
+          "grande": [
+            "thrust"
+          ]
+        }
+      },
+      "material": "cinzaltar"
+    },
+    {
+      "id": "chapeu-mago",
+      "nome": "Chapéu de mago",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 1,
+      "classes": [
+        "mago"
+      ],
+      "vida": 2,
+      "defesa": 2,
+      "preco": 10,
+      "peca_lpc": [
+        "hat/magic/wizard/base/adult/walk.png",
+        "hat/magic/wizard/base/adult/thrust.png"
+      ],
+      "visual": {
+        "walk": "hat/magic/wizard/base/adult/walk/gray.png",
+        "thrust": "hat/magic/wizard/base/adult/thrust/gray.png"
+      }
+    },
+    {
+      "id": "chapeu-mago-azul",
+      "nome": "Chapéu de mago azul",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 8,
+      "classes": [
+        "mago"
+      ],
+      "vida": 5,
+      "defesa": 5,
+      "preco": 30,
+      "peca_lpc": [
+        "hat/magic/wizard/base/adult/walk.png",
+        "hat/magic/wizard/base/adult/thrust.png"
+      ],
+      "visual": {
+        "walk": "hat/magic/wizard/base/adult/walk/teal.png",
+        "thrust": "hat/magic/wizard/base/adult/thrust/teal.png"
+      }
+    },
+    {
+      "id": "chapeu-celestial",
+      "nome": "Chapéu celestial",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 16,
+      "classes": [
+        "mago"
+      ],
+      "vida": 9,
+      "defesa": 9,
+      "preco": 70,
+      "peca_lpc": [
+        "hat/magic/celestial/adult/walk.png",
+        "hat/magic/celestial/adult/thrust.png"
+      ],
+      "visual": {
+        "walk": "hat/magic/celestial/adult/walk/navy.png",
+        "thrust": "hat/magic/celestial/adult/thrust/navy.png"
+      }
+    },
+    {
+      "id": "chapeu-arcano",
+      "nome": "Chapéu arcano",
+      "tipo": "capacete",
+      "espaco": "capacete",
+      "nivel": 25,
+      "classes": [
+        "mago"
+      ],
+      "vida": 13,
+      "defesa": 13,
+      "preco": 130,
+      "peca_lpc": [
+        "hat/magic/celestial_moon/adult/walk.png",
+        "hat/magic/celestial_moon/adult/thrust.png"
+      ],
+      "visual": {
+        "walk": "hat/magic/celestial_moon/adult/walk/purple.png",
+        "thrust": "hat/magic/celestial_moon/adult/thrust/purple.png"
+      },
+      "material": "cinzaltar"
     }
   ],
   "equipamento_inicial": {
@@ -1685,6 +1973,13 @@
     "arqueiro": {
       "arma": "arco-simples",
       "capacete": "gorro-couro",
+      "peitoral": "gibao-couro",
+      "grevas": "calca",
+      "botas": "botas-couro"
+    },
+    "mago": {
+      "arma": "cajado-retorcido",
+      "capacete": "chapeu-mago",
       "peitoral": "gibao-couro",
       "grevas": "calca",
       "botas": "botas-couro"
@@ -1772,6 +2067,30 @@
           ]
         }
       }
+    },
+    "mago": {
+      "base": "body/bodies/male",
+      "cabeca": "head/heads/human/male",
+      "animacoes": [
+        "walk",
+        "thrust"
+      ],
+      "ordem": [
+        "fundo:capa",
+        "fundo:arma",
+        "corpo",
+        "botas",
+        "grevas",
+        "peitoral",
+        "bracos",
+        "ombros",
+        "capa",
+        "cabeca",
+        "barba",
+        "cabelo",
+        "capacete",
+        "arma"
+      ]
     }
   },
   "materiais": {
@@ -2044,6 +2363,23 @@
         },
         "6": {
           "dano": 12,
+          "aura": true
+        }
+      }
+    },
+    {
+      "id": "arcano",
+      "nome": "do Arcano",
+      "cor": "#b98cff",
+      "pecas": [
+        "cajado-cristal",
+        "chapeu-arcano"
+      ],
+      "bonus": {
+        "2": {
+          "atributos": {
+            "for": 5
+          },
           "aura": true
         }
       }

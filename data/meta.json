@@ -40,7 +40,7 @@
   ]
  },
  "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles": {
-  "atribuicao": null,
+  "atribuicao": "Images are copyright their respective authors, as listed in CREDITS.TXT. NOTE: The assets by Leana \"Sharm\" Zimmerman and Stephen \"Redshrike\" Challener are also available under the OGA-BY 3.0 License.",
   "slug": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
   "titulo": "Liberated Pixel Cup (LPC) Base Assets (sprites & map tiles)",
   "url": "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
@@ -307,7 +307,7 @@
   ]
  },
  "lpc-dungeon-elements": {
-  "atribuicao": null,
+  "atribuicao": "Please link this page (if reasonable), attribute Sharm as graphic artist, and me as contributor. credit.txt included for convenience.",
   "slug": "lpc-dungeon-elements",
   "titulo": "[LPC] Dungeon Elements",
   "url": "https://opengameart.org/content/lpc-dungeon-elements",
@@ -466,7 +466,7 @@
   ]
  },
  "lpc-imp": {
-  "atribuicao": null,
+  "atribuicao": "Link my profile (if reasonable), credit Redshrike as graphic artist, and credit me as contributor (I did pay to have it made after all...)",
   "slug": "lpc-imp",
   "titulo": "[LPC] Imp",
   "url": "https://opengameart.org/content/lpc-imp",
@@ -486,7 +486,7 @@
   ]
  },
  "lpc-imp-2": {
-  "atribuicao": null,
+  "atribuicao": "Attribute Stephen \"Redshrike\" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.",
   "slug": "lpc-imp-2",
   "titulo": "[LPC] Imp 2",
   "url": "https://opengameart.org/content/lpc-imp-2",
@@ -639,7 +639,7 @@
   ]
  },
  "lpc-spider": {
-  "atribuicao": null,
+  "atribuicao": "Attribute Stephen \"Redshrike\" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.",
   "slug": "lpc-spider",
   "titulo": "[LPC] Spider",
   "url": "https://opengameart.org/content/lpc-spider",
@@ -704,7 +704,7 @@
   ]
  },
  "lpc-style-well": {
-  "atribuicao": null,
+  "atribuicao": "Credit Xenodora for the well. Credit Lanea Zimmerman for the buckets.",
   "slug": "lpc-style-well",
   "titulo": "LPC Style Well",
   "url": "https://opengameart.org/content/lpc-style-well",
@@ -725,7 +725,7 @@
   ]
  },
  "lpc-terrain-repack": {
-  "atribuicao": null,
+  "atribuicao": "Please see the text file copied from the LPC Tile Atlas. I take no credit for any of the graphics included here, I only repacked them using Tiled.",
   "slug": "lpc-terrain-repack",
   "titulo": "[LPC] Terrain Repack",
   "url": "https://opengameart.org/content/lpc-terrain-repack",
@@ -780,7 +780,7 @@
   ]
  },
  "lpc-tile-atlas": {
-  "atribuicao": null,
+  "atribuicao": "The zip contains a nifty attribution file so you can drop it and forget.",
   "slug": "lpc-tile-atlas",
   "titulo": "LPC Tile Atlas",
   "url": "https://opengameart.org/content/lpc-tile-atlas",
@@ -797,7 +797,7 @@
   ]
  },
  "lpc-tile-atlas2": {
-  "atribuicao": null,
+  "atribuicao": "The zip contains a nifty attribution file so you can drop it and forget.",
   "slug": "lpc-tile-atlas2",
   "titulo": "LPC Tile Atlas2",
   "url": "https://opengameart.org/content/lpc-tile-atlas2",
@@ -846,7 +846,7 @@
   ]
  },
  "lpc-water-fountain": {
-  "atribuicao": null,
+  "atribuicao": "Curt, Sharm, William.Thompsonj, This Webaddress",
   "slug": "lpc-water-fountain",
   "titulo": "[LPC] Water Fountain",
   "url": "https://opengameart.org/content/lpc-water-fountain",
@@ -906,7 +906,7 @@
   ]
  },
  "lpc-wolf-animation": {
-  "atribuicao": null,
+  "atribuicao": "Attribute Stephen \"Redshrike\" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link back to this page or the OGA homepage.",
   "slug": "lpc-wolf-animation",
   "titulo": "[LPC] Wolf Animation",
   "url": "https://opengameart.org/content/lpc-wolf-animation",
@@ -1019,6 +1019,35 @@
    {
     "url": "https://opengameart.org/sites/default/files/werewolf-48x64_0.xcf",
     "bytes": 116338
+   }
+  ]
+ },
+ "extended-lpc-magic-pack": {
+  "atribuicao": "Attribute creator as Daniel Eddeland. Please include a link to opengameart.org as well (preferably to the submission for this art package) if you use the art.",
+  "slug": "extended-lpc-magic-pack",
+  "titulo": "Extended LPC Magic pack",
+  "url": "https://opengameart.org/content/extended-lpc-magic-pack",
+  "autor": "daneeklu",
+  "licencas": [
+   "CC-BY-SA 3.0",
+   "GPL 3.0"
+  ],
+  "arquivos": [
+   {
+    "url": "https://opengameart.org/sites/default/files/magic_pack.zip",
+    "bytes": 504984
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/snake_right.png",
+    "bytes": 13134
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/turtleshell_right.png",
+    "bytes": 8772
+   },
+   {
+    "url": "https://opengameart.org/sites/default/files/magic_icons.png",
+    "bytes": 30546
    }
   ]
  }

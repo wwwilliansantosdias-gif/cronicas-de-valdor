@@ -1,5 +1,5 @@
 // Grava um vídeo do jogo sendo jogado por um robô com teclado de verdade (andar, mirar, atacar, habilidades, poção).
-// Uso: PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta-de-saída> [regioes]
+// Uso: PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta-de-saída> [regioes|mago]
 // Com "regioes": guerreiro nível 15 com o conjunto do Mineiro nas Galerias Rasas e arqueiro nível 25 com o de
 // Cinzaltar no Campo das Lápides, até o Rei Esquelético.
 // Parte 1: personagem novo (nível 1) na cidade e na Mata. Parte 2: personagem evoluído preparado no save
@@ -38,7 +38,7 @@ async function cacar(ms) {
       return { jx: j.x, jy: j.y, mx: m && m.x, my: m && m.y, d, vida: j.vida, max: V.est ? 1 : 1, pocoes: V.est.pocoes, classe: V.est.classe }; });
     if (s.mx == null) { await segura([]); await espera(200); continue; }
     if (s.vida < 45 && s.pocoes > 0) await pag.keyboard.press("q");
-    const dx = s.mx - s.jx, dy = s.my - s.jy, alcance = s.classe === "arqueiro" ? 150 : 26;
+    const dx = s.mx - s.jx, dy = s.my - s.jy, alcance = s.classe === "arqueiro" ? 150 : s.classe === "mago" ? 120 : 26;
     if (s.d > alcance) { const k = []; if (dx > 8) k.push("d"); if (dx < -8) k.push("a"); if (dy > 8) k.push("s"); if (dy < -8) k.push("w"); await segura(k); await espera(90); continue; }
     // encara o monstro: um toque curto na direção dominante
     await segura([]); const dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "d" : "a") : (dy > 0 ? "s" : "w");
@@ -47,7 +47,24 @@ async function cacar(ms) {
   }
   await segura([]);
 }
-if (modo === "regioes") {
+if (modo === "mago") {
+  // mago nível 22 com cajado de diamante e chapéu celestial no Campo das Lápides: todos os feitiços
+  await pag.goto(`http://localhost:${srv.address().port}/`);
+  await pag.waitForFunction(() => document.getElementById("caixa").innerText.includes("Novo personagem")); await espera(1200);
+  await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Mago").click()); await espera(2500);
+  await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Começar").click());
+  await pag.waitForFunction(() => document.body.dataset.pronto === "1"); await espera(800);
+  await V(() => { const V = window.__valdor, E = V.est; while (E.nivel < 22) V.ganhar(500); E.pontosLivres = 0; E.atributos = { for: 50, vit: 21, agi: 10, sor: 2 };
+    const it = (b, q = "comum", m = 0) => ({ base: b, qual: q, mais: m, bonus: {} });
+    Object.assign(E.equip, { arma: it("cajado-diamante", "raro", 3), capacete: it("chapeu-celestial", "refinado"), peitoral: it("couraca-legiao"), grevas: it("saia-legiao"), botas: it("botas-placa"), capa: it("capa-viagem", "raro", 1), ombros: it("ombreiras-placas"), bracos: it("luvas") });
+    Object.assign(E.habilidades, { leao: 3, espinhos: 2, escudo: 1, tornado: 1 }); E.pontosHab = 0; E.pocoes = 8; V.entrar("cinzaltar", null); });
+  await espera(1200);
+  await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3000);
+  await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar")?.click()); await espera(400);
+  await irPara(20, 12, 6000); await irPara(38, 12, 9000);
+  await segura(["d"]); await pag.waitForFunction(() => window.__valdor.mapa.id === "campo-das-lapides", null, { timeout: 8000 }); await segura([]); await espera(600);
+  await cacar(60000);
+} else if (modo === "regioes") {
 // regiões 2 e 3: personagem preparado no save, entra pela cidade e sai pela borda leste
 const novo = async (classe) => {
   await pag.waitForFunction(() => document.getElementById("caixa").innerText.includes("Novo personagem")); await espera(800);

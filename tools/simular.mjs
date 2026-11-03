@@ -19,7 +19,7 @@ import { lerMapaTexto } from "../docs/src/mapa.js";
 
 const ler = (f) => JSON.parse(readFileSync(new URL("../docs/" + f, import.meta.url), "utf8"));
 // acertoMonstro: fração dos ataques que pegam (o resto o jogador desvia pelo aviso); o arqueiro luta de longe e recua
-export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 4, entreMembros: 0.8, acertoMonstro: { guerreiro: 0.5, arqueiro: 0.35 }, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6, descansaAbaixo: 0.6 }; // respawn vem de dados/progressao.json
+export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 4, entreMembros: 0.8, acertoMonstro: { guerreiro: 0.5, arqueiro: 0.35, mago: 0.35 }, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6, descansaAbaixo: 0.6 }; // respawn vem de dados/progressao.json
 
 export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES, classe = "guerreiro", inicio = null } = {}) {
   const P = dados?.P || ler("dados/progressao.json"), I = dados?.I || ler("dados/itens.json");
@@ -65,8 +65,10 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     const sv = derivados(P, I, est);
     const critMedio = 1 + sv.critico * (sv.criticoMult - 1);
     let dpsUm = 0, dpsArea = 0;
+    let escudo = 1; // Escudo de Gelo: reduz o dano na fração do tempo em que está ativo
     for (const h of habsClasse) if (est.habilidades[h.id]) {
-      const v = danoHabilidade(h, H.por_grau, sv.dano, est.habilidades[h.id]) * (h.repeticoes || 1) * critMedio / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id]) * sup.eficiencia;
+      if (h.forma === "escudo") { escudo = 1 - h.reducao * Math.min(1, h.duracao_efeito / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id])); continue; }
+      const v = danoHabilidade(h, H.por_grau, sv.dano, est.habilidades[h.id]) * (h.repeticoes || 1) * (h.tiques || 1) * critMedio / recargaHabilidade(h, H.por_grau, sv.recargaMult, est.habilidades[h.id]) * sup.eficiencia;
       if (h.forma === "circulo" || h.forma === "leque" || (h.forma === "linha" && !h.alvos)) dpsArea += v; else dpsUm += v; // área e linha sem limite atingem o bando
     }
     let bando = null;
@@ -85,7 +87,7 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     while (vivos.length) {
       const alvoM = vivos[0], def = alvoM.def;
       const luta = def.vida / (dpsUm + dpsArea * Math.min(vivos.length, 3)); // o dano em área conta para cada membro atingido
-      const recebido = vivos.reduce((s, m) => s + dpsMonstro(m.def), 0) * (sup.acertoMonstro[classe] ?? sup.acertoMonstro) * luta * (1 - (sv.reducao || 0));
+      const recebido = vivos.reduce((s, m) => s + dpsMonstro(m.def), 0) * (sup.acertoMonstro[classe] ?? sup.acertoMonstro) * luta * (1 - (sv.reducao || 0)) * escudo;
       t += luta + sup.entreMembros;
       if (recebido >= vida) { morreu = true; break; }
       vida -= recebido; abates++; vivos.shift();

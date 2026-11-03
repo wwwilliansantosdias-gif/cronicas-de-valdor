@@ -24,7 +24,7 @@ def parse(slug, t):
     licencas = re.findall(r"license-name'>(.*?)</div>", lic_block.group(0)) if lic_block else []
     autor = re.search(r"class='username'><a href=\"/users/([^\"]+)\"", t)
     files = re.findall(r'<a href="(https://opengameart\.org/sites/default/files/[^"]+)" type="[^"]*; length=(\d+)"', t)
-    att = re.search(r'field-name-field-copyright-notice.*?<div class="field-item even">(.*?)</div></div></div>', t, re.S)
+    att = re.search(r'field-name-field-(?:copyright-notice|art-attribution).*?<div class="field-item even">(.*?)</div></div></div>', t, re.S)
     atribuicao = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", att.group(1)))).strip() if att else None
     return {
         "atribuicao": atribuicao,

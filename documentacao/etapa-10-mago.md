@@ -1,6 +1,6 @@
-# Etapa 10 – Mago (plano, aguardando aprovação)
+# Etapa 10 – Mago
 
-Status: **plano**. Nada de código ainda. Seguir a mesma ordem do arqueiro: arte conferida → dados → código → simulador e testes → documentação.
+Status: **implementado** (aprovado por Willian com as recomendações: só recarga, Força aparece como "Magia", lista de habilidades como abaixo, chapéu de mago e roupas do arqueiro). O plano original segue abaixo; a seção 6 diz o que entrou.
 
 ## 1. Referências (sistema, não cópia)
 - **Conquer Online, Taoista de Fogo:** feitiços de área à distância (Tornado, Círculo de Fogo, Fogo do Inferno), gasta mana (MP) por feitiço, muito dano e pouca defesa ("canhão de vidro"). Fonte: guia oficial de habilidades (co.99.com, página do Taoista de Fogo).
@@ -61,3 +61,11 @@ Antes de entrar no jogo, o pacote passa pelo mostruário e pelos créditos, como
 3. Código: efeitos em folha (128 px pela metade), escudo temporário, dano repetido do Tornado, leão que corre.
 4. Simulador, testes de motor e de navegador (`tests/nav/mago.mjs`) e gravação.
 5. Documentação.
+
+## 6. O que entrou
+- **Arte:** Extended LPC Magic pack no mostruário e nos créditos (o leitor de páginas passou a ler também o campo "Attribution Instructions", o que completou o aviso de atribuição de mais 11 pacotes). Folhas usadas em `docs/assets/efeitos/`, descritas em `docs/dados/efeitos.json`.
+- **Classe** `mago` em `classes.json` (recomendado 2 Magia : 1 Vitalidade), com `nome_atributo` para mostrar a Força como "Magia".
+- **Habilidades** em `habilidades.json`: Faísca (linha, 1 alvo), Leão de Fogo (linha que atravessa), Espinhos de Gelo (círculo em volta), Escudo de Gelo (forma nova `escudo`: −50% de dano por 5 s, recarga 14 s), Tornado (círculo à distância com `tiques` 4 a cada 0,4 s; a área fica onde foi lançada).
+- **Itens:** cajados Retorcido (1), de Laço (6), Serpente (12), de Diamante (17, bronze), de Cristal (25, Cinzaltar); chapéus de mago cinza (1), azul (8), Celestial (16), Arcano (25). Roupas do arqueiro servem ao mago. Conjunto **do Arcano** (cajado de cristal + chapéu arcano): +5 Magia e aura.
+- **Ritmo** (simulador, 20 jogadores, mago toma 35% dos ataques como o arqueiro, escudo conta pela fração do tempo ativo): nível 10 em ~30 min, 10→20 em ~2 h, 20→29 em ~3 h 45. Nenhum número de equilíbrio mudou.
+- **Testes:** motor (feitiços, escudo, ritmo do mago, drops só de cajado), dados (folhas grandes no fundo do cajado) e `tests/nav/mago.mjs` (cada feitiço no jogo, escudo reduz o golpe, "Magia" na tela, salvar).

@@ -43,6 +43,34 @@
         "rajada",
         "perfurante"
       ]
+    },
+    {
+      "id": "mago",
+      "nome": "Mago",
+      "implementada": true,
+      "animacoes": [
+        "andar",
+        "estocar"
+      ],
+      "recomendado": {
+        "for": 2,
+        "vit": 1,
+        "agi": 0,
+        "sor": 0
+      },
+      "nome_atributo": {
+        "for": [
+          "Magia",
+          "dano dos feitiços"
+        ]
+      },
+      "habilidades": [
+        "faisca",
+        "leao",
+        "espinhos",
+        "escudo",
+        "tornado"
+      ]
     }
   ]
 }

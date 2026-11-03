@@ -13,6 +13,14 @@ Licenças: CC-BY e CC-BY-SA exigem dar crédito aos autores; CC-BY-SA e GPL exig
 - Aviso de atribuição da página: a link back here will be fine.
 - O pacote não traz arquivo de créditos próprio.
 
+## Extended LPC Magic pack
+
+- Página: https://opengameart.org/content/extended-lpc-magic-pack
+- Autor na página: daneeklu
+- Licenças: CC-BY-SA 3.0, GPL 3.0
+- Aviso de atribuição da página: Attribute creator as Daniel Eddeland. Please include a link to opengameart.org as well (preferably to the submission for this art package) if you use the art.
+- O pacote não traz arquivo de créditos próprio.
+
 ## Frozen Lake [LPC]
 
 - Página: https://opengameart.org/content/frozen-lake-lpc
@@ -26,7 +34,7 @@ Licenças: CC-BY e CC-BY-SA exigem dar crédito aos autores; CC-BY-SA e GPL exig
 - Página: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles
 - Autor na página: (vários / não informado)
 - Licenças: CC-BY-SA 3.0, GPL 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Images are copyright their respective authors, as listed in CREDITS.TXT. NOTE: The assets by Leana "Sharm" Zimmerman and Stephen "Redshrike" Challener are also available under the OGA-BY 3.0 License.
 
 Arquivo `CREDITS.TXT` do pacote:
 
@@ -820,7 +828,7 @@ https://opengameart.org/content/rpg-terrains
 - Página: https://opengameart.org/content/lpc-dungeon-elements
 - Autor na página: (vários / não informado)
 - Licenças: CC-BY 4.0, CC-BY 3.0, GPL 3.0, GPL 2.0, OGA-BY 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Please link this page (if reasonable), attribute Sharm as graphic artist, and me as contributor. credit.txt included for convenience.
 
 Arquivo `credit.txt` do pacote:
 
@@ -928,7 +936,7 @@ Forest_tiles.png
 - Página: https://opengameart.org/content/lpc-imp
 - Autor na página: williamthompsonj
 - Licenças: CC-BY 4.0, CC-BY 3.0, GPL 3.0, GPL 2.0, OGA-BY 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Link my profile (if reasonable), credit Redshrike as graphic artist, and credit me as contributor (I did pay to have it made after all...)
 - O pacote não traz arquivo de créditos próprio.
 
 ## [LPC] Imp 2
@@ -936,7 +944,7 @@ Forest_tiles.png
 - Página: https://opengameart.org/content/lpc-imp-2
 - Autor na página: williamthompsonj
 - Licenças: CC-BY 4.0, CC-BY 3.0, GPL 3.0, GPL 2.0, OGA-BY 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Attribute Stephen "Redshrike" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.
 
 Arquivo `readme.txt` do pacote:
 
@@ -1565,7 +1573,7 @@ https://opengameart.org/content/lpc-adobe-building-set
 - Página: https://opengameart.org/content/lpc-spider
 - Autor na página: williamthompsonj
 - Licenças: CC-BY 4.0, CC-BY 3.0, GPL 3.0, GPL 2.0, OGA-BY 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Attribute Stephen "Redshrike" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link to this page or the OGA homepage.
 - O pacote não traz arquivo de créditos próprio.
 
 ## [LPC] Streets
@@ -1581,7 +1589,7 @@ https://opengameart.org/content/lpc-adobe-building-set
 - Página: https://opengameart.org/content/lpc-style-well
 - Autor na página: xenodora
 - Licenças: CC-BY 3.0, GPL 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Credit Xenodora for the well. Credit Lanea Zimmerman for the buckets.
 - O pacote não traz arquivo de créditos próprio.
 
 ## [LPC] Terrain Repack
@@ -1589,7 +1597,7 @@ https://opengameart.org/content/lpc-adobe-building-set
 - Página: https://opengameart.org/content/lpc-terrain-repack
 - Autor na página: (vários / não informado)
 - Licenças: CC-BY-SA 3.0, GPL 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Please see the text file copied from the LPC Tile Atlas. I take no credit for any of the graphics included here, I only repacked them using Tiled.
 
 Arquivo `Attribution.txt` do pacote:
 
@@ -1820,7 +1828,7 @@ https://opengameart.org/content/rpg-terrains
 - Página: https://opengameart.org/content/lpc-tile-atlas
 - Autor na página: (vários / não informado)
 - Licenças: CC-BY-SA 3.0, GPL 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: The zip contains a nifty attribution file so you can drop it and forget.
 
 Arquivo `Attribution.txt` do pacote:
 
@@ -1969,7 +1977,7 @@ Castle work:
 - Página: https://opengameart.org/content/lpc-tile-atlas2
 - Autor na página: (vários / não informado)
 - Licenças: CC-BY-SA 3.0, GPL 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: The zip contains a nifty attribution file so you can drop it and forget.
 
 Arquivo `Attribution2.txt` do pacote:
 
@@ -2404,7 +2412,7 @@ https://opengameart.org/content/steampunk-level-tileset-mega-pack-level-tileset-
 - Página: https://opengameart.org/content/lpc-water-fountain
 - Autor na página: (vários / não informado)
 - Licenças: CC-BY 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Curt, Sharm, William.Thompsonj, This Webaddress
 - O pacote não traz arquivo de créditos próprio.
 
 ## LPC Wild Boar
@@ -2465,7 +2473,7 @@ Recommended layer order from top to bottom:
 - Página: https://opengameart.org/content/lpc-wolf-animation
 - Autor na página: williamthompsonj
 - Licenças: CC-BY 4.0, CC-BY 3.0, GPL 3.0, GPL 2.0, OGA-BY 3.0
-- **A página não traz texto de atribuição.** Conferir o arquivo de créditos abaixo, se houver.
+- Aviso de atribuição da página: Attribute Stephen "Redshrike" Challener as graphic artist and William.Thompsonj as contributor. If reasonable link back to this page or the OGA homepage.
 - O pacote não traz arquivo de créditos próprio.
 
 ## [LPC] Zombie
@@ -2757,3 +2765,29 @@ Recommended layer order from top to bottom:
 - `shield/crusader/bg/walk.png`: bluecarrot16,Sander Frenken (castelonia) | OGA-BY 3.0 | https://opengameart.org/content/lpc-shields
 - `shield/crusader/bg/slash.png`: bluecarrot16,Sander Frenken (castelonia) | OGA-BY 3.0 | https://opengameart.org/content/lpc-shields
 - `shield/crusader/bg/thrust.png`: bluecarrot16,Sander Frenken (castelonia) | OGA-BY 3.0 | https://opengameart.org/content/lpc-shields
+- `weapon/magic/gnarled/universal/foreground/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/gnarled/universal/background/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/gnarled/thrust/foreground/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/gnarled/thrust/background/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/loop/universal/foreground/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/loop/universal/background/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/loop/thrust/foreground/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/loop/thrust/background/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/s/universal/foreground/walk.png`: LordNeo,Michael Whitlock (bigbeargames),bluecarrot16 | CC0 | https://opengameart.org/content/staff-64-x64,https://opengameart.org/content/lpc-magic-staff
+- `weapon/magic/s/universal/background/walk.png`: LordNeo,Michael Whitlock (bigbeargames),bluecarrot16 | CC0 | https://opengameart.org/content/staff-64-x64,https://opengameart.org/content/lpc-magic-staff
+- `weapon/magic/s/thrust/foreground/thrust_oversize.png`: LordNeo,Michael Whitlock (bigbeargames),bluecarrot16 | CC0 | https://opengameart.org/content/staff-64-x64,https://opengameart.org/content/lpc-magic-staff
+- `weapon/magic/s/thrust/background/thrust_oversize.png`: LordNeo,Michael Whitlock (bigbeargames),bluecarrot16 | CC0 | https://opengameart.org/content/staff-64-x64,https://opengameart.org/content/lpc-magic-staff
+- `weapon/magic/diamond/universal/foreground/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/diamond/universal/background/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/diamond/thrust/foreground/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/diamond/thrust/background/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/crystal/universal/foreground/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/crystal/universal/background/walk.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/crystal/thrust/foreground/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `weapon/magic/crystal/thrust/background/thrust_oversize.png`: bluecarrot16 | OGA-BY 3.0+,GPL 3.0,CC-BY 4.0 | https://opengameart.org/content/lpc-more-weapons
+- `hat/magic/wizard/base/adult/walk.png`: Michael Whitlock (bigbeargames),Tuomo Untinen (reemax),JaidynReiman | CC-BY-SA 3.0,GPL 2.0,GPL 3.0 | https://opengameart.org/content/lpc-items-and-game-effects,https://opengameart.org/content/lpc-pointed-hats,https://opengameart.org/content/lpc-expanded-hats-facial-helmets
+- `hat/magic/wizard/base/adult/thrust.png`: Michael Whitlock (bigbeargames),Tuomo Untinen (reemax),JaidynReiman | CC-BY-SA 3.0,GPL 2.0,GPL 3.0 | https://opengameart.org/content/lpc-items-and-game-effects,https://opengameart.org/content/lpc-pointed-hats,https://opengameart.org/content/lpc-expanded-hats-facial-helmets
+- `hat/magic/celestial/adult/walk.png`: Napsio (Vitruvian Studio),Michael Whitlock (bigbeargames),Tracy | CC-BY 3.0 | https://opengameart.org/content/lpc-celestial-wizard-hats,https://opengameart.org/content/lpc-expanded-hats-facial-helmets
+- `hat/magic/celestial/adult/thrust.png`: Napsio (Vitruvian Studio),Michael Whitlock (bigbeargames),Tracy | CC-BY 3.0 | https://opengameart.org/content/lpc-celestial-wizard-hats,https://opengameart.org/content/lpc-expanded-hats-facial-helmets
+- `hat/magic/celestial_moon/adult/walk.png`: Napsio (Vitruvian Studio),Michael Whitlock (bigbeargames),Tracy | CC-BY 3.0 | https:/opengameart.org/content/lpc-celestial-wizard-hats,https:/opengameart.org/content/lpc-expanded-hats-facial-helmets
+- `hat/magic/celestial_moon/adult/thrust.png`: Napsio (Vitruvian Studio),Michael Whitlock (bigbeargames),Tracy | CC-BY 3.0 | https:/opengameart.org/content/lpc-celestial-wizard-hats,https:/opengameart.org/content/lpc-expanded-hats-facial-helmets

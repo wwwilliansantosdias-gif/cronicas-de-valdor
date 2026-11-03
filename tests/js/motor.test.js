@@ -5,7 +5,7 @@ import { lerMapaTexto, gerarMapa, alcancaveis, bloqueadoTile } from "../../docs/
 import { ganharXp, novoEstado as novoEstadoBase, xpParaProximo, portalLiberado, aoMorrer } from "../../docs/src/progresso.js";
 import { criarMonstro, danoEm, atingir, atualizarMonstro, dentroDaArea, danoHabilidade, recargaHabilidade, escalarArea } from "../../docs/src/combate.js";
 import { carregar as carregarBase, guardar, serializar, migrarV1 } from "../../docs/src/salvar.js";
-import { estatisticas, derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem, desbloquearHabilidades, melhorarHabilidade } from "../../docs/src/personagem.js";
+import { danoRecebido, estatisticas, derivados, distribuir, distribuirRecomendado, redistribuir, aoSubir, gastos, pontosAteNivel, novoItem, desbloquearHabilidades, melhorarHabilidade } from "../../docs/src/personagem.js";
 import { media } from "../../tools/simular.mjs";
 
 const ler = (f) => readFileSync(new URL("../../docs/" + f, import.meta.url), "utf8");
@@ -428,7 +428,7 @@ test("novas habilidades: Perfurante atravessa a fila; Rajada sai em 3 flechas de
 });
 
 test("ritmo das regiões 2 e 3: 10→20 leva cerca de 2 h e 20→29 cerca de 4 h (bem mais lento que 1→10)", () => {
-  for (const classe of ["guerreiro", "arqueiro"]) {
+  for (const classe of ["guerreiro", "arqueiro", "mago"]) {
     const m = media(29, 8, { classe }), r2 = m.marcos[20] - m.marcos[10], r3 = m.marcos[29] - m.marcos[20];
     assert.ok(r2 >= 90 && r2 <= 150, `${classe} 10→20: ${r2.toFixed(0)} min`);
     assert.ok(r3 >= 180 && r3 <= 300, `${classe} 20→29: ${r3.toFixed(0)} min`);
@@ -443,4 +443,22 @@ test("recuperação de vida: cresce com Vitalidade e com a vida máxima; zero se
   const sv = derivados(P, I, e), seg = (sv.vidaMax * 0.4) / sv.regen;
   assert.ok(seg >= 10 && seg <= 40, `de 60% a 100% em ${seg.toFixed(0)} s`);
   assert.equal(derivados({ ...P, regeneracao: undefined }, I, e).regen, 0);
+});
+
+test("mago: começa com Faísca e cajado; Leão atravessa; Espinhos em volta; Tornado acerta várias vezes; Escudo corta o dano", () => {
+  const e = novoEstadoBase(P, I, "mago", "faisca");
+  assert.deepEqual(e.habilidades, { faisca: 1 }); assert.equal(e.equip.arma.base, "cajado-retorcido");
+  const j = { x: 200, y: 200, dir: "right" }, fila = [250, 300, 360].map((x) => criarMonstro(monstros[0], x, 200));
+  assert.equal(atingir(j, fila, hab("faisca"), 5, 0).atingidos, 1, "Faísca: só o primeiro");
+  assert.equal(atingir(j, fila, hab("leao"), 5, 0).atingidos, 3, "Leão atravessa");
+  const atras = criarMonstro(monstros[0], 160, 200); assert.equal(dentroDaArea(j, atras, hab("espinhos")), true, "Espinhos pegam atrás");
+  assert.ok(hab("tornado").tiques > 1 && hab("tornado").distancia > 0);
+  const sv = derivados(P, I, e), esc = hab("escudo");
+  assert.ok(danoRecebido(P, sv, 40, esc.reducao) <= Math.ceil(danoRecebido(P, sv, 40) * (1 - esc.reducao)) + 1);
+  assert.ok(danoRecebido(P, sv, 40, esc.reducao) >= P.defesa.dano_minimo);
+});
+
+test("ritmo do mago: nível 10 em cerca de 30 minutos, como as outras classes", () => {
+  const m = media(10, 20, { classe: "mago" });
+  assert.ok(m.minutos >= 25 && m.minutos <= 35, `${m.minutos.toFixed(1)} min`);
 });
