@@ -1,12 +1,14 @@
 // Grava um vídeo do jogo sendo jogado por um robô com teclado de verdade (andar, mirar, atacar, habilidades, poção).
-// Uso: PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta-de-saída>
+// Uso: PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta-de-saída> [regioes]
+// Com "regioes": guerreiro nível 15 com o conjunto do Mineiro nas Galerias Rasas e arqueiro nível 25 com o de
+// Cinzaltar no Campo das Lápides, até o Rei Esquelético.
 // Parte 1: personagem novo (nível 1) na cidade e na Mata. Parte 2: personagem evoluído preparado no save
 // (nível 9, equipamento melhor, arma +5) para mostrar habilidades, defesa e efeitos.
 const { chromium } = await import(process.env.PLAYWRIGHT_PATH || "playwright");
 import http from "node:http";
 import { readFileSync, existsSync, statSync, readdirSync, renameSync } from "node:fs";
 import { extname, join } from "node:path";
-const RAIZ = new URL("../docs/", import.meta.url).pathname, saida = process.argv[2] || "/tmp";
+const RAIZ = new URL("../docs/", import.meta.url).pathname, saida = process.argv[2] || "/tmp", modo = process.argv[3] || "inicio";
 const T = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json", ".png": "image/png", ".md": "text/markdown", ".txt": "text/plain" };
 const srv = http.createServer((q, r) => { let f = join(RAIZ, decodeURIComponent(q.url.split("?")[0])); if (existsSync(f) && statSync(f).isDirectory()) f = join(f, "index.html"); if (!existsSync(f)) { r.writeHead(404); return r.end(); } r.writeHead(200, { "content-type": T[extname(f)] || "application/octet-stream" }); r.end(readFileSync(f)); }).listen(0);
 const nav = await chromium.launch();
@@ -41,10 +43,46 @@ async function cacar(ms) {
     // encara o monstro: um toque curto na direção dominante
     await segura([]); const dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "d" : "a") : (dy > 0 ? "s" : "w");
     await pag.keyboard.down(dir); await espera(30); await pag.keyboard.up(dir);
-    await pag.keyboard.press("2"); await pag.keyboard.press("1"); await pag.keyboard.press(" "); await espera(220);
+    for (const k of ["4", "3", "2", "1", " "]) await pag.keyboard.press(k); await espera(220);
   }
   await segura([]);
 }
+if (modo === "regioes") {
+// regiões 2 e 3: personagem preparado no save, entra pela cidade e sai pela borda leste
+const novo = async (classe) => {
+  await pag.waitForFunction(() => document.getElementById("caixa").innerText.includes("Novo personagem")); await espera(800);
+  await V((c) => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === c).click(), classe);
+  await pag.waitForFunction(() => document.body.dataset.pronto === "1"); await espera(500);
+};
+const preparar = (cfg) => V((c) => { const V = window.__valdor, E = V.est; while (E.nivel < c.nivel) V.ganhar(500); E.pontosLivres = 0; E.atributos = c.atributos;
+  for (const [esp, b, q, m] of c.equip) E.equip[esp] = { base: b, qual: q || "comum", mais: m || 0, bonus: {} };
+  Object.assign(E.habilidades, c.habs); E.pontosHab = 0; E.pocoes = 8; V.entrar(c.cidade, null); }, cfg);
+async function saidaLeste(area) {
+  await irPara(20, 12, 6000); await irPara(38, 12, 9000);
+  await segura(["d"]); await pag.waitForFunction((a) => window.__valdor.mapa.id === a, area, { timeout: 8000 }); await segura([]); await espera(600);
+}
+await pag.goto(`http://localhost:${srv.address().port}/`);
+await novo("Guerreiro");
+await preparar({ nivel: 15, cidade: "veio-fundo", atributos: { for: 30, vit: 22, agi: 6, sor: 4 }, habs: { estocada: 3, giro: 3, terremoto: 2 },
+  equip: [["arma", "mangual", "raro", 3], ["escudo", "escudo-pipa", "refinado", 1], ["capacete", "elmo-mineiro"], ["ombros", "ombreiras-mineiro"], ["peitoral", "malha-mineiro"], ["bracos", "bracadeiras-mineiro"], ["grevas", "grevas-mineiro"], ["botas", "botas-mineiro"], ["capa", "capa-viagem"]] });
+await espera(1500);
+await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3000);
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar")?.click()); await espera(400);
+await saidaLeste("galerias-rasas");
+await cacar(40000);
+await V(() => localStorage.clear()); await pag.reload();
+await novo("Arqueiro");
+await preparar({ nivel: 25, cidade: "cinzaltar", atributos: { for: 50, vit: 24, agi: 10, sor: 8 }, habs: { dispersao: 4, chuva: 3, rajada: 3, perfurante: 2 },
+  equip: [["arma", "arco-longo-cinzaltar", "lendario", 5], ["capacete", "elmo-cinzaltar"], ["ombros", "ombreiras-cinzaltar"], ["peitoral", "placas-cinzaltar"], ["bracos", "bracos-cinzaltar"], ["grevas", "grevas-cinzaltar"], ["botas", "botas-cinzaltar"], ["capa", "capa-cinzaltar", "raro", 2]] });
+await espera(1500);
+await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3000);
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar")?.click()); await espera(400);
+await saidaLeste("campo-das-lapides");
+await cacar(35000);
+// chefe: só o Rei Esquelético fica "vivo" para o robô mirar nele
+await V(() => { const V = window.__valdor, r = V.monstros.find((m) => m.def.id === "rei-esqueletico"); V.jogador.x = r.x - 170; V.jogador.y = r.y; V.jogador.vida = 9999; });
+await cacar(20000);
+} else {
 await pag.goto(`http://localhost:${srv.address().port}/`);
 await pag.waitForFunction(() => document.getElementById("caixa").innerText.includes("Novo personagem"));
 await espera(1500);
@@ -69,6 +107,7 @@ await espera(500);
 await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3500);
 await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar")?.click()); await espera(500);
 await cacar(40000);
+}
 await ctx.close(); await nav.close(); srv.close();
 const vid = readdirSync(saida).filter((f) => f.endsWith(".webm")).map((f) => join(saida, f)).sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs)[0];
 renameSync(vid, join(saida, "partida.webm"));

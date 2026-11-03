@@ -33,4 +33,4 @@ python3 -I tools/build_cidade.py         # monta casas, forja, barraca, quadro, 
 Item novo: acrescente em `docs/dados/itens.json` (com `peca_lpc` e `visual`) e rode `build_jogo_assets.py` e depois `build_mostruario.py` (créditos).
 
 ## Gravar uma partida
-`PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta>` grava um vídeo (webm) de um robô jogando.
+`PLAYWRIGHT_PATH=$(npm root -g)/playwright/index.mjs node tools/gravar_partida.mjs <pasta> [regioes]` grava um vídeo (webm) de um robô jogando; com `regioes`, mostra a Caverna e as Ruínas.
