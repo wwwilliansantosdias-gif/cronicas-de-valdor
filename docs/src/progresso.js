@@ -1,7 +1,11 @@
 // Experiência e níveis. A curva vem de dados/progressao.json (xp_base, xp_expoente, nivel_max).
 import { atributosIniciais, equipamentoInicial } from "./personagem.js";
 
-export function xpParaProximo(P, n) { return Math.round(P.xp_base * n ** P.xp_expoente); }
+// xp para ir do nível n ao n+1: curva base × multiplicador da faixa (as regiões novas pedem mais tempo por nível)
+export function xpParaProximo(P, n) {
+  const f = (P.xp_faixas || []).find((x) => n <= x.ate);
+  return Math.round(P.xp_base * n ** P.xp_expoente * (f ? f.mult : 1));
+}
 
 // habInicial: a habilidade de nível 1 da classe (classes.json "habilidades"[0])
 export function novoEstado(P, I, classe = "guerreiro", habInicial = "golpe") {

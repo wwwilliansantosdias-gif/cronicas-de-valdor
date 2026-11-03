@@ -1,0 +1,20 @@
+# Veio-Fundo: cidade mineira da região 2 (Caverna)
+mapa: veio-fundo
+tamanho: 40x24
+semente: 21
+base: terra
+zona_segura: sim
+predio: casa_pedra 2,2 3x7
+predio: casa_pedra 6,2 3x7
+predio: casa_tijolo 30,2 3x7
+predio: casa_pedra 2,14 3x7
+predio: poco 19,6 2x2
+predio: barraca 10,9 3x3
+predio: quadro 15,9 3x3
+predio: forja 23,8 5x4
+npc: mercador 11,12
+npc: quadro 16,12
+npc: ferreiro 25,12
+portal: 35,9 ruinas
+portal: 35,17 floresta
+saida: leste galerias-rasas

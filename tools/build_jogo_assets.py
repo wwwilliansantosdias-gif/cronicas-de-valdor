@@ -64,6 +64,7 @@ for it in itens["itens"]:
 open("data/pecas_usadas.txt", "w", encoding="utf-8").write("\n".join(usadas) + "\n")
 
 shutil.copy("assets/raw/lpc-forest-tiles/x_LPC_forest_0.zip/LPC_forest/forest_tiles.png", OUT + "forest_tiles.png")
+shutil.copy("assets/raw/lpc-cavern-and-ruin-tiles/x_LPC_cavern_ruins.zip/LPC_cavern_ruins/cavern_ruins.png", OUT + "cavern_ruins.png")  # chão e objetos da Caverna e das Ruínas
 for f in ("tiles/dirt.png", "tiles/signs.png", "tiles/house.png", "sprites/people/soldier.png",
           "sprites/people/soldier_altcolor.png", "sprites/people/princess.png"):
     shutil.copy(BASE + f, OUT + f.split("/")[-1])

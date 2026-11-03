@@ -1,11 +1,66 @@
 {
   "regioes": [
-    { "id": "floresta", "nome": "Floresta", "cidade": "pe-de-lenha", "cacada": "mata-do-javali", "niveis": [1, 9],
-      "portal_proxima": { "para": "caverna", "nivel_minimo": 10 }, "implementada": true },
-    { "id": "caverna", "nome": "Caverna", "cidade": "veio-fundo", "cacada": "galerias-rasas", "niveis": [10, 19],
-      "portal_proxima": { "para": "ruinas", "nivel_minimo": 20 }, "implementada": false },
-    { "id": "ruinas", "nome": "Ruínas assombradas", "cidade": "cinzaltar", "cacada": "campo-das-lapides", "niveis": [20, 29],
-      "portal_proxima": null, "implementada": false }
+    {
+      "id": "floresta",
+      "nome": "Floresta",
+      "cidade": "pe-de-lenha",
+      "cacada": "mata-do-javali",
+      "niveis": [
+        1,
+        9
+      ],
+      "portal_proxima": {
+        "para": "caverna",
+        "nivel_minimo": 10
+      },
+      "implementada": true,
+      "drops": {
+        "chance": 0.08,
+        "qualidade_mult": 1.0
+      }
+    },
+    {
+      "id": "caverna",
+      "nome": "Caverna",
+      "cidade": "veio-fundo",
+      "cacada": "galerias-rasas",
+      "niveis": [
+        10,
+        19
+      ],
+      "portal_proxima": {
+        "para": "ruinas",
+        "nivel_minimo": 20
+      },
+      "implementada": true,
+      "drops": {
+        "chance": 0.12,
+        "qualidade_mult": 1.5
+      }
+    },
+    {
+      "id": "ruinas",
+      "nome": "Ruínas assombradas",
+      "cidade": "cinzaltar",
+      "cacada": "campo-das-lapides",
+      "niveis": [
+        20,
+        29
+      ],
+      "portal_proxima": null,
+      "implementada": true,
+      "drops": {
+        "chance": 0.15,
+        "qualidade_mult": 2.0
+      }
+    }
   ],
-  "mapas": { "pe-de-lenha": "mapas/pe-de-lenha.txt", "mata-do-javali": "mapas/mata-do-javali.txt" }
+  "mapas": {
+    "pe-de-lenha": "mapas/pe-de-lenha.txt",
+    "mata-do-javali": "mapas/mata-do-javali.txt",
+    "veio-fundo": "mapas/veio-fundo.txt",
+    "galerias-rasas": "mapas/galerias-rasas.txt",
+    "cinzaltar": "mapas/cinzaltar.txt",
+    "campo-das-lapides": "mapas/campo-das-lapides.txt"
+  }
 }

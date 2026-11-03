@@ -17,7 +17,9 @@
       "habilidades": [
         "golpe",
         "estocada",
-        "giro"
+        "giro",
+        "terremoto",
+        "investida"
       ]
     },
     {
@@ -37,7 +39,9 @@
       "habilidades": [
         "disparo",
         "dispersao",
-        "chuva"
+        "chuva",
+        "rajada",
+        "perfurante"
       ]
     }
   ]

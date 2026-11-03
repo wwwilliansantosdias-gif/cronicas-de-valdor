@@ -1,0 +1,15 @@
+# Campo das Lápides: área de caça da região 3
+mapa: campo-das-lapides
+tamanho: 64x44
+semente: 47
+base: ruinas
+obstaculos: ruina
+arvores: 0.09
+lagoas: 4
+clareira: 46,22,6
+saida: oeste cinzaltar
+spawn: esqueleto 4 grupo 3
+spawn: zumbi 3 grupo 3
+spawn: fantasma 3 grupo 2
+spawn: olho-voador 3 grupo 2
+chefe: rei-esqueletico

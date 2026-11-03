@@ -185,3 +185,11 @@ test("save v2 vira v3 com os espaços novos vazios, sem perder o que estava vest
 test("armas sem estocar ficam marcadas (a Estocada usa o golpe) e só existem para o guerreiro", () => {
   for (const it of I.itens.filter((x) => x.estocada_com_golpe)) { assert.ok(!it.visual.thrust); assert.ok(it.visual.slash); assert.deepEqual(it.classes, ["guerreiro"]); }
 });
+
+test("região 2 e 3 largam mais itens e de qualidade melhor que a Floresta", () => {
+  const R = ler("dados/regioes.json").regioes, e = novoEstado(P, I); e.nivel = 20;
+  const medir = (reg) => { const rng = criarPrng(11); let n = 0, boas = 0; for (let i = 0; i < N; i++) { const it = sortearDrop(I, P, comum, e, reg.niveis[1], 0, rng, reg.drops); if (it) { n++; if (it.qual !== "comum") boas++; } } return { taxa: n / N, boas: boas / n }; };
+  const [f, c, r] = ["floresta", "caverna", "ruinas"].map((id) => medir(R.find((x) => x.id === id)));
+  assert.ok(Math.abs(c.taxa - R[1].drops.chance) < 0.01 && c.taxa > f.taxa * 1.3 && r.taxa > c.taxa, JSON.stringify({ f, c, r }));
+  assert.ok(c.boas > f.boas * 1.2 && r.boas > c.boas, JSON.stringify({ f, c, r }));
+});

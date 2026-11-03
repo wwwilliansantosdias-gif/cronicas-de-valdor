@@ -5,7 +5,7 @@ export const TILE = 32;
 const TAM = { arvore: [2, 2], lagoa: [3, 3], predio: [6, 5] };
 
 export function lerMapaTexto(txt) {
-  const m = { saidas: [], predios: [], npcs: [], spawns: [], zonaSegura: false, arvores: 0, lagoas: 0, chefe: null, portal: null, clareira: null };
+  const m = { saidas: [], predios: [], npcs: [], spawns: [], zonaSegura: false, arvores: 0, lagoas: 0, chefe: null, portal: null, portais: [], clareira: null, obstaculos: ["arvore"] };
   for (const bruta of txt.split("\n")) {
     const linha = bruta.split("#")[0].trim();
     if (!linha) continue;
@@ -19,7 +19,8 @@ export function lerMapaTexto(txt) {
     else if (k === "semente") m.semente = Number(v);
     else if (k === "base") m.base = v;
     else if (k === "zona_segura") m.zonaSegura = v === "sim";
-    else if (k === "arvores") m.arvores = Number(v);
+    else if (k === "arvores") m.arvores = Number(v); // densidade de obstáculos 2x2
+    else if (k === "obstaculos") m.obstaculos = v.split(",").map((x) => x.trim()); // estilos (dados/cenario.json)
     else if (k === "lagoas") m.lagoas = Number(v);
     else if (k === "clareira") { const [x, y, r] = num(v); m.clareira = { x, y, r }; }
     else if (k === "predio") { // "predio: tipo x,y LxA" (construção montada em assets/cidade) ou o antigo "predio: x,y"
@@ -28,7 +29,7 @@ export function lerMapaTexto(txt) {
       else { const [x, y] = num(p[1]); const [w, h] = p[2].split("x").map(Number); m.predios.push({ nome: p[0], x, y, w, h }); }
     }
     else if (k === "npc") { const [t, xy] = v.split(/\s+/); const [x, y] = num(xy); m.npcs.push({ tipo: t, x, y }); }
-    else if (k === "portal") { const [xy, para] = v.split(/\s+/); const [x, y] = num(xy); m.portal = { x, y, para }; }
+    else if (k === "portal") { const [xy, para] = v.split(/\s+/); const [x, y] = num(xy); m.portais.push({ x, y, para }); m.portal = m.portais[0]; }
     else if (k === "saida") { const [lado, destino] = v.split(/\s+/); m.saidas.push({ lado, destino }); }
     else if (k === "spawn") { // "spawn: tipo N" (N soltos) ou "spawn: tipo N grupo G" (N bandos de G)
       const [t, n, g, tam] = v.split(/\s+/);
@@ -110,7 +111,7 @@ export function gerarMapa(spec) {
     for (let j = y - r; j <= y + r; j++) for (let i = x - r; i <= x + r; i++) if ((i - x) ** 2 + (j - y) ** 2 <= r * r) marcar(reservado, w, h, i, j, 1, 1);
   }
   for (const n of spec.npcs) marcar(reservado, w, h, n.x - 2, n.y - 2, 5, 5);
-  if (spec.portal) marcar(reservado, w, h, spec.portal.x - 2, spec.portal.y - 2, 5, 5);
+  for (const p of spec.portais) marcar(reservado, w, h, p.x - 2, p.y - 2, 5, 5);
   // prédios (posição dada)
   for (const p of spec.predios) pos("predio", p.x, p.y, p.w, p.h, p.nome);
   // lagoas e árvores
@@ -121,10 +122,10 @@ export function gerarMapa(spec) {
   const alvo = Math.floor(spec.arvores * w * h / 4);
   for (let n = 0, t = 0; n < alvo && t < alvo * 20; t++) {
     const x = 1 + Math.floor(rng() * (w - 3)), y = 1 + Math.floor(rng() * (h - 3));
-    if (livre(bloq, w, h, x, y, 2, 2, reservado)) { pos("arvore", x, y); objetos[objetos.length - 1].v = rng() < 0.5 ? 0 : 1; n++; }
+    if (livre(bloq, w, h, x, y, 2, 2, reservado)) { pos("arvore", x, y); const o = objetos[objetos.length - 1]; o.estilo = spec.obstaculos[Math.floor(rng() * spec.obstaculos.length)]; o.v = Math.floor(rng() * 4); n++; }
   }
   const mapa = { id: spec.id, w, h, base: spec.base, semente: spec.semente, bloq, objetos, saidas, zonaSegura: spec.zonaSegura,
-    npcs: spec.npcs.map((n) => ({ ...n })), portal: spec.portal ? { ...spec.portal } : null, spawns: [], chefe: null, clareira: spec.clareira };
+    npcs: spec.npcs.map((n) => ({ ...n })), portal: spec.portal ? { ...spec.portal } : null, portais: spec.portais.map((p) => ({ ...p })), spawns: [], chefe: null, clareira: spec.clareira };
   // entrada padrão: primeira saída, ou centro
   const inicio = saidas[0] ? saidas[0].entrada : { x: mx, y: my };
   mapa.inicio = inicio;
@@ -157,7 +158,7 @@ export function gerarMapa(spec) {
     }
   }
   // verificações: tudo que o jogador precisa alcançar
-  const pontos = [...saidas.map((s) => s.entrada), ...spec.npcs.map((n) => ({ x: n.x, y: n.y })), ...(spec.portal ? [{ x: spec.portal.x, y: spec.portal.y }] : [])];
+  const pontos = [...saidas.map((s) => s.entrada), ...spec.npcs.map((n) => ({ x: n.x, y: n.y })), ...spec.portais.map((p) => ({ x: p.x, y: p.y }))];
   for (const p of pontos) if (!ok(p.x, p.y)) throw new Error(`ponto inalcançável (${p.x},${p.y}) em ${spec.id}`);
   return mapa;
 }

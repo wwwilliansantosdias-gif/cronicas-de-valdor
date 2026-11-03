@@ -2,6 +2,7 @@
 import csv
 import json
 import os
+import re
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -156,3 +157,21 @@ def test_materiais_e_conjuntos_validos():
     for c in I["conjuntos"]:
         assert all(p in ids for p in c["pecas"]), c["id"]
         assert not set(c["pecas"]) & set(I["equipamento_inicial"]["guerreiro"].values()), "conjunto não pode vir no equipamento inicial"
+
+
+def test_cenario_usa_folhas_que_existem_e_estao_creditadas():
+    cen = json.load(open(os.path.join(RAIZ, "docs", "dados", "cenario.json"), encoding="utf-8"))
+    usadas = {b["img"] for b in cen["bases"].values()}
+    usadas |= {o["img"] for lista in cen["obstaculos"].values() for o in lista}
+    usadas |= {l["img"] for l in cen["lagoas"].values()}
+    pacote = {"forest_tiles": "lpc-forest-tiles", "cavern_ruins": "lpc-cavern-and-ruin-tiles", "dirt": "liberated-pixel-cup-lpc-base-assets-sprites-map-tiles"}
+    for img in usadas:
+        assert os.path.exists(os.path.join(RAIZ, "docs", "assets", img + ".png")), img
+        assert "opengameart.org/content/" + pacote[img] in CRED, f"{img}.png sem crédito do pacote em CREDITOS.md"
+    for m in os.listdir(os.path.join(RAIZ, "docs", "mapas")):
+        txt = open(os.path.join(RAIZ, "docs", "mapas", m), encoding="utf-8").read()
+        base = re.search(r"^base:\s*(\S+)", txt, re.M)
+        assert base is None or base.group(1) in cen["bases"], m
+        obs = re.search(r"^obstaculos:\s*(.+)$", txt, re.M)
+        for o in (obs.group(1).split(",") if obs else []):
+            assert o.strip() in cen["obstaculos"], (m, o)

@@ -38,5 +38,20 @@
   "defesa": {
     "k": 60,
     "dano_minimo": 1
-  }
+  },
+  "xp_faixas": [
+    {
+      "ate": 9,
+      "mult": 1
+    },
+    {
+      "ate": 19,
+      "mult": 3.06
+    },
+    {
+      "ate": 29,
+      "mult": 6.29
+    }
+  ],
+  "_ritmo_alvo": "nível 10 em ~30 min; do 10 ao 20 em ~2 h; do 20 ao 29 em ~4 h (simulador)"
 }

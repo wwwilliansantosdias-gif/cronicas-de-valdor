@@ -122,3 +122,6 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - Casas inteiras montadas de peças LPC (telhado de ardósia, empena com janela de sótão, fachada de tijolo ou pedra, porta), forja (fornalha acesa, banco, suporte de armas, bigorna, placa da espada), barraca do mercador (toldo, poções, placa da bolsa), quadro de missões (quadro de avisos com papéis, sobre pés), fonte e poço. Montagem em `tools/build_cidade.py`; pacotes novos creditados: Bulletin Board and Items, [LPC] Bazaar rework, LPC style well, [LPC] Hanging signs, LPC Water Fountain.
 - Mapa por regras aceita `predio: tipo x,y LxA`; a praça foi redistribuída (fonte no centro, barraca, quadro e forja na rua, casas nos cantos).
 - O botão de interação diz o que faz: Loja, Forja, Missões, Portal.
+
+## Regiões 2 e 3
+A curva ganhou faixas por região (`xp_faixas`) e as quedas variam por região. Detalhes, números calibrados e habilidades novas em `etapa-8-regioes.md`.

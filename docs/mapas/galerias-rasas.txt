@@ -1,0 +1,15 @@
+# Galerias Rasas: área de caça da região 2
+mapa: galerias-rasas
+tamanho: 64x44
+semente: 33
+base: caverna
+obstaculos: rocha,cristal
+arvores: 0.11
+lagoas: 3
+clareira: 46,22,6
+saida: oeste veio-fundo
+spawn: morcego 4 grupo 3
+spawn: gosma 3 grupo 3
+spawn: minhoca 3 grupo 2
+spawn: golem 3 grupo 2
+chefe: golem-do-veio

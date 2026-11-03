@@ -72,11 +72,11 @@ function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; 
 function salvar() { guardar(localStorage, EST); }
 
 async function iniciar() {
-  const [regioes, mons, itens, missoes, mostr, prog, classes, habs] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json"].map(json));
+  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json"].map(json));
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
-    P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
+    CEN: cen, P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
   for (const m of mostr.monstros) MSTR[m.id] = m;
-  const arq = ["forest_tiles", "dirt", "signs", "house", "soldier", "soldier_altcolor", "princess", ...["casa_tijolo", "casa_pedra", "fonte", "barraca", "quadro", "forja", "poco"].map((c) => "cidade/" + c)];
+  const arq = ["forest_tiles", "dirt", "cavern_ruins", "signs", "house", "soldier", "soldier_altcolor", "princess", ...["casa_tijolo", "casa_pedra", "fonte", "barraca", "quadro", "forja", "poco"].map((c) => "cidade/" + c)];
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
   // peças do personagem: corpo, cabeça e o visual de cada item (camadas empilhadas na hora)
   const pecas = new Set();
@@ -105,7 +105,8 @@ async function iniciar() {
 function entrar(id, origem) {
   EST.mapa = id; mapa = MAPAS[id]; monstros = []; chao = [];
   let p = mapa.inicio;
-  if (origem) { const s = mapa.saidas.find((x) => x.destino === origem); if (s) p = s.entrada; }
+  if (origem && origem.startsWith("portal:")) { const pt = mapa.portais.find((x) => x.para === origem.slice(7)); p = pt ? { x: pt.x - 2, y: pt.y + 1 } : { x: 16, y: 14 }; }
+  else if (origem) { const s = mapa.saidas.find((x) => x.destino === origem); if (s) p = s.entrada; }
   if (!origem && mapa.zonaSegura) p = { x: 16, y: 14 };
   if (mapa.zonaSegura && D && EST.atributos) jogador.vida = stats().vidaMax; // a cidade restaura a vida
   jogador.x = p.x * TILE + 16; jogador.y = p.y * TILE + 28;
@@ -116,7 +117,7 @@ function entrar(id, origem) {
 
 // ---------- entrada ----------
 const teclas = new Set(), joy = { x: 0, y: 0, id: null };
-addEventListener("keydown", (e) => { const k = e.key.toLowerCase(); teclas.add(k); if (k === " ") atacar(); if (k === "1") usarHabilidade(habN(1)); if (k === "2") usarHabilidade(habN(2)); if (k === "e") interagir(); if (k === "q") usarPocao(); });
+addEventListener("keydown", (e) => { const k = e.key.toLowerCase(); teclas.add(k); if (k === " ") atacar(); if (k === "1") usarHabilidade(habN(1)); if (k === "2") usarHabilidade(habN(2)); if (k === "3") usarHabilidade(habN(3)); if (k === "4") usarHabilidade(habN(4)); if (k === "e") interagir(); if (k === "q") usarPocao(); });
 addEventListener("keyup", (e) => teclas.delete(e.key.toLowerCase()));
 const joyEl = $("joy"), knob = $("knob");
 function joyMove(e) {
@@ -134,7 +135,9 @@ knob.style.left = knob.style.top = "37px";
 $("bA").addEventListener("pointerdown", () => atacar());
 $("bH1").addEventListener("pointerdown", () => usarHabilidade(habN(1)));
 $("bH2").addEventListener("pointerdown", () => usarHabilidade(habN(2)));
-// n-ésima habilidade da classe (0 = ataque básico; 1 e 2 = botões de habilidade)
+$("bH3").addEventListener("pointerdown", () => usarHabilidade(habN(3)));
+$("bH4").addEventListener("pointerdown", () => usarHabilidade(habN(4)));
+// n-ésima habilidade da classe (0 = ataque básico; 1 a 4 = botões de habilidade)
 function habN(n) { return D.classes[EST.classe].habilidades[n]; }
 // personagem novo: escolha da classe
 function escolherClasse() {
@@ -189,8 +192,8 @@ function registrarMorte(m) {
   subiuNiveis(ganharXp(D.P, EST, def.xp));
   for (const q of D.missoes) { const e = EST.missoes[q.id]; if (e && e.estado === "ativa" && q.alvo === def.id) { e.progresso = Math.min(q.quantidade, e.progresso + 1); if (e.progresso >= q.quantidade) { e.estado = "pronta"; msg(`Missão pronta: ${q.titulo}`); } } }
   m.mortoEm = performance.now();
-  const reg = D.regioes.find((r) => r.cacada === mapa.id || r.cidade === mapa.id);
-  const it = sortearDrop(D.itens, D.P, def, EST, reg ? reg.niveis[1] : EST.nivel, stats().atributos.sor, Math.random);
+  const reg = regiaoDoMapa(mapa.id);
+  const it = sortearDrop(D.itens, D.P, def, EST, reg ? reg.niveis[1] : EST.nivel, stats().atributos.sor, Math.random, reg && reg.drops);
   if (it) chao.push({ it, x: m.x, y: m.y - 4, t: D.itens.drops.duracao_no_chao_s });
   const frag = sortearFragmentos(D.itens, def, Math.random);
   if (frag) { EST.fragmentos += frag; flutuar(`+${frag} fragmento${frag > 1 ? "s" : ""}`, m.x, m.y - 40, "#c9d4ff"); }
@@ -198,9 +201,10 @@ function registrarMorte(m) {
 }
 
 // ---------- interação ----------
+function regiaoDoMapa(id) { return D.regioes.find((r) => r.cidade === id || r.cacada === id); }
 function perto() {
   const alvos = mapa.npcs.map((n) => ({ tipo: n.tipo, x: n.x * TILE + 16, y: n.y * TILE + 16 }));
-  if (mapa.portal) alvos.push({ tipo: "portal", x: mapa.portal.x * TILE + 16, y: mapa.portal.y * TILE + 16 });
+  for (const pt of mapa.portais) alvos.push({ tipo: "portal", para: pt.para, x: pt.x * TILE + 16, y: pt.y * TILE + 16 });
   let melhor = null, md = 52;
   for (const a of alvos) { const d = Math.hypot(a.x - jogador.x, a.y - 12 - jogador.y); if (d < md) { md = d; melhor = a; } }
   return melhor;
@@ -233,10 +237,10 @@ function interagir() {
   if (a.tipo === "ferreiro") return telaFerreiro();
   if (a.tipo === "quadro") return telaQuadro();
   if (a.tipo === "portal") {
-    const reg = D.regioes.find((r) => r.cidade === mapa.id);
-    if (!portalLiberado(EST, reg)) return painel(`<h3>Portal selado</h3><p>O portal antigo só reage a quem alcançar o nível ${reg.portal_proxima.nivel_minimo}. Você está no nível ${EST.nivel}.</p>`);
-    const prox = D.regioes.find((r) => r.id === reg.portal_proxima.para);
-    return painel(`<h3>Portal aberto</h3><p>O caminho para a ${prox.nome} se abre, mas essa região ainda não foi construída nesta versão.</p>`);
+    const dest = D.regioes.find((r) => r.id === a.para), aqui = regiaoDoMapa(mapa.id), min = dest.niveis[0];
+    if (EST.nivel < min) return painel(`<h3>Portal selado</h3><p>O portal para a ${dest.nome} só reage a quem alcançar o nível ${min}. Você está no nível ${EST.nivel}.</p>`);
+    if (!dest.implementada) return painel(`<h3>Portal aberto</h3><p>O caminho para a ${dest.nome} se abre, mas essa região ainda não foi construída.</p>`);
+    entrar(dest.cidade, "portal:" + aqui.id); msg(dest.nome, 2.4);
   }
 }
 function telaMercador() {
@@ -421,6 +425,12 @@ async function menu() {
 function atualizar(dt) {
   if (msgT > 0) { msgT -= dt; if (msgT <= 0) $("msg").classList.remove("on"); }
   for (const k in jogador.cds) jogador.cds[k] = Math.max(0, jogador.cds[k] - dt);
+  if (jogador.repete && !jogador.morto) { // Rajada: as flechas seguintes saem em sequência
+    const rp = jogador.repete; rp.t -= dt;
+    if (rp.t <= 0) { const sv0 = stats(), r = atingir(jogador, monstros, rp.h, danoHabilidade(rp.h, D.porGrau, sv0.dano, EST.habilidades[rp.h.id] || 1), sv0.critico, sv0.criticoMult);
+      soltarFlechas(rp.h); for (const gp of r.golpes) flutuar(gp.crit ? `${Math.round(gp.dano)}!` : `${Math.round(gp.dano)}`, gp.m.x, gp.m.y - 30 - 18 * gp.m.def.escala, gp.crit ? "#ffd84a" : "#ffffff", gp.crit ? 12 : 9);
+      for (const m of r.mortos) registrarMorte(m); rp.n--; rp.t = 0.13; if (rp.n <= 0) jogador.repete = null; }
+  }
   jogador.invul = Math.max(0, jogador.invul - dt);
   const sv = stats();
   if (jogador.veneno && !jogador.morto) { // veneno: dano contínuo, ignora invulnerabilidade, não mata sozinho abaixo de 1
@@ -442,6 +452,8 @@ function atualizar(dt) {
       if (h.animacao === "shoot" && antes < SOLTAR && jogador.golpe >= SOLTAR) soltarFlechas(h);
       if (antes < h.impacto && jogador.golpe >= h.impacto) {
         const r = atingir(jogador, monstros, h, danoHabilidade(h, D.porGrau, sv.dano, EST.habilidades[h.id] || 1), sv.critico, sv.criticoMult);
+        if (h.avanco) { const [vx, vy] = VET[jogador.dir]; for (let k = 0; k < 10; k++) mover(jogador, vx * h.avanco / 10, vy * h.avanco / 10, mapa); }
+        if (h.repeticoes > 1) jogador.repete = { h, n: h.repeticoes - 1, t: 0.13 };
         for (const gp of r.golpes) flutuar(gp.crit ? `${Math.round(gp.dano)}!` : `${Math.round(gp.dano)}`, gp.m.x + (Math.random() - 0.5) * 8, gp.m.y - 30 - 18 * gp.m.def.escala, gp.crit ? "#ffd84a" : "#ffffff", gp.crit ? 12 : 9);
         for (const m of r.mortos) registrarMorte(m);
       }
@@ -486,7 +498,7 @@ function atualizar(dt) {
   ultimoPoder = pd; if ($("nv").textContent !== rot) $("nv").textContent = rot;
   const bS = $("bS"), livres = EST.pontosLivres + EST.pontosHab;
   if (bS.dataset.n !== String(livres)) { bS.dataset.n = livres; bS.textContent = livres > 0 ? `+${livres}` : "Atrib."; bS.classList.toggle("tem", livres > 0); }
-  for (const [bid, hid] of [["bH1", habN(1)], ["bH2", habN(2)]]) {
+  for (const [bid, hid] of [["bH1", habN(1)], ["bH2", habN(2)], ["bH3", habN(3)], ["bH4", habN(4)]]) {
     const b = $(bid), h = D.hab[hid], cd = jogador.cds[hid] || 0, livre = !!EST.habilidades[hid];
     const txt = !livre ? `Nv ${h.nivel}` : cd > 0 ? cd.toFixed(1) : h.nome;
     if (b.textContent !== txt) b.textContent = txt;
@@ -501,12 +513,18 @@ function morrer() {
   jogador.morto = true; jogador.veneno = null; jogador.golpe = -1; aoMorrer(EST); salvar();
   msg("Você caiu. Voltando à cidade…", 2.6);
   setTimeout(() => {
-    const cidade = D.regioes.find((r) => r.id === "floresta").cidade;
+    const cidade = (regiaoDoMapa(mapa.id) || D.regioes[0]).cidade;
     entrar(cidade, null); jogador.vida = stats().vidaMax; jogador.morto = false; jogador.invul = 1.5;
   }, 1800);
 }
 
 // ---------- desenho ----------
+// peça de chão por posição (sorteio fixo pelos pesos da base): mesmo mapa, mesmo chão
+function pecaBase(b, tx, ty) {
+  const total = b.pesos.reduce((s, p) => s + p, 0); let r = ((tx * 73856093) ^ (ty * 19349663)) >>> 0; r %= total;
+  for (let i = 0; i < b.pecas.length; i++) { if (r < b.pesos[i]) return b.pecas[i]; r -= b.pesos[i]; }
+  return b.pecas[0];
+}
 function quadroAnim(a, t, extra = 0) { return a.frames[Math.floor(t * 8 + extra) % a.frames.length]; }
 function desenharMonstro(m, t) {
   const spec = MSTR[m.def.sprite];
@@ -534,8 +552,8 @@ function desenharAvisos() {
     if (m.morto || m.estado !== "preparar") continue;
     const a = m.atq, p = Math.min(1, m.t / a.aviso), x = m.x - cam.x, y = m.y - 6 - cam.y;
     ctx.save(); ctx.globalAlpha = 0.35 + 0.35 * p; ctx.fillStyle = "#ff3030"; ctx.strokeStyle = "#ff5050";
-    if (a.tipo === "investida") {
-      const L = a.velocidade * a.duracao, w = a.raio * 1.2;
+    if (a.tipo === "investida" || a.tipo === "linha") {
+      const L = a.tipo === "linha" ? a.alcance : a.velocidade * a.duracao, w = a.raio * 1.2;
       ctx.translate(x, y); ctx.rotate(Math.atan2(m.alvo[1], m.alvo[0]));
       ctx.fillRect(0, -w / 2, L * p, w); ctx.globalAlpha = 0.6; ctx.lineWidth = 1; ctx.strokeRect(0, -w / 2, L, w);
     } else if (a.tipo === "area") {
@@ -702,15 +720,16 @@ function desenhar(t) {
   const x1 = Math.min(mapa.w - 1, Math.floor((cam.x + VW) / TILE)), y1 = Math.min(mapa.h - 1, Math.floor((cam.y + VH) / TILE));
   for (let ty = y0; ty <= y1; ty++) for (let tx = x0; tx <= x1; tx++) {
     const px = tx * TILE - cam.x, py = ty * TILE - cam.y;
-    if (mapa.base === "terra") ctx.drawImage(IMG.dirt, 32, 160, 32, 32, px, py, 32, 32);
-    else { const v = (tx * 7 + ty * 13) % 11; const c = v === 0 ? 1 : v === 1 ? 2 : 0; ctx.drawImage(IMG.forest_tiles, c * 32, 0, 32, 32, px, py, 32, 32); }
-    if (tx === 0 || ty === 0 || tx === mapa.w - 1 || ty === mapa.h - 1) if (bloqueadoTile(mapa, tx, ty)) { ctx.fillStyle = "#0b2410"; ctx.fillRect(px, py, 32, 32); }
+    const b = D.CEN.bases[mapa.base] || D.CEN.bases.grama, [cx, cy] = pecaBase(b, tx, ty);
+    ctx.drawImage(IMG[b.img], cx * 32, cy * 32, 32, 32, px, py, 32, 32);
+    if (tx === 0 || ty === 0 || tx === mapa.w - 1 || ty === mapa.h - 1) if (bloqueadoTile(mapa, tx, ty)) { ctx.fillStyle = b.borda || "#0b2410"; ctx.fillRect(px, py, 32, 32); }
   }
   const fila = [];
   for (const o of mapa.objetos) fila.push({ y: (o.y + o.h) * TILE, f: () => {
     const px = o.x * TILE - cam.x, py = o.y * TILE - cam.y;
-    if (o.tipo === "arvore") ctx.drawImage(IMG.forest_tiles, 0, (o.v ? 6 : 8) * 32, 64, 64, px, py, 64, 64);
-    else if (o.tipo === "lagoa") ctx.drawImage(IMG.forest_tiles, 10 * 32, 8 * 32, 96, 96, px, py, 96, 96);
+    if (o.tipo === "arvore") { const lista = D.CEN.obstaculos[o.estilo || "arvore"], sp = lista[(o.v || 0) % lista.length]; // em pé, base no chão da pegada 2x2
+      ctx.drawImage(IMG[sp.img], sp.x, sp.y, sp.w, sp.h, px + 32 - sp.w / 2, py + 64 - sp.h, sp.w, sp.h); }
+    else if (o.tipo === "lagoa") { const sp = D.CEN.lagoas[mapa.base] || D.CEN.lagoas.grama; ctx.drawImage(IMG[sp.img], sp.x, sp.y, sp.w, sp.h, px, py + 96 - sp.h, sp.w, sp.h); }
     else if (o.nome && IMG["cidade/" + o.nome]) { const im = IMG["cidade/" + o.nome]; ctx.drawImage(im, px, py + o.h * TILE - im.height); }
     else ctx.drawImage(IMG.house, 0, 0, 192, 160, px, py, 192, 160);
   } });
@@ -720,12 +739,12 @@ function desenhar(t) {
     const sp = n.tipo === "mercador" ? IMG.princess : IMG.soldier_altcolor;
     ctx.drawImage(sp, 0, 2 * 64, 64, 64, px - 16, py - 32, 64, 64); etiqueta(NOMES[n.tipo], px + 16, py - 28);
   } });
-  if (mapa.portal) { const p = mapa.portal; fila.push({ y: p.y * TILE + 28, f: () => {
-    const px = p.x * TILE + 16 - cam.x, py = p.y * TILE + 16 - cam.y, reg = D.regioes.find((r) => r.cidade === mapa.id), aberto = portalLiberado(EST, reg);
+  for (const p of mapa.portais) fila.push({ y: p.y * TILE + 28, f: () => {
+    const px = p.x * TILE + 16 - cam.x, py = p.y * TILE + 16 - cam.y, dest = D.regioes.find((r) => r.id === p.para), aberto = EST.nivel >= dest.niveis[0];
     ctx.fillStyle = aberto ? "#6fd0ff" : "#555a66"; ctx.globalAlpha = 0.35 + 0.15 * Math.sin(t * 3); ctx.beginPath(); ctx.ellipse(px, py, 14, 22, 0, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
     ctx.strokeStyle = aberto ? "#bfeaff" : "#868c99"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(px, py, 14, 22, 0, 0, 7); ctx.stroke();
-    etiqueta(aberto ? "Portal" : `Portal (nv ${reg.portal_proxima.nivel_minimo})`, px, py - 28);
-  } }); }
+    etiqueta(`${dest.nome}${aberto ? "" : ` (nv ${dest.niveis[0]})`}`, px, py - 28);
+  } });
   desenharAvisos();
   for (const c of chao) { // brilho no chão com a cor da qualidade (desenhado em código: sem imagem nova)
     const cor = qualidade(D.itens, c.it.qual).cor, x = Math.round(c.x - cam.x), y = Math.round(c.y - cam.y), p = 0.6 + 0.4 * Math.sin(t * 5 + c.x);

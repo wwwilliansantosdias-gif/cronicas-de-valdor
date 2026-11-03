@@ -50,7 +50,22 @@ await perto("quadro"); ok(await botao("Entregar: Trilha limpa"), "entrega missã
 ok((await V(() => window.__valdor.est.ouro)) === ouroAntes + 30, "recompensa de ouro recebida");
 // portal libera no nível 10
 await V(() => { window.__valdor.est.nivel = 9; }); t = await perto("portal"); ok(t.includes("selado"), "nível 9: selado"); await fechar();
-await V(() => { window.__valdor.est.nivel = 10; }); t = await perto("portal"); ok(t.includes("aberto"), "nível 10: aberto"); await fechar();
+await V(() => { window.__valdor.est.nivel = 10; }); await perto("portal");
+ok((await V(() => window.__valdor.mapa.id)) === "veio-fundo", "nível 10: portal leva a Veio-Fundo");
+// regiões 2 e 3: portais de ida e volta, áreas de caça com bandos e chefes
+const portal = (para) => V((p) => { const V = window.__valdor, n = V.mapa.portais.find((x) => x.para === p); V.jogador.x = n.x * 32 + 16; V.jogador.y = n.y * 32 + 40; V.jogador.invul = 99; V.interagir(); return document.getElementById("caixa").innerText; }, para);
+t = await portal("ruinas"); ok(t.includes("selado") && t.includes("nível 20"), "Veio-Fundo: portal das Ruínas selado no nível 10"); await fechar();
+await V(() => { window.__valdor.est.nivel = 20; }); await portal("ruinas");
+ok((await V(() => window.__valdor.mapa.id)) === "cinzaltar", "nível 20: portal leva a Cinzaltar");
+await portal("caverna"); ok((await V(() => window.__valdor.mapa.id)) === "veio-fundo", "Cinzaltar: portal volta a Veio-Fundo");
+await portal("floresta"); ok((await V(() => window.__valdor.mapa.id)) === "pe-de-lenha", "Veio-Fundo: portal volta a Pé-de-Lenha");
+for (const [area, chefe, tipos] of [["galerias-rasas", "golem-do-veio", ["morcego", "gosma", "minhoca", "golem"]], ["campo-das-lapides", "rei-esqueletico", ["esqueleto", "zumbi", "fantasma", "olho-voador"]]]) {
+  await V((a) => window.__valdor.entrar(a, null), area);
+  const r = await V(() => ({ n: window.__valdor.monstros.length, ids: [...new Set(window.__valdor.monstros.map((m) => m.def.id))] }));
+  ok(r.n >= 30 && r.ids.includes(chefe) && tipos.every((x) => r.ids.includes(x)), area + ": " + r.n + " monstros, " + r.ids.join(", "));
+  await pag.waitForTimeout(400); await pag.screenshot({ path: saida + "/" + area + ".png" });
+}
+await V(() => { window.__valdor.est.nivel = 10; window.__valdor.entrar("pe-de-lenha", null); });
 await pag.screenshot({ path: saida + "/f1.png" });
 // chefe: existe, é maior e tem coroa; morte devolve à cidade com nível mantido
 await V(() => window.__valdor.entrar("mata-do-javali", "pe-de-lenha"));

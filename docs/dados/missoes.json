@@ -1,7 +1,112 @@
 {
   "missoes": [
-    { "id": "javalis", "cidade": "pe-de-lenha", "titulo": "Trilha limpa", "texto": "Mate 6 javalis da Mata.", "alvo": "javali", "quantidade": 6, "recompensa": { "xp": 40, "ouro": 30 } },
-    { "id": "goblins", "cidade": "pe-de-lenha", "titulo": "Goblins na lenha", "texto": "Mate 6 goblins.", "alvo": "goblin", "quantidade": 6, "recompensa": { "xp": 50, "ouro": 40 } },
-    { "id": "coroado", "cidade": "pe-de-lenha", "titulo": "O Javali Coroado", "texto": "Derrote o Javali Coroado na clareira.", "alvo": "javali-coroado", "quantidade": 1, "recompensa": { "xp": 120, "ouro": 100 } }
+    {
+      "id": "javalis",
+      "cidade": "pe-de-lenha",
+      "titulo": "Trilha limpa",
+      "texto": "Mate 6 javalis da Mata.",
+      "alvo": "javali",
+      "quantidade": 6,
+      "recompensa": {
+        "xp": 40,
+        "ouro": 30
+      }
+    },
+    {
+      "id": "goblins",
+      "cidade": "pe-de-lenha",
+      "titulo": "Goblins na lenha",
+      "texto": "Mate 6 goblins.",
+      "alvo": "goblin",
+      "quantidade": 6,
+      "recompensa": {
+        "xp": 50,
+        "ouro": 40
+      }
+    },
+    {
+      "id": "coroado",
+      "cidade": "pe-de-lenha",
+      "titulo": "O Javali Coroado",
+      "texto": "Derrote o Javali Coroado na clareira.",
+      "alvo": "javali-coroado",
+      "quantidade": 1,
+      "recompensa": {
+        "xp": 120,
+        "ouro": 100
+      }
+    },
+    {
+      "id": "morcegos",
+      "cidade": "veio-fundo",
+      "titulo": "Asas nas galerias",
+      "texto": "Mate 12 morcegos.",
+      "alvo": "morcego",
+      "quantidade": 12,
+      "recompensa": {
+        "xp": 400,
+        "ouro": 150
+      }
+    },
+    {
+      "id": "golems",
+      "cidade": "veio-fundo",
+      "titulo": "Pedra que anda",
+      "texto": "Mate 8 golems.",
+      "alvo": "golem",
+      "quantidade": 8,
+      "recompensa": {
+        "xp": 600,
+        "ouro": 220
+      }
+    },
+    {
+      "id": "golem-do-veio",
+      "cidade": "veio-fundo",
+      "titulo": "O Golem do Veio",
+      "texto": "Derrote o Golem do Veio e recupere o fragmento da Pedra-Farol.",
+      "alvo": "golem-do-veio",
+      "quantidade": 1,
+      "recompensa": {
+        "xp": 1500,
+        "ouro": 500
+      }
+    },
+    {
+      "id": "esqueletos",
+      "cidade": "cinzaltar",
+      "titulo": "Ossos de pé",
+      "texto": "Mate 15 esqueletos.",
+      "alvo": "esqueleto",
+      "quantidade": 15,
+      "recompensa": {
+        "xp": 2000,
+        "ouro": 400
+      }
+    },
+    {
+      "id": "olhos",
+      "cidade": "cinzaltar",
+      "titulo": "Olhos no escuro",
+      "texto": "Mate 10 olhos voadores.",
+      "alvo": "olho-voador",
+      "quantidade": 10,
+      "recompensa": {
+        "xp": 2200,
+        "ouro": 450
+      }
+    },
+    {
+      "id": "rei",
+      "cidade": "cinzaltar",
+      "titulo": "O Rei Esquelético",
+      "texto": "Derrote o Rei Esquelético e reacenda a Pedra-Farol.",
+      "alvo": "rei-esqueletico",
+      "quantidade": 1,
+      "recompensa": {
+        "xp": 5000,
+        "ouro": 1200
+      }
+    }
   ]
 }

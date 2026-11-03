@@ -93,7 +93,8 @@ export function atingir(j, monstros, h, dano, critico = 0, critMult = 1.5, rnd =
 
 // Monstros: cada um tem uma lista de ataques (dados/monstros.json). Ciclo: perseguir -> preparar (aviso visível)
 // -> executar -> recuperar. Tipos: "corpo" (acerta quem está no raio ao fim do aviso), "investida" (corre em
-// linha reta e acerta no contato; o bote da cobra é uma investida curta) e "area" (acerta tudo no raio em volta).
+// linha reta e acerta no contato; o bote da cobra é uma investida curta), "area" (acerta tudo no raio em volta)
+// e "linha" (raio à distância numa faixa reta, como o do olho voador).
 // Devolve { dano, veneno } causados ao jogador neste passo.
 export function atualizarMonstro(m, jogador, dt, mapa, rnd = Math.random) {
   const res = { dano: 0, veneno: null };
@@ -129,6 +130,10 @@ export function atualizarMonstro(m, jogador, dt, mapa, rnd = Math.random) {
       m.estado = "executar"; m.t = 0;
       if (a.tipo === "corpo" && dist <= a.raio && !jogador.morto) { acerta(a); m.atingiu = true; }
       if (a.tipo === "area" && dist <= a.raio && !jogador.morto) { acerta(a); m.atingiu = true; }
+      if (a.tipo === "linha" && !jogador.morto) { // raio: faixa reta na direção travada no aviso
+        const d = distSegmento(jogador.x, jogador.y - 12, m.x, m.y - 12, m.x + m.alvo[0] * a.alcance, m.y - 12 + m.alvo[1] * a.alcance);
+        if (d <= a.raio + 8) { acerta(a); m.atingiu = true; }
+      }
       if (a.tipo !== "investida") { m.estado = "recuperar"; m.cd[a.id] = a.recarga; }
     }
   } else if (m.estado === "executar") { // só investidas ficam aqui

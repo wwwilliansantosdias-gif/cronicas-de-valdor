@@ -235,7 +235,7 @@ test("todo monstro do jogo tem ataques com tipo conhecido e números válidos", 
   for (const m of monstros) {
     assert.ok(m.ataques.length > 0, m.id);
     for (const a of m.ataques) {
-      assert.ok(["corpo", "investida", "area"].includes(a.tipo), m.id + a.id);
+      assert.ok(["corpo", "investida", "area", "linha"].includes(a.tipo), m.id + a.id);
       assert.ok(a.aviso > 0 && a.recarga > 0 && a.mult > 0 && a.alcance > 0, m.id + a.id);
       if (a.tipo === "investida") assert.ok(a.velocidade > 0 && a.duracao > 0);
     }
@@ -415,4 +415,23 @@ test("Poder sobe com pontos de atributo e com item melhor; ataques/s sobe com Ag
   assert.ok(item.poder > forca.poder);
   e.atributos.agi += 5; const agi = estatisticas(P, derivados(P, I, e), hab("golpe"));
   assert.ok(agi.ataquesPorSeg > item.ataquesPorSeg && agi.dps > item.dps);
+});
+
+test("novas habilidades: Perfurante atravessa a fila; Rajada sai em 3 flechas de 1 alvo; Terremoto alcança mais que o Giro; Investida avança", () => {
+  const j = { x: 200, y: 200, dir: "right" }, fila = [260, 320, 400].map((x) => criarMonstro(monstros[0], x, 200));
+  assert.equal(atingir(j, fila, hab("perfurante"), 5, 0).atingidos, 3, "perfura todos na linha");
+  const raj = hab("rajada"); assert.equal(raj.alvos, 1); assert.ok(raj.repeticoes >= 3);
+  const longe = criarMonstro(monstros[0], 200 + hab("giro").raio + 20, 200);
+  assert.equal(dentroDaArea(j, longe, hab("giro")), false); assert.equal(dentroDaArea(j, longe, hab("terremoto")), true);
+  assert.ok(hab("investida").avanco > 0);
+  for (const c of C) for (const id of c.habilidades) { const h = hab(id); assert.ok(h && h.classe === c.id && h.nivel <= P.nivel_max, id); }
+});
+
+test("ritmo das regiões 2 e 3: 10→20 leva cerca de 2 h e 20→29 cerca de 4 h (bem mais lento que 1→10)", () => {
+  for (const classe of ["guerreiro", "arqueiro"]) {
+    const m = media(29, 8, { classe }), r2 = m.marcos[20] - m.marcos[10], r3 = m.marcos[29] - m.marcos[20];
+    assert.ok(r2 >= 90 && r2 <= 150, `${classe} 10→20: ${r2.toFixed(0)} min`);
+    assert.ok(r3 >= 180 && r3 <= 300, `${classe} 20→29: ${r3.toFixed(0)} min`);
+    assert.ok(m.mortes / (m.minutos / 60) < 4, `${classe}: ${m.mortes} mortes em ${m.minutos.toFixed(0)} min`);
+  }
 });
