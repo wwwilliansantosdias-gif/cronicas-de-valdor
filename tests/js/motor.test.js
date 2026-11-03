@@ -435,3 +435,12 @@ test("ritmo das regiões 2 e 3: 10→20 leva cerca de 2 h e 20→29 cerca de 4 h
     assert.ok(m.mortes / (m.minutos / 60) < 4, `${classe}: ${m.mortes} mortes em ${m.minutos.toFixed(0)} min`);
   }
 });
+
+test("recuperação de vida: cresce com Vitalidade e com a vida máxima; zero sem a regra", () => {
+  const e = novoEstado(), r0 = derivados(P, I, e).regen;
+  assert.ok(r0 > 0);
+  e.atributos.vit += 10; const r1 = derivados(P, I, e).regen; assert.ok(r1 > r0, `${r0} → ${r1}`);
+  const sv = derivados(P, I, e), seg = (sv.vidaMax * 0.4) / sv.regen;
+  assert.ok(seg >= 10 && seg <= 40, `de 60% a 100% em ${seg.toFixed(0)} s`);
+  assert.equal(derivados({ ...P, regeneracao: undefined }, I, e).regen, 0);
+});

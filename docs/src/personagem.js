@@ -107,6 +107,8 @@ export function derivados(P, I, est) {
     velocidade: D.velocidade_base + D.velocidade_por_agi * at.agi,
     critico: Math.min(D.critico_max, D.critico_por_sor * at.sor),
     criticoMult: D.critico_mult,
+    // recuperação de vida por segundo, fora de combate (Vitalidade acelera)
+    regen: P.regeneracao ? Math.round((D.vida_base + D.vida_por_vit * at.vit + vidaItens) * (P.regeneracao.pct_base + P.regeneracao.pct_por_vit * at.vit) * 10) / 10 : 0,
   };
 }
 

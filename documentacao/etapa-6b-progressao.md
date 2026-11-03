@@ -124,4 +124,4 @@ Médias usadas onde não houve decisão explícita: **cerca de 16 monstros por �
 - O botão de interação diz o que faz: Loja, Forja, Missões, Portal.
 
 ## Regiões 2 e 3
-A curva ganhou faixas por região (`xp_faixas`) e as quedas variam por região. Detalhes, números calibrados e habilidades novas em `etapa-8-regioes.md`.
+A curva ganhou faixas por região (`xp_faixas`), as quedas variam por região e a vida se recupera fora de combate (Vitalidade acelera). Detalhes, números calibrados e habilidades novas em `etapa-8-regioes.md`.

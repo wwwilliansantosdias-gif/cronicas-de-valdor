@@ -95,7 +95,7 @@ async function iniciar() {
   if (!EST) { const c = await escolherClasse(); EST = novoEstado(D.P, D.itens, c, D.classes[c].habilidades[0]); }
   if (EST.autoDistribuir && EST.pontosLivres > 0) distribuirRecomendado(D.P, EST, D.classes[EST.classe].recomendado);
   desbloquearHabilidades(EST, habsDaClasse()); // saves anteriores ganham as habilidades que o nível já libera
-  jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, cds: {}, invul: 0, veneno: null };
+  jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, cds: {}, invul: 0, veneno: null, semDano: 0 };
   entrar(EST.mapa, null);
   jogador.vida = stats().vidaMax;
   document.body.dataset.pronto = "1";
@@ -315,7 +315,7 @@ function telaQuadro() {
   });
   painel("<h3>Quadro de missões</h3>", acoes);
 }
-const NOME_ATR = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
+const NOME_ATR = { for: ["Força", "dano"], vit: ["Vitalidade", "vida máxima e recuperação"], agi: ["Agilidade", "recarga dos ataques e velocidade"], sor: ["Sorte", "chance de crítico e de itens melhores"] };
 // mexer em atributos pode mudar a vida máxima: mantém a vida perdida, não a proporção
 function comAjusteDeVida(fn) { const antes = stats().vidaMax, r = fn(); jogador.vida = Math.max(1, Math.min(stats().vidaMax, jogador.vida + stats().vidaMax - antes)); salvar(); return r; }
 // ---------- tela de Personagem: boneco, números e abas (Equipamento, Atributos, Habilidades) ----------
@@ -340,7 +340,7 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
     ["Dano", sv.dano.toFixed(1), dif(sv.dano, dv?.dano, 1)],
     ["Ataques/s", agora.ataquesPorSeg.toFixed(2), dif(agora.ataquesPorSeg, depois?.ataquesPorSeg, 2)],
     ["Dano/s", agora.dps.toFixed(1), dif(agora.dps, depois?.dps, 1)],
-    ["Vida", sv.vidaMax, dif(sv.vidaMax, dv?.vidaMax)],
+    ["Vida", `${sv.vidaMax} <small>(+${sv.regen}/s)</small>`, dif(sv.vidaMax, dv?.vidaMax)],
     ["Defesa", `${sv.defesa} (−${Math.round(sv.reducao * 100)}%)`, dif(sv.defesa, dv?.defesa)],
     ["Velocidade", Math.round(sv.velocidade), dif(sv.velocidade, dv?.velocidade)],
     ["Crítico", `${Math.round(sv.critico * 100)}%`, dif(sv.critico * 100, dv?.critico * 100, 0, "%")],
@@ -438,6 +438,11 @@ function atualizar(dt) {
     v.acum = (v.acum || 0) + v.dps * dt; if (v.acum >= 2) { flutuar(`-${Math.floor(v.acum)}`, jogador.x, jogador.y - 64, "#6bd04a", 10); v.acum -= Math.floor(v.acum); }
     if (v.t <= 0 || mapa.zonaSegura) jogador.veneno = null;
   }
+  // recuperação: depois de alguns segundos sem levar dano (e sem veneno) a vida sobe sozinha
+  jogador.semDano += dt; jogador.recuperando = false;
+  if (!jogador.morto && !jogador.veneno && jogador.semDano >= D.P.regeneracao.espera_s && jogador.vida < sv.vidaMax) {
+    jogador.vida = Math.min(sv.vidaMax, jogador.vida + sv.regen * dt); jogador.recuperando = true;
+  }
   if (!parado && !jogador.morto) {
     let ix = joy.x, iy = joy.y;
     if (teclas.has("a") || teclas.has("arrowleft")) ix -= 1; if (teclas.has("d") || teclas.has("arrowright")) ix += 1;
@@ -467,7 +472,7 @@ function atualizar(dt) {
       const r = atualizarMonstro(m, jogador, dt, mapa);
       if (r.dano && jogador.invul <= 0 && !jogador.morto) {
         const d = danoRecebido(D.P, sv, r.dano); // a Defesa do equipamento reduz o golpe
-        jogador.vida -= d; jogador.invul = 0.5;
+        jogador.vida -= d; jogador.invul = 0.5; jogador.semDano = 0;
         flutuar(`-${d}`, jogador.x + (Math.random() - 0.5) * 10, jogador.y - 64, "#ff6b6b", 11);
         if (r.veneno) { jogador.veneno = { ...r.veneno, t: r.veneno.duracao }; msg("Envenenado!", 1.2); }
         if (jogador.vida <= 0) morrer();
@@ -504,7 +509,7 @@ function atualizar(dt) {
     if (b.textContent !== txt) b.textContent = txt;
     b.classList.toggle("off", !livre || cd > 0 || mapa.zonaSegura);
   }
-  $("hpb").classList.toggle("veneno", !!jogador.veneno);
+  $("hpb").classList.toggle("veneno", !!jogador.veneno); $("hpb").classList.toggle("regen", !!jogador.recuperando);
   $("hpb").firstChild.style.width = Math.max(0, jogador.vida / sv.vidaMax * 100) + "%";
   $("xpb").firstChild.style.width = (EST.nivel >= D.P.nivel_max ? 100 : EST.xp / xpParaProximo(D.P, EST.nivel) * 100) + "%";
   $("info").textContent = `${EST.ouro} ouro · ${EST.pocoes} ${EST.pocoes === 1 ? "poção" : "poções"} · ${EST.fragmentos} frag.`;

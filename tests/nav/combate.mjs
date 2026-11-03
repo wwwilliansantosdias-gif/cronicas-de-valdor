@@ -69,5 +69,15 @@ const ms = await V(async () => {
 });
 ok(ms < 20, `quadro mediano com todos os monstros perto: ${ms.toFixed(1)} ms (≈${Math.round(1000 / ms)} qps no ambiente de teste)`);
 await pag.screenshot({ path: saida + "/c3.png" });
+// recuperação de vida fora de combate: espera alguns segundos sem levar dano, depois sobe sozinha; veneno impede
+await V(() => window.__valdor.entrar("mata-do-javali", "pe-de-lenha"));
+const rec = await V(async () => { const V = window.__valdor, j = V.jogador, dorme = (ms) => new Promise((r) => setTimeout(r, ms));
+  for (const m of V.monstros) { m.morto = true; m.mortoEm = performance.now() + 60000; }
+  j.vida = 20; j.semDano = 0; j.veneno = null; await dorme(2500); const cedo = j.vida;
+  await dorme(4000); const depois = j.vida, barra = document.getElementById("hpb").classList.contains("regen");
+  j.vida = 20; j.semDano = 99; j.veneno = { dps: 0.001, duracao: 3, t: 3 }; await dorme(1000); const comVeneno = j.vida;
+  return { cedo, depois, barra, comVeneno }; });
+ok(Math.abs(rec.cedo - 20) < 0.5 && rec.depois > 21 && rec.barra, "recupera vida só depois de alguns segundos sem dano " + JSON.stringify(rec));
+ok(rec.comVeneno <= 20, "envenenado não recupera");
 ok(erros.length === 0, "sem erros de console: " + erros.join("|"));
 await fim();

@@ -46,12 +46,18 @@
     },
     {
       "ate": 19,
-      "mult": 3.06
+      "mult": 2.75
     },
     {
       "ate": 29,
-      "mult": 6.29
+      "mult": 5.7
     }
   ],
-  "_ritmo_alvo": "nível 10 em ~30 min; do 10 ao 20 em ~2 h; do 20 ao 29 em ~4 h (simulador)"
+  "_ritmo_alvo": "nível 10 em ~30 min; do 10 ao 20 em ~2 h; do 20 ao 29 em ~4 h (simulador)",
+  "regeneracao": {
+    "espera_s": 5,
+    "pct_base": 0.015,
+    "pct_por_vit": 0.0005,
+    "_sobre": "fora de combate (sem levar dano por espera_s segundos) a vida sobe vidaMax x (pct_base + pct_por_vit x Vitalidade) por segundo; veneno impede"
+  }
 }

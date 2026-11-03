@@ -7,7 +7,8 @@
 //   (posicionar, errar); o Giro atinge até 3 membros do bando;
 // - o monstro usa o seu ataque mais forte em ciclo (aviso + recarga) e acerta parte deles (o resto o jogador desvia
 //   pelo aviso); veneno soma o dano contínuo; o jogador bebe poção abaixo de 35% de vida
-//   e, sem poção, volta à cidade (cura e compra poções);
+//   e, sem poção, volta à cidade (cura e compra poções); entre bandos, abaixo de 60% de vida, descansa
+//   (espera a recuperação fora de combate encher a vida) em vez de beber poção;
 // - missões do quadro entregues na volta à cidade; chefe enfrentado a partir do nível 6.
 import { readFileSync } from "node:fs";
 import { novoEstado, ganharXp } from "../docs/src/progresso.js";
@@ -18,7 +19,7 @@ import { lerMapaTexto } from "../docs/src/mapa.js";
 
 const ler = (f) => JSON.parse(readFileSync(new URL("../docs/" + f, import.meta.url), "utf8"));
 // acertoMonstro: fração dos ataques que pegam (o resto o jogador desvia pelo aviso); o arqueiro luta de longe e recua
-export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 4, entreMembros: 0.8, acertoMonstro: { guerreiro: 0.5, arqueiro: 0.35 }, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6 }; // respawn vem de dados/progressao.json
+export const SUPOSICOES = { eficiencia: 0.75, aproximacao: 4, entreMembros: 0.8, acertoMonstro: { guerreiro: 0.5, arqueiro: 0.35 }, idaVolta: 45, pocoesAlvo: 3, nivelChefe: 6, descansaAbaixo: 0.6 }; // respawn vem de dados/progressao.json
 
 export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES, classe = "guerreiro", inicio = null } = {}) {
   const P = dados?.P || ler("dados/progressao.json"), I = dados?.I || ler("dados/itens.json");
@@ -72,7 +73,12 @@ export function simular({ alvo = 10, semente = 1, dados = null, sup = SUPOSICOES
     if (area.chefe && est.nivel >= reg.niveis[0] + sup.nivelChefe - 1 && area.chefe[0].volta <= t) bando = area.chefe;
     else { const com = area.bandos.filter((b) => b.some((m) => m.volta <= t)); if (com.length) bando = com[Math.floor(rng() * com.length)]; }
     if (!bando) { t = Math.min(...area.bandos.flat().map((m) => m.volta)); continue; }
-    if (vida < 0.35 * sv.vidaMax) { if (est.pocoes > 0) { est.pocoes--; vida = Math.min(sv.vidaMax, vida + 60); } else cidade(); continue; }
+    if (vida < 0.35 * sv.vidaMax && est.pocoes === 0) { cidade(); continue; }
+    if (vida < sup.descansaAbaixo * sv.vidaMax) { // descansa: espera sem levar dano e recupera até encher
+      if (sv.regen > 0) { t += P.regeneracao.espera_s + (sv.vidaMax - vida) / sv.regen; vida = sv.vidaMax; }
+      else if (est.pocoes > 0) { est.pocoes--; vida = Math.min(sv.vidaMax, vida + 60); } else cidade();
+      continue;
+    }
     const vivos = bando.filter((m) => m.volta <= t);
     t += sup.aproximacao;
     let morreu = false;
