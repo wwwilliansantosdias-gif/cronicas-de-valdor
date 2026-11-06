@@ -34,10 +34,10 @@ Quadros maiores que 64 px são desenhados centrados no boneco.
 - Trocar um equipamento troca só as camadas dele.
 
 ## 3. Cores
-Uma cor de item é escrita como `material.nome`, por exemplo `metal.gold`, `wood.oak`, `cloth.leather` ou `valdor.gelo`.
+Uma cor de item é escrita como `material.nome`, por exemplo `metal.gold`, `wood.oak`, `cloth.leather` ou `valdor.ouro_fogo`.
 - **Item com `recolors`** (elmos, armaduras, escudo de madeira, capas, botas): uma imagem base e troca de paleta no jogo. Cada cor da paleta-base vira a cor da mesma posição na escolhida, com tolerância de ±1 por canal, como no gerador.
 - **Item só com variantes prontas** (arcos, armas do guerreiro, amuleto, tabardo): se a variante com o mesmo nome existe (`gold`, `steel`, `bronze`…), usa a imagem pronta. Se não existe (madeiras e cores do Valdor), troca a paleta da imagem base. Para os arcos a base está na madeira `maple`. Conferido: trocar `maple` por `oak` reproduz a variante `medium` oficial sem nenhum pixel diferente.
-- **Cores do Valdor**: `docs/dados/paletas_valdor.json` (gelo, fogo, veneno, sombra…). Cada uma é uma escala de 6 tons, do escuro ao claro, igual às paletas do gerador.
+- **Cores do Valdor**: `docs/dados/paletas_valdor.json` (dourado-fogo, gelo, fogo, veneno, sombra…). Cada uma é uma escala de 6 tons, do escuro ao claro, igual às paletas do gerador.
 - **Desempenho:** a troca de cor acontece só ao carregar ou trocar o item. O resultado fica guardado na memória, e nada é refeito a cada quadro.
 
 ## 4. Encaixes
@@ -75,9 +75,9 @@ Não há dano, defesa nem vida: isso fica para a etapa de balanceamento.
 | Incomum | bronze / bronze | nenhum | verde |
 | Raro | prata / prata | contorno fraco | azul |
 | Épico | ouro / ouro | contorno, pulsar, clarão no ataque, estouro no impacto | roxo |
-| Lendário | gelo do Valdor | tudo acima, partículas, rastro e aura | laranja dourado |
+| Lendário | dourado-fogo do Valdor (decisão de Willian) | tudo acima, partículas, rastro e aura | laranja dourado |
 
-Cada raridade também tem a cor do brilho (`brilho`): creme, verde, azul, dourado, e no Lendário a cor do próprio item.
+Cada raridade também tem a cor do brilho (`brilho`): creme, verde, azul, dourado, e no Lendário laranja de brasa.
 
 Arqueiro: 3 formatos × 5 raridades = 15 degraus visuais, mais o reforço.
 

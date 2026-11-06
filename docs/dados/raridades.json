@@ -64,8 +64,8 @@
       "cor_nome": "#ffb03a",
       "moldura": "#d98a14",
       "cores": {
-        "metal": "valdor.gelo",
-        "wood": "valdor.gelo"
+        "metal": "valdor.ouro_fogo",
+        "wood": "valdor.ouro_fogo"
       },
       "efeitos": {
         "contorno": 0.8,
@@ -76,7 +76,7 @@
         "rastro": 0.8,
         "aura": 0.7
       },
-      "brilho": null
+      "brilho": "#ff8a1e"
     }
   },
   "reforco": {

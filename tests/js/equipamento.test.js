@@ -41,7 +41,7 @@ test("cor pela paleta: item com recolors troca a paleta-base pela da raridade; c
   assert.ok(c.arquivo.endsWith("walk.png") && c.trocas.length === 6);
   assert.deepEqual(c.trocas[5], [hx(D.defs.paletas.metal.cores.steel[5]), hx(D.defs.paletas.metal.cores.gold[5])]);
   const lend = camadasDoItem(D, "elmo-nasal", "walk", "lendario")[0];
-  assert.deepEqual(lend.trocas[0][1], hx(D.defs.paletas.valdor.cores.gelo[0]), "Lendário usa o gelo do Valdor");
+  assert.deepEqual(lend.trocas[0][1], hx(D.defs.paletas.valdor.cores.ouro_fogo[0]), "Lendário usa o dourado-fogo do Valdor");
   const comum = camadasDoItem(D, "capuz", "walk", "lendario")[0];
   assert.deepEqual(comum.trocas[0][1], hx(D.defs.paletas.cloth.cores.forest[0]), "pano tem cor fixa, não muda com a raridade");
   // troca de verdade nos pixels, com tolerância de ±1 por canal
@@ -55,8 +55,8 @@ test("arco (só variantes prontas): ouro e prata usam a imagem pronta; madeira e
   const madeira = camadasDoItem(D, "arco", "shoot", "comum");
   assert.ok(madeira.every((c) => c.arquivo.endsWith("/normal.png") && c.trocas.length === 6));
   assert.deepEqual(madeira[0].trocas[0], [hx(D.defs.paletas.wood.cores.maple[0]), hx(D.defs.paletas.wood.cores.oak[0])]);
-  const gelo = camadasDoItem(D, "arco-grande", "walk", "lendario");
-  assert.ok(gelo.every((c) => c.trocas.length === 6) && gelo[0].trocas[3][1].join() === hx(D.defs.paletas.valdor.cores.gelo[3]).join());
+  const fogo = camadasDoItem(D, "arco-grande", "walk", "lendario");
+  assert.ok(fogo.every((c) => c.trocas.length === 6) && fogo[0].trocas[3][1].join() === hx(D.defs.paletas.valdor.cores.ouro_fogo[3]).join());
   // espada longa: a base não está em nenhuma paleta, então fica com a cor original (limite da arte, só os efeitos mudam)
   assert.ok(camadasDoItem(D, "espada-longa", "walk", "lendario").every((c) => c.trocas.length === 0));
 });
