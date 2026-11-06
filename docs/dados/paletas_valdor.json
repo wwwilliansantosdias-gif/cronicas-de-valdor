@@ -1,0 +1,45 @@
+{
+  "_sobre": "Cores próprias do Valdor, fora das paletas oficiais do gerador. Cada cor é uma escala de 6 tons do escuro ao claro, na mesma ordem das paletas 'metal', 'wood' e 'cloth' do gerador LPC (palette_definitions), para trocar cor por posição. Usar como 'valdor.<nome>'.",
+  "cores": {
+    "gelo": [
+      "#10223a",
+      "#1f4f7a",
+      "#3d86b8",
+      "#71bde6",
+      "#b4e6fa",
+      "#f2fdff"
+    ],
+    "fogo": [
+      "#2a0a06",
+      "#6e1508",
+      "#b5300c",
+      "#ec6a14",
+      "#ffb23a",
+      "#fff2a0"
+    ],
+    "veneno": [
+      "#0d1f0a",
+      "#1f4a12",
+      "#3a7f1c",
+      "#6cbf2a",
+      "#b0ec5a",
+      "#eaffb0"
+    ],
+    "sombra": [
+      "#0b0612",
+      "#231436",
+      "#3e2563",
+      "#65409a",
+      "#9a78cf",
+      "#d9c8f5"
+    ],
+    "sangue": [
+      "#1a0408",
+      "#4a0a14",
+      "#7f1222",
+      "#b8243a",
+      "#e85a6a",
+      "#ffc2c8"
+    ]
+  }
+}

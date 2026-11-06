@@ -1,0 +1,662 @@
+{
+ "_sobre": "Catálogo de equipamentos (etapa 11). 'formato' = partes, cada uma uma definição do gerador LPC (sheet_definitions, sem .json). 'cor': 'raridade' (vem de raridades.json pelo 'material' da peça), 'material.nome' (paleta oficial ou valdor.*) ou 'variante.nome' (imagem pronta do gerador). Sem números de atributo: ficam para o balanceamento. 'raridade' e 'reforco' são os valores iniciais do item.",
+ "classes": {
+  "guerreiro": {
+   "animacoes": [
+    "walk",
+    "slash",
+    "thrust"
+   ],
+   "estocada_pode_usar_golpe": true
+  },
+  "arqueiro": {
+   "animacoes": [
+    "walk",
+    "shoot"
+   ]
+  }
+ },
+ "encaixes": {
+  "arma": {
+   "nome": "Arma",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "mao_secundaria": {
+   "nome": "Mão secundária",
+   "classes": [
+    "guerreiro"
+   ]
+  },
+  "costas": {
+   "nome": "Costas",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "cabeca": {
+   "nome": "Cabeça",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "peito": {
+   "nome": "Peito",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "sobre_peito": {
+   "nome": "Sobre o peito",
+   "classes": [
+    "guerreiro"
+   ]
+  },
+  "ombros": {
+   "nome": "Ombros",
+   "classes": [
+    "guerreiro"
+   ]
+  },
+  "bracos": {
+   "nome": "Braços",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "pernas": {
+   "nome": "Pernas",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "pes": {
+   "nome": "Pés",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  },
+  "pescoco": {
+   "nome": "Pescoço",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ]
+  }
+ },
+ "excluidos": {
+  "weapons/ranged/weapon_ranged_crossbow": "besta: não tem animação de atirar no LPC",
+  "bumerangue": "fora por decisão",
+  "estilingue": "fora por decisão"
+ },
+ "base_personagem": {
+  "guerreiro": [
+   {
+    "def": "body/body",
+    "cor": "pele"
+   },
+   {
+    "def": "head/heads/human/heads_human_male",
+    "cor": "pele"
+   },
+   {
+    "def": "hair/short/hair_plain",
+    "cor": "cabelo"
+   }
+  ],
+  "arqueiro": [
+   {
+    "def": "body/body",
+    "cor": "pele"
+   },
+   {
+    "def": "head/heads/human/heads_human_male",
+    "cor": "pele"
+   },
+   {
+    "def": "hair/short/hair_plain",
+    "cor": "cabelo"
+   },
+   {
+    "def": "torso/backpack/quiver",
+    "cor": "variante.quiver"
+   },
+   {
+    "def": "weapons/ranged/bow/weapon_ranged_bow_arrow",
+    "cor": "variante.arrow",
+    "so_animacoes": [
+     "shoot"
+    ]
+   }
+  ]
+ },
+ "itens": [
+  {
+   "id": "arco",
+   "nome": "Arco",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/ranged/bow/weapon_ranged_bow_normal",
+     "cor": "raridade",
+     "material": "wood",
+     "base_variante": "normal"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "arco-recurvo",
+   "nome": "Arco recurvo",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/ranged/bow/weapon_ranged_bow_recurve",
+     "cor": "raridade",
+     "material": "wood",
+     "base_variante": "recurve"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "arco-grande",
+   "nome": "Arco grande",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/ranged/bow/weapon_ranged_bow_great",
+     "cor": "raridade",
+     "material": "wood",
+     "base_variante": "great"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "espada-longa",
+   "nome": "Espada longa",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/sword/weapon_sword_longsword",
+     "cor": "raridade",
+     "material": "metal",
+     "base_variante": "longsword"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "maca",
+   "nome": "Maça",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/blunt/weapon_blunt_mace",
+     "cor": "raridade",
+     "material": "metal",
+     "base_variante": "mace"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "machado-de-guerra",
+   "nome": "Machado de guerra",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/blunt/weapon_blunt_waraxe",
+     "cor": "raridade",
+     "material": "metal",
+     "base_variante": "waraxe"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "alabarda",
+   "nome": "Alabarda",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "arma",
+   "formato": [
+    {
+     "def": "weapons/polearm/weapon_polearm_halberd",
+     "cor": "raridade",
+     "material": "metal",
+     "base_variante": "halberd"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "escudo-de-madeira",
+   "nome": "Escudo de madeira",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "mao_secundaria",
+   "formato": [
+    {
+     "def": "weapons/shields/heater/shield_heater_wood",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "escudo-reforcado",
+   "nome": "Escudo reforçado",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "mao_secundaria",
+   "formato": [
+    {
+     "def": "weapons/shields/heater/shield_heater_wood",
+     "cor": "wood.walnut"
+    },
+    {
+     "def": "weapons/shields/heater/shield_heater_trim",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "capa",
+   "nome": "Capa",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "costas",
+   "formato": [
+    {
+     "def": "torso/cape/cape_solid",
+     "cor": "cloth.maroon"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "capa-rasgada",
+   "nome": "Capa rasgada",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "costas",
+   "formato": [
+    {
+     "def": "torso/cape/cape_tattered",
+     "cor": "cloth.forest"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "elmo-nasal",
+   "nome": "Elmo nasal",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "cabeca",
+   "formato": [
+    {
+     "def": "headwear/helmets/helmets/hat_helmet_nasal",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "elmo-de-viseira",
+   "nome": "Elmo de viseira",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "cabeca",
+   "formato": [
+    {
+     "def": "headwear/helmets/helmets/hat_helmet_bascinet",
+     "cor": "raridade"
+    },
+    {
+     "def": "headwear/helmets/visors/hat_visor_round",
+     "cor": "raridade"
+    },
+    {
+     "def": "headwear/helmets/accessories/hat_accessory_plumage",
+     "cor": "cloth.red"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "elmo-de-crista",
+   "nome": "Elmo de crista",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "cabeca",
+   "formato": [
+    {
+     "def": "headwear/helmets/helmets/hat_helmet_armet",
+     "cor": "raridade"
+    },
+    {
+     "def": "headwear/helmets/accessories/hat_accessory_crest",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "elmo-fechado",
+   "nome": "Elmo fechado",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "cabeca",
+   "formato": [
+    {
+     "def": "headwear/helmets/helmets/hat_helmet_greathelm",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "capuz",
+   "nome": "Capuz",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "cabeca",
+   "formato": [
+    {
+     "def": "headwear/coverings/hoods/hat_hood_cloth",
+     "cor": "cloth.forest"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "peitoral-de-placas",
+   "nome": "Peitoral de placas",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "peito",
+   "formato": [
+    {
+     "def": "torso/armour/torso_armour_plate",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "peitoral-legionario",
+   "nome": "Peitoral legionário",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "peito",
+   "formato": [
+    {
+     "def": "torso/armour/torso_armour_legion",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "armadura-de-couro",
+   "nome": "Armadura de couro",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "peito",
+   "formato": [
+    {
+     "def": "torso/armour/torso_armour_leather",
+     "cor": "cloth.leather",
+     "cor2": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "tabardo",
+   "nome": "Tabardo",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "sobre_peito",
+   "formato": [
+    {
+     "def": "torso/jacket/torso_jacket_tabard",
+     "cor": "variante.red"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "ombreiras",
+   "nome": "Ombreiras",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "ombros",
+   "formato": [
+    {
+     "def": "arms/shoulders/shoulders_legion",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "bracos-de-armadura",
+   "nome": "Braços de armadura",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "bracos",
+   "formato": [
+    {
+     "def": "arms/arms_armour",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "luvas",
+   "nome": "Luvas",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "bracos",
+   "formato": [
+    {
+     "def": "arms/arms_gloves",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "bracadeiras",
+   "nome": "Braçadeiras",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "bracos",
+   "formato": [
+    {
+     "def": "arms/wrists/arms_bracers",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "perneiras",
+   "nome": "Perneiras de armadura",
+   "classes": [
+    "guerreiro"
+   ],
+   "encaixe": "pernas",
+   "formato": [
+    {
+     "def": "legs/legs_armour",
+     "cor": "raridade"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "calca",
+   "nome": "Calça",
+   "classes": [
+    "arqueiro"
+   ],
+   "encaixe": "pernas",
+   "formato": [
+    {
+     "def": "legs/pants/legs_pants",
+     "cor": "cloth.brown"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "botas",
+   "nome": "Botas",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "pes",
+   "formato": [
+    {
+     "def": "feet/boots/feet_boots_basic",
+     "cor": "cloth.leather"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "botas-dobradas",
+   "nome": "Botas dobradas",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "pes",
+   "formato": [
+    {
+     "def": "feet/boots/feet_boots_fold",
+     "cor": "cloth.walnut"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "amuleto-estrela",
+   "nome": "Amuleto de estrela",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "pescoco",
+   "formato": [
+    {
+     "def": "headwear/neck/charms/neck_amulet_star",
+     "cor": "variante.gold_blue"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  },
+  {
+   "id": "pedra-redonda",
+   "nome": "Pedra redonda",
+   "classes": [
+    "guerreiro",
+    "arqueiro"
+   ],
+   "encaixe": "pescoco",
+   "formato": [
+    {
+     "def": "headwear/neck/charms/neck_gem_round",
+     "cor": "variante.purple"
+    }
+   ],
+   "raridade": "comum",
+   "reforco": 0
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mostruário de equipamentos</title>
+<style>
+:root{--fundo:#15171f;--cartao:#1f2330;--texto:#e8e8ee;--fraco:#9aa0b4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);font:14px/1.35 system-ui,sans-serif;padding:10px 16px 40px}
+h1{font-size:18px;margin:4px 0 2px}
+p.sub{margin:0 0 10px;color:var(--fraco);font-size:12px}
+.controles{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--cartao);padding:8px 12px;border-radius:10px;position:sticky;top:0;z-index:2;margin-bottom:10px}
+.controles label{display:flex;align-items:center;gap:8px}
+input[type=range]{width:180px}
+#nreforco{font-weight:700;min-width:32px;display:inline-block}
+.grade{display:grid;grid-template-columns:70px repeat(3,minmax(0,1fr));gap:8px;align-items:stretch}
+.cab{font-weight:700;text-align:center;align-self:end;color:var(--fraco)}
+.rar{font-weight:700;display:flex;align-items:center;justify-content:center;writing-mode:horizontal-tb;text-align:center}
+.cel{background:var(--cartao);border:2px solid #555;border-radius:10px;padding:4px 4px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.cel .nome{font-weight:700;font-size:12px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.cel .par{display:flex;gap:4px;align-items:end;width:100%;justify-content:center}
+canvas{image-rendering:pixelated;background:radial-gradient(#ffffff10,#0000 70%);border-radius:6px}
+canvas.parado{width:34%;max-width:80px;height:auto}canvas.atirando{width:64%;max-width:150px;height:auto}
+.legenda{font-size:10px;color:var(--fraco);display:flex;gap:4px;justify-content:space-between;width:100%;padding:0 6px}
+details{margin-top:16px;background:var(--cartao);border-radius:10px;padding:8px 12px}
+details li{margin:4px 0;font-size:12px;color:var(--fraco)}
+a{color:#8cc4ff}
+@media (max-width:700px){.grade{grid-template-columns:52px repeat(3,minmax(0,1fr))}.cel .nome{font-size:10px}}
+</style>
+</head>
+<body>
+<h1>Mostruário de equipamentos: arcos do Arqueiro</h1>
+<p class="sub">Para aprovação, ainda não é o jogo. 3 formatos × 5 raridades. Arte e cores lidas do gerador LPC oficial; efeitos desenhados pelo jogo.</p>
+<div class="controles">
+  <label>Reforço <input id="reforco" type="range" min="0" max="12" value="0"> <span id="nreforco">+0</span></label>
+  <label><input id="efeitos" type="checkbox" checked> Efeitos ligados</label>
+  <label>Direção <select id="direcao"><option value="3">direita</option><option value="2">frente</option><option value="1">esquerda</option><option value="0">costas</option></select></label>
+</div>
+<div class="grade" id="grade"><div></div></div>
+<details><summary>Créditos da arte desta página</summary><ul id="creditos"></ul><p><a href="../CREDITOS.md">Todos os créditos do jogo</a></p></details>
+<script type="module" src="pagina.js"></script>
+</body>
+</html>

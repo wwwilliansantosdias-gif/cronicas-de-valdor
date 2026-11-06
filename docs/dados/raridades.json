@@ -1,0 +1,95 @@
+{
+  "_sobre": "Tabela de raridade PROPOSTA (etapa 11), ajustável sem mexer no código. 'cores' diz a cor do metal e da madeira do item nessa raridade (material.nome; 'valdor.*' vem de paletas_valdor.json). 'efeitos' liga cada efeito visual com sua força (0 a 1). 'reforco' diz como o +N aumenta os efeitos. Nenhum número de atributo aqui. 'brilho' é a cor do contorno, clarão, partículas e aura; null = a cor do próprio item (tom claro da paleta usada).",
+  "ordem": [
+    "comum",
+    "incomum",
+    "raro",
+    "epico",
+    "lendario"
+  ],
+  "raridades": {
+    "comum": {
+      "nome": "Comum",
+      "cor_nome": "#ffffff",
+      "moldura": "#9a9a9a",
+      "cores": {
+        "metal": "metal.iron",
+        "wood": "wood.oak"
+      },
+      "efeitos": {},
+      "brilho": "#fff4d6"
+    },
+    "incomum": {
+      "nome": "Incomum",
+      "cor_nome": "#5fd35f",
+      "moldura": "#3f9a3f",
+      "cores": {
+        "metal": "metal.bronze",
+        "wood": "metal.bronze"
+      },
+      "efeitos": {},
+      "brilho": "#7dff7d"
+    },
+    "raro": {
+      "nome": "Raro",
+      "cor_nome": "#4aa8ff",
+      "moldura": "#2f6fc0",
+      "cores": {
+        "metal": "metal.silver",
+        "wood": "metal.silver"
+      },
+      "efeitos": {
+        "contorno": 0.35
+      },
+      "brilho": "#7fc4ff"
+    },
+    "epico": {
+      "nome": "Épico",
+      "cor_nome": "#b06bff",
+      "moldura": "#7a3fc0",
+      "cores": {
+        "metal": "metal.gold",
+        "wood": "metal.gold"
+      },
+      "efeitos": {
+        "contorno": 0.6,
+        "pulsar": 0.5,
+        "clarao": 0.7,
+        "impacto": 0.6
+      },
+      "brilho": "#ffd36a"
+    },
+    "lendario": {
+      "nome": "Lendário",
+      "cor_nome": "#ffb03a",
+      "moldura": "#d98a14",
+      "cores": {
+        "metal": "valdor.gelo",
+        "wood": "valdor.gelo"
+      },
+      "efeitos": {
+        "contorno": 0.8,
+        "pulsar": 0.7,
+        "clarao": 1.0,
+        "impacto": 1.0,
+        "particulas": 0.6,
+        "rastro": 0.8,
+        "aura": 0.7
+      },
+      "brilho": null
+    }
+  },
+  "reforco": {
+    "max": 12,
+    "por_nivel": 0.05,
+    "contorno_a_partir": 4,
+    "particulas_a_partir": 7,
+    "aura_a_partir": 10,
+    "_sobre": "cada +1 soma 'por_nivel' à força de todos os efeitos ligados (até 1); a partir dos níveis indicados liga contorno, partículas e aura mesmo em raridades que não têm"
+  },
+  "limites": {
+    "particulas_max": 24,
+    "particulas_por_forca": 20
+  },
+  "efeitos_ligados_padrao": true
+}

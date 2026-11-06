@@ -124,6 +124,10 @@ lines += [
 ]
 lines += creditos_pecas.linhas("data/pecas_usadas.txt")
 lines.append("")
+if os.path.exists("data/creditos_catalogo.md"):  # catálogo de equipamentos (etapa 11): campo credits de cada definição usada
+    lines += ["### Catálogo de equipamentos (tools/build_definicoes.py, a partir das definições do gerador)", ""]
+    lines += open("data/creditos_catalogo.md", encoding="utf-8").read().strip().splitlines()
+    lines.append("")
 open("CREDITOS.md", "w", encoding="utf-8").write("\n".join(lines))
 open(os.path.join(OUT, "CREDITOS.md"), "w", encoding="utf-8").write("\n".join(lines))
 open("docs/CREDITOS.md", "w", encoding="utf-8").write("\n".join(lines))
