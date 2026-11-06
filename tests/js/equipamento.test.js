@@ -4,34 +4,34 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dados, raridade, ordemRaridades, corDaParte, camadasDoItem, camadasDoPersonagem, ordenarPorZ, podeEquipar,
-  efeitos, creditosDoCatalogo, CacheRecolor, chaveRecolor } from "../../docs/src/equipamento.js";
+  efeitos, creditosDoCatalogo, CacheRecolor, chaveRecolor, estocadaUsaGolpe } from "../../docs/src/equipamento.js";
 import { recolorir } from "../../docs/src/aparencia.js";
 
 const ler = (f) => JSON.parse(readFileSync(new URL("../../docs/dados/" + f, import.meta.url), "utf8"));
-const D = dados({ defs: ler("lpc_definicoes.json"), catalogo: ler("catalogo_equipamentos.json"), raridades: ler("raridades.json") });
+const D = dados({ defs: ler("lpc_definicoes.json"), catalogo: ler("itens.json"), raridades: ler("raridades.json") });
 const R = D.raridades;
 const hx = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
 test("ordem das camadas: arco atrás e na frente do corpo; capa atrás e na frente; elmo por cima do cabelo", () => {
-  const equip = { arma: { item: "arco", raridade: "comum", reforco: 0 }, costas: { item: "capa", raridade: "comum", reforco: 0 },
-    cabeca: { item: "elmo-nasal", raridade: "comum", reforco: 0 }, peito: { item: "armadura-de-couro", raridade: "comum", reforco: 0 } };
+  const equip = { arma: { item: "arco-simples", raridade: "comum", reforco: 0 }, capa: { item: "capa-lisa", raridade: "comum", reforco: 0 },
+    capacete: { item: "elmo-nasal", raridade: "comum", reforco: 0 }, peitoral: { item: "gibao-couro", raridade: "comum", reforco: 0 } };
   const L = camadasDoPersonagem(D, "arqueiro", equip, "shoot");
   const zs = L.map((c) => c.z); assert.deepEqual(zs, [...zs].sort((a, b) => a - b), "desenho do menor zPos para o maior");
   const idx = (pred) => L.findIndex(pred), corpo = idx((c) => c.parte === "body/body");
-  assert.ok(idx((c) => c.item === "arco" && c.z < 0) < corpo, "parte de trás do arco antes do corpo");
-  assert.ok(idx((c) => c.item === "arco" && c.z >= 140) > idx((c) => c.parte === "head/heads/human/heads_human_male"), "frente do arco depois da cabeça");
-  assert.ok(idx((c) => c.item === "capa" && c.z < 10) < corpo && idx((c) => c.item === "capa" && c.z > 60) > idx((c) => c.item === "armadura-de-couro"));
+  assert.ok(idx((c) => c.item === "arco-simples" && c.z < 0) < corpo, "parte de trás do arco antes do corpo");
+  assert.ok(idx((c) => c.item === "arco-simples" && c.z >= 140) > idx((c) => c.parte === "head/heads/human/heads_human_male"), "frente do arco depois da cabeça");
+  assert.ok(idx((c) => c.item === "capa-lisa" && c.z < 10) < corpo && idx((c) => c.item === "capa-lisa" && c.z > 60) > idx((c) => c.item === "gibao-couro"));
   assert.ok(idx((c) => c.item === "elmo-nasal") > idx((c) => c.parte === "hair/short/hair_plain"));
   // trocar um item troca só as camadas dele
-  const L2 = camadasDoPersonagem(D, "arqueiro", { ...equip, arma: { item: "arco-grande", raridade: "comum", reforco: 0 } }, "shoot");
-  assert.deepEqual(L2.filter((c) => c.item !== "arco-grande").map((c) => c.arquivo), L.filter((c) => c.item !== "arco").map((c) => c.arquivo));
+  const L2 = camadasDoPersonagem(D, "arqueiro", { ...equip, arma: { item: "arco-longo", raridade: "comum", reforco: 0 } }, "shoot");
+  assert.deepEqual(L2.filter((c) => c.item !== "arco-longo").map((c) => c.arquivo), L.filter((c) => c.item !== "arco-simples").map((c) => c.arquivo));
   // ordenação estável: mesmo zPos mantém a ordem de chegada
   assert.deepEqual(ordenarPorZ([{ z: 5, n: 1 }, { z: 1, n: 2 }, { z: 5, n: 3 }]).map((c) => c.n), [2, 1, 3]);
 });
 
 test("quadros maiores que 64 px: arco andando usa walk_128; armas grandes do guerreiro usam 192", () => {
-  assert.ok(camadasDoItem(D, "arco", "walk", "comum").every((c) => c.tamanho === 128));
-  assert.ok(camadasDoItem(D, "arco", "shoot", "comum").every((c) => c.tamanho === 64));
+  assert.ok(camadasDoItem(D, "arco-simples", "walk", "comum").every((c) => c.tamanho === 128));
+  assert.ok(camadasDoItem(D, "arco-simples", "shoot", "comum").every((c) => c.tamanho === 64));
   assert.ok(camadasDoItem(D, "espada-longa", "slash", "comum").some((c) => c.tamanho === 192));
 });
 
@@ -50,12 +50,12 @@ test("cor pela paleta: item com recolors troca a paleta-base pela da raridade; c
 });
 
 test("arco (só variantes prontas): ouro e prata usam a imagem pronta; madeira e Valdor trocam a paleta da base", () => {
-  const ouro = camadasDoItem(D, "arco", "shoot", "epico");
+  const ouro = camadasDoItem(D, "arco-simples", "shoot", "epico");
   assert.ok(ouro.every((c) => c.arquivo.endsWith("/gold.png") && c.trocas.length === 0));
-  const madeira = camadasDoItem(D, "arco", "shoot", "comum");
+  const madeira = camadasDoItem(D, "arco-simples", "shoot", "comum");
   assert.ok(madeira.every((c) => c.arquivo.endsWith("/normal.png") && c.trocas.length === 6));
   assert.deepEqual(madeira[0].trocas[0], [hx(D.defs.paletas.wood.cores.maple[0]), hx(D.defs.paletas.wood.cores.oak[0])]);
-  const fogo = camadasDoItem(D, "arco-grande", "walk", "lendario");
+  const fogo = camadasDoItem(D, "arco-longo", "walk", "lendario");
   assert.ok(fogo.every((c) => c.trocas.length === 6) && fogo[0].trocas[3][1].join() === hx(D.defs.paletas.valdor.cores.ouro_fogo[3]).join());
   // espada longa: a base não está em nenhuma paleta, então fica com a cor original (limite da arte, só os efeitos mudam)
   assert.ok(camadasDoItem(D, "espada-longa", "walk", "lendario").every((c) => c.trocas.length === 0));
@@ -93,31 +93,55 @@ test("efeitos: ligam pela raridade, crescem com o reforço até o limite e desli
 });
 
 test("encaixes: item no encaixe errado ou na classe errada é recusado", () => {
-  assert.equal(podeEquipar(D, "arco", "arma", "arqueiro").ok, true);
-  assert.equal(podeEquipar(D, "arco", "mao_secundaria", "arqueiro").ok, false);
-  assert.equal(podeEquipar(D, "arco", "arma", "guerreiro").ok, false);
-  assert.equal(podeEquipar(D, "tabardo", "sobre_peito", "arqueiro").ok, false, "arqueiro não tem tabardo");
-  assert.equal(podeEquipar(D, "escudo-reforcado", "mao_secundaria", "guerreiro").ok, true);
+  assert.equal(podeEquipar(D, "arco-simples", "arma", "arqueiro").ok, true);
+  assert.equal(podeEquipar(D, "arco-simples", "escudo", "arqueiro").ok, false);
+  assert.equal(podeEquipar(D, "arco-simples", "arma", "guerreiro").ok, false);
+  assert.equal(podeEquipar(D, "tabardo-vermelho", "sobre_peito", "arqueiro").ok, false, "arqueiro não tem tabardo");
+  assert.equal(podeEquipar(D, "escudo-reforcado", "escudo", "guerreiro").ok, true);
   assert.equal(podeEquipar(D, "escudo-reforcado", "arma", "guerreiro").ok, false, "classe certa, encaixe errado");
-  assert.equal(podeEquipar(D, "luvas", "pes", "arqueiro").ok, false);
+  assert.equal(podeEquipar(D, "luvas", "botas", "arqueiro").ok, false);
   assert.equal(podeEquipar(D, "nao-existe", "arma", "guerreiro").ok, false);
-  assert.match(podeEquipar(D, "arco", "arma", "guerreiro").motivo, /classe/);
+  assert.match(podeEquipar(D, "arco-simples", "arma", "guerreiro").motivo, /classe/);
 });
 
-test("catálogo: sem números de atributo, besta fora, todo encaixe da tabela tem item para quem pode usar", () => {
-  for (const it of D.catalogo.itens) for (const k of ["dano", "defesa", "vida", "preco"]) assert.ok(!(k in it), `${it.id} tem ${k}`);
-  assert.ok(!D.catalogo.itens.some((it) => it.formato.some((p) => /crossbow|boomerang|slingshot/.test(p.def))));
+test("itens: todo item vestível tem formato; besta fora; todo encaixe tem item para cada classe que pode usar; toda animação desenha", () => {
+  const vestiveis = D.catalogo.itens.filter((it) => it.tipo !== "consumivel");
+  for (const it of vestiveis) assert.ok(it.formato && it.formato.length, `${it.id} sem formato`);
+  assert.ok(!vestiveis.some((it) => it.formato.some((p) => /crossbow|boomerang|slingshot/.test(p.def))));
   for (const [enc, e] of Object.entries(D.catalogo.encaixes)) for (const c of e.classes)
-    assert.ok(D.catalogo.itens.some((it) => it.encaixe === enc && it.classes.includes(c)), `${enc} sem item para ${c}`);
-  for (const c of ["guerreiro", "arqueiro"]) for (const a of D.catalogo.classes[c].animacoes)
-    for (const it of D.catalogo.itens.filter((x) => x.classes.includes(c))) assert.ok(camadasDoItem(D, it.id, a, "comum").length > 0, `${it.id} sem ${a}`);
+    assert.ok(vestiveis.some((it) => it.espaco === enc && it.classes.includes(c)), `${enc} sem item para ${c}`);
+  for (const [c, anims] of Object.entries(D.catalogo.animacoes_classe)) for (const a of anims)
+    for (const it of vestiveis.filter((x) => x.classes.includes(c))) assert.ok(camadasDoItem(D, it.id, a, "comum").length > 0, `${it.id} sem ${a}`);
 });
 
 test("créditos: cada formato usado tem autor, licença e link; formato sem crédito é recusado", () => {
   const cr = creditosDoCatalogo(D);
-  const usados = new Set(D.catalogo.itens.flatMap((it) => it.formato.map((p) => p.def)));
+  const usados = new Set(Object.values(D.itens).flatMap((it) => it.formato.map((p) => p.def)));
   for (const f of usados) assert.ok(cr.some((c) => c.formato === f), f);
   assert.ok(cr.every((c) => c.autores.length && c.licencas.length && c.urls.length));
   const quebrado = dados({ ...D, defs: { ...D.defs, definicoes: { ...D.defs.definicoes, "torso/cape/cape_solid": { ...D.defs.definicoes["torso/cape/cape_solid"], creditos: [] } } } });
   assert.throws(() => creditosDoCatalogo(quebrado));
+});
+
+test("aparência: rosto, cabelo e barba escolhidos entram como peças do gerador; sem barba não desenha barba", () => {
+  const AP = ler("aparencia.json"), op = (c, id) => AP[c].find((o) => o.id === id).def;
+  const ap = { pele: "body.brown", cabelo: "hair.black", defs: { rosto: op("rosto", "male_plump"), cabelo: op("cabelo", "afro"), barba: op("barba", "cheia") } };
+  const L = camadasDoPersonagem(D, "guerreiro", {}, "walk", ap);
+  for (const f of Object.values(ap.defs)) assert.ok(L.some((c) => c.parte === f), f);
+  assert.ok(L.find((c) => c.parte === "body/body").trocas.length > 0, "pele trocada");
+  const sem = camadasDoPersonagem(D, "guerreiro", {}, "walk", { defs: { rosto: op("rosto", "male"), cabelo: null, barba: null } });
+  assert.equal(sem.filter((c) => /^hair\//.test(c.parte)).length, 0, "careca e sem barba");
+});
+
+test("estocada: armas sem estocada no LPC usam o golpe; as que têm, não", () => {
+  assert.equal(estocadaUsaGolpe(D, "maca"), true); assert.equal(estocadaUsaGolpe(D, "espada-longa"), false);
+  assert.ok(camadasDoItem(D, "maca", "thrust", "comum").every((c) => c.anim === "slash"));
+});
+
+test("conjuntos de região têm cor fixa (identidade); a raridade não muda a cor deles", () => {
+  const I = D.catalogo, fixa = { mineiro: "metal.bronze", cinzaltar: "valdor.cinzaltar" };
+  for (const [c, cor] of Object.entries(fixa)) for (const id of I.conjuntos.find((x) => x.id === c).pecas)
+    assert.ok(D.itens[id].formato.every((p) => p.cor === cor), `${id} deveria ser ${cor}`);
+  const a = camadasDoItem(D, "placas-cinzaltar", "walk", "comum")[0].trocas, b = camadasDoItem(D, "placas-cinzaltar", "walk", "lendario")[0].trocas;
+  assert.deepEqual(a, b);
 });

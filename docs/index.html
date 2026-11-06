@@ -40,9 +40,10 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:14px/1.
 #caixa .esq{display:flex;gap:6px}#caixa .esq table.num{align-self:start}
 #caixa canvas.grande{width:192px;height:192px;image-rendering:pixelated;background:radial-gradient(#ffffff14,#0000 70%);border-radius:12px;cursor:pointer;display:block}#caixa .esq:has(canvas.grande){flex-direction:column;align-items:center}
 #caixa .apgrade{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}#caixa .atr.ap{text-align:center}#caixa .atr.ap button{width:44px;min-height:40px}
-#caixa .boneco{display:grid;grid-template-columns:40px 104px 40px;grid-template-rows:repeat(4,40px);grid-auto-flow:column;gap:2px 4px;align-items:center;justify-items:center}
-#caixa .boneco canvas{grid-column:2;grid-row:1/4;width:104px;height:104px;image-rendering:pixelated;background:radial-gradient(#ffffff14,#0000 70%);border-radius:10px;cursor:pointer}
-#caixa .s-capacete{grid-column:1;grid-row:1}#caixa .s-ombros{grid-column:1;grid-row:2}#caixa .s-bracos{grid-column:1;grid-row:3}#caixa .s-arma{grid-column:1;grid-row:4}#caixa .s-peitoral{grid-column:3;grid-row:1}#caixa .s-capa{grid-column:3;grid-row:2}#caixa .s-grevas{grid-column:3;grid-row:3}#caixa .s-botas{grid-column:3;grid-row:4}#caixa .s-escudo{grid-column:2;grid-row:4}#caixa .boneco canvas{grid-row:1/4}
+#caixa .boneco{display:grid;grid-template-columns:40px 104px 40px;grid-template-rows:repeat(5,36px);grid-auto-flow:column;gap:2px 4px;align-items:center;justify-items:center}
+#caixa .boneco canvas{grid-column:2;grid-row:1/5;width:104px;height:104px;image-rendering:pixelated;background:radial-gradient(#ffffff14,#0000 70%);border-radius:10px;cursor:pointer;align-self:center}
+#caixa .boneco .slot{width:36px;height:36px;min-height:36px}#caixa .boneco .slot img.ic{width:28px;height:28px}
+#caixa .s-capacete{grid-column:1;grid-row:1}#caixa .s-pescoco{grid-column:1;grid-row:2}#caixa .s-ombros{grid-column:1;grid-row:3}#caixa .s-bracos{grid-column:1;grid-row:4}#caixa .s-arma{grid-column:1;grid-row:5}#caixa .s-peitoral{grid-column:3;grid-row:1}#caixa .s-sobre_peito{grid-column:3;grid-row:2}#caixa .s-capa{grid-column:3;grid-row:3}#caixa .s-grevas{grid-column:3;grid-row:4}#caixa .s-botas{grid-column:3;grid-row:5}#caixa .s-escudo{grid-column:2;grid-row:5}
 #caixa .slot{position:relative;width:40px;height:40px;min-height:40px;margin:0;padding:0;border:2px solid #fff3;border-radius:8px;background:#0003;display:flex;align-items:center;justify-content:center}
 #caixa .slot img.ic{width:32px;height:32px;margin:0;background:none}
 #caixa .slot i{position:absolute;right:2px;bottom:0;font-size:10px;font-style:normal;font-weight:700;color:#fff;text-shadow:0 1px 2px #000}

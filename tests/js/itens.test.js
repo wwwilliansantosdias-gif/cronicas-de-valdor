@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { sortearDrop, sortearQualidade, multSorte, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento } from "../../docs/src/itens.js";
 import { novoEstado } from "../../docs/src/progresso.js";
 import { novoItem, derivados } from "../../docs/src/personagem.js";
-import { validar } from "../../docs/src/salvar.js";
+import { validar, migrarV4, VERSAO } from "../../docs/src/salvar.js";
 import { criarPrng } from "../../docs/src/prng.js";
 
 const ler = (f) => JSON.parse(readFileSync(new URL("../../docs/" + f, import.meta.url), "utf8"));
@@ -203,4 +203,47 @@ test("mago: cajados e chapéus só para o mago; armaduras leves e pesadas servem
   for (let i = 0; i < 2000; i++) { const it = sortearDrop(I, P, chefe, e, 29, 0, rng); const b = I.itens.find((x) => x.id === it.base); assert.ok(b.classes.includes("mago"), b.id); if (b.espaco === "arma") assert.ok(b.id.startsWith("cajado-")); }
   const g = novoEstado(P, I); g.equip.arma = novoItem("cajado-retorcido");
   assert.equal(validar(P, I, JSON.parse(JSON.stringify(g)), ["pe-de-lenha"]), null, "guerreiro com cajado é inválido");
+});
+
+// ---------- etapa 12: raridades, forja até +12, save v5 ----------
+test("5 raridades: sem Sorte cada uma cai na proporção do peso; Lendário é a mais rara", () => {
+  const rng = criarPrng(31), T = 200000, n = {};
+  for (let i = 0; i < T; i++) { const q = sortearQualidade(I, 0, rng); n[q] = (n[q] || 0) + 1; }
+  const total = I.qualidades.reduce((s, q) => s + q.peso, 0);
+  for (const q of I.qualidades) assert.ok(Math.abs((n[q.id] || 0) / T - q.peso / total) < 0.004, `${q.id}: ${(n[q.id] || 0) / T}`);
+  assert.ok(n.lendario < n.epico && n.epico < n.raro);
+});
+
+test("forja até +12: do +5 ao +12 a chance cai, o custo sobe e o valor do item continua subindo 10% por nível", () => {
+  const e = novoEstado(P, I); e.ouro = 1e7; e.fragmentos = 1e6; e.equip.arma.mais = 11;
+  const r = melhorar(I, e, { espaco: "arma" }, () => 0); assert.ok(r.sucesso); assert.equal(e.equip.arma.mais, 12);
+  assert.equal(proximaMelhoria(I, e.equip.arma), null, "+12 é o máximo");
+  const v = (m) => derivados(P, I, { ...e, equip: { ...e.equip, arma: { ...e.equip.arma, mais: m } } }).dano;
+  assert.ok(v(12) > v(11) && v(11) > v(5));
+});
+
+test("save v4 vira v5: Refinado vira Incomum, Lendário continua Lendário, encaixes novos vazios, nada se perde", () => {
+  const e = novoEstado(P, I); delete e.equip.sobre_peito; delete e.equip.pescoco;
+  e.equip.peitoral = { base: "gibao-couro", qual: "refinado", mais: 3, bonus: {} };
+  e.equip.arma = { base: "espada-longa", qual: "lendario", mais: 5, bonus: { for: 2, sor: 2 } };
+  e.mochila = [{ base: "luvas", qual: "refinado", mais: 0, bonus: {} }, { base: "capuz", qual: "raro", mais: 1, bonus: { vit: 2 } }];
+  const v4 = JSON.parse(JSON.stringify({ ...e, versao: 4 })), v5 = validar(P, I, migrarV4(I, v4), ["pe-de-lenha"]);
+  assert.ok(v5); assert.equal(v5.versao, VERSAO); assert.equal(VERSAO, 5);
+  assert.equal(v5.equip.peitoral.qual, "incomum"); assert.equal(v5.equip.peitoral.mais, 3);
+  assert.equal(v5.equip.arma.qual, "lendario"); assert.deepEqual(v5.equip.arma.bonus, { for: 2, sor: 2 });
+  assert.deepEqual(v5.mochila.map((it) => it.qual), ["incomum", "raro"]);
+  assert.equal(v5.equip.sobre_peito, null); assert.equal(v5.equip.pescoco, null);
+  // o Lendário não muda de força na conversão
+  assert.equal(I.qualidades.find((q) => q.id === "lendario").mult, 1.6);
+  // +12 é válido, +13 não
+  const x = JSON.parse(JSON.stringify(v5)); x.equip.arma.mais = 12; assert.ok(validar(P, I, x, ["pe-de-lenha"]));
+  const y = JSON.parse(JSON.stringify(v5)); y.equip.arma.mais = 13; assert.equal(validar(P, I, y, ["pe-de-lenha"]), null);
+});
+
+test("itens novos: tabardo só para o guerreiro, amuletos para todas as classes, com números", () => {
+  const t = I.itens.find((x) => x.id === "tabardo-vermelho"), a = I.itens.find((x) => x.id === "amuleto-estrela");
+  assert.deepEqual(t.classes, ["guerreiro"]); assert.deepEqual(a.classes, ["guerreiro", "arqueiro", "mago"]);
+  for (const it of I.itens.filter((x) => x.tipo !== "consumivel")) assert.ok((it.dano || it.vida || it.defesa) > 0 && it.nivel >= 1 && it.preco > 0, it.id);
+  const g = novoEstado(P, I, "arqueiro", "disparo"); g.mochila = [novoItem("tabardo-vermelho")];
+  assert.ok(impedimento(I, g, g.mochila[0]), "arqueiro não veste tabardo");
 });

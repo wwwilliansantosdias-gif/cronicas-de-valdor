@@ -345,7 +345,7 @@ test("save da versão 1 é migrado sem perder nível, ouro nem a arma afiada", (
   s.setItem("valdor-save", JSON.stringify(v1));
   const e = carregar(s, mapasValidos);
   assert.ok(e, "migrou");
-  assert.equal(e.versao, 4); assert.equal(e.nivel, 7); assert.equal(e.ouro, 55); assert.equal(e.mapa, "mata-do-javali");
+  assert.equal(e.versao, 5); assert.equal(e.nivel, 7); assert.equal(e.ouro, 55); assert.equal(e.mapa, "mata-do-javali");
   assert.equal(e.equip.arma.mais, 2);
   assert.deepEqual(e.missoes, v1.missoes);
   assert.equal(gastos(P, e) + e.pontosLivres, pontosAteNivel(P, 7));

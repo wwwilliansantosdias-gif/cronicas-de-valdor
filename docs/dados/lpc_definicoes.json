@@ -812,6 +812,14 @@
      "#f7a01c",
      "#ffd84a",
      "#fffbd0"
+    ],
+    "cinzaltar": [
+     "#1a1228",
+     "#342450",
+     "#543e78",
+     "#7860a0",
+     "#a08cc4",
+     "#ece6fa"
     ]
    }
   }
@@ -1142,6 +1150,575 @@
     ]
    }
   },
+  "head/heads/human/heads_human_male_gaunt": {
+   "nome": "Human Male Gaunt",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "body",
+     "base": null
+    },
+    {
+     "material": "eye",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 100,
+     "pasta": "head/heads/human/male_gaunt/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "head/heads/human/male_gaunt",
+     "notes": "original head by Redshrike, gaunt version by bluecarrot16",
+     "authors": [
+      "Stephen Challener (Redshrike)",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-folk"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "head/heads/human/heads_human_male_plump": {
+   "nome": "Human Male Plump",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "body",
+     "base": null
+    },
+    {
+     "material": "eye",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 100,
+     "pasta": "head/heads/human/male_plump/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "head/heads/human/male_plump",
+     "notes": "original head by Redshrike, plump version by ??",
+     "authors": [
+      "Stephen Challener (Redshrike)",
+      "??"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-folk"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "head/heads/human/heads_human_male_elderly": {
+   "nome": "Human Male Elderly",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "body",
+     "base": null
+    },
+    {
+     "material": "eye",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 100,
+     "pasta": "head/heads/human/male_elderly/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "head/heads/human/male_elderly",
+     "notes": "",
+     "authors": [
+      "Benjamin K. Smith (BenCreating)",
+      "Eliza Wyatt (ElizaWy)",
+      "Stephen Challener (Redshrike)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-revised-elders",
+      "https://opengameart.org/content/lpc-character-bases"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/beards/beards_5oclock_shadow": {
+   "nome": "5 O'clock Shadow",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 111,
+     "pasta": "beards/beard/5oclock_shadow/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "beards/beard/5oclock_shadow",
+     "notes": "Original by Pennomi, repositioning by JaidynReiman.",
+     "authors": [
+      "JaidynReiman",
+      "Thane Brimhall (pennomi)",
+      "laetissima"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-base-character-expressions"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/beards/beards_trimmed": {
+   "nome": "Trimmed Beard",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 110,
+     "pasta": "beards/beard/trimmed/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "beards/beard/trimmed",
+     "notes": "",
+     "authors": [
+      "ElizaWy"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://github.com/ElizaWy/LPC/tree/main/Characters/Hair",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/beards/beards_beard": {
+   "nome": "Basic Beard",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 110,
+     "pasta": "beards/beard/basic/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "beards/beard/basic",
+     "notes": "Original by Nemisys, repositioning by JaidynReiman.",
+     "authors": [
+      "JaidynReiman",
+      "Carlo Enrico Victoria (Nemisys)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-white-beard"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/beards/beards_medium": {
+   "nome": "Medium Beard",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 110,
+     "pasta": "beards/beard/medium/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "beards/beard/medium",
+     "notes": "",
+     "authors": [
+      "ElizaWy"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://github.com/ElizaWy/LPC/tree/main/Characters/Hair",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/mustaches/beards_mustache": {
+   "nome": "Mustache",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 111,
+     "pasta": "beards/mustache/basic/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "beards/mustache/basic",
+     "notes": "Original by Nemisys, repositioning by JaidynReiman.",
+     "authors": [
+      "JaidynReiman",
+      "Carlo Enrico Victoria (Nemisys)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-brunet-mustache"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
   "hair/short/hair_plain": {
    "nome": "Plain",
    "animacoes": [
@@ -1196,6 +1773,1046 @@
      "urls": [
       "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
       "https://opengameart.org/content/ponytail-and-plain-hairstyles",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/short/hair_parted": {
+   "nome": "Parted",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/parted/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/parted",
+     "notes": "down 4 and 5 added by JaidynReiman; recolors by Joe White; original by Manuel Riecke (MrBeast)",
+     "authors": [
+      "JaidynReiman",
+      "Joe White",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://github.com/jrconway3/Universal-LPC-spritesheet/commit/46ddcf05a0e43e7aa6ffd47d350eef0eb529ac24",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/short/hair_messy1": {
+   "nome": "Messy1",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/messy1/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/messy1",
+     "notes": "",
+     "authors": [
+      "JaidynReiman",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/short/hair_bedhead": {
+   "nome": "Bedhead",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/bedhead/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/bedhead",
+     "notes": "",
+     "authors": [
+      "JaidynReiman",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/spiky/hair_spiked": {
+   "nome": "Spiked",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/spiked/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/spiked",
+     "notes": "",
+     "authors": [
+      "kcilds/Rocetti/Eredah"
+     ],
+     "licenses": [
+      "CC-BY 4.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/eredah-rpg-character-base-48x64-ongoing",
+      "https://opengameart.org/content/lpc-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/bald/hair_buzzcut": {
+   "nome": "Buzzcut",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/buzzcut/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/buzzcut",
+     "notes": "",
+     "authors": [
+      "ElizaWy"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/bald/hair_high_and_tight": {
+   "nome": "High and tight",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/high_and_tight/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/high_and_tight",
+     "notes": "",
+     "authors": [
+      "Skorpio",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-skorpios-scifi-sprite-pack",
+      "https://opengameart.org/content/lpc-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/curly/hair_curly_short": {
+   "nome": "Curly short",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/curly_short/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/curly_short",
+     "notes": "",
+     "authors": [
+      "ElizaWy"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-hair",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/afro/hair_afro": {
+   "nome": "Afro",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/afro/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/afro",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/afro/hair_natural": {
+   "nome": "Natural",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/natural/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/natural",
+     "notes": "Original by bluecarrot16, animations by ElizaWy.",
+     "authors": [
+      "ElizaWy",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-hair",
+      "https://github.com/ElizaWy/LPC/blob/main/Characters/Hair",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/long/hair_long": {
+   "nome": "Long",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/long/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/long",
+     "notes": "",
+     "authors": [
+      "JaidynReiman",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/long/hair_long_messy": {
+   "nome": "Long messy",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/long_messy/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/long_messy",
+     "notes": "(puck)",
+     "authors": [
+      "Mandi Paugh",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "GPL 2.0",
+      "GPL 3.0",
+      "CC-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/puck-overland",
+      "https://opengameart.org/content/lpc-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/bald/hair_shorthawk": {
+   "nome": "Shorthawk",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/shorthawk/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/shorthawk",
+     "notes": "",
+     "authors": [
+      "JaidynReiman",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/bald/hair_balding": {
+   "nome": "Balding",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/balding/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/balding",
+     "notes": "",
+     "authors": [
+      "ElizaWy"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/short/hair_unkempt": {
+   "nome": "Unkempt",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/unkempt/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/unkempt",
+     "notes": "",
+     "authors": [
+      "JaidynReiman",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-expanded-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ],
+    "shoot": [
+     0
+    ]
+   }
+  },
+  "hair/short/hair_swoop": {
+   "nome": "Swoop",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "hair",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 120,
+     "pasta": "hair/swoop/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hair/swoop",
+     "notes": "",
+     "authors": [
+      "JaidynReiman",
+      "Manuel Riecke (MrBeast)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
       "https://opengameart.org/content/lpc-expanded-hair"
      ]
     }
@@ -1295,6 +2912,609 @@
    "por_animacao": {
     "shoot": [
      0
+    ]
+   }
+  },
+  "weapons/sword/weapon_sword_dagger": {
+   "nome": "Dagger",
+   "animacoes": [
+    "thrust",
+    "walk",
+    "slash",
+    "hurt"
+   ],
+   "variantes": [
+    "dagger"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/sword/dagger/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/sword/dagger/behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/sword/dagger",
+     "notes": "",
+     "authors": [
+      "bluecarrot16",
+      "Johannes Sjölund (wulax)",
+      "Matthew Krohn (makrohn)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-extended-weapon-animations"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0,
+     1
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "dagger",
+   "paleta_base": "metal.steel",
+   "cobertura_base": 0.78
+  },
+  "weapons/sword/weapon_sword_longsword": {
+   "nome": "Longsword",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize",
+    "slash_reverse_oversize",
+    "thrust_oversize"
+   ],
+   "variantes": [
+    "longsword"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/sword/longsword/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/sword/longsword/universal_behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/sword/longsword/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/sword/longsword/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/sword/longsword/attack_thrust/behind/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/sword/longsword/attack_thrust/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/sword/longsword",
+     "notes": "",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-extended-weapon-animations"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": [
+     4,
+     5
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "longsword",
+   "paleta_base": null,
+   "cobertura_base": 0.15
+  },
+  "weapons/blunt/weapon_blunt_mace": {
+   "nome": "Mace",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize"
+   ],
+   "variantes": [
+    "mace"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/blunt/mace/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/blunt/mace/universal_behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/blunt/mace/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/blunt/mace/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/blunt/mace",
+     "notes": "",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-extended-weapon-animations"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": "slash",
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "mace",
+   "paleta_base": null,
+   "cobertura_base": 0.46
+  },
+  "weapons/sword/weapon_sword_saber": {
+   "nome": "Saber",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize"
+   ],
+   "variantes": [
+    "saber"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/sword/saber/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/sword/saber/universal_behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 8,
+     "pasta": "weapon/sword/saber/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/sword/saber/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/sword/saber",
+     "notes": "",
+     "authors": [
+      "Daniel Eddeland (daneeklu)",
+      "Johannes Sjölund (wulax)",
+      "gr3yh47",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-extended-weapon-animations"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": "slash",
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "saber",
+   "paleta_base": null,
+   "cobertura_base": 0.41
+  },
+  "weapons/blunt/weapon_blunt_waraxe": {
+   "nome": "Waraxe",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize"
+   ],
+   "variantes": [
+    "waraxe"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 9,
+     "pasta": "weapon/blunt/waraxe/behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 140,
+     "pasta": "weapon/blunt/waraxe/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 8,
+     "pasta": "weapon/blunt/waraxe/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/blunt/waraxe/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/blunt/waraxe",
+     "notes": "",
+     "authors": [
+      "Benjamin K. Smith (BenCreating)",
+      "bluecarrot16",
+      "Sander Frenken (castelonia)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-weapons"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": "slash",
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "waraxe",
+   "paleta_base": "metal.silver",
+   "cobertura_base": 0.63
+  },
+  "weapons/blunt/weapon_blunt_flail": {
+   "nome": "Flail",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize"
+   ],
+   "variantes": [
+    "flail"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 9,
+     "pasta": "weapon/blunt/flail/behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 140,
+     "pasta": "weapon/blunt/flail/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 8,
+     "pasta": "weapon/blunt/flail/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/blunt/flail/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/blunt/flail",
+     "notes": "",
+     "authors": [
+      "Benjamin K. Smith (BenCreating)",
+      "bluecarrot16",
+      "Sander Frenken (castelonia)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-weapons"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": "slash",
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "flail",
+   "paleta_base": "metal.silver",
+   "cobertura_base": 0.78
+  },
+  "weapons/sword/weapon_sword_rapier": {
+   "nome": "Rapier",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize"
+   ],
+   "variantes": [
+    "rapier"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/sword/rapier/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/sword/rapier/universal_behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 8,
+     "pasta": "weapon/sword/rapier/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/sword/rapier/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/sword/rapier",
+     "notes": "",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-extended-weapon-animations"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": "slash",
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "rapier",
+   "paleta_base": null,
+   "cobertura_base": 0.19
+  },
+  "weapons/sword/weapon_sword_glowsword": {
+   "nome": "Glowsword",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "slash_oversize"
+   ],
+   "variantes": [
+    "blue",
+    "red"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/sword/glowsword/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/sword/glowsword/universal_behind/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 8,
+     "pasta": "weapon/sword/glowsword/attack_slash/behind/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/sword/glowsword/attack_slash/",
+     "custom": "slash_oversize",
+     "anim": "slash",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/sword/glowsword",
+     "notes": "",
+     "authors": [
+      "bluecarrot16",
+      "tskaufma",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-glow-sword",
+      "https://opengameart.org/content/lpc-extended-weapon-animations"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     2,
+     3
+    ],
+    "thrust": "slash",
+    "walk": [
+     0,
+     1
     ]
    }
   },
@@ -1555,223 +3775,1361 @@
    "paleta_base": "wood.maple",
    "cobertura_base": 0.76
   },
-  "weapons/sword/weapon_sword_longsword": {
-   "nome": "Longsword",
+  "torso/armour/torso_armour_leather": {
+   "nome": "Leather",
    "animacoes": [
+    "spellcast",
+    "thrust",
     "walk",
+    "slash",
+    "shoot",
     "hurt",
-    "slash_oversize",
-    "slash_reverse_oversize",
-    "thrust_oversize"
+    "watering",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "climb",
+    "run"
    ],
-   "variantes": [
-    "longsword"
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": "leather"
+    },
+    {
+     "material": "metal",
+     "base": null
+    }
    ],
-   "recolors": [],
    "camadas": [
     {
-     "z": 140,
-     "pasta": "weapon/sword/longsword/",
+     "z": 60,
+     "pasta": "torso/armour/leather/male/",
      "custom": null,
      "anim": null,
      "tamanho": 64
-    },
-    {
-     "z": 9,
-     "pasta": "weapon/sword/longsword/universal_behind/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    },
-    {
-     "z": -1,
-     "pasta": "weapon/sword/longsword/attack_slash/behind/",
-     "custom": "slash_oversize",
-     "anim": "slash",
-     "tamanho": 192
-    },
-    {
-     "z": 150,
-     "pasta": "weapon/sword/longsword/attack_slash/",
-     "custom": "slash_oversize",
-     "anim": "slash",
-     "tamanho": 192
-    },
-    {
-     "z": -1,
-     "pasta": "weapon/sword/longsword/attack_thrust/behind/",
-     "custom": "thrust_oversize",
-     "anim": "thrust",
-     "tamanho": 192
-    },
-    {
-     "z": 150,
-     "pasta": "weapon/sword/longsword/attack_thrust/",
-     "custom": "thrust_oversize",
-     "anim": "thrust",
-     "tamanho": 192
     }
    ],
    "creditos": [
     {
-     "file": "weapon/sword/longsword",
-     "notes": "",
+     "file": "torso/armour/leather",
+     "notes": "adapted to v3 bases by bluecarrot16, reduced colors and climb/emote/jump by JaidynReiman",
      "authors": [
       "Johannes Sjölund (wulax)",
-      "bluecarrot16"
+      "bluecarrot16",
+      "JaidynReiman"
      ],
      "licenses": [
       "OGA-BY 3.0",
-      "CC-BY-SA 3.0"
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
      ],
      "urls": [
       "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-extended-weapon-animations"
+      "https://opengameart.org/content/lpc-clothing-updates",
+      "https://opengameart.org/content/lpc-expanded-armor"
+     ]
+    },
+    {
+     "file": "torso/armour/leather/female",
+     "notes": "recolor of torso/armour/leather/female/brown.png, adapted to v3 bases by bluecarrot16, reduced colors and climb/emote/jump by JaidynReiman",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-combat-armor-for-women",
+      "https://opengameart.org/content/lpc-clothing-updates",
+      "https://opengameart.org/content/lpc-expanded-armor"
+     ]
+    },
+    {
+     "file": "torso/armour/leather/teen",
+     "notes": "adapted to v3 bases by bluecarrot16, teen version by JaidynReiman adapted from Male and Female versions",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-combat-armor-for-women",
+      "https://opengameart.org/content/lpc-clothing-updates",
+      "https://opengameart.org/content/lpc-expanded-armor"
      ]
     }
    ],
    "por_animacao": {
-    "slash": [
-     2,
-     3
+    "shoot": [
+     0
     ],
-    "thrust": [
-     4,
-     5
-    ],
-    "walk": [
-     0,
-     1
-    ]
-   },
-   "base_variante": "longsword",
-   "paleta_base": null,
-   "cobertura_base": 0.15
-  },
-  "weapons/blunt/weapon_blunt_mace": {
-   "nome": "Mace",
-   "animacoes": [
-    "walk",
-    "hurt",
-    "slash_oversize"
-   ],
-   "variantes": [
-    "mace"
-   ],
-   "recolors": [],
-   "camadas": [
-    {
-     "z": 140,
-     "pasta": "weapon/blunt/mace/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    },
-    {
-     "z": 9,
-     "pasta": "weapon/blunt/mace/universal_behind/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    },
-    {
-     "z": 9,
-     "pasta": "weapon/blunt/mace/attack_slash/behind/",
-     "custom": "slash_oversize",
-     "anim": "slash",
-     "tamanho": 192
-    },
-    {
-     "z": 150,
-     "pasta": "weapon/blunt/mace/attack_slash/",
-     "custom": "slash_oversize",
-     "anim": "slash",
-     "tamanho": 192
-    }
-   ],
-   "creditos": [
-    {
-     "file": "weapon/blunt/mace",
-     "notes": "",
-     "authors": [
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-extended-weapon-animations"
-     ]
-    }
-   ],
-   "por_animacao": {
     "slash": [
-     2,
-     3
+     0
     ],
     "thrust": [
      0
     ],
     "walk": [
-     0,
-     1
+     0
     ]
-   },
-   "base_variante": "mace",
-   "paleta_base": null,
-   "cobertura_base": 0.46
+   }
   },
-  "weapons/blunt/weapon_blunt_waraxe": {
-   "nome": "Waraxe",
+  "torso/torso_chainmail": {
+   "nome": "Chainmail",
    "animacoes": [
+    "spellcast",
+    "thrust",
     "walk",
+    "slash",
+    "shoot",
     "hurt",
-    "slash_oversize"
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "run"
    ],
-   "variantes": [
-    "waraxe"
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
    ],
-   "recolors": [],
    "camadas": [
     {
-     "z": 9,
-     "pasta": "weapon/blunt/waraxe/behind/",
+     "z": 50,
+     "pasta": "torso/chainmail/male/",
      "custom": null,
      "anim": null,
      "tamanho": 64
-    },
-    {
-     "z": 140,
-     "pasta": "weapon/blunt/waraxe/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    },
-    {
-     "z": 8,
-     "pasta": "weapon/blunt/waraxe/attack_slash/behind/",
-     "custom": "slash_oversize",
-     "anim": "slash",
-     "tamanho": 192
-    },
-    {
-     "z": 150,
-     "pasta": "weapon/blunt/waraxe/attack_slash/",
-     "custom": "slash_oversize",
-     "anim": "slash",
-     "tamanho": 192
     }
    ],
    "creditos": [
     {
-     "file": "weapon/blunt/waraxe",
+     "file": "torso/chainmail",
+     "notes": "minor edits by bluecarrot16, reduced colors by Napsio, adjusted Male colors and Idle/Sit/Emote/Climb/Run by JaidynReiman",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "Napsio (Vitruvian Studio)",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "torso/armour/torso_armour_legion": {
+   "nome": "Legion",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 60,
+     "pasta": "torso/armour/legion/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "torso/armour/legion",
+     "notes": "adapted to v3 bases by bluecarrot16, jump/run/sit/combat and teen by JaidynReiman, color reduction to 6 colors inspired by Napsio (Vitruvian Studio)",
+     "authors": [
+      "Napsio (Vitruvian Studio)",
+      "JaidynReiman",
+      "bluecarrot16",
+      "Nila122"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-roman-armor"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "torso/armour/torso_armour_plate": {
+   "nome": "Plate",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 60,
+     "pasta": "torso/armour/plate/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "torso/armour/plate/male",
+     "notes": "original by wulax, recolor by bigbeargames, color reduced to 7 colors and adapted to v3 bases by bluecarrot16, run/jump/sit/climb/revised combat by JaidynReiman, reduced colors to 6 (based on Napsio's Vitruvian)",
+     "authors": [
+      "Napsio (Vitruvian Studio)",
+      "JaidynReiman",
+      "bluecarrot16",
+      "Michael Whitlock (bigbeargames)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-combat-armor-for-women"
+     ]
+    },
+    {
+     "file": "torso/armour/plate/female",
+     "notes": "original by wulax, adapted to female base by makrohn, recolor by bigbeargames, color reduced to 7 colors and adapted to v3 bases by bluecarrot16, run/jump/sit/climb/revised combat by JaidynReiman, reduced colors to 6 (based on Napsio's Vitruvian)",
+     "authors": [
+      "JaidynReiman",
+      "bluecarrot16",
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-combat-armor-for-women",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    },
+    {
+     "file": "torso/armour/plate/teen",
+     "notes": "original by wulax, color reduced to 7 colors and adapted to v3 bases by bluecarrot16, adapted to teen base from male/female by JaidynReiman",
+     "authors": [
+      "JaidynReiman",
+      "bluecarrot16",
+      "Michael Whitlock (bigbeargames)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-combat-armor-for-women"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "legs/pants/legs_pants": {
+   "nome": "Pants",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 20,
+     "pasta": "legs/pants/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "legs/pants/male",
+     "notes": "original male pants by wulax, recolors and edits to v3 base by bluecarrot16, climb/jump/run/sit/emotes/revised combat by JaidynReiman based on ElizaWy's LPC Revised",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman",
+      "ElizaWy",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "Stephen Challener (Redshrike)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "GPL 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-expanded-pants"
+     ]
+    },
+    {
+     "file": "legs/pants/thin",
+     "notes": "original male pants by wulax, edited for female by Joe White, recolors and edits to v3 base by bluecarrot16, teen legs by ElizaWy derived from base, climb/jump/run/sit/emotes/revised combat by JaidynReiman based on ElizaWy's LPC Revised",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman",
+      "ElizaWy",
+      "Joe White",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "Stephen Challener (Redshrike)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "GPL 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "http://opengameart.org/content/lpc-clothing-updates",
+      "https://opengameart.org/content/lpc-expanded-pants"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "legs/pants/legs_pants2": {
+   "nome": "Long Pants",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 20,
+     "pasta": "legs/pants2/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "legs/pants2/male",
+     "notes": "original overalls by ElizaWy, base animations adapted from v3 overalls by bluecarrot16, pants by JaidynReiman",
+     "authors": [
+      "JaidynReiman",
+      "ElizaWy",
+      "Bluecarrot16",
+      "Johannes Sjölund (wulax)",
+      "Stephen Challener (Redshrike)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more",
+      "https://opengameart.org/content/lpc-expanded-pants"
+     ]
+    },
+    {
+     "file": "legs/pants2",
+     "notes": "Original bases by Redshrike, thrust/shoot bases by Wulax, original pants by ElizaWy, climb/jump/run/sit/emotes/revised combat by JaidynReiman",
+     "authors": [
+      "ElizaWy",
+      "JaidynReiman",
+      "Johannes Sjölund (wulax)",
+      "Stephen Challener (Redshrike)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more",
+      "https://opengameart.org/content/lpc-expanded-pants"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "legs/skirts/legs_skirts_legion": {
+   "nome": "Legion skirt",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "run"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 20,
+     "pasta": "legs/skirts/legion/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "legs/skirts/legion",
+     "notes": "original by Nila122 to legion, adapted to v3 bases by bluecarrot16, climb/jump/sit/run by JaidynReiman",
+     "authors": [
+      "bluecarrot16",
+      "Nila122",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-roman-armor",
+      "http://opengameart.org/content/lpc-clothing-updates",
+      "https://opengameart.org/content/lpc-expanded-armour"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "legs/legs_armour": {
+   "nome": "Armour",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "climb",
+    "run"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 20,
+     "pasta": "legs/armour/plate/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "legs/armour/plate",
+     "notes": "reduced to 7 colors an adapted to v3 bases by bluecarrot16, climb/jump/sit/emote/run by JaidynReiman",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman",
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/hats/caps/hat_cap_leather": {
+   "nome": "Leather Cap",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [
+    "base",
+    "black",
+    "blue",
+    "bluegray",
+    "brown",
+    "charcoal",
+    "forest",
+    "gray",
+    "green",
+    "lavender",
+    "leather",
+    "maroon",
+    "navy",
+    "orange",
+    "pink",
+    "purple",
+    "red",
+    "rose",
+    "sky",
+    "slate",
+    "tan",
+    "teal",
+    "walnut",
+    "white",
+    "yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/cloth/leather_cap/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/cloth/leather_cap",
+     "notes": "original by Johannes Sjölund (wulax), female by Matthew Krohn, mapped to all frames w/recolors by JaidynReiman",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "Matthew Krohn (Makrohn)",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/coverings/hoods/hat_hood_cloth": {
+   "nome": "Hood",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/cloth/hood/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/cloth/hood",
+     "notes": "Brown hood by Wulax, original black/white recolors by ??, mapped to idle/run/jump/revised combat by JaidynReiman, along with additional recolors.",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_nasal": {
+   "nome": "Nasal helm",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/nasal/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/nasal",
      "notes": "",
      "authors": [
-      "Benjamin K. Smith (BenCreating)",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC-BY 3.0",
+      "CC-BY 4.0",
+      "OGA-BY 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-helmets",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_bascinet": {
+   "nome": "Bascinet",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/bascinet/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/bascinet",
+     "notes": "",
+     "authors": [
       "bluecarrot16",
+      "ElizaWy",
+      "Sander Frenken (castelonia)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 4.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-realistic-helmet-pack",
+      "https://opengameart.org/content/lpc-helmets-mega-pack",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_barbarian": {
+   "nome": "Barbarian",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    },
+    {
+     "material": "cloth",
+     "base": "brown"
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/barbarian/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/barbarian",
+     "notes": "original version by bluecarrot16, color reduction by Napsio (Vitruvian Studio)",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman",
+      "Napsio (Vitruvian Studio)"
+     ],
+     "licenses": [
+      "CC-BY 3.0",
+      "CC-BY 4.0",
+      "OGA-BY 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-helmets",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_spangenhelm": {
+   "nome": "Spangenhelm",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/spangenhelm/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/spangenhelm",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC-BY 3.0",
+      "CC-BY 4.0",
+      "OGA-BY 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-helmets",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_legion": {
+   "nome": "Legion",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/legion/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/legion",
+     "notes": "",
+     "authors": [
+      "bluecarrot16",
+      "Nila122",
+      "JaidynReiman",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-roman-armor",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_armet_simple": {
+   "nome": "Simple Armet",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/armet_simple/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/armet_simple",
+     "notes": "original version by Johannes Sjölund (wulax), adjustments by bluecarrot16, color reduction by JaidynReiman",
+     "authors": [
+      "bluecarrot16",
+      "Johannes Sjölund (wulax)",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/helmets/helmets/hat_helmet_horned": {
+   "nome": "Horned helmet",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/helmet/horned/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/helmet/horned",
+     "notes": "",
+     "authors": [
+      "bluecarrot16",
+      "Shaun Williams",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
       "Sander Frenken (castelonia)"
      ],
      "licenses": [
@@ -1779,24 +5137,1157 @@
       "GPL 3.0"
      ],
      "urls": [
-      "https://opengameart.org/content/lpc-medieval-weapons"
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-full-plate-golden-armor",
+      "https://opengameart.org/content/lpc-full-plate-golden-armor-0",
+      "https://opengameart.org/content/lpc-helmets-mega-pack",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/shoulders/shoulders_mantal": {
+   "nome": "Mantal",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "run"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 75,
+     "pasta": "shoulders/mantal/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shoulders/mantal",
+     "notes": "Original by bluecarrot16, climb/jump/sit/emote/run by JaidynReiman",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-pirates"
+     ]
+    },
+    {
+     "file": "shoulders/mantal/thin",
+     "notes": "Original by bluecarrot16, female/teen version by JaidynReiman",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-pirates"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/shoulders/shoulders_pauldrons": {
+   "nome": "Pauldrons",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "run",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 60,
+     "pasta": "shoulders/pauldrons/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shoulders/pauldrons",
+     "notes": "adapted to female base by makrohn, adapted to v3 bases by bluecarrot16, climb/jump/sit/emote/run/revised combat by JaidynReiman",
+     "authors": [
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/bauldron": {
+   "nome": "Bauldron",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "run"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 65,
+     "pasta": "shoulders/bauldron/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shoulders/bauldron",
+     "notes": "Original by Nila122, climb/jump/sit/emote/run by JaidynReiman",
+     "authors": [
+      "Nila122",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "GPL 2.0",
+      "GPL 3.0",
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/more-lpc-clothes-and-hair"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/shoulders/shoulders_legion": {
+   "nome": "Legion",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "idle"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 60,
+     "pasta": "shoulders/legion/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shoulders/legion",
+     "notes": "",
+     "authors": [
+      "Nila122"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-roman-armor"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/wrists/arms_bracers": {
+   "nome": "Bracers",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote",
+    "run"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 70,
+     "pasta": "arms/bracers/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "arms/bracers",
+     "notes": "original by wulax, adjustments by Makrohn, climb/emote/jump/sit/run by JaidynReiman",
+     "authors": [
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/arms_gloves": {
+   "nome": "Gloves",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 70,
+     "pasta": "arms/hands/gloves/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "arms/hands/gloves/male",
+     "notes": "metal gloves by wulax, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    },
+    {
+     "file": "arms/hands/gloves/thin",
+     "notes": "metal gloves by wulax, extended to female base by makrohn, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "arms/arms_armour": {
+   "nome": "Armour",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle",
+    "jump",
+    "sit",
+    "emote"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 60,
+     "pasta": "arms/armour/plate/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "arms/armour/plate/male",
+     "notes": "original by wulax, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16, climb/emote/jump by JaidynReiman",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    },
+    {
+     "file": "arms/armour/plate/thin",
+     "notes": "original by wulax, adapted to female by makrohn, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16, climb/emote by JaidynReiman",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)",
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-combat-armor-for-women",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "feet/boots/feet_boots_basic": {
+   "nome": "Basic Boots",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 25,
+     "pasta": "feet/boots/basic/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "feet/boots/basic",
+     "notes": "original by Nila122, edited for male and v3 bases by bluecarrot16, Jump/Sit/Emote/Run/Revised Combat by JaidynReiman",
+     "authors": [
+      "JaidynReiman",
+      "bluecarrot16",
+      "Nila122"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-clothes-and-hair",
+      "https://opengameart.org/content/lpc-expanded-socks-shoes"
+     ]
+    },
+    {
+     "file": "feet/boots/basic/thin",
+     "notes": "original by Nila122, edited for v3 bases by bluecarrot16, Jump/Sit/Emote/Run/Revised Combat by JaidynReiman",
+     "authors": [
+      "JaidynReiman",
+      "bluecarrot16",
+      "Nila122"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-clothes-and-hair",
+      "https://opengameart.org/content/lpc-expanded-socks-shoes"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "feet/boots/feet_boots_fold": {
+   "nome": "Folded Rim Boots",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 25,
+     "pasta": "feet/boots/fold/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "feet/boots/fold",
+     "notes": "",
+     "authors": [
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0+",
+      "CC-BY 3.0+",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-kimono-relm",
+      "https://opengameart.org/content/lpc-expanded-socks-shoes"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "feet/feet_armour": {
+   "nome": "Armour",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "climb",
+    "jump",
+    "sit",
+    "emote",
+    "run"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "metal",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 15,
+     "pasta": "feet/armour/plate/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "feet/armour/plate",
+     "notes": "original by wulax, recolors by bigbeargames, edits for v3 base and recolors by bluecarrot16",
+     "authors": [
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
+     ]
+    },
+    {
+     "file": "feet/armour/plate/female",
+     "notes": "original by wulax, edited for female base by makrohn, recolors by bigbeargames, edits for v3 base and recolors by bluecarrot16",
+     "authors": [
+      "Matthew Krohn (makrohn)",
+      "Johannes Sjölund (wulax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "torso/cape/cape_solid": {
+   "nome": "Solid",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 85,
+     "pasta": "cape/solid/fg/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 5,
+     "pasta": "cape/solid/bg/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "cape/solid/fg",
+     "notes": "",
+     "authors": [
+      "bluecarrot16",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
+      "https://opengameart.org/content/lpc-roman-armor",
+      "http://opengameart.org/content/lpc-clothing-updates"
+     ]
+    },
+    {
+     "file": "cape/solid/bg",
+     "notes": "",
+     "authors": [
+      "Nila122",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
+      "https://opengameart.org/content/lpc-roman-armor"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0,
+     1
+    ],
+    "slash": [
+     0,
+     1
+    ],
+    "thrust": [
+     0,
+     1
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   }
+  },
+  "torso/cape/cape_tattered": {
+   "nome": "Tattered",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "climb",
+    "idle"
+   ],
+   "variantes": [],
+   "recolors": [
+    {
+     "material": "cloth",
+     "base": null
+    }
+   ],
+   "camadas": [
+    {
+     "z": 85,
+     "pasta": "cape/tattered/fg/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 5,
+     "pasta": "cape/tattered/bg/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "cape/tattered/fg",
+     "notes": "",
+     "authors": [
+      "Nila122",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
+      "https://opengameart.org/content/lpc-roman-armor"
+     ]
+    },
+    {
+     "file": "cape/tattered/bg",
+     "notes": "",
+     "authors": [
+      "Nila122",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
+      "https://opengameart.org/content/lpc-roman-armor"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0,
+     1
+    ],
+    "slash": [
+     0,
+     1
+    ],
+    "thrust": [
+     0,
+     1
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   }
+  },
+  "weapons/shields/shield_round": {
+   "nome": "Round Shield",
+   "animacoes": null,
+   "variantes": [
+    "brown",
+    "black",
+    "gold",
+    "green",
+    "silver",
+    "yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 110,
+     "pasta": "shield/round/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shield/round",
+     "notes": "",
+     "authors": [
+      "Johannes Sjölund (wulax)",
+      "Michael Whitlock (bigbeargames)",
+      "DarkwallLKE",
+      "Tuomo Untinen (reemax)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0",
+      "CC-BY-SA 3.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+      "https://opengameart.org/content/lpc-shields-pack"
      ]
     }
    ],
    "por_animacao": {
     "slash": [
-     2,
-     3
+     0
     ],
-    "thrust": "slash",
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   },
+   "base_variante": null,
+   "paleta_base": null,
+   "cobertura_base": 0.29
+  },
+  "weapons/shields/shield_kite": {
+   "nome": "Kite",
+   "animacoes": null,
+   "variantes": [
+    "kite blue blue",
+    "kite blue gray",
+    "kite gray blue",
+    "kite gray gray",
+    "kite gray green",
+    "kite gray orange",
+    "kite gray",
+    "kite green gray",
+    "kite orange",
+    "kite red gray"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 110,
+     "pasta": "shield/kite/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shield/kite",
+     "notes": "",
+     "authors": [
+      "DarkwallLKE",
+      "Tuomo Untinen (reemax)",
+      "Michael Whitlock (bigbeargames)"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-kite-shield",
+      "https://opengameart.org/content/lpc-shields-pack"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "weapons/shields/engrailed/shield_crusader": {
+   "nome": "Crusader shield",
+   "animacoes": null,
+   "variantes": [
+    "crusader"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 2,
+     "pasta": "shield/crusader/bg/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 110,
+     "pasta": "shield/crusader/fg/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "shield/crusader",
+     "notes": "",
+     "authors": [
+      "bluecarrot16",
+      "Sander Frenken (castelonia)"
+     ],
+     "licenses": [
+      "OGA-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-shields"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "slash": [
+     0,
+     1
+    ],
+    "thrust": [
+     0,
+     1
+    ],
     "walk": [
      0,
      1
     ]
    },
-   "base_variante": "waraxe",
-   "paleta_base": "metal.silver",
-   "cobertura_base": 0.63
+   "base_variante": "crusader",
+   "paleta_base": null,
+   "cobertura_base": 0.43
   },
   "weapons/polearm/weapon_polearm_halberd": {
    "nome": "Halberd",
@@ -2021,332 +6512,6 @@
      ],
      "urls": [
       "https://opengameart.org/content/lpc-shields"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "torso/cape/cape_solid": {
-   "nome": "Solid",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "climb",
-    "idle"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 85,
-     "pasta": "cape/solid/fg/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    },
-    {
-     "z": 5,
-     "pasta": "cape/solid/bg/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "cape/solid/fg",
-     "notes": "",
-     "authors": [
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
-      "https://opengameart.org/content/lpc-roman-armor",
-      "http://opengameart.org/content/lpc-clothing-updates"
-     ]
-    },
-    {
-     "file": "cape/solid/bg",
-     "notes": "",
-     "authors": [
-      "Nila122",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
-      "https://opengameart.org/content/lpc-roman-armor"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0,
-     1
-    ],
-    "slash": [
-     0,
-     1
-    ],
-    "thrust": [
-     0,
-     1
-    ],
-    "walk": [
-     0,
-     1
-    ]
-   }
-  },
-  "torso/cape/cape_tattered": {
-   "nome": "Tattered",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "climb",
-    "idle"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 85,
-     "pasta": "cape/tattered/fg/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    },
-    {
-     "z": 5,
-     "pasta": "cape/tattered/bg/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "cape/tattered/fg",
-     "notes": "",
-     "authors": [
-      "Nila122",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
-      "https://opengameart.org/content/lpc-roman-armor"
-     ]
-    },
-    {
-     "file": "cape/tattered/bg",
-     "notes": "",
-     "authors": [
-      "Nila122",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more",
-      "https://opengameart.org/content/lpc-roman-armor"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0,
-     1
-    ],
-    "slash": [
-     0,
-     1
-    ],
-    "thrust": [
-     0,
-     1
-    ],
-    "walk": [
-     0,
-     1
-    ]
-   }
-  },
-  "headwear/helmets/helmets/hat_helmet_nasal": {
-   "nome": "Nasal helm",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 130,
-     "pasta": "hat/helmet/nasal/adult/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "hat/helmet/nasal",
-     "notes": "",
-     "authors": [
-      "bluecarrot16"
-     ],
-     "licenses": [
-      "CC-BY 3.0",
-      "CC-BY 4.0",
-      "OGA-BY 3.0",
-      "GPL 2.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-helmets",
-      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "headwear/helmets/helmets/hat_helmet_bascinet": {
-   "nome": "Bascinet",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 130,
-     "pasta": "hat/helmet/bascinet/adult/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "hat/helmet/bascinet",
-     "notes": "",
-     "authors": [
-      "bluecarrot16",
-      "ElizaWy",
-      "Sander Frenken (castelonia)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 4.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-realistic-helmet-pack",
-      "https://opengameart.org/content/lpc-helmets-mega-pack",
-      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
      ]
     }
    ],
@@ -2704,363 +6869,6 @@
     ]
    }
   },
-  "headwear/coverings/hoods/hat_hood_cloth": {
-   "nome": "Hood",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 130,
-     "pasta": "hat/cloth/hood/adult/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "hat/cloth/hood",
-     "notes": "Brown hood by Wulax, original black/white recolors by ??, mapped to idle/run/jump/revised combat by JaidynReiman, along with additional recolors.",
-     "authors": [
-      "Johannes Sjölund (wulax)",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "torso/armour/torso_armour_plate": {
-   "nome": "Plate",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 60,
-     "pasta": "torso/armour/plate/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "torso/armour/plate/male",
-     "notes": "original by wulax, recolor by bigbeargames, color reduced to 7 colors and adapted to v3 bases by bluecarrot16, run/jump/sit/climb/revised combat by JaidynReiman, reduced colors to 6 (based on Napsio's Vitruvian)",
-     "authors": [
-      "Napsio (Vitruvian Studio)",
-      "JaidynReiman",
-      "bluecarrot16",
-      "Michael Whitlock (bigbeargames)",
-      "Johannes Sjölund (wulax)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-combat-armor-for-women"
-     ]
-    },
-    {
-     "file": "torso/armour/plate/female",
-     "notes": "original by wulax, adapted to female base by makrohn, recolor by bigbeargames, color reduced to 7 colors and adapted to v3 bases by bluecarrot16, run/jump/sit/climb/revised combat by JaidynReiman, reduced colors to 6 (based on Napsio's Vitruvian)",
-     "authors": [
-      "JaidynReiman",
-      "bluecarrot16",
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-combat-armor-for-women",
-      "http://opengameart.org/content/lpc-clothing-updates"
-     ]
-    },
-    {
-     "file": "torso/armour/plate/teen",
-     "notes": "original by wulax, color reduced to 7 colors and adapted to v3 bases by bluecarrot16, adapted to teen base from male/female by JaidynReiman",
-     "authors": [
-      "JaidynReiman",
-      "bluecarrot16",
-      "Michael Whitlock (bigbeargames)",
-      "Johannes Sjölund (wulax)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-combat-armor-for-women"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "torso/armour/torso_armour_legion": {
-   "nome": "Legion",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 60,
-     "pasta": "torso/armour/legion/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "torso/armour/legion",
-     "notes": "adapted to v3 bases by bluecarrot16, jump/run/sit/combat and teen by JaidynReiman, color reduction to 6 colors inspired by Napsio (Vitruvian Studio)",
-     "authors": [
-      "Napsio (Vitruvian Studio)",
-      "JaidynReiman",
-      "bluecarrot16",
-      "Nila122"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 2.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-roman-armor"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "torso/armour/torso_armour_leather": {
-   "nome": "Leather",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "sit",
-    "emote",
-    "climb",
-    "run"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": "leather"
-    },
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 60,
-     "pasta": "torso/armour/leather/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "torso/armour/leather",
-     "notes": "adapted to v3 bases by bluecarrot16, reduced colors and climb/emote/jump by JaidynReiman",
-     "authors": [
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-clothing-updates",
-      "https://opengameart.org/content/lpc-expanded-armor"
-     ]
-    },
-    {
-     "file": "torso/armour/leather/female",
-     "notes": "recolor of torso/armour/leather/female/brown.png, adapted to v3 bases by bluecarrot16, reduced colors and climb/emote/jump by JaidynReiman",
-     "authors": [
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-combat-armor-for-women",
-      "https://opengameart.org/content/lpc-clothing-updates",
-      "https://opengameart.org/content/lpc-expanded-armor"
-     ]
-    },
-    {
-     "file": "torso/armour/leather/teen",
-     "notes": "adapted to v3 bases by bluecarrot16, teen version by JaidynReiman adapted from Male and Female versions",
-     "authors": [
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-combat-armor-for-women",
-      "https://opengameart.org/content/lpc-clothing-updates",
-      "https://opengameart.org/content/lpc-expanded-armor"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
   "torso/jacket/torso_jacket_tabard": {
    "nome": "Tabard",
    "animacoes": null,
@@ -3134,627 +6942,6 @@
     }
    ],
    "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "arms/shoulders/shoulders_legion": {
-   "nome": "Legion",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "idle"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 60,
-     "pasta": "shoulders/legion/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "shoulders/legion",
-     "notes": "",
-     "authors": [
-      "Nila122"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 2.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-roman-armor"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "arms/arms_armour": {
-   "nome": "Armour",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "climb",
-    "idle",
-    "jump",
-    "sit",
-    "emote"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 60,
-     "pasta": "arms/armour/plate/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "arms/armour/plate/male",
-     "notes": "original by wulax, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16, climb/emote/jump by JaidynReiman",
-     "authors": [
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "http://opengameart.org/content/lpc-clothing-updates"
-     ]
-    },
-    {
-     "file": "arms/armour/plate/thin",
-     "notes": "original by wulax, adapted to female by makrohn, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16, climb/emote by JaidynReiman",
-     "authors": [
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-combat-armor-for-women",
-      "http://opengameart.org/content/lpc-clothing-updates"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "arms/arms_gloves": {
-   "nome": "Gloves",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 70,
-     "pasta": "arms/hands/gloves/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "arms/hands/gloves/male",
-     "notes": "metal gloves by wulax, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman",
-     "authors": [
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "http://opengameart.org/content/lpc-clothing-updates"
-     ]
-    },
-    {
-     "file": "arms/hands/gloves/thin",
-     "notes": "metal gloves by wulax, extended to female base by makrohn, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman",
-     "authors": [
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "bluecarrot16",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "http://opengameart.org/content/lpc-clothing-updates"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "arms/wrists/arms_bracers": {
-   "nome": "Bracers",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "climb",
-    "idle",
-    "jump",
-    "sit",
-    "emote",
-    "run"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 70,
-     "pasta": "arms/bracers/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "arms/bracers",
-     "notes": "original by wulax, adjustments by Makrohn, climb/emote/jump/sit/run by JaidynReiman",
-     "authors": [
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "legs/legs_armour": {
-   "nome": "Armour",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "sit",
-    "emote",
-    "climb",
-    "run"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "metal",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 20,
-     "pasta": "legs/armour/plate/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "legs/armour/plate",
-     "notes": "reduced to 7 colors an adapted to v3 bases by bluecarrot16, climb/jump/sit/emote/run by JaidynReiman",
-     "authors": [
-      "bluecarrot16",
-      "JaidynReiman",
-      "Michael Whitlock (bigbeargames)",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "legs/pants/legs_pants": {
-   "nome": "Pants",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 20,
-     "pasta": "legs/pants/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "legs/pants/male",
-     "notes": "original male pants by wulax, recolors and edits to v3 base by bluecarrot16, climb/jump/run/sit/emotes/revised combat by JaidynReiman based on ElizaWy's LPC Revised",
-     "authors": [
-      "bluecarrot16",
-      "JaidynReiman",
-      "ElizaWy",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "Stephen Challener (Redshrike)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "GPL 3.0",
-      "CC-BY-SA 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "https://opengameart.org/content/lpc-expanded-pants"
-     ]
-    },
-    {
-     "file": "legs/pants/thin",
-     "notes": "original male pants by wulax, edited for female by Joe White, recolors and edits to v3 base by bluecarrot16, teen legs by ElizaWy derived from base, climb/jump/run/sit/emotes/revised combat by JaidynReiman based on ElizaWy's LPC Revised",
-     "authors": [
-      "bluecarrot16",
-      "JaidynReiman",
-      "ElizaWy",
-      "Joe White",
-      "Matthew Krohn (makrohn)",
-      "Johannes Sjölund (wulax)",
-      "Stephen Challener (Redshrike)"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "GPL 3.0",
-      "CC-BY-SA 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
-      "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
-      "http://opengameart.org/content/lpc-clothing-updates",
-      "https://opengameart.org/content/lpc-expanded-pants"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "feet/boots/feet_boots_basic": {
-   "nome": "Basic Boots",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 25,
-     "pasta": "feet/boots/basic/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "feet/boots/basic",
-     "notes": "original by Nila122, edited for male and v3 bases by bluecarrot16, Jump/Sit/Emote/Run/Revised Combat by JaidynReiman",
-     "authors": [
-      "JaidynReiman",
-      "bluecarrot16",
-      "Nila122"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 2.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-clothes-and-hair",
-      "https://opengameart.org/content/lpc-expanded-socks-shoes"
-     ]
-    },
-    {
-     "file": "feet/boots/basic/thin",
-     "notes": "original by Nila122, edited for v3 bases by bluecarrot16, Jump/Sit/Emote/Run/Revised Combat by JaidynReiman",
-     "authors": [
-      "JaidynReiman",
-      "bluecarrot16",
-      "Nila122"
-     ],
-     "licenses": [
-      "OGA-BY 3.0",
-      "CC-BY-SA 3.0",
-      "GPL 2.0",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-clothes-and-hair",
-      "https://opengameart.org/content/lpc-expanded-socks-shoes"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
-    "slash": [
-     0
-    ],
-    "thrust": [
-     0
-    ],
-    "walk": [
-     0
-    ]
-   }
-  },
-  "feet/boots/feet_boots_fold": {
-   "nome": "Folded Rim Boots",
-   "animacoes": [
-    "spellcast",
-    "thrust",
-    "walk",
-    "slash",
-    "shoot",
-    "hurt",
-    "watering",
-    "idle",
-    "jump",
-    "run",
-    "sit",
-    "emote",
-    "climb",
-    "combat",
-    "1h_slash",
-    "1h_backslash",
-    "1h_halfslash"
-   ],
-   "variantes": [],
-   "recolors": [
-    {
-     "material": "cloth",
-     "base": null
-    }
-   ],
-   "camadas": [
-    {
-     "z": 25,
-     "pasta": "feet/boots/fold/male/",
-     "custom": null,
-     "anim": null,
-     "tamanho": 64
-    }
-   ],
-   "creditos": [
-    {
-     "file": "feet/boots/fold",
-     "notes": "",
-     "authors": [
-      "JaidynReiman"
-     ],
-     "licenses": [
-      "OGA-BY 3.0+",
-      "CC-BY 3.0+",
-      "GPL 3.0"
-     ],
-     "urls": [
-      "https://opengameart.org/content/lpc-kimono-relm",
-      "https://opengameart.org/content/lpc-expanded-socks-shoes"
-     ]
-    }
-   ],
-   "por_animacao": {
-    "shoot": [
-     0
-    ],
     "slash": [
      0
     ],
@@ -3929,18 +7116,813 @@
      0
     ]
    }
+  },
+  "headwear/neck/charms/neck_amulet_cross": {
+   "nome": "Cross amulet",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "idle"
+   ],
+   "variantes": [
+    "brass_blue",
+    "brass_green",
+    "brass_orange",
+    "brass_purple",
+    "brass_red",
+    "brass_yellow",
+    "bronze_blue",
+    "bronze_green",
+    "bronze_orange",
+    "bronze_purple",
+    "bronze_red",
+    "bronze_yellow",
+    "ceramic_blue",
+    "ceramic_green",
+    "ceramic_orange",
+    "ceramic_purple",
+    "ceramic_red",
+    "ceramic_yellow",
+    "copper_blue",
+    "copper_green",
+    "copper_orange",
+    "copper_purple",
+    "copper_red",
+    "copper_yellow",
+    "gold_blue",
+    "gold_green",
+    "gold_orange",
+    "gold_purple",
+    "gold_red",
+    "gold_yellow",
+    "iron_blue",
+    "iron_green",
+    "iron_orange",
+    "iron_purple",
+    "iron_red",
+    "iron_yellow",
+    "silver_blue",
+    "silver_green",
+    "silver_orange",
+    "silver_purple",
+    "silver_red",
+    "silver_yellow",
+    "steel_blue",
+    "steel_green",
+    "steel_orange",
+    "steel_purple",
+    "steel_red",
+    "steel_yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 81,
+     "pasta": "neck/amulet/cross/male/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "neck/amulet/cross",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-jewelry"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "shoot": [
+     0
+    ],
+    "slash": [
+     0
+    ],
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "weapons/magic/weapon_magic_gnarled": {
+   "nome": "Gnarled staff",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "thrust_oversize"
+   ],
+   "variantes": [
+    "medium",
+    "light",
+    "red",
+    "dark",
+    "brass",
+    "bronze",
+    "ceramic",
+    "copper",
+    "gold",
+    "iron",
+    "silver",
+    "steel"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/magic/gnarled/universal/foreground/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/magic/gnarled/universal/background/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/magic/gnarled/thrust/foreground/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/magic/gnarled/thrust/background/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/magic/gnarled",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0+",
+      "GPL 3.0",
+      "CC-BY 4.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-more-weapons"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     2,
+     3
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "medium",
+   "paleta_base": "wood.oak",
+   "cobertura_base": 1.0
+  },
+  "weapons/magic/weapon_magic_loop": {
+   "nome": "Loop staff",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "thrust_oversize"
+   ],
+   "variantes": [
+    "medium",
+    "light",
+    "red",
+    "dark",
+    "brass",
+    "bronze",
+    "ceramic",
+    "copper",
+    "gold",
+    "iron",
+    "silver",
+    "steel"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/magic/loop/universal/foreground/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/magic/loop/universal/background/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/magic/loop/thrust/foreground/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/magic/loop/thrust/background/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/magic/loop",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0+",
+      "GPL 3.0",
+      "CC-BY 4.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-more-weapons"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     2,
+     3
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "light",
+   "paleta_base": "wood.maple",
+   "cobertura_base": 1.0
+  },
+  "weapons/magic/weapon_magic_s": {
+   "nome": "S staff",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "thrust_oversize"
+   ],
+   "variantes": [
+    "medium",
+    "light",
+    "red",
+    "dark",
+    "brass",
+    "bronze",
+    "ceramic",
+    "copper",
+    "gold",
+    "iron",
+    "silver",
+    "steel"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/magic/s/universal/foreground/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/magic/s/universal/background/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/magic/s/thrust/foreground/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/magic/s/thrust/background/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/magic/s",
+     "notes": "Wooden staff by LordNeo, first adapted to LPC by bigbeargames; re-drawn and walk animations added by bluecarrot16",
+     "authors": [
+      "LordNeo",
+      "Michael Whitlock (bigbeargames)",
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "CC0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/staff-64-x64",
+      "https://opengameart.org/content/lpc-magic-staff"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     2,
+     3
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "dark",
+   "paleta_base": "wood.walnut",
+   "cobertura_base": 0.86
+  },
+  "weapons/magic/weapon_magic_diamond": {
+   "nome": "Diamond staff",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "thrust_oversize"
+   ],
+   "variantes": [
+    "medium",
+    "light",
+    "red",
+    "dark",
+    "brass",
+    "bronze",
+    "ceramic",
+    "copper",
+    "gold",
+    "iron",
+    "silver",
+    "steel"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/magic/diamond/universal/foreground/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/magic/diamond/universal/background/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/magic/diamond/thrust/foreground/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/magic/diamond/thrust/background/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/magic/diamond",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0+",
+      "GPL 3.0",
+      "CC-BY 4.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-more-weapons"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     2,
+     3
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "bronze",
+   "paleta_base": null,
+   "cobertura_base": 0.0
+  },
+  "weapons/magic/weapon_magic_crystal": {
+   "nome": "Crystal",
+   "animacoes": [
+    "walk",
+    "hurt",
+    "thrust_oversize"
+   ],
+   "variantes": [
+    "blue",
+    "orange",
+    "green",
+    "purple",
+    "red",
+    "yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 140,
+     "pasta": "weapon/magic/crystal/universal/foreground/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 9,
+     "pasta": "weapon/magic/crystal/universal/background/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    },
+    {
+     "z": 150,
+     "pasta": "weapon/magic/crystal/thrust/foreground/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    },
+    {
+     "z": -1,
+     "pasta": "weapon/magic/crystal/thrust/background/",
+     "custom": "thrust_oversize",
+     "anim": "thrust",
+     "tamanho": 192
+    }
+   ],
+   "creditos": [
+    {
+     "file": "weapon/magic/crystal",
+     "notes": "",
+     "authors": [
+      "bluecarrot16"
+     ],
+     "licenses": [
+      "OGA-BY 3.0+",
+      "GPL 3.0",
+      "CC-BY 4.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-more-weapons"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     2,
+     3
+    ],
+    "walk": [
+     0,
+     1
+    ]
+   },
+   "base_variante": "purple",
+   "paleta_base": null,
+   "cobertura_base": 0.0
+  },
+  "headwear/hats/magic/hat_magic_wizard": {
+   "nome": "Wizard Hat Base",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [
+    "base_black",
+    "base_brown",
+    "base_gray",
+    "base_red",
+    "base_teal",
+    "base_yellow",
+    "white",
+    "black",
+    "blue",
+    "bluegray",
+    "brown",
+    "charcoal",
+    "forest",
+    "gray",
+    "green",
+    "lavender",
+    "leather",
+    "maroon",
+    "navy",
+    "orange",
+    "pink",
+    "purple",
+    "red",
+    "rose",
+    "sky",
+    "slate",
+    "tan",
+    "teal",
+    "walnut",
+    "yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/magic/wizard/base/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/magic/wizard",
+     "notes": "Original Wizard Hat and Recolors by bigbeargames and reemax; split into separate layers with new recolors by JaidynReiman",
+     "authors": [
+      "Michael Whitlock (bigbeargames)",
+      "Tuomo Untinen (reemax)",
+      "JaidynReiman"
+     ],
+     "licenses": [
+      "CC-BY-SA 3.0",
+      "GPL 2.0",
+      "GPL 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-items-and-game-effects",
+      "https://opengameart.org/content/lpc-pointed-hats",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/hats/magic/hat_magic_celestial": {
+   "nome": "Celestial Wizard Hat",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [
+    "white",
+    "black",
+    "blue",
+    "bluegray",
+    "brown",
+    "charcoal",
+    "forest",
+    "gray",
+    "green",
+    "lavender",
+    "leather",
+    "maroon",
+    "navy",
+    "orange",
+    "pink",
+    "purple",
+    "red",
+    "rose",
+    "sky",
+    "slate",
+    "tan",
+    "teal",
+    "walnut",
+    "yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/magic/celestial/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/magic/celestial",
+     "notes": "Original by Tracy, Adapted to ULPC by Big Bear Games, reduced colors by Napsio",
+     "authors": [
+      "Napsio (Vitruvian Studio)",
+      "Michael Whitlock (bigbeargames)",
+      "Tracy"
+     ],
+     "licenses": [
+      "CC-BY 3.0"
+     ],
+     "urls": [
+      "https://opengameart.org/content/lpc-celestial-wizard-hats",
+      "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
+  },
+  "headwear/hats/magic/hat_magic_celestial_moon": {
+   "nome": "Celestial Wizard Moon Hat",
+   "animacoes": [
+    "spellcast",
+    "thrust",
+    "walk",
+    "slash",
+    "shoot",
+    "hurt",
+    "watering",
+    "idle",
+    "jump",
+    "run",
+    "sit",
+    "emote",
+    "climb",
+    "combat",
+    "1h_slash",
+    "1h_backslash",
+    "1h_halfslash"
+   ],
+   "variantes": [
+    "white",
+    "black",
+    "blue",
+    "bluegray",
+    "brown",
+    "charcoal",
+    "forest",
+    "gray",
+    "green",
+    "lavender",
+    "leather",
+    "maroon",
+    "navy",
+    "orange",
+    "pink",
+    "purple",
+    "red",
+    "rose",
+    "sky",
+    "slate",
+    "tan",
+    "teal",
+    "walnut",
+    "yellow"
+   ],
+   "recolors": [],
+   "camadas": [
+    {
+     "z": 130,
+     "pasta": "hat/magic/celestial_moon/adult/",
+     "custom": null,
+     "anim": null,
+     "tamanho": 64
+    }
+   ],
+   "creditos": [
+    {
+     "file": "hat/magic/celestial_moon",
+     "notes": "sheet_definitions/hat_magic_celestial.json",
+     "authors": [
+      "Napsio (Vitruvian Studio)",
+      "Michael Whitlock (bigbeargames)",
+      "Tracy"
+     ],
+     "licenses": [
+      "CC-BY 3.0"
+     ],
+     "urls": [
+      "https:/opengameart.org/content/lpc-celestial-wizard-hats",
+      "https:/opengameart.org/content/lpc-expanded-hats-facial-helmets"
+     ]
+    }
+   ],
+   "por_animacao": {
+    "thrust": [
+     0
+    ],
+    "walk": [
+     0
+    ]
+   }
   }
  },
  "arquivos": [
+  "arms/armour/plate/male/shoot.png",
   "arms/armour/plate/male/slash.png",
   "arms/armour/plate/male/thrust.png",
   "arms/armour/plate/male/walk.png",
   "arms/bracers/male/shoot.png",
+  "arms/bracers/male/slash.png",
+  "arms/bracers/male/thrust.png",
   "arms/bracers/male/walk.png",
   "arms/hands/gloves/male/shoot.png",
   "arms/hands/gloves/male/slash.png",
   "arms/hands/gloves/male/thrust.png",
   "arms/hands/gloves/male/walk.png",
+  "beards/beard/5oclock_shadow/shoot.png",
+  "beards/beard/5oclock_shadow/slash.png",
+  "beards/beard/5oclock_shadow/thrust.png",
+  "beards/beard/5oclock_shadow/walk.png",
+  "beards/beard/basic/shoot.png",
+  "beards/beard/basic/slash.png",
+  "beards/beard/basic/thrust.png",
+  "beards/beard/basic/walk.png",
+  "beards/beard/medium/shoot.png",
+  "beards/beard/medium/slash.png",
+  "beards/beard/medium/thrust.png",
+  "beards/beard/medium/walk.png",
+  "beards/beard/trimmed/shoot.png",
+  "beards/beard/trimmed/slash.png",
+  "beards/beard/trimmed/thrust.png",
+  "beards/beard/trimmed/walk.png",
+  "beards/mustache/basic/shoot.png",
+  "beards/mustache/basic/slash.png",
+  "beards/mustache/basic/thrust.png",
+  "beards/mustache/basic/walk.png",
   "body/bodies/male/shoot.png",
   "body/bodies/male/slash.png",
   "body/bodies/male/thrust.png",
@@ -3961,6 +7943,10 @@
   "cape/tattered/fg/slash.png",
   "cape/tattered/fg/thrust.png",
   "cape/tattered/fg/walk.png",
+  "feet/armour/plate/male/shoot.png",
+  "feet/armour/plate/male/slash.png",
+  "feet/armour/plate/male/thrust.png",
+  "feet/armour/plate/male/walk.png",
   "feet/boots/basic/male/shoot.png",
   "feet/boots/basic/male/slash.png",
   "feet/boots/basic/male/thrust.png",
@@ -3969,10 +7955,70 @@
   "feet/boots/fold/male/slash.png",
   "feet/boots/fold/male/thrust.png",
   "feet/boots/fold/male/walk.png",
+  "hair/afro/adult/shoot.png",
+  "hair/afro/adult/slash.png",
+  "hair/afro/adult/thrust.png",
+  "hair/afro/adult/walk.png",
+  "hair/balding/adult/shoot.png",
+  "hair/balding/adult/slash.png",
+  "hair/balding/adult/thrust.png",
+  "hair/balding/adult/walk.png",
+  "hair/bedhead/adult/shoot.png",
+  "hair/bedhead/adult/slash.png",
+  "hair/bedhead/adult/thrust.png",
+  "hair/bedhead/adult/walk.png",
+  "hair/buzzcut/adult/shoot.png",
+  "hair/buzzcut/adult/slash.png",
+  "hair/buzzcut/adult/thrust.png",
+  "hair/buzzcut/adult/walk.png",
+  "hair/curly_short/adult/shoot.png",
+  "hair/curly_short/adult/slash.png",
+  "hair/curly_short/adult/thrust.png",
+  "hair/curly_short/adult/walk.png",
+  "hair/high_and_tight/adult/shoot.png",
+  "hair/high_and_tight/adult/slash.png",
+  "hair/high_and_tight/adult/thrust.png",
+  "hair/high_and_tight/adult/walk.png",
+  "hair/long/adult/shoot.png",
+  "hair/long/adult/slash.png",
+  "hair/long/adult/thrust.png",
+  "hair/long/adult/walk.png",
+  "hair/long_messy/adult/shoot.png",
+  "hair/long_messy/adult/slash.png",
+  "hair/long_messy/adult/thrust.png",
+  "hair/long_messy/adult/walk.png",
+  "hair/messy1/adult/shoot.png",
+  "hair/messy1/adult/slash.png",
+  "hair/messy1/adult/thrust.png",
+  "hair/messy1/adult/walk.png",
+  "hair/natural/adult/shoot.png",
+  "hair/natural/adult/slash.png",
+  "hair/natural/adult/thrust.png",
+  "hair/natural/adult/walk.png",
+  "hair/parted/adult/shoot.png",
+  "hair/parted/adult/slash.png",
+  "hair/parted/adult/thrust.png",
+  "hair/parted/adult/walk.png",
   "hair/plain/adult/shoot.png",
   "hair/plain/adult/slash.png",
   "hair/plain/adult/thrust.png",
   "hair/plain/adult/walk.png",
+  "hair/shorthawk/adult/shoot.png",
+  "hair/shorthawk/adult/slash.png",
+  "hair/shorthawk/adult/thrust.png",
+  "hair/shorthawk/adult/walk.png",
+  "hair/spiked/adult/shoot.png",
+  "hair/spiked/adult/slash.png",
+  "hair/spiked/adult/thrust.png",
+  "hair/spiked/adult/walk.png",
+  "hair/swoop/adult/shoot.png",
+  "hair/swoop/adult/slash.png",
+  "hair/swoop/adult/thrust.png",
+  "hair/swoop/adult/walk.png",
+  "hair/unkempt/adult/shoot.png",
+  "hair/unkempt/adult/slash.png",
+  "hair/unkempt/adult/thrust.png",
+  "hair/unkempt/adult/walk.png",
   "hat/accessory/crest/adult/slash.png",
   "hat/accessory/crest/adult/thrust.png",
   "hat/accessory/crest/adult/walk.png",
@@ -3980,20 +8026,55 @@
   "hat/accessory/plumage/adult/thrust.png",
   "hat/accessory/plumage/adult/walk.png",
   "hat/cloth/hood/adult/shoot.png",
+  "hat/cloth/hood/adult/slash.png",
+  "hat/cloth/hood/adult/thrust.png",
   "hat/cloth/hood/adult/walk.png",
+  "hat/cloth/leather_cap/adult/shoot.png",
+  "hat/cloth/leather_cap/adult/slash.png",
+  "hat/cloth/leather_cap/adult/thrust.png",
+  "hat/cloth/leather_cap/adult/walk.png",
   "hat/helmet/armet/adult/slash.png",
   "hat/helmet/armet/adult/thrust.png",
   "hat/helmet/armet/adult/walk.png",
+  "hat/helmet/armet_simple/adult/shoot.png",
+  "hat/helmet/armet_simple/adult/slash.png",
+  "hat/helmet/armet_simple/adult/thrust.png",
+  "hat/helmet/armet_simple/adult/walk.png",
+  "hat/helmet/barbarian/adult/shoot.png",
+  "hat/helmet/barbarian/adult/slash.png",
+  "hat/helmet/barbarian/adult/thrust.png",
+  "hat/helmet/barbarian/adult/walk.png",
+  "hat/helmet/bascinet/adult/shoot.png",
   "hat/helmet/bascinet/adult/slash.png",
   "hat/helmet/bascinet/adult/thrust.png",
   "hat/helmet/bascinet/adult/walk.png",
   "hat/helmet/greathelm/male/slash.png",
   "hat/helmet/greathelm/male/thrust.png",
   "hat/helmet/greathelm/male/walk.png",
+  "hat/helmet/horned/adult/shoot.png",
+  "hat/helmet/horned/adult/slash.png",
+  "hat/helmet/horned/adult/thrust.png",
+  "hat/helmet/horned/adult/walk.png",
+  "hat/helmet/legion/adult/shoot.png",
+  "hat/helmet/legion/adult/slash.png",
+  "hat/helmet/legion/adult/thrust.png",
+  "hat/helmet/legion/adult/walk.png",
   "hat/helmet/nasal/adult/shoot.png",
   "hat/helmet/nasal/adult/slash.png",
   "hat/helmet/nasal/adult/thrust.png",
   "hat/helmet/nasal/adult/walk.png",
+  "hat/helmet/spangenhelm/adult/shoot.png",
+  "hat/helmet/spangenhelm/adult/slash.png",
+  "hat/helmet/spangenhelm/adult/thrust.png",
+  "hat/helmet/spangenhelm/adult/walk.png",
+  "hat/magic/celestial/adult/thrust/navy.png",
+  "hat/magic/celestial/adult/walk/navy.png",
+  "hat/magic/celestial_moon/adult/thrust/purple.png",
+  "hat/magic/celestial_moon/adult/walk/purple.png",
+  "hat/magic/wizard/base/adult/thrust/gray.png",
+  "hat/magic/wizard/base/adult/thrust/teal.png",
+  "hat/magic/wizard/base/adult/walk/gray.png",
+  "hat/magic/wizard/base/adult/walk/teal.png",
   "hat/visor/round/adult/slash.png",
   "hat/visor/round/adult/thrust.png",
   "hat/visor/round/adult/walk.png",
@@ -4001,11 +8082,38 @@
   "head/heads/human/male/slash.png",
   "head/heads/human/male/thrust.png",
   "head/heads/human/male/walk.png",
+  "head/heads/human/male_elderly/shoot.png",
+  "head/heads/human/male_elderly/slash.png",
+  "head/heads/human/male_elderly/thrust.png",
+  "head/heads/human/male_elderly/walk.png",
+  "head/heads/human/male_gaunt/shoot.png",
+  "head/heads/human/male_gaunt/slash.png",
+  "head/heads/human/male_gaunt/thrust.png",
+  "head/heads/human/male_gaunt/walk.png",
+  "head/heads/human/male_plump/shoot.png",
+  "head/heads/human/male_plump/slash.png",
+  "head/heads/human/male_plump/thrust.png",
+  "head/heads/human/male_plump/walk.png",
+  "legs/armour/plate/male/shoot.png",
   "legs/armour/plate/male/slash.png",
   "legs/armour/plate/male/thrust.png",
   "legs/armour/plate/male/walk.png",
   "legs/pants/male/shoot.png",
+  "legs/pants/male/slash.png",
+  "legs/pants/male/thrust.png",
   "legs/pants/male/walk.png",
+  "legs/pants2/male/shoot.png",
+  "legs/pants2/male/slash.png",
+  "legs/pants2/male/thrust.png",
+  "legs/pants2/male/walk.png",
+  "legs/skirts/legion/male/shoot.png",
+  "legs/skirts/legion/male/slash.png",
+  "legs/skirts/legion/male/thrust.png",
+  "legs/skirts/legion/male/walk.png",
+  "neck/amulet/cross/male/shoot/silver_red.png",
+  "neck/amulet/cross/male/slash/silver_red.png",
+  "neck/amulet/cross/male/thrust/silver_red.png",
+  "neck/amulet/cross/male/walk/silver_red.png",
   "neck/amulet/star/male/shoot/gold_blue.png",
   "neck/amulet/star/male/slash/gold_blue.png",
   "neck/amulet/star/male/thrust/gold_blue.png",
@@ -4016,35 +8124,139 @@
   "neck/gem/round/male/walk/purple.png",
   "quiver/shoot/quiver.png",
   "quiver/walk/quiver.png",
+  "shield/crusader/bg/slash/crusader.png",
+  "shield/crusader/bg/thrust/crusader.png",
+  "shield/crusader/bg/walk/crusader.png",
+  "shield/crusader/fg/male/slash/crusader.png",
+  "shield/crusader/fg/male/thrust/crusader.png",
+  "shield/crusader/fg/male/walk/crusader.png",
   "shield/heater/original/trim/fg/slash.png",
   "shield/heater/original/trim/fg/thrust.png",
   "shield/heater/original/trim/fg/walk.png",
   "shield/heater/original/wood/fg/slash.png",
   "shield/heater/original/wood/fg/thrust.png",
   "shield/heater/original/wood/fg/walk.png",
+  "shield/kite/male/slash/kite_gray.png",
+  "shield/kite/male/thrust/kite_gray.png",
+  "shield/kite/male/walk/kite_gray.png",
+  "shield/round/slash.png",
+  "shield/round/slash/gold.png",
+  "shield/round/slash/silver.png",
+  "shield/round/thrust.png",
+  "shield/round/thrust/gold.png",
+  "shield/round/thrust/silver.png",
+  "shield/round/walk.png",
+  "shield/round/walk/gold.png",
+  "shield/round/walk/silver.png",
+  "shoulders/bauldron/male/shoot.png",
+  "shoulders/bauldron/male/slash.png",
+  "shoulders/bauldron/male/thrust.png",
+  "shoulders/bauldron/male/walk.png",
+  "shoulders/legion/male/shoot.png",
   "shoulders/legion/male/slash.png",
   "shoulders/legion/male/thrust.png",
   "shoulders/legion/male/walk.png",
+  "shoulders/mantal/male/shoot.png",
+  "shoulders/mantal/male/slash.png",
+  "shoulders/mantal/male/thrust.png",
+  "shoulders/mantal/male/walk.png",
+  "shoulders/pauldrons/male/shoot.png",
+  "shoulders/pauldrons/male/slash.png",
+  "shoulders/pauldrons/male/thrust.png",
+  "shoulders/pauldrons/male/walk.png",
   "torso/armour/leather/male/shoot.png",
+  "torso/armour/leather/male/slash.png",
+  "torso/armour/leather/male/thrust.png",
   "torso/armour/leather/male/walk.png",
+  "torso/armour/legion/male/shoot.png",
   "torso/armour/legion/male/slash.png",
   "torso/armour/legion/male/thrust.png",
   "torso/armour/legion/male/walk.png",
+  "torso/armour/plate/male/shoot.png",
   "torso/armour/plate/male/slash.png",
   "torso/armour/plate/male/thrust.png",
   "torso/armour/plate/male/walk.png",
+  "torso/chainmail/male/shoot.png",
+  "torso/chainmail/male/slash.png",
+  "torso/chainmail/male/thrust.png",
+  "torso/chainmail/male/walk.png",
+  "torso/jacket/tabard/male/slash/black.png",
+  "torso/jacket/tabard/male/slash/navy.png",
   "torso/jacket/tabard/male/slash/red.png",
+  "torso/jacket/tabard/male/thrust/black.png",
+  "torso/jacket/tabard/male/thrust/navy.png",
   "torso/jacket/tabard/male/thrust/red.png",
+  "torso/jacket/tabard/male/walk/black.png",
+  "torso/jacket/tabard/male/walk/navy.png",
   "torso/jacket/tabard/male/walk/red.png",
+  "weapon/blunt/flail/attack_slash/behind/flail.png",
+  "weapon/blunt/flail/attack_slash/flail.png",
+  "weapon/blunt/flail/behind/walk/flail.png",
+  "weapon/blunt/flail/walk/flail.png",
   "weapon/blunt/mace/attack_slash/behind/mace.png",
   "weapon/blunt/mace/attack_slash/mace.png",
-  "weapon/blunt/mace/thrust/mace.png",
   "weapon/blunt/mace/universal_behind/walk/mace.png",
   "weapon/blunt/mace/walk/mace.png",
   "weapon/blunt/waraxe/attack_slash/behind/waraxe.png",
   "weapon/blunt/waraxe/attack_slash/waraxe.png",
   "weapon/blunt/waraxe/behind/walk/waraxe.png",
   "weapon/blunt/waraxe/walk/waraxe.png",
+  "weapon/magic/crystal/thrust/background/purple.png",
+  "weapon/magic/crystal/thrust/foreground/purple.png",
+  "weapon/magic/crystal/universal/background/walk/purple.png",
+  "weapon/magic/crystal/universal/foreground/walk/purple.png",
+  "weapon/magic/diamond/thrust/background/bronze.png",
+  "weapon/magic/diamond/thrust/foreground/bronze.png",
+  "weapon/magic/diamond/universal/background/walk/bronze.png",
+  "weapon/magic/diamond/universal/foreground/walk/bronze.png",
+  "weapon/magic/gnarled/thrust/background/bronze.png",
+  "weapon/magic/gnarled/thrust/background/gold.png",
+  "weapon/magic/gnarled/thrust/background/medium.png",
+  "weapon/magic/gnarled/thrust/background/silver.png",
+  "weapon/magic/gnarled/thrust/foreground/bronze.png",
+  "weapon/magic/gnarled/thrust/foreground/gold.png",
+  "weapon/magic/gnarled/thrust/foreground/medium.png",
+  "weapon/magic/gnarled/thrust/foreground/silver.png",
+  "weapon/magic/gnarled/universal/background/walk/bronze.png",
+  "weapon/magic/gnarled/universal/background/walk/gold.png",
+  "weapon/magic/gnarled/universal/background/walk/medium.png",
+  "weapon/magic/gnarled/universal/background/walk/silver.png",
+  "weapon/magic/gnarled/universal/foreground/walk/bronze.png",
+  "weapon/magic/gnarled/universal/foreground/walk/gold.png",
+  "weapon/magic/gnarled/universal/foreground/walk/medium.png",
+  "weapon/magic/gnarled/universal/foreground/walk/silver.png",
+  "weapon/magic/loop/thrust/background/bronze.png",
+  "weapon/magic/loop/thrust/background/gold.png",
+  "weapon/magic/loop/thrust/background/light.png",
+  "weapon/magic/loop/thrust/background/silver.png",
+  "weapon/magic/loop/thrust/foreground/bronze.png",
+  "weapon/magic/loop/thrust/foreground/gold.png",
+  "weapon/magic/loop/thrust/foreground/light.png",
+  "weapon/magic/loop/thrust/foreground/silver.png",
+  "weapon/magic/loop/universal/background/walk/bronze.png",
+  "weapon/magic/loop/universal/background/walk/gold.png",
+  "weapon/magic/loop/universal/background/walk/light.png",
+  "weapon/magic/loop/universal/background/walk/silver.png",
+  "weapon/magic/loop/universal/foreground/walk/bronze.png",
+  "weapon/magic/loop/universal/foreground/walk/gold.png",
+  "weapon/magic/loop/universal/foreground/walk/light.png",
+  "weapon/magic/loop/universal/foreground/walk/silver.png",
+  "weapon/magic/s/thrust/background/bronze.png",
+  "weapon/magic/s/thrust/background/dark.png",
+  "weapon/magic/s/thrust/background/gold.png",
+  "weapon/magic/s/thrust/background/silver.png",
+  "weapon/magic/s/thrust/foreground/bronze.png",
+  "weapon/magic/s/thrust/foreground/dark.png",
+  "weapon/magic/s/thrust/foreground/gold.png",
+  "weapon/magic/s/thrust/foreground/silver.png",
+  "weapon/magic/s/universal/background/walk/bronze.png",
+  "weapon/magic/s/universal/background/walk/dark.png",
+  "weapon/magic/s/universal/background/walk/gold.png",
+  "weapon/magic/s/universal/background/walk/silver.png",
+  "weapon/magic/s/universal/foreground/walk/bronze.png",
+  "weapon/magic/s/universal/foreground/walk/dark.png",
+  "weapon/magic/s/universal/foreground/walk/gold.png",
+  "weapon/magic/s/universal/foreground/walk/silver.png",
   "weapon/polearm/halberd/attack_slash/behind/halberd.png",
   "weapon/polearm/halberd/attack_slash/halberd.png",
   "weapon/polearm/halberd/attack_thrust/behind/halberd.png",
@@ -4096,11 +8308,32 @@
   "weapon/ranged/bow/recurve/walk/foreground/gold.png",
   "weapon/ranged/bow/recurve/walk/foreground/recurve.png",
   "weapon/ranged/bow/recurve/walk/foreground/silver.png",
+  "weapon/sword/dagger/behind/slash/dagger.png",
+  "weapon/sword/dagger/behind/walk/dagger.png",
+  "weapon/sword/dagger/slash/dagger.png",
+  "weapon/sword/dagger/thrust/dagger.png",
+  "weapon/sword/dagger/walk/dagger.png",
+  "weapon/sword/glowsword/attack_slash/behind/blue.png",
+  "weapon/sword/glowsword/attack_slash/behind/red.png",
+  "weapon/sword/glowsword/attack_slash/blue.png",
+  "weapon/sword/glowsword/attack_slash/red.png",
+  "weapon/sword/glowsword/universal_behind/walk/blue.png",
+  "weapon/sword/glowsword/universal_behind/walk/red.png",
+  "weapon/sword/glowsword/walk/blue.png",
+  "weapon/sword/glowsword/walk/red.png",
   "weapon/sword/longsword/attack_slash/behind/longsword.png",
   "weapon/sword/longsword/attack_slash/longsword.png",
   "weapon/sword/longsword/attack_thrust/behind/longsword.png",
   "weapon/sword/longsword/attack_thrust/longsword.png",
   "weapon/sword/longsword/universal_behind/walk/longsword.png",
-  "weapon/sword/longsword/walk/longsword.png"
+  "weapon/sword/longsword/walk/longsword.png",
+  "weapon/sword/rapier/attack_slash/behind/rapier.png",
+  "weapon/sword/rapier/attack_slash/rapier.png",
+  "weapon/sword/rapier/universal_behind/walk/rapier.png",
+  "weapon/sword/rapier/walk/rapier.png",
+  "weapon/sword/saber/attack_slash/behind/saber.png",
+  "weapon/sword/saber/attack_slash/saber.png",
+  "weapon/sword/saber/universal_behind/walk/saber.png",
+  "weapon/sword/saber/walk/saber.png"
  ]
 }

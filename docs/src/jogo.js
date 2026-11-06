@@ -3,7 +3,9 @@ import { novoEstado, ganharXp, portalLiberado, aoMorrer, xpParaProximo } from ".
 import { carregar, guardar, apagar } from "./salvar.js";
 import { criarMonstro, atualizarMonstro, atingir, danoHabilidade, recargaHabilidade, escalarArea, mover, direcaoDe, dentroDaArea, VET } from "./combate.js";
 import { sortearDrop, nomeItem, precoVenda, pegar, equipar, desequipar, descartar, vender, impedimento, melhorar, proximaMelhoria, itemDoAlvo, sortearFragmentos } from "./itens.js";
-import { normalizar, alternar, aleatoria, opcoes, opcao, pares, recolorir, CAMPOS, NOMES_CAMPO } from "./aparencia.js";
+import { normalizar, alternar, aleatoria, opcoes, opcao, recolorir, CAMPOS, NOMES_CAMPO } from "./aparencia.js";
+import { dados as dadosEquip, camadasDoPersonagem, camadasDoItem, ordenarPorZ, efeitos as efeitosDe, raridade, estocadaUsaGolpe, CacheRecolor } from "./equipamento.js";
+import { contornoDe, corDoItem, pulso, desenharAura as desenharAuraEf, desenharClarao, Particulas, desenharImpacto } from "./efeitos_visuais.js";
 import { derivados, estatisticas, danoRecebido, equipamentoInicial, valoresItem, baseItem, qualidade, conjuntosAtivos, aoSubir, distribuirRecomendado, distribuir, redistribuir, custoRedistribuir, gastos, desbloquearHabilidades, melhorarHabilidade } from "./personagem.js";
 
 const $ = (id) => document.getElementById(id);
@@ -39,12 +41,13 @@ function efeitoFolha(h, j, golpes) {
 }
 function soltarFlechas(h) {
   const [vx, vy] = VET[jogador.dir], ox = jogador.x, oy = jogador.y - 26, ang = Math.atan2(vy, vx);
+  const efA = efeitosArma(), rastro = efA ? efA.rastro : 0, corR = efA ? efA.cor : "#ffffff"; // rastro da flecha pela raridade
   if (h.forma === "linha") {
     const alvo = monstros.filter((m) => !m.morto && dentroDaArea(jogador, m, h)).sort((a, b) => Math.hypot(a.x - ox, a.y - oy) - Math.hypot(b.x - ox, b.y - oy))[0];
     const d = alvo ? Math.hypot(alvo.x - ox, alvo.y - 12 - oy) : h.alcance;
-    efeitos.push({ tipo: "voo", x0: ox, y0: oy, ang, d, t: 0, dur: d / 900 });
+    efeitos.push({ tipo: "voo", x0: ox, y0: oy, ang, d, t: 0, dur: d / 900, rastro, corR });
   } else if (h.forma === "leque") {
-    for (let k = 0; k < h.flechas; k++) { const a = ang + ((k / (h.flechas - 1)) - 0.5) * h.angulo * Math.PI / 180; efeitos.push({ tipo: "voo", x0: ox, y0: oy, ang: a, d: h.alcance, t: 0, dur: h.alcance / 900 }); }
+    for (let k = 0; k < h.flechas; k++) { const a = ang + ((k / (h.flechas - 1)) - 0.5) * h.angulo * Math.PI / 180; efeitos.push({ tipo: "voo", x0: ox, y0: oy, ang: a, d: h.alcance, t: 0, dur: h.alcance / 900, rastro, corR }); }
   } else if (h.forma === "circulo") {
     const cx = jogador.x + vx * h.distancia, cy = jogador.y - 14 + vy * h.distancia, cai = h.impacto - SOLTAR;
     efeitos.push({ tipo: "anel", x: cx, y: cy, r: h.raio, t: 0, dur: cai });
@@ -69,8 +72,11 @@ function desenharEfeitos(dt) {
       const alt = Math.sin(Math.PI * p) * Math.min(26, e.d * 0.12) + 22, x = gx, y = gy - alt;
       const inc = Math.cos(Math.PI * p) * 0.6, dx = Math.cos(e.ang), dy = Math.sin(e.ang) - inc * Math.abs(Math.cos(e.ang));
       ctx.save(); ctx.globalAlpha = 0.35; ctx.fillStyle = "#000"; ctx.fillRect(Math.round(gx - 4), Math.round(gy), 8, 2); ctx.restore();
+      if (e.rastro) { ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.strokeStyle = e.corR; ctx.lineWidth = 1 + 2 * e.rastro; ctx.globalAlpha = 0.35 + 0.5 * e.rastro;
+        ctx.beginPath(); ctx.moveTo(x - dx * (18 + 22 * e.rastro), y - dy * (18 + 22 * e.rastro)); ctx.lineTo(x, y); ctx.stroke(); ctx.restore(); }
       ctx.beginPath(); ctx.moveTo(x - dx * 16, y - dy * 16); ctx.lineTo(x, y); ctx.stroke();
       ctx.fillRect(Math.round(x - 2), Math.round(y - 2), 4, 4);
+    } else if (e.tipo === "impacto") { desenharImpacto(ctx, e.x - cam.x, e.y - cam.y, e.forca, p, e.cor);
     } else if (e.tipo === "queda") {
       const x = e.x - cam.x, y = e.y - cam.y - (1 - p) * 90;
       ctx.save(); ctx.globalAlpha = 0.15 + 0.3 * p; ctx.fillStyle = "#000"; ctx.beginPath(); ctx.ellipse(e.x - cam.x, e.y - cam.y, 1 + 3 * p, 1 + p, 0, 0, 7); ctx.fill(); ctx.restore();
@@ -89,23 +95,14 @@ function msg(t, s = 2.4) { $("msg").style.color = ""; $("msg").textContent = t; 
 function salvar() { guardar(localStorage, EST); }
 
 async function iniciar() {
-  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen, apar, efe] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json", "dados/aparencia.json", "dados/efeitos.json"].map(json));
+  const [regioes, mons, itens, missoes, mostr, prog, classes, habs, cen, apar, efe, lpc, rar] = await Promise.all(["dados/regioes.json", "dados/monstros.json", "dados/itens.json", "dados/missoes.json", "mostruario/mostruario.json", "dados/progressao.json", "dados/classes.json", "dados/habilidades.json", "dados/cenario.json", "dados/aparencia.json", "dados/efeitos.json", "dados/lpc_definicoes.json", "dados/raridades.json"].map(json));
   D = { regioes: regioes.regioes, mapasTxt: regioes.mapas, monstros: Object.fromEntries(mons.monstros.map((m) => [m.id, m])), itens, missoes: missoes.missoes,
     CEN: cen, AP: apar, EF: efe, P: prog, classes: Object.fromEntries(classes.classes.map((c) => [c.id, c])), hab: Object.fromEntries(habs.habilidades.map((h) => [h.id, h])), porGrau: habs.por_grau };
+  D.EQ = dadosEquip({ defs: lpc, catalogo: itens, raridades: rar }); // equipamento: peças, cores e efeitos (etapas 11 e 12)
   for (const m of mostr.monstros) MSTR[m.id] = m;
   const arq = ["forest_tiles", "dirt", "cavern_ruins", "signs", "house", "soldier", "soldier_altcolor", "princess", ...["casa_tijolo", "casa_pedra", "fonte", "barraca", "quadro", "forja", "poco"].map((c) => "cidade/" + c)];
   for (const [k, e] of Object.entries(efe)) if (k[0] !== "_") arq.push(...(e.img ? [e.img] : Object.values(e.img_por_direcao)));
   IMG = Object.fromEntries(await Promise.all(arq.map(async (n) => [n, await imagem(`assets/${n}.png`)])));
-  // peças do personagem: corpo, cabeça e o visual de cada item (camadas empilhadas na hora)
-  const pecas = new Set();
-  const caminhos = (v) => (typeof v === "string" ? [v] : v && v.arquivo ? [v.arquivo] : v && typeof v === "object" ? Object.entries(v).filter(([k]) => k !== "grande" && k !== "peca_lpc").flatMap(([, x]) => caminhos(x)) : []);
-  for (const c of Object.values(itens.corpo)) {
-    for (const a of c.animacoes) { pecas.add(`${c.base}/${a}.png`); pecas.add(`${c.cabeca}/${a}.png`); }
-    for (const e of Object.values(c.extras || {})) caminhos(e).forEach((f) => pecas.add(f));
-    for (const op of [...apar.rosto, ...apar.cabelo, ...apar.barba]) if (op.pasta) for (const a of c.animacoes) pecas.add(`${op.pasta}/${a}.png`);
-  }
-  for (const it of itens.itens) caminhos(it.visual).forEach((f) => pecas.add(f));
-  await Promise.all([...pecas].map(async (f) => { IMG[f] = await imagem("assets/pecas/" + f); }));
   const usados = new Set();
   for (const id in D.monstros) { const s = MSTR[D.monstros[id].sprite]; for (const k of ["andar", "ataque"]) if (s[k]) usados.add(s[k].file); }
   for (const f of usados) IMG[f] = await imagem("mostruario/" + f);
@@ -113,9 +110,10 @@ async function iniciar() {
   EST = carregar(D.P, D.itens, localStorage, Object.keys(MAPAS));
   if (!EST) { const c = await escolherClasse(), ap = await criarAparencia(c); EST = novoEstado(D.P, D.itens, c, D.classes[c].habilidades[0], ap); }
   EST.aparencia = normalizar(D.AP, EST.aparencia); // heróis de saves antigos ganham a aparência padrão
+  await precarregar(arquivosDo(EST.equip, EST.classe, EST.aparencia)); // o herói aparece completo já no primeiro quadro
   if (EST.autoDistribuir && EST.pontosLivres > 0) distribuirRecomendado(D.P, EST, D.classes[EST.classe].recomendado);
   desbloquearHabilidades(EST, habsDaClasse()); // saves anteriores ganham as habilidades que o nível já libera
-  jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, cds: {}, invul: 0, veneno: null, semDano: 0 };
+  jogador = { x: 0, y: 0, dir: "down", vida: 0, morto: false, andando: false, tAnim: 0, golpe: -1, cds: {}, invul: 0, veneno: null, semDano: 0, clarao: -1 };
   entrar(EST.mapa, null);
   jogador.vida = stats().vidaMax;
   document.body.dataset.pronto = "1";
@@ -256,7 +254,7 @@ function painel(html, acoes = []) {
   $("painel").classList.add("on");
   encaixarPainel();
 }
-function fechar() { parado = false; $("painel").classList.remove("on"); }
+function fechar() { parado = false; refazerPainel = null; $("painel").classList.remove("on"); }
 // a caixa diminui de escala para caber em telas baixas (celular deitado com a barra do navegador); texto muito longo
 // (como os Créditos) continua rolando em vez de ficar minúsculo
 function encaixarPainel() {
@@ -284,6 +282,7 @@ function interagir() {
   }
 }
 function telaMercador() {
+  setTimeout(() => { refazerPainel = () => telaMercador(); });
   const preco = D.itens.itens.find((i) => i.id === "pocao").preco;
   painel(`<h3>Mercador</h3><p>Ouro: ${EST.ouro} · Poções: ${EST.pocoes}${EST.mochila.length ? " · toque num item para vender" : ""}</p>`, [
     [`Comprar poção de vida (${preco} ouro)`, () => { if (EST.ouro >= preco) { EST.ouro -= preco; EST.pocoes++; salvar(); telaMercador(); } }, EST.ouro < preco],
@@ -297,7 +296,7 @@ function colorirBotoes(itens, desde) {
   itens.forEach((it, i) => { if (bs[desde + i]) bs[desde + i].style.color = qualidade(D.itens, it.qual).cor; });
 }
 
-const NOME_ESPACO = { arma: "Arma", escudo: "Escudo", capacete: "Capacete", ombros: "Ombros", peitoral: "Peitoral", bracos: "Braços", capa: "Capa", grevas: "Grevas", botas: "Botas" };
+const NOME_ESPACO = { arma: "Arma", escudo: "Mão sec.", capacete: "Cabeça", ombros: "Ombros", peitoral: "Peito", sobre_peito: "Sobre peito", bracos: "Braços", capa: "Costas", grevas: "Pernas", botas: "Pés", pescoco: "Pescoço" };
 function descreverConjunto(it) {
   const c = (D.itens.conjuntos || []).find((x) => x.pecas.includes(it.base));
   if (!c) return "";
@@ -367,6 +366,8 @@ function telaAtributos() { telaPersonagem("atrib"); }
 function telaHabilidades() { telaPersonagem("hab"); }
 function numeros(est) { const sv = derivados(D.P, D.itens, est); return { sv, ...estatisticas(D.P, sv, D.hab[habN(0)]) }; }
 function telaPersonagem(aba = ABA.aba, sel = -1) {
+  if (aba === "equip" && sel === -1) precarregarMochila();
+  setTimeout(() => { refazerPainel = () => telaPersonagem(ABA.aba, ABA.sel); });
   ABA.aba = aba; ABA.sel = sel;
   const I = D.itens, P = D.P, agora = numeros(EST);
   if (!$("painel").classList.contains("on") || !$("previa")) ABA.poderAoAbrir = agora.poder; // ganho mostrado no título
@@ -387,10 +388,9 @@ function telaPersonagem(aba = ABA.aba, sel = -1) {
     ["Velocidade", Math.round(sv.velocidade), dif(sv.velocidade, dv?.velocidade)],
     ["Crítico", `${Math.round(sv.critico * 100)}%`, dif(sv.critico * 100, dv?.critico * 100, 0, "%")],
   ].map(([k, v, d]) => `<tr><td>${k}</td><td>${v}${d}</td></tr>`).join("");
-  const semEscudo = EST.classe !== "guerreiro";
-  const slot = (e) => { const it = equipPrevia[e]; if (e === "escudo" && semEscudo) return `<span class="slot s-escudo vazio" title="o Arqueiro usa as duas mãos"><small>—</small></span>`;
+  const slot = (e) => { const it = equipPrevia[e]; if (!I.encaixes[e].classes.includes(EST.classe)) return `<span class="slot s-${e} vazio" title="${I.encaixes[e].nome}: não é da sua classe"><small>—</small></span>`;
     return `<button class="slot s-${e}${sel === e ? " sel" : ""}${it && it === provando ? " prova" : ""}" data-e="${e}" aria-label="${NOME_ESPACO[e]}" style="border-color:${it ? qualidade(I, it.qual).cor : "#fff3"}">${it ? imgIcone(it) + (it.mais ? `<i>+${it.mais}</i>` : "") : `<small>${NOME_ESPACO[e]}</small>`}</button>`; };
-  const boneco = `<div class="boneco">${["capacete", "ombros", "bracos", "arma", "peitoral", "capa", "grevas", "botas", "escudo"].map(slot).join("")}<canvas id="previa" width="64" height="64" aria-label="personagem"></canvas></div>`;
+  const boneco = `<div class="boneco">${["capacete", "pescoco", "ombros", "bracos", "arma", "peitoral", "sobre_peito", "capa", "grevas", "botas", "escudo"].map(slot).join("")}<canvas id="previa" width="64" height="64" aria-label="personagem"></canvas></div>`;
   const resumoConjuntos = (eq) => conjuntosAtivos(I, eq).map((c) => `<span style="color:${c.conjunto.cor}">Conjunto ${c.conjunto.nome} ${c.n}/${c.total}</span>`).join(" · ");
   const abas = [["equip", "Equipamento"], ["visual", "Aparência"], ["atrib", `Atributos${EST.pontosLivres ? ` (+${EST.pontosLivres})` : ""}`], ["hab", `Habilidades${EST.pontosHab ? ` (+${EST.pontosHab})` : ""}`]]
     .map(([id, t]) => `<button class="aba${aba === id ? " on" : ""}" data-aba="${id}">${t}</button>`).join("");
@@ -464,6 +464,7 @@ async function menu() {
     ["Atributos", () => telaAtributos()],
     ["Créditos", async () => { let t = "Não foi possível carregar."; try { t = await texto("CREDITOS.md"); } catch { /* sem rede */ } painel(`<h3>Créditos</h3><pre></pre>`); $("caixa").querySelector("pre").textContent = t; }],
     ["Mostruário de arte", () => { location.href = "mostruario/"; }],
+    [`Efeitos de brilho: ${efeitosLigados ? "ligados" : "desligados"}`, () => { efeitosLigados = !efeitosLigados; try { localStorage.setItem("valdor-efeitos", efeitosLigados ? "1" : "0"); } catch { /* sem armazenamento */ } particulasJogo.limpar(); menu(); }],
     ["Novo personagem (apaga o progresso)", () => { if (confirm("Apagar o progresso salvo e criar outro personagem?")) { apagar(localStorage); location.reload(); } }],
   ]);
 }
@@ -479,6 +480,8 @@ function atualizar(dt) {
     for (const m of r.mortos) registrarMorte(m);
     z.n--; z.t = z.h.intervalo; if (z.n <= 0 || mapa.zonaSegura) zonas.splice(i, 1);
   }
+  particulasJogo.atualizar(dt);
+  if (jogador.clarao >= 0) { jogador.clarao += dt; if (jogador.clarao > 0.2) jogador.clarao = -1; }
   if (jogador.escudo) { jogador.escudo.t -= dt; if (jogador.escudo.t <= 0) jogador.escudo = null; }
   if (jogador.repete && !jogador.morto) { // Rajada: as flechas seguintes saem em sequência
     const rp = jogador.repete; rp.t -= dt;
@@ -517,6 +520,9 @@ function atualizar(dt) {
         if (h.tiques > 1) zonas.push({ h, o: { x: jogador.x, y: jogador.y, dir: jogador.dir }, n: h.tiques - 1, t: h.intervalo, dano }); // Tornado: a área fica e acerta de novo
         const r = atingir(jogador, monstros, h, dano, sv.critico, sv.criticoMult);
         if (h.efeito) efeitoFolha(h, jogador, r.golpes);
+        const efA = efeitosArma(); // clarão no ataque e estouro em quem foi atingido (raridade e reforço da arma)
+        if (efA && efA.clarao) jogador.clarao = 0;
+        if (efA && efA.impacto) for (const gp of r.golpes) efeitos.push({ tipo: "impacto", x: gp.m.x, y: gp.m.y - 18, t: 0, dur: 0.3, forca: efA.impacto, cor: efA.cor });
         if (h.avanco) { const [vx, vy] = VET[jogador.dir]; for (let k = 0; k < 10; k++) mover(jogador, vx * h.avanco / 10, vy * h.avanco / 10, mapa); }
         if (h.repeticoes > 1) jogador.repete = { h, n: h.repeticoes - 1, t: 0.13 };
         for (const gp of r.golpes) flutuar(gp.crit ? `${Math.round(gp.dano)}!` : `${Math.round(gp.dano)}`, gp.m.x + (Math.random() - 0.5) * 8, gp.m.y - 30 - 18 * gp.m.def.escala, gp.crit ? "#ffd84a" : "#ffffff", gp.crit ? 12 : 9);
@@ -543,7 +549,7 @@ function atualizar(dt) {
       const c = chao[i]; c.t -= dt;
       if (c.t <= 0) { chao.splice(i, 1); continue; }
       if (Math.hypot(c.x - jogador.x, c.y - jogador.y) < 22) {
-        if (pegar(D.itens, EST, c.it)) { chao.splice(i, 1); msg(`Pegou: ${nomeItem(D.itens, c.it)}`, 2); $("msg").style.color = qualidade(D.itens, c.it.qual).cor; salvar(); }
+        if (pegar(D.itens, EST, c.it)) { precarregar(arquivosDoItem(c.it)); chao.splice(i, 1); msg(`Pegou: ${nomeItem(D.itens, c.it)}`, 2); $("msg").style.color = qualidade(D.itens, c.it.qual).cor; salvar(); }
         else if (performance.now() - avisoCheia > 3000) { avisoCheia = performance.now(); msg("Mochila cheia: venda ou descarte itens."); }
       }
     }
@@ -633,63 +639,65 @@ function desenharAvisos() {
 }
 const ORDEM_GIRO = ["down", "left", "up", "right"];
 // camadas do personagem na ordem de itens.json ("corpo", "grevas", "peitoral", "cabeca", "capacete", "arma"):
-// cada item vestido desenha a sua peça LPC; folhas "grandes" (192 px, como a espada longa ao golpear) ficam centradas
-// entrada de "visual": caminho (string) ou { arquivo, coluna } (quadro fixo, ex.: arco parado ao andar)
-const arqDe = (v) => (typeof v === "string" ? v : v && v.arquivo);
-// peça tingida com a cor da qualidade (em código, a partir da própria peça LPC; resultado guardado em cache)
-const tingidas = {};
-// peça com a cor da qualidade e do material, feita em código a partir da própria peça LPC (resultado em cache):
-// pixels de metal (pouca saturação) seguem a rampa do material (qualidade Refinado/Raro/Lendário, senão o material
-// do item, ex.: bronze, Cinzaltar); couro e tecido recebem só uma tinta leve da cor da qualidade
-// peça do corpo com a paleta da aparência (pele, olhos, cor do cabelo), guardada pronta
-const paletadas = {};
-function pecaPaleta(caminho, ap, campos) {
-  const img = IMG[caminho], trocas = campos.flatMap((c) => pares(D.AP, c, ap[c]));
-  if (!img || !trocas.length) return img;
-  const k = caminho + "|" + campos.map((c) => ap[c]).join("|");
-  if (!paletadas[k]) {
-    const c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
-    const x = c.getContext("2d"); x.drawImage(img, 0, 0);
-    const dados = x.getImageData(0, 0, c.width, c.height); recolorir(dados.data, trocas); x.putImageData(dados, 0, 0);
-    paletadas[k] = c;
-  }
-  return paletadas[k];
+// ---------- equipamento em camadas (etapa 12): peças, ordem (zPos) e cores lidas das definições do gerador LPC ----------
+// imagens sob demanda (docs/assets/lpc): o que falta é carregado e aparece no quadro seguinte
+const IMG_LPC = {}, carregando = new Map();
+let refazerPainel = null; // painel aberto com ícones: refeito quando chega imagem nova
+function imgLpc(arquivo) {
+  const i = IMG_LPC[arquivo]; if (i) return i;
+  if (!carregando.has(arquivo)) carregando.set(arquivo, imagem("assets/lpc/" + arquivo).then((im) => { IMG_LPC[arquivo] = im; aoCarregarImagem(); }).catch(() => {}));
+  return null;
 }
-function pecaTingida(entrada, qual, materialItem = null) {
-  const caminho = arqDe(entrada);
-  const q = qualidade(D.itens, qual), img = IMG[caminho], mat = q.material || materialItem;
-  if (!img || (!q.tinta && !mat)) return img;
-  const k = caminho + "|" + qual + "|" + (mat || "");
-  if (!tingidas[k]) {
-    const c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
-    const x = c.getContext("2d"); x.drawImage(img, 0, 0);
-    const dados = x.getImageData(0, 0, c.width, c.height), px = dados.data, rampa = mat && D.itens.materiais[mat];
-    const [tr, tg, tb] = [1, 3, 5].map((i) => parseInt(q.cor.slice(i, i + 2), 16));
-    for (let i = 0; i < px.length; i += 4) {
-      if (!px[i + 3]) continue;
-      const r = px[i], g = px[i + 1], b = px[i + 2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 510;
-      const sat = mx === mn ? 0 : (mx - mn) / (l > 0.5 ? 510 - mx - mn : mx + mn);
-      if (rampa && sat < 0.18) { const cor = rampa[Math.min(rampa.length - 1, Math.floor(l * rampa.length))]; px[i] = cor[0]; px[i + 1] = cor[1]; px[i + 2] = cor[2]; }
-      else if (q.tinta) { px[i] += (tr - r) * q.tinta; px[i + 1] += (tg - g) * q.tinta; px[i + 2] += (tb - b) * q.tinta; }
+function aoCarregarImagem() { if (refazerPainel) { clearTimeout(aoCarregarImagem.t); aoCarregarImagem.t = setTimeout(() => refazerPainel && $("painel").classList.contains("on") && refazerPainel(), 120); } }
+function precarregar(arquivos) { return Promise.all([...new Set(arquivos)].map((a) => { imgLpc(a); return carregando.get(a); })); }
+// troca de paleta feita uma vez por imagem+cor e guardada (nunca a cada quadro)
+const recoloridas = new CacheRecolor((arquivo, trocas) => {
+  const img = IMG_LPC[arquivo], c = document.createElement("canvas"); c.width = img.width; c.height = img.height;
+  const x = c.getContext("2d"); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, c.width, c.height); recolorir(d.data, trocas); x.putImageData(d, 0, 0); return c;
+});
+function folhaDe(l) { const img = imgLpc(l.arquivo); return img ? recoloridas.obter(l.arquivo, l.trocas) || img : null; }
+// aparência escolhida -> cores e peças do gerador
+function apEq(ap) {
+  const a = normalizar(D.AP, ap), d = (c) => opcao(D.AP, a, c)?.def ?? null;
+  return { pele: "body." + a.pele, cabelo: "hair." + a.cor_cabelo, olhos: "eye." + a.olhos, defs: { rosto: d("rosto"), cabelo: d("cabelo"), barba: d("barba") } };
+}
+const equipEq = (equip) => Object.fromEntries(Object.entries(equip).filter(([, it]) => it).map(([e, it]) => [e, { item: it.base, raridade: it.qual, reforco: it.mais || 0 }]));
+const cacheCamadas = new Map();
+function camadas(anim, equip = EST.equip, classe = EST.classe, ap = EST.aparencia) {
+  const k = anim + "|" + classe + "|" + JSON.stringify(equipEq(equip)) + "|" + JSON.stringify(ap);
+  let L = cacheCamadas.get(k);
+  if (!L) { L = camadasDoPersonagem(D.EQ, classe, equipEq(equip), anim, apEq(ap)); if (cacheCamadas.size > 300) cacheCamadas.clear(); cacheCamadas.set(k, L); }
+  return L;
+}
+// imagens de um item em todas as animações da classe: carregadas antes de vestir (equipar fica instantâneo)
+const arquivosDoItem = (it, classe = EST.classe) => (D.itens.animacoes_classe[classe] || []).flatMap((a) => camadasDoItem(D.EQ, it.base, a, it.qual).map((l) => l.arquivo));
+function precarregarMochila() { precarregar(EST.mochila.filter((it) => baseItem(D.itens, it.base).formato).flatMap((it) => arquivosDoItem(it))); }
+const arquivosDo = (equip, classe, ap) => (D.itens.animacoes_classe[classe] || []).flatMap((a) => camadas(a, equip, classe, ap).map((l) => l.arquivo));
+// desenho: quadros de 64, 128 (arco andando) ou 192 px (armas grandes), centrados; contorno da arma por cima
+function desenharCamadas(anim, col, linha, ox, oy, alvo = ctx, equip = EST.equip, classe, ap, ef = null, t = 0) {
+  for (const l of camadas(anim, equip, classe ?? EST.classe, ap ?? EST.aparencia)) {
+    const img = folhaDe(l); if (!img) continue;
+    const s = l.tamanho, sx = col * s, sy = linha * s; if (sx >= img.width) continue;
+    const dx = ox - (s - 64) / 2, dy = oy - (s - 64) / 2;
+    alvo.drawImage(img, sx, sy, s, s, dx, dy, s, s);
+    if (ef && ef.contorno && l.encaixe === "arma") {
+      alvo.save(); alvo.globalCompositeOperation = "lighter"; alvo.globalAlpha = Math.min(1, ef.contorno * pulso(t, ef.pulsar));
+      alvo.drawImage(contornoDe(img, ef.cor), sx, sy, s, s, dx, dy, s, s); alvo.restore();
     }
-    x.putImageData(dados, 0, 0);
-    tingidas[k] = c;
   }
-  return tingidas[k];
 }
-// ícone do item: quadro parado de frente da própria peça, recortado no que tem pixel e reduzido
+// ícone do item: quadro parado de frente das camadas do item, recortado no que tem pixel e reduzido
 const icones = {};
 function iconeItem(it) {
   const k = it.base + "|" + it.qual;
   if (icones[k]) return icones[k];
-  if (!IMG[arqDe(baseItem(D.itens, it.base).visual.walk)]) return "";
-  const b = baseItem(D.itens, it.base), v = b.visual, img = pecaTingida(v.walk, it.qual, b.material), col = v.walk.coluna || 0, lin = b.icone_linha ?? 2;
-  const t = document.createElement("canvas"); t.width = 64; t.height = 64;
+  const L = ordenarPorZ(camadasDoItem(D.EQ, it.base, "walk", it.qual)), imgs = L.map(folhaDe);
+  if (imgs.some((i) => !i)) return ""; // ainda carregando: o painel é refeito quando a imagem chegar
+  const t = document.createElement("canvas"); t.width = 192; t.height = 192;
   const tx = t.getContext("2d");
-  if (v.fundo && v.fundo.walk) tx.drawImage(pecaTingida(v.fundo.walk, it.qual, b.material), col * 64, lin * 64, 64, 64, 0, 0, 64, 64);
-  tx.drawImage(img, col * 64, lin * 64, 64, 64, 0, 0, 64, 64);
-  const px = tx.getImageData(0, 0, 64, 64).data; let x0 = 64, y0 = 64, x1 = 0, y1 = 0;
-  for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) if (px[(y * 64 + x) * 4 + 3] > 20) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+  L.forEach((l, i) => { const s = l.tamanho; tx.drawImage(imgs[i], 0, 2 * s, s, s, (192 - s) / 2, (192 - s) / 2, s, s); });
+  const px = tx.getImageData(0, 0, 192, 192).data; let x0 = 192, y0 = 192, x1 = 0, y1 = 0;
+  for (let y = 0; y < 192; y++) for (let x = 0; x < 192; x++) if (px[(y * 192 + x) * 4 + 3] > 20) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
   const lado = Math.max(8, x1 - x0 + 1, y1 - y0 + 1), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
   const c = document.createElement("canvas"); c.width = 32; c.height = 32;
   const x = c.getContext("2d"); x.imageSmoothingEnabled = false;
@@ -698,95 +706,59 @@ function iconeItem(it) {
 }
 const imgIcone = (it) => `<img class="ic" alt="" src="${iconeItem(it)}">`;
 
-// camadas do personagem na ordem da classe (itens.json "corpo"[classe].ordem): corpo, cabeça, extras da classe
-// (aljava, flecha), "fundo_arma" (parte de trás do arco) e cada item vestido; folhas "grandes" (192 px) ficam centradas
-function camadas(anim, equip = EST.equip, classe = EST.classe, ap = EST.aparencia) {
-  const I = D.itens, corpo = I.corpo[classe], out = [];
-  for (const c of corpo.ordem) {
-    if (c === "corpo") out.push({ img: pecaPaleta(`${corpo.base}/${anim}.png`, ap, ["pele"]) });
-    else if (c === "cabeca") out.push({ img: pecaPaleta(`${(opcao(D.AP, ap, "rosto") || { pasta: corpo.cabeca }).pasta}/${anim}.png`, ap, ["pele", "olhos"]) });
-    else if (c === "cabelo" || c === "barba") { const o = opcao(D.AP, ap, c); if (o && o.pasta) out.push({ img: pecaPaleta(`${o.pasta}/${anim}.png`, ap, ["cor_cabelo"]) }); }
-    else if (corpo.extras && corpo.extras[c]) { const e = corpo.extras[c][anim]; if (e) out.push({ img: IMG[arqDe(e)], coluna: e.coluna }); }
-    else if (c.startsWith("fundo:")) { // parte de trás de capa, escudo e arco
-      const it = equip[c.slice(6)], b = it && baseItem(I, it.base), f = b && b.visual.fundo;
-      if (f && f[anim]) out.push({ img: pecaTingida(f[anim], it.qual, b.material), coluna: f[anim].coluna, grande: (f.grande || []).includes(anim) });
-    } else {
-      const it = equip[c]; if (!it) continue;
-      const b = baseItem(I, it.base), v = b.visual; if (!v[anim]) continue;
-      out.push({ img: pecaTingida(v[anim], it.qual, b.material), grande: (v.grande || []).includes(anim), coluna: v[anim].coluna });
-    }
-  }
-  return out;
+// ---------- efeitos da arma: raridade e reforço (raridades.json); chave no menu para celular fraco ----------
+let efeitosLigados = (() => { try { return localStorage.getItem("valdor-efeitos") !== "0"; } catch { return true; } })();
+const particulasJogo = new Particulas(24), corDaArma = {};
+function efeitosArma() {
+  const a = EST.equip.arma; if (!a) return null;
+  const R = D.EQ.raridades, e = efeitosDe(R, a.qual, Math.min(a.mais || 0, R.reforco.max), efeitosLigados), k = a.base + "|" + a.qual;
+  e.cor = corDaArma[k] ??= raridade(R, a.qual).brilho || corDoItem(camadasDoItem(D.EQ, a.base, "walk", a.qual)[0]?.trocas, "#ffd36a");
+  return e;
 }
-function desenharCamadas(anim, col, linha, ox, oy, alvo = ctx, equip = EST.equip, classe, ap) {
-  for (const l of camadas(anim, equip, classe, ap)) {
-    if (!l.img) continue;
-    const c = l.coluna ?? col;
-    if (l.grande) alvo.drawImage(l.img, c * 192, linha * 192, 192, 192, ox - 64, oy - 64, 192, 192);
-    else alvo.drawImage(l.img, c * 64, linha * 64, 64, 64, ox, oy, 64, 64);
-  }
-}
-function armaSemEstocar() { const a = EST.equip.arma; return !!(a && baseItem(D.itens, a.base).estocada_com_golpe); }
+function armaSemEstocar() { const a = EST.equip.arma; return !!(a && estocadaUsaGolpe(D.EQ, a.base)); }
+const MAO = { down: [10, -26], up: [-10, -28], left: [-14, -26], right: [14, -26] };
 function desenharJogador(t) {
-  const g = jogador.golpe, h = jogador.hab;
+  const g = jogador.golpe, h = jogador.hab, ef = efeitosArma();
   const dir = g >= 0 && h.animacao === "giro" ? ORDEM_GIRO[(ORDEM_GIRO.indexOf(jogador.dir) + Math.floor(g / h.duracao * 4)) % 4] : jogador.dir;
   const L = LINHA[dir], ox = Math.round(jogador.x - 32 - cam.x), oy = Math.round(jogador.y - 60 - cam.y);
   ctx.fillStyle = "#0005"; ctx.beginPath(); ctx.ellipse(Math.round(jogador.x - cam.x), Math.round(jogador.y - 1 - cam.y), 12, 4, 0, 0, 7); ctx.fill(); // sombra
   desenharAura(t);
+  if (ef) desenharAuraEf(ctx, Math.round(jogador.x - cam.x), Math.round(jogador.y - 2 - cam.y), ef.aura, ef.cor, t);
   if (jogador.invul > 0 && Math.floor(t * 20) % 2) ctx.globalAlpha = 0.5;
-  if (g >= 0 && h.animacao === "shoot") desenharCamadas("shoot", Math.min(12, Math.floor(g / Math.min(h.duracao, 0.55) * 13)), L, ox, oy);
-  else if (g >= 0 && h.animacao === "thrust" && !armaSemEstocar()) desenharCamadas("thrust", Math.min(7, Math.floor(g / h.duracao * 8)), L, ox, oy);
-  else if (g >= 0 && h.animacao === "thrust") desenharCamadas("slash", Math.min(5, Math.floor(g / h.duracao * 6)), L, ox, oy); // improviso: arma sem estocar
+  const C = (anim, q) => desenharCamadas(anim, q, L, ox, oy, ctx, EST.equip, undefined, undefined, ef, t);
+  if (g >= 0 && h.animacao === "shoot") C("shoot", Math.min(12, Math.floor(g / Math.min(h.duracao, 0.55) * 13)));
+  else if (g >= 0 && h.animacao === "thrust" && !armaSemEstocar()) C("thrust", Math.min(7, Math.floor(g / h.duracao * 8)));
+  else if (g >= 0 && h.animacao === "thrust") C("slash", Math.min(5, Math.floor(g / h.duracao * 6))); // improviso: arma sem estocar
   else if (g >= 0) { // golpe e giro usam a animação de golpear; o giro troca de direção 4 vezes
     const passo = h.animacao === "giro" ? h.duracao / 4 : h.duracao;
-    desenharCamadas("slash", Math.min(5, Math.floor((g % passo) / passo * 6)), L, ox, oy);
+    C("slash", Math.min(5, Math.floor((g % passo) / passo * 6)));
     if (h.animacao === "giro") { ctx.save(); ctx.globalAlpha = 0.25; ctx.strokeStyle = "#dfefff"; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(jogador.x - cam.x, jogador.y - 14 - cam.y, h.raio, h.raio * 0.7, 0, 0, 7); ctx.stroke(); ctx.restore(); }
-  } else desenharCamadas("walk", jogador.andando ? 1 + Math.floor(jogador.tAnim * 10) % 8 : 0, L, ox, oy);
+  } else C("walk", jogador.andando ? 1 + Math.floor(jogador.tAnim * 10) % 8 : 0);
   ctx.globalAlpha = 1;
-  if (g >= 0 && (h.animacao === "slash" || h.animacao === "giro" || (h.animacao === "thrust" && armaSemEstocar()))) desenharRastro(dir, g, h);
-  desenharBrilhoArma(t, dir);
+  if (g >= 0 && (h.animacao === "slash" || h.animacao === "giro" || (h.animacao === "thrust" && armaSemEstocar()))) desenharRastro(dir, g, h, ef);
+  if (!ef) return;
+  const [mx, my] = MAO[dir], hx = jogador.x + mx, hy = jogador.y + my;
+  if (ef.qtdParticulas && particulasJogo.quantidade < ef.qtdParticulas && Math.random() < 0.35) particulasJogo.emitir(hx, hy, ef.cor, 1, { espalha: 14, velocidade: 5, sobe: 9, vida: 0.9, tam: 1 });
+  ctx.save(); ctx.translate(-cam.x, -cam.y); particulasJogo.desenhar(ctx); ctx.restore();
+  if (jogador.clarao >= 0) desenharClarao(ctx, hx - cam.x, hy - cam.y, ef.clarao, jogador.clarao / 0.2, ef.cor);
 }
-// aura nos pés conforme a melhor qualidade vestida (Raro: azul; Lendário: dourada com faíscas)
-// aura nos pés: conjunto completo (cor do conjunto) ou melhor qualidade vestida (Raro azul; Lendário dourada com faíscas)
+// aura nos pés de conjunto completo (cor do conjunto); a aura da raridade e do reforço vem dos efeitos da arma
 function desenharAura(t) {
-  const ordem = D.itens.qualidades.map((q) => q.id), x = jogador.x - cam.x, y = jogador.y - 2 - cam.y, p = 0.5 + 0.5 * Math.sin(t * 3);
+  const x = jogador.x - cam.x, y = jogador.y - 2 - cam.y, p = 0.5 + 0.5 * Math.sin(t * 3);
   const completo = conjuntosAtivos(D.itens, EST.equip).find((c) => c.completo);
-  const melhor = Math.max(-1, ...Object.values(EST.equip).filter(Boolean).map((it) => ordem.indexOf(it.qual)));
-  if (completo) { // conjunto completo: anel de luz com a cor do conjunto
-    ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.strokeStyle = completo.conjunto.cor; ctx.lineWidth = 2;
-    ctx.globalAlpha = 0.35 + 0.3 * p; ctx.beginPath(); ctx.ellipse(x, y, 18 + 3 * p, 7 + p, 0, 0, 7); ctx.stroke();
-    ctx.globalAlpha = 0.15 + 0.1 * p; ctx.fillStyle = completo.conjunto.cor; ctx.fill(); ctx.restore();
-  }
-  if (melhor < ordem.indexOf("raro")) return;
-  const q = D.itens.qualidades[melhor];
-  ctx.save(); ctx.fillStyle = q.cor; ctx.globalAlpha = 0.18 + 0.12 * p;
-  ctx.beginPath(); ctx.ellipse(x, y, 16 + 2 * p, 6 + p, 0, 0, 7); ctx.fill();
-  if (q.id === "lendario") { ctx.globalAlpha = 0.9; for (let k = 0; k < 3; k++) { const a = t * 2 + k * 2.1; ctx.fillRect(Math.round(x + Math.cos(a) * 14), Math.round(y - 18 + Math.sin(a * 1.3) * 16), 2, 2); } }
-  ctx.restore();
+  if (!completo) return;
+  ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.strokeStyle = completo.conjunto.cor; ctx.lineWidth = 2;
+  ctx.globalAlpha = 0.35 + 0.3 * p; ctx.beginPath(); ctx.ellipse(x, y, 18 + 3 * p, 7 + p, 0, 0, 7); ctx.stroke();
+  ctx.globalAlpha = 0.15 + 0.1 * p; ctx.fillStyle = completo.conjunto.cor; ctx.fill(); ctx.restore();
 }
-// brilho do +N na arma (luz somada, sem imagem): +3 halo, +4 halo mais forte, +5 faíscas
-const MAO = { down: [10, -26], up: [-10, -28], left: [-14, -26], right: [14, -26] };
-function desenharBrilhoArma(t, dir) {
-  const a = EST.equip.arma, cfg = D.itens.brilho;
-  if (!a || a.mais < cfg.a_partir_de) return;
-  const q = qualidade(D.itens, a.qual), cor = a.qual === "comum" ? "#fff2c0" : q.cor, [mx, my] = MAO[dir];
-  const x = jogador.x + mx - cam.x, y = jogador.y + my - cam.y, p = 0.6 + 0.4 * Math.sin(t * 5), r = 8 + 4 * (a.mais - cfg.a_partir_de) + 2 * p;
-  ctx.save(); ctx.globalCompositeOperation = "lighter";
-  const gr = ctx.createRadialGradient(x, y, 0, x, y, r);
-  gr.addColorStop(0, cor); gr.addColorStop(1, "#0000");
-  ctx.globalAlpha = 0.25 + 0.12 * (a.mais - cfg.a_partir_de) + 0.1 * p; ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
-  if (a.mais >= cfg.faiscas_em) { ctx.globalAlpha = 1; ctx.fillStyle = "#fff";
-    for (let k = 0; k < 4; k++) { const ang = t * 3 + k * 1.57, d = 6 + 6 * ((t * 2 + k * 0.37) % 1); ctx.fillRect(Math.round(x + Math.cos(ang) * d), Math.round(y + Math.sin(ang) * d - ((t * 20 + k * 5) % 10)), 1, 1); } }
-  ctx.restore();
-}
-// rastro da arma ao golpear: cor da qualidade da arma, mais forte com o +N
+// rastro da arma ao golpear: cor e força pelos efeitos da arma (sem efeitos: um arco branco fraco, para ver o golpe)
 const ANG = { right: 0, down: Math.PI / 2, left: Math.PI, up: -Math.PI / 2 };
-function desenharRastro(dir, g, h) {
-  const arma = EST.equip.arma; if (!arma) return;
-  const q = qualidade(D.itens, arma.qual), passo = h.animacao === "giro" ? h.duracao / 4 : h.duracao, f = (g % passo) / passo;
+function desenharRastro(dir, g, h, ef) {
+  if (!EST.equip.arma) return;
+  const passo = h.animacao === "giro" ? h.duracao / 4 : h.duracao, f = (g % passo) / passo, forca = ef ? Math.max(ef.rastro, ef.contorno * 0.6) : 0;
   const a0 = ANG[dir] - 1.2, a = a0 + 2.4 * Math.min(1, f * 1.4);
-  ctx.save(); ctx.strokeStyle = arma.qual === "comum" ? "#ffffff" : q.cor; ctx.globalAlpha = (0.25 + 0.08 * arma.mais) * (1 - f * 0.6);
-  ctx.lineWidth = 2 + 0.6 * arma.mais; ctx.beginPath(); ctx.arc(jogador.x - cam.x, jogador.y - 22 - cam.y, 24, a0, a); ctx.stroke(); ctx.restore();
+  ctx.save(); if (forca) ctx.globalCompositeOperation = "lighter"; ctx.strokeStyle = forca ? ef.cor : "#ffffff"; ctx.globalAlpha = (0.25 + 0.6 * forca) * (1 - f * 0.6);
+  ctx.lineWidth = 2 + 3 * forca; ctx.beginPath(); ctx.arc(jogador.x - cam.x, jogador.y - 22 - cam.y, 24, a0, a); ctx.stroke(); ctx.restore();
 }
 function etiqueta(txt, x, y) { ctx.font = "8px system-ui"; ctx.textAlign = "center"; ctx.fillStyle = "#000b"; ctx.fillText(txt, x + 1, y + 1); ctx.fillStyle = "#fff"; ctx.fillText(txt, x, y); }
 const NOMES = { mercador: "Mercador", ferreiro: "Ferreiro", quadro: "Missões", portal: "Portal" };

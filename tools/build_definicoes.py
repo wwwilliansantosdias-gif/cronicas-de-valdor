@@ -20,7 +20,8 @@ from PIL import Image
 RAIZ_GERADOR = "https://raw.githubusercontent.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator/master/"
 RAW = "assets/raw/gerador-defs/"
 OUT_IMG = "docs/assets/lpc/"
-CAT = json.load(open("docs/dados/catalogo_equipamentos.json", encoding="utf-8"))
+ITENS = json.load(open("docs/dados/itens.json", encoding="utf-8"))
+APAR = json.load(open("docs/dados/aparencia.json", encoding="utf-8"))
 RAR = json.load(open("docs/dados/raridades.json", encoding="utf-8"))
 VALDOR = json.load(open("docs/dados/paletas_valdor.json", encoding="utf-8"))["cores"]
 
@@ -83,8 +84,8 @@ def definicao(formato):
 
 def arquivo(cam, anim, variante):
     if cam["custom"]:
-        return cam["pasta"] + variante + ".png" if variante else cam["pasta"].rstrip("/") + ".png"
-    return cam["pasta"] + anim + ("/" + variante if variante else "") + ".png"
+        return cam["pasta"] + variante.replace(" ", "_") + ".png" if variante else cam["pasta"].rstrip("/") + ".png"
+    return cam["pasta"] + anim + ("/" + variante.replace(" ", "_") if variante else "") + ".png"  # "kite gray" -> kite_gray.png
 
 
 def existe(caminho):
@@ -93,8 +94,10 @@ def existe(caminho):
 
 def camadas_da_animacao(d, anim, variante):
     """custom (walk_128, *_oversize) tem prioridade, como no gerador; depois as camadas normais"""
-    custom = [i for i, c in enumerate(d["camadas"]) if c["anim"] == anim]
-    normais = [i for i, c in enumerate(d["camadas"]) if not c["custom"]]
+    # só animações que a definição declara (se ela declara alguma): a pasta pode ter imagens que o gerador não usa
+    decl = d["animacoes"]
+    custom = [i for i, c in enumerate(d["camadas"]) if c["anim"] == anim and (decl is None or c["custom"] in decl)]
+    normais = [i for i, c in enumerate(d["camadas"]) if not c["custom"]] if decl is None or anim in decl else []
     # como o gerador: camada da definição sem imagem é pulada (ex.: o arco grande não tem a parte de trás ao atirar)
     for grupo in (custom, normais):
         achadas = [i for i in grupo if existe(arquivo(d["camadas"][i], anim, variante))]
@@ -114,19 +117,30 @@ def cobertura(caminho, cores):
 def main():
     P = paletas()
     defs, usados = {}, set()
-    partes = [(None, p, [c]) for c, ps in CAT["base_personagem"].items() for p in ps]
-    partes += [(it, p, it["classes"]) for it in CAT["itens"] for p in it["formato"]]
+    # base de cada classe; "@rosto", "@cabelo", "@barba" valem para todas as opções da tela de Aparência
+    partes = []
+    for c, ps in ITENS["base_personagem"].items():
+        for p in ps:
+            if p["def"].startswith("@"):
+                for o in APAR[p["def"][1:]]:
+                    if o.get("def"):
+                        partes.append((None, {**p, "def": o["def"]}, [c]))
+            else:
+                partes.append((None, p, [c]))
+    partes += [(it, p, it["classes"]) for it in ITENS["itens"] if it.get("formato") for p in it["formato"]]
     for it, parte, classes in partes:
         f = parte["def"]
         if f not in defs:
             defs[f] = definicao(f)
             defs[f]["por_animacao"] = {}
         d = defs[f]
-        anims = parte.get("so_animacoes") or sorted({a for c in classes for a in CAT["classes"][c]["animacoes"]})
+        anims = parte.get("so_animacoes") or sorted({a for c in classes for a in ITENS["animacoes_classe"][c]})
         # variantes necessárias: a pedida, as cores de raridade que existem prontas, e a base para trocar paleta
         precisa = set()
         cor = parte["cor"]
-        if cor.startswith("variante."):
+        if cor == "base":
+            pass  # a imagem como o gerador fez, sem troca de cor
+        elif cor.startswith("variante."):
             precisa.add(cor[9:])
         elif not d["recolors"] and d["variantes"]:
             cores = [r["cores"][parte["material"]] for r in RAR["raridades"].values()] if cor == "raridade" else [cor]
@@ -139,7 +153,7 @@ def main():
             for v in sorted(precisa, key=str):
                 grupo = camadas_da_animacao(d, anim, v)
                 if grupo is None:
-                    if anim == "thrust" and "guerreiro" in classes and CAT["classes"]["guerreiro"].get("estocada_pode_usar_golpe"):
+                    if anim == "thrust" and any(c in ITENS["estocada_pode_usar_golpe"] for c in classes):
                         d["por_animacao"]["thrust"] = "slash"  # improviso já aprovado: a Estocada usa o golpe
                         continue
                     raise SystemExit(f"{f}: sem a animação {anim} (variante {v})")
@@ -149,8 +163,10 @@ def main():
                 for i in grupo:
                     usados.add(arquivo(d["camadas"][i], anim, v))
         # troca de cor a partir da imagem base de itens só com variantes: confere que a base usa a paleta-base
-        if parte.get("base_variante") and not d["recolors"]:
+        if "base_variante" in parte and not d["recolors"]:
             m = parte["material"]
+            if d.get("base_variante", parte["base_variante"]) != parte["base_variante"]:
+                raise SystemExit(f"{f}: dois itens pedem bases diferentes")
             amostra = arquivo(d["camadas"][d["por_animacao"]["walk"][-1]], "walk", parte["base_variante"])
             # a base pode ter sido pintada em qualquer cor do material: fica com a que cobre mais pixels
             cob, nome = max((cobertura(amostra, cores), nome) for nome, cores in P[m]["cores"].items())

@@ -11,11 +11,13 @@ const AP = ler("dados/aparencia.json"), P = ler("dados/progressao.json"), I = le
 const mapas = Object.keys(ler("dados/regioes.json").mapas);
 function memoria() { const d = {}; return { getItem: (k) => d[k] ?? null, setItem: (k, v) => { d[k] = v; } }; }
 
-test("padrão e todas as opções são válidos; peças existem em docs/assets/pecas para as animações das classes", () => {
+test("padrão e todas as opções são válidos; rosto, cabelo e barba são definições do gerador com as animações das classes", () => {
   assert.deepEqual(normalizar(AP, AP.padrao), AP.padrao);
-  const anims = new Set(Object.values(I.corpo).flatMap((c) => c.animacoes));
-  for (const c of ["rosto", "cabelo", "barba"]) for (const o of opcoes(AP, c)) if (o.pasta)
-    for (const a of anims) assert.ok(readFileSync(new URL(`../../docs/assets/pecas/${o.pasta}/${a}.png`, import.meta.url)).length > 0, `${o.pasta}/${a}`);
+  const defs = ler("dados/lpc_definicoes.json").definicoes, anims = new Set(Object.values(I.animacoes_classe).flat());
+  for (const c of ["rosto", "cabelo", "barba"]) for (const o of opcoes(AP, c)) if (o.pasta) {
+    assert.ok(defs[o.def], `${c} ${o.id}: definição ${o.def}`);
+    for (const a of anims) assert.ok(defs[o.def].por_animacao[a], `${o.def} sem ${a}`);
+  }
   for (const c of ["pele", "cor_cabelo", "olhos"]) { assert.ok(AP[c].opcoes.some((o) => o.id === AP[c].base) || AP[c].base_cores.length, c); for (const o of AP[c].opcoes) assert.equal(o.cores.length, AP[c].base_cores.length, o.id); }
 });
 
@@ -48,7 +50,7 @@ test("save: v3 vira v4 com aparência padrão; aparência adulterada não derrub
   const s = memoria(), v3 = { ...novoEstado(P, I), versao: 3 }; delete v3.aparencia;
   s.setItem("valdor-save", serializar(v3));
   const e = carregar(P, I, s, mapas);
-  assert.equal(e.versao, 4); assert.equal(e.aparencia, null); assert.equal(e.nivel, 1);
+  assert.equal(e.versao, 5); assert.equal(e.aparencia, null); assert.equal(e.nivel, 1);
   const x = novoEstado(P, I, "guerreiro", "golpe", { pele: { mal: 1 } }); s.setItem("valdor-save", serializar(x));
   const y = carregar(P, I, s, mapas); assert.ok(y); assert.equal(y.aparencia, null);
   const z = novoEstado(P, I, "arqueiro", "disparo", { ...AP.padrao, pele: "black" }); s.setItem("valdor-save", serializar(z));

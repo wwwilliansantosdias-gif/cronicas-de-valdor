@@ -1,11 +1,7 @@
 """Prepara docs/assets para o jogo.
 
 Rodar da raiz: python3 -I tools/build_jogo_assets.py
-- Peças dos personagens (corpo, cabeça e extras de cada classe, e o visual de cada item de
-  docs/dados/itens.json) são baixadas do gerador LPC para assets/raw/gerador/ (não versionado) e copiadas
-  para docs/assets/pecas/; o jogo empilha as camadas na hora, então trocar um item troca a aparência.
-- data/pecas_usadas.txt é gerado daqui (corpo, extras, aparência e "peca_lpc" de cada item), para os créditos nunca
-  ficarem para trás.
+- Peças do personagem e dos itens: desde a etapa 12 vêm de tools/build_definicoes.py (docs/assets/lpc).
 - Tiles e NPCs vêm do pacote base e da floresta.
 """
 import json
@@ -43,42 +39,16 @@ def arquivos(visual):
             yield from arquivos(v)
 
 
-itens = json.load(open("docs/dados/itens.json", encoding="utf-8"))
-usadas = ["# gerado por tools/build_jogo_assets.py: corpo e extras das classes + peca_lpc de cada item de docs/dados/itens.json"]
+# peças do personagem e dos itens: tools/build_definicoes.py (definições do gerador LPC, docs/assets/lpc) desde a etapa 12
 if os.path.isdir(OUT + "pecas"):
     shutil.rmtree(OUT + "pecas")
-for classe, c in itens["corpo"].items():
-    for pasta in (c["base"], c["cabeca"]):
-        for a in c["animacoes"]:
-            baixar(f"{pasta}/{a}.png")
-            if f"{pasta}/{a}.png" not in usadas:
-                usadas.append(f"{pasta}/{a}.png")
-    for extra in c.get("extras", {}).values():
-        for caminho in arquivos(extra):
-            baixar(caminho)
-        usadas += [p for p in extra["peca_lpc"] if p not in usadas]
-# aparência do herói (rosto, cabelo, barba): as mesmas animações das classes
-apar = json.load(open("docs/dados/aparencia.json", encoding="utf-8"))
-anims = sorted({a for c in itens["corpo"].values() for a in c["animacoes"]})
-for op in apar["rosto"] + apar["cabelo"] + apar["barba"]:
-    if op["pasta"]:
-        for a in anims:
-            baixar(f"{op['pasta']}/{a}.png")
-            if f"{op['pasta']}/{a}.png" not in usadas:
-                usadas.append(f"{op['pasta']}/{a}.png")
-for it in itens["itens"]:
-    for caminho in arquivos(it.get("visual")):
-        baixar(caminho)
-    usadas += [p for p in it.get("peca_lpc", []) if p not in usadas]
-open("data/pecas_usadas.txt", "w", encoding="utf-8").write("\n".join(usadas) + "\n")
-
-shutil.copy("assets/raw/lpc-forest-tiles/x_LPC_forest_0.zip/LPC_forest/forest_tiles.png", OUT + "forest_tiles.png")
 # efeitos de magia do Mago (Extended LPC Magic pack, creditado pelo mostruário)
 os.makedirs(OUT + "efeitos", exist_ok=True)
 for f in ("firelion_down", "firelion_up", "firelion_left", "firelion_right", "lightningclaw", "spikes", "iceshield", "tornado"):
     shutil.copy(f"assets/raw/extended-lpc-magic-pack/x_magic_pack.zip/magic_pack/sheets/{f}.png", OUT + f"efeitos/{f}.png")
+shutil.copy("assets/raw/lpc-forest-tiles/x_LPC_forest_0.zip/LPC_forest/forest_tiles.png", OUT + "forest_tiles.png")
 shutil.copy("assets/raw/lpc-cavern-and-ruin-tiles/x_LPC_cavern_ruins.zip/LPC_cavern_ruins/cavern_ruins.png", OUT + "cavern_ruins.png")  # chão e objetos da Caverna e das Ruínas
 for f in ("tiles/dirt.png", "tiles/signs.png", "tiles/house.png", "sprites/people/soldier.png",
           "sprites/people/soldier_altcolor.png", "sprites/people/princess.png"):
     shutil.copy(BASE + f, OUT + f.split("/")[-1])
-print("assets do jogo prontos em", OUT, "·", len(usadas) - 1, "peças do gerador")
+print("assets do jogo prontos em", OUT)

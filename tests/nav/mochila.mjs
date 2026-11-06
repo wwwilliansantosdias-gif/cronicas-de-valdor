@@ -103,11 +103,34 @@ ok(semEscudo !== await pixelsJogador(), "escudo e capa aparecem no personagem");
 const luzMao = () => V(() => { const c = document.getElementById("tela"), x = c.getContext("2d"), j = window.__valdor.jogador;
   const cam = { x: Math.max(0, Math.min(window.__valdor.mapa.w * 32 - c.width, j.x - c.width / 2)), y: Math.max(0, Math.min(window.__valdor.mapa.h * 32 - c.height, j.y - 30 - c.height / 2)) };
   const d = x.getImageData(Math.round(j.x + 10 - cam.x) - 12, Math.round(j.y - 26 - cam.y) - 12, 24, 24).data; let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2]; return s; });
-await V(() => { window.__valdor.est.equip.arma = { base: "espada-longa", qual: "lendario", mais: 0, bonus: {} }; });
-await pag.waitForTimeout(150); const luz0 = await luzMao();
+// etapa 12: o reforço liga o brilho (contorno a partir de +4) até numa arma Comum; a raridade muda a cor da arma
+await V(() => { window.__valdor.est.equip.arma = { base: "machado", qual: "comum", mais: 0, bonus: {} }; });
+await pag.waitForTimeout(250); const luz0 = await luzMao();
 await V(() => { window.__valdor.est.equip.arma.mais = 5; });
-await pag.waitForTimeout(150); const luz5 = await luzMao();
-ok(luz5 > luz0 * 1.05, `arma +5 brilha (${luz0} → ${luz5})`);
+await pag.waitForTimeout(250); const luz5 = await luzMao();
+ok(luz5 > luz0 * 1.05, `arma Comum +5 brilha (${luz0} → ${luz5})`);
+await V(() => { window.__valdor.est.equip.arma = { base: "machado", qual: "epico", mais: 0, bonus: {} }; });
+await pag.waitForTimeout(250); const luzEp = await luzMao();
+ok(luzEp !== luz0, `arma Épica tem outra cor (${luz0} → ${luzEp})`);
+// chave de efeitos no menu desliga o brilho
+await V(() => { window.__valdor.est.equip.arma = { base: "machado", qual: "lendario", mais: 12, bonus: {} }; });
+await pag.waitForTimeout(250); const luzL = await luzMao();
+await V(() => document.getElementById("bM").dispatchEvent(new PointerEvent("pointerdown"))); await pag.waitForTimeout(150);
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent.startsWith("Efeitos de brilho")).click());
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar").click()); await pag.waitForTimeout(250);
+const luzOff = await luzMao();
+ok(luzOff < luzL, `efeitos desligados pelo menu: menos brilho (${luzL} → ${luzOff})`);
+await V(() => document.getElementById("bM").dispatchEvent(new PointerEvent("pointerdown"))); await pag.waitForTimeout(150);
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent.startsWith("Efeitos de brilho")).click());
+await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar").click());
 await pag.screenshot({ path: saida + "/m5.png" });
+// forja até +12 (etapa 12): +11 -> +12 com 10% de chance, custo da tabela; no +12 não melhora mais
+await V(() => { const V = window.__valdor; V.entrar("pe-de-lenha", null); V.est.ouro = 1e6; V.est.fragmentos = 1e4; V.est.equip.arma = { base: "machado", qual: "comum", mais: 11, bonus: {} }; });
+const forja = await V(async () => { const V = window.__valdor, n = V.mapa.npcs.find((x) => x.tipo === "ferreiro"); V.jogador.x = n.x * 32 + 16; V.jogador.y = n.y * 32 + 40; V.interagir();
+  await new Promise((r) => setTimeout(r, 150)); const bt = (t) => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent.includes(t));
+  bt("Arma:").click(); await new Promise((r) => setTimeout(r, 150)); const texto = document.getElementById("caixa").innerText;
+  let tentativas = 0; while (V.est.equip.arma.mais < 12 && tentativas < 200) { bt("Melhorar para +12").click(); tentativas++; await new Promise((r) => setTimeout(r, 5)); }
+  await new Promise((r) => setTimeout(r, 100)); return { texto, mais: V.est.equip.arma.mais, tentativas, fim: document.getElementById("caixa").innerText.includes("máximo") }; });
+ok(forja.texto.includes("+12") && forja.texto.includes("10%") && forja.mais === 12 && forja.fim, `forja vai até +12 (10% de chance, ${forja.tentativas} tentativas) e para no máximo`);
 ok(erros.length === 0, "sem erros de console: " + erros.join("|"));
 await fim();

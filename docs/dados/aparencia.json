@@ -280,141 +280,168 @@
   {
    "id": "male",
    "nome": "Padrão",
-   "pasta": "head/heads/human/male"
+   "pasta": "head/heads/human/male",
+   "def": "head/heads/human/heads_human_male"
   },
   {
    "id": "male_gaunt",
    "nome": "Magro",
-   "pasta": "head/heads/human/male_gaunt"
+   "pasta": "head/heads/human/male_gaunt",
+   "def": "head/heads/human/heads_human_male_gaunt"
   },
   {
    "id": "male_plump",
    "nome": "Cheio",
-   "pasta": "head/heads/human/male_plump"
+   "pasta": "head/heads/human/male_plump",
+   "def": "head/heads/human/heads_human_male_plump"
   },
   {
    "id": "male_elderly",
    "nome": "Idoso",
-   "pasta": "head/heads/human/male_elderly"
+   "pasta": "head/heads/human/male_elderly",
+   "def": "head/heads/human/heads_human_male_elderly"
   }
  ],
  "cabelo": [
   {
    "id": "nenhum",
    "nome": "Careca",
-   "pasta": null
+   "pasta": null,
+   "def": null
   },
   {
    "id": "plain",
    "nome": "Liso",
-   "pasta": "hair/plain/adult"
+   "pasta": "hair/plain/adult",
+   "def": "hair/short/hair_plain"
   },
   {
    "id": "parted",
    "nome": "Repartido",
-   "pasta": "hair/parted/adult"
+   "pasta": "hair/parted/adult",
+   "def": "hair/short/hair_parted"
   },
   {
    "id": "messy1",
    "nome": "Bagunçado",
-   "pasta": "hair/messy1/adult"
+   "pasta": "hair/messy1/adult",
+   "def": "hair/short/hair_messy1"
   },
   {
    "id": "bedhead",
    "nome": "Despenteado",
-   "pasta": "hair/bedhead/adult"
+   "pasta": "hair/bedhead/adult",
+   "def": "hair/short/hair_bedhead"
   },
   {
    "id": "spiked",
    "nome": "Espetado",
-   "pasta": "hair/spiked/adult"
+   "pasta": "hair/spiked/adult",
+   "def": "hair/spiky/hair_spiked"
   },
   {
    "id": "buzzcut",
    "nome": "Raspado",
-   "pasta": "hair/buzzcut/adult"
+   "pasta": "hair/buzzcut/adult",
+   "def": "hair/bald/hair_buzzcut"
   },
   {
    "id": "high_and_tight",
    "nome": "Militar",
-   "pasta": "hair/high_and_tight/adult"
+   "pasta": "hair/high_and_tight/adult",
+   "def": "hair/bald/hair_high_and_tight"
   },
   {
    "id": "curly_short",
    "nome": "Cacheado curto",
-   "pasta": "hair/curly_short/adult"
+   "pasta": "hair/curly_short/adult",
+   "def": "hair/curly/hair_curly_short"
   },
   {
    "id": "afro",
    "nome": "Black power",
-   "pasta": "hair/afro/adult"
+   "pasta": "hair/afro/adult",
+   "def": "hair/afro/hair_afro"
   },
   {
    "id": "natural",
    "nome": "Crespo",
-   "pasta": "hair/natural/adult"
+   "pasta": "hair/natural/adult",
+   "def": "hair/afro/hair_natural"
   },
   {
    "id": "long",
    "nome": "Longo",
-   "pasta": "hair/long/adult"
+   "pasta": "hair/long/adult",
+   "def": "hair/long/hair_long"
   },
   {
    "id": "long_messy",
    "nome": "Longo solto",
-   "pasta": "hair/long_messy/adult"
+   "pasta": "hair/long_messy/adult",
+   "def": "hair/long/hair_long_messy"
   },
   {
    "id": "shorthawk",
    "nome": "Moicano",
-   "pasta": "hair/shorthawk/adult"
+   "pasta": "hair/shorthawk/adult",
+   "def": "hair/bald/hair_shorthawk"
   },
   {
    "id": "balding",
    "nome": "Calvo",
-   "pasta": "hair/balding/adult"
+   "pasta": "hair/balding/adult",
+   "def": "hair/bald/hair_balding"
   },
   {
    "id": "unkempt",
    "nome": "Desgrenhado",
-   "pasta": "hair/unkempt/adult"
+   "pasta": "hair/unkempt/adult",
+   "def": "hair/short/hair_unkempt"
   },
   {
    "id": "swoop",
    "nome": "Topete",
-   "pasta": "hair/swoop/adult"
+   "pasta": "hair/swoop/adult",
+   "def": "hair/short/hair_swoop"
   }
  ],
  "barba": [
   {
    "id": "nenhuma",
    "nome": "Sem barba",
-   "pasta": null
+   "pasta": null,
+   "def": null
   },
   {
    "id": "sombra",
    "nome": "Por fazer",
-   "pasta": "beards/beard/5oclock_shadow"
+   "pasta": "beards/beard/5oclock_shadow",
+   "def": "hair/beards/beards_5oclock_shadow"
   },
   {
    "id": "aparada",
    "nome": "Aparada",
-   "pasta": "beards/beard/trimmed"
+   "pasta": "beards/beard/trimmed",
+   "def": "hair/beards/beards_trimmed"
   },
   {
    "id": "cheia",
    "nome": "Cheia",
-   "pasta": "beards/beard/basic"
+   "pasta": "beards/beard/basic",
+   "def": "hair/beards/beards_beard"
   },
   {
    "id": "media",
    "nome": "Média",
-   "pasta": "beards/beard/medium"
+   "pasta": "beards/beard/medium",
+   "def": "hair/beards/beards_medium"
   },
   {
    "id": "bigode",
    "nome": "Bigode",
-   "pasta": "beards/mustache/basic"
+   "pasta": "beards/mustache/basic",
+   "def": "hair/mustaches/beards_mustache"
   }
  ],
  "padrao": {

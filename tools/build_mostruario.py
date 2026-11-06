@@ -12,7 +12,6 @@ from PIL import Image
 
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import creditos_pecas  # noqa: E402
 
 RAW = "assets/raw"
 OUT = "docs/mostruario"
@@ -120,12 +119,9 @@ lines += [
     "- Projeto: https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator",
     "- Fonte dos créditos: `data/gerador/CREDITS.csv` (autor, licença e URL de cada peça, baixado do projeto).",
     "- Cores de pele, cabelo e olhos da tela de Aparência: paletas `ulpc` do mesmo projeto (`palette_definitions/body`, `hair` e `eye`), copiadas para `docs/dados/aparencia.json`.",
-    "- Peças usadas no jogo (listadas em `data/pecas_usadas.txt`; para incluir outra, acrescente o caminho lá e rode este script):", "",
 ]
-lines += creditos_pecas.linhas("data/pecas_usadas.txt")
-lines.append("")
 if os.path.exists("data/creditos_catalogo.md"):  # catálogo de equipamentos (etapa 11): campo credits de cada definição usada
-    lines += ["### Catálogo de equipamentos (tools/build_definicoes.py, a partir das definições do gerador)", ""]
+    lines += ["- Peças do personagem e dos equipamentos: campo `credits` de cada definição usada (tools/build_definicoes.py):", ""]
     lines += open("data/creditos_catalogo.md", encoding="utf-8").read().strip().splitlines()
     lines.append("")
 open("CREDITOS.md", "w", encoding="utf-8").write("\n".join(lines))

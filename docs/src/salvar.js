@@ -2,7 +2,7 @@
 import { atributosIniciais, pontosAteNivel, pontosHabilidadeAteNivel, equipamentoInicial } from "./personagem.js";
 
 const CHAVE = "valdor-save";
-export const VERSAO = 4;
+export const VERSAO = 5;
 
 export function serializar(est) { return JSON.stringify(est); }
 
@@ -28,6 +28,15 @@ export function migrarV2(I, v2) {
 // v3 -> v4: aparência escolhida (pele, rosto, cabelo...). Heróis antigos ganham a aparência padrão (ver jogo: Aparência)
 export function migrarV3(v3) { return { ...v3, versao: 4, aparencia: null }; }
 
+// v4 -> v5 (etapa 12): 5 raridades. Refinado vira Incomum; Comum, Raro e Lendário continuam (o Lendário passa a ser
+// dourado-fogo, decisão de Willian, com o mesmo multiplicador). Entram os encaixes "sobre_peito" e "pescoco", vazios.
+export function migrarV4(I, v4) {
+  const qual = (it) => (it && it.qual === "refinado" ? { ...it, qual: "incomum" } : it);
+  const equip = Object.fromEntries(Object.entries(v4.equip || {}).map(([e, it]) => [e, qual(it)]));
+  for (const e of I.espacos) if (!(e in equip)) equip[e] = null;
+  return { ...v4, versao: 5, equip, mochila: (v4.mochila || []).map(qual) };
+}
+
 function itemValido(P, I, it, espaco, classe) {
   if (!it || typeof it !== "object") return false;
   const b = I.itens.find((x) => x.id === it.base);
@@ -44,6 +53,7 @@ export function validar(P, I, obj, mapasValidos) {
   }
   if (obj.versao === 2) obj = migrarV2(I, obj);
   if (obj.versao === 3) obj = migrarV3(obj);
+  if (obj.versao === 4) obj = migrarV4(I, obj);
   if (obj.versao !== VERSAO || !I.equipamento_inicial[obj.classe]) return null;
   if (!inteiro(obj.nivel, 1, P.nivel_max) || !inteiro(obj.ouro, 0, 1e9) || !inteiro(obj.pocoes, 0, 999)) return null;
   if (typeof obj.xp !== "number" || !(obj.xp >= 0)) return null;

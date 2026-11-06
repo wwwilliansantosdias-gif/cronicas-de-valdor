@@ -8,11 +8,11 @@ const $ = (id) => document.getElementById(id);
 const json = (f) => fetch("../dados/" + f).then((r) => r.json());
 const imagem = (src) => new Promise((ok, erro) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => erro(new Error(src)); i.src = src; });
 
-const [defs, catalogo, raridades] = await Promise.all(["lpc_definicoes.json", "catalogo_equipamentos.json", "raridades.json"].map(json));
+const [defs, catalogo, raridades] = await Promise.all(["lpc_definicoes.json", "itens.json", "raridades.json"].map(json));
 const D = dados({ defs, catalogo, raridades }), R = D.raridades;
-const ARCOS = ["arco", "arco-recurvo", "arco-grande"], RAR = ordemRaridades(R);
-const APARENCIA = { pele: "body.light", cabelo: "hair.dark_brown" }; // aparência padrão do jogo (dados/aparencia.json)
-const ROUPA = { peito: "armadura-de-couro", pernas: "calca", pes: "botas", bracos: "bracadeiras" };
+const ARCOS = ["arco-simples", "arco-recurvo", "arco-longo"], RAR = ordemRaridades(R);
+const APARENCIA = { pele: "body.light", cabelo: "hair.dark_brown", olhos: "eye.blue" }; // aparência padrão do jogo (dados/aparencia.json)
+const ROUPA = { peitoral: "gibao-couro", grevas: "calca", botas: "botas-couro", bracos: "bracadeiras-couro" };
 const estado = { reforco: 0, ligados: true, linha: 3 };
 
 // camadas de cada célula (não mudam com o reforço: o reforço só mexe nos efeitos)

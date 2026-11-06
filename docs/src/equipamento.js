@@ -1,12 +1,14 @@
 // Sistema de equipamentos da etapa 11 (documentacao/etapa-11-equipamentos-lpc.md). Regras puras, sem desenho:
 // quais imagens (camadas) compõem cada item e o personagem, em que ordem (zPos das definições do gerador LPC),
 // com que troca de cor (paleta), se o item cabe no encaixe e na classe, que efeitos a raridade e o reforço ligam,
-// e os créditos. Dados: dados/lpc_definicoes.json (gerado), catalogo_equipamentos.json, raridades.json.
+// e os créditos. Dados: dados/lpc_definicoes.json (gerado), itens.json ("formato" de cada item), raridades.json.
+// "aparencia" (opcional): { pele: "body.light", cabelo: "hair.dark_brown", olhos: "eye.blue",
+//   defs: { rosto, cabelo, barba } } escolhe as cores e as peças "@rosto", "@cabelo", "@barba" da base do personagem.
 
 const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 
 export function dados({ defs, catalogo, raridades }) {
-  return { defs, catalogo, raridades, itens: Object.fromEntries(catalogo.itens.map((it) => [it.id, it])) };
+  return { defs, catalogo, raridades, itens: Object.fromEntries(catalogo.itens.filter((it) => it.formato).map((it) => [it.id, it])) };
 }
 
 // ---------- raridade ----------
@@ -42,19 +44,24 @@ const pares = (de, para) => de.map((c, i) => [rgb(c), rgb(para[i])]);
 
 // ---------- camadas ----------
 function arquivoDa(cam, anim, variante) {
-  if (cam.custom) return variante ? cam.pasta + variante + ".png" : cam.pasta.replace(/\/$/, "") + ".png";
-  return cam.pasta + anim + (variante ? "/" + variante : "") + ".png";
+  const v = variante && variante.replace(/ /g, "_"); // variante "kite gray" = arquivo kite_gray.png
+  if (cam.custom) return v ? cam.pasta + v + ".png" : cam.pasta.replace(/\/$/, "") + ".png";
+  return cam.pasta + anim + (v ? "/" + v : "") + ".png";
 }
 // camadas de UMA parte (definição) numa animação; "aparencia" dá as cores de pele/cabelo/olhos ("body.light"...)
 function camadasDaParte(D, parte, anim, rar, aparencia = {}) {
   if (parte.so_animacoes && !parte.so_animacoes.includes(anim)) return [];
+  if (parte.def.startsWith("@")) { // peça escolhida na Aparência (rosto, cabelo, barba)
+    const f = aparencia.defs && parte.def.slice(1) in aparencia.defs ? aparencia.defs[parte.def.slice(1)] : parte.padrao;
+    return f ? camadasDaParte(D, { ...parte, def: f }, anim, rar, aparencia) : [];
+  }
   const d = definicao(D, parte.def);
   let usada = anim, grupo = d.por_animacao[anim];
   if (typeof grupo === "string") { usada = grupo; grupo = d.por_animacao[usada]; } // ex.: Estocada usa o golpe
   if (!grupo) return [];
   let variante = null, trocas = [];
   const doJogador = (c) => (c === "pele" || c === "cabelo" ? aparencia[c] || null : c);
-  if (d.recolors.length) { // uma imagem base + troca de paleta por cor (como o gerador)
+  if (parte.cor === "base") { /* a imagem como o gerador fez */ } else if (d.recolors.length) { // uma imagem base + troca de paleta por cor (como o gerador)
     d.recolors.forEach((rec, k) => {
       const pedida = k === 0 ? doJogador(parte.cor) : k === 1 && parte.cor2 ? parte.cor2 : rec.material === "eye" ? aparencia.olhos || null : null;
       if (!pedida || !D.defs.paletas[rec.material]) return;
@@ -89,12 +96,17 @@ export function camadasDoPersonagem(D, classe, equip, anim, aparencia) {
   return ordenarPorZ(out);
 }
 
+// a Estocada desta arma usa a animação de golpe (a arte LPC não tem estocada para ela)
+export function estocadaUsaGolpe(D, itemId) {
+  return item(D, itemId).formato.some((p) => !p.def.startsWith("@") && definicao(D, p.def).por_animacao.thrust === "slash");
+}
+
 // ---------- encaixes ----------
 export function podeEquipar(D, itemId, encaixe, classe) {
   const it = D.itens[itemId], enc = D.catalogo.encaixes[encaixe];
   if (!it) return { ok: false, motivo: `item desconhecido: ${itemId}` };
   if (!enc) return { ok: false, motivo: `encaixe desconhecido: ${encaixe}` };
-  if (it.encaixe !== encaixe) return { ok: false, motivo: `${it.nome} vai no encaixe ${D.catalogo.encaixes[it.encaixe].nome}, não em ${enc.nome}` };
+  if (it.espaco !== encaixe) return { ok: false, motivo: `${it.nome} vai no encaixe ${D.catalogo.encaixes[it.espaco].nome}, não em ${enc.nome}` };
   if (!enc.classes.includes(classe) || !it.classes.includes(classe)) return { ok: false, motivo: `${it.nome} não é da classe ${classe}` };
   return { ok: true };
 }
@@ -120,7 +132,7 @@ export function efeitos(R, rar, reforco = 0, ligados = true) {
 // um registro por arquivo de crédito de cada definição usada (itens do catálogo e base do personagem)
 export function creditosDoCatalogo(D, ids = Object.keys(D.itens)) {
   const formatos = new Set([...ids.flatMap((id) => item(D, id).formato.map((p) => p.def)),
-    ...Object.values(D.catalogo.base_personagem).flatMap((ps) => ps.map((p) => p.def))]);
+    ...Object.values(D.catalogo.base_personagem).flatMap((ps) => ps.map((p) => (p.def.startsWith("@") ? p.padrao : p.def)).filter(Boolean))]);
   const out = [];
   for (const f of [...formatos].sort()) {
     const d = definicao(D, f);

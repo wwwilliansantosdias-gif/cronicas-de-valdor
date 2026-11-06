@@ -56,7 +56,7 @@ if (modo === "mago") {
   await pag.waitForFunction(() => document.body.dataset.pronto === "1"); await espera(800);
   await V(() => { const V = window.__valdor, E = V.est; while (E.nivel < 22) V.ganhar(500); E.pontosLivres = 0; E.atributos = { for: 50, vit: 21, agi: 10, sor: 2 };
     const it = (b, q = "comum", m = 0) => ({ base: b, qual: q, mais: m, bonus: {} });
-    Object.assign(E.equip, { arma: it("cajado-diamante", "raro", 3), capacete: it("chapeu-celestial", "refinado"), peitoral: it("couraca-legiao"), grevas: it("saia-legiao"), botas: it("botas-placa"), capa: it("capa-viagem", "raro", 1), ombros: it("ombreiras-placas"), bracos: it("luvas") });
+    Object.assign(E.equip, { arma: it("cajado-diamante", "raro", 3), capacete: it("chapeu-celestial", "incomum"), peitoral: it("couraca-legiao"), grevas: it("saia-legiao"), botas: it("botas-placa"), capa: it("capa-viagem", "raro", 1), ombros: it("ombreiras-placas"), bracos: it("luvas") });
     Object.assign(E.habilidades, { leao: 3, espinhos: 2, escudo: 1, tornado: 1 }); E.pontosHab = 0; E.pocoes = 8; V.entrar("cinzaltar", null); });
   await espera(1200);
   await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3000);
@@ -82,7 +82,7 @@ async function saidaLeste(area) {
 await pag.goto(`http://localhost:${srv.address().port}/`);
 await novo("Guerreiro");
 await preparar({ nivel: 15, cidade: "veio-fundo", atributos: { for: 30, vit: 22, agi: 6, sor: 4 }, habs: { estocada: 3, giro: 3, terremoto: 2 },
-  equip: [["arma", "mangual", "raro", 3], ["escudo", "escudo-pipa", "refinado", 1], ["capacete", "elmo-mineiro"], ["ombros", "ombreiras-mineiro"], ["peitoral", "malha-mineiro"], ["bracos", "bracadeiras-mineiro"], ["grevas", "grevas-mineiro"], ["botas", "botas-mineiro"], ["capa", "capa-viagem"]] });
+  equip: [["arma", "mangual", "lendario", 9], ["escudo", "escudo-reforcado", "epico", 4], ["sobre_peito", "tabardo-azul", "raro"], ["pescoco", "pedra-redonda", "epico"], ["capacete", "elmo-mineiro"], ["ombros", "ombreiras-mineiro"], ["peitoral", "malha-mineiro"], ["bracos", "bracadeiras-mineiro"], ["grevas", "grevas-mineiro"], ["botas", "botas-mineiro"], ["capa", "capa-viagem"]] });
 await espera(1500);
 await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3000);
 await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar")?.click()); await espera(400);
@@ -91,7 +91,7 @@ await cacar(40000);
 await V(() => localStorage.clear()); await pag.reload();
 await novo("Arqueiro");
 await preparar({ nivel: 25, cidade: "cinzaltar", atributos: { for: 50, vit: 24, agi: 10, sor: 8 }, habs: { dispersao: 4, chuva: 3, rajada: 3, perfurante: 2 },
-  equip: [["arma", "arco-longo-cinzaltar", "lendario", 5], ["capacete", "elmo-cinzaltar"], ["ombros", "ombreiras-cinzaltar"], ["peitoral", "placas-cinzaltar"], ["bracos", "bracos-cinzaltar"], ["grevas", "grevas-cinzaltar"], ["botas", "botas-cinzaltar"], ["capa", "capa-cinzaltar", "raro", 2]] });
+  equip: [["arma", "arco-longo", "lendario", 12], ["pescoco", "amuleto-cruz", "lendario"], ["capacete", "elmo-cinzaltar"], ["ombros", "ombreiras-cinzaltar"], ["peitoral", "placas-cinzaltar"], ["bracos", "bracos-cinzaltar"], ["grevas", "grevas-cinzaltar"], ["botas", "botas-cinzaltar"], ["capa", "capa-cinzaltar", "raro", 2]] });
 await espera(1500);
 await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3000);
 await V(() => [...document.querySelectorAll("#caixa button")].find((b) => b.textContent === "Fechar")?.click()); await espera(400);
@@ -120,7 +120,7 @@ await cacar(38000);
 // parte 2: personagem evoluído (preparado no save)
 await V(() => { const V = window.__valdor, E = V.est; while (E.nivel < 9) V.ganhar(60); E.pontosLivres = 0; E.atributos = { for: 22, vit: 13, agi: 5, sor: 5 };
   const it = (b, q = "comum", m = 0, bonus = {}) => ({ base: b, qual: q, mais: m, bonus });
-  Object.assign(E.equip, { arma: it("sabre", "lendario", 5, { for: 2, sor: 2 }), escudo: it("escudo-redondo", "raro", 2, { vit: 2 }), capacete: it("capuz"), ombros: it("ombreiras-manto"), peitoral: it("cota-malha", "raro", 3, { vit: 2 }), bracos: it("luvas"), capa: it("capa-lisa", "refinado"), grevas: it("calca-reforcada"), botas: it("botas-dobradas") });
+  Object.assign(E.equip, { arma: it("sabre", "lendario", 5, { for: 2, sor: 2 }), escudo: it("escudo-redondo", "raro", 2, { vit: 2 }), capacete: it("capuz"), ombros: it("ombreiras-manto"), peitoral: it("cota-malha", "raro", 3, { vit: 2 }), bracos: it("luvas"), capa: it("capa-lisa", "incomum"), grevas: it("calca-reforcada"), botas: it("botas-dobradas") });
   E.habilidades.estocada = 3; E.habilidades.giro = 2; E.pontosHab = 0; E.pocoes = 5; V.jogador.vida = 999; });
 await espera(500);
 await V(() => document.getElementById("bI").dispatchEvent(new PointerEvent("pointerdown"))); await espera(3500);
