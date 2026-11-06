@@ -1,6 +1,6 @@
 # Etapa 11 – Sistema de equipamentos a partir das definições do gerador LPC
 
-Status: **documentação, testes, código e página de aprovação feitos; ainda fora do jogo.** O jogo continua com o sistema da etapa 7 até Willian aprovar a página `docs/equipamentos/` e até a etapa de balanceamento dar números aos itens novos.
+Status: **aprovado por Willian** (página `docs/equipamentos/`: cores das raridades, efeitos e reforço até +12; o Lendário passou a ser dourado-fogo). Ainda fora do jogo: a entrada no jogo vem junto com o balanceamento (etapa 12).
 
 ## 1. Fonte da verdade
 Repositório oficial do gerador: `LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator`. O que é lido de lá e onde:

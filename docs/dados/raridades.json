@@ -1,5 +1,5 @@
 {
-  "_sobre": "Tabela de raridade PROPOSTA (etapa 11), ajustável sem mexer no código. 'cores' diz a cor do metal e da madeira do item nessa raridade (material.nome; 'valdor.*' vem de paletas_valdor.json). 'efeitos' liga cada efeito visual com sua força (0 a 1). 'reforco' diz como o +N aumenta os efeitos. Nenhum número de atributo aqui. 'brilho' é a cor do contorno, clarão, partículas e aura; null = a cor do próprio item (tom claro da paleta usada).",
+  "_sobre": "Tabela de raridade (etapa 11, aprovada por Willian), ajustável sem mexer no código. 'cores' diz a cor do metal e da madeira do item nessa raridade (material.nome; 'valdor.*' vem de paletas_valdor.json). 'efeitos' liga cada efeito visual com sua força (0 a 1). 'reforco' diz como o +N aumenta os efeitos. Nenhum número de atributo aqui. 'brilho' é a cor do contorno, clarão, partículas e aura; null = a cor do próprio item (tom claro da paleta usada).",
   "ordem": [
     "comum",
     "incomum",
